@@ -1,0 +1,24 @@
+{
+    "hosting": {
+      "public": ".next",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "rewrites": [
+        {
+          "source": "**",
+          "function": "nextServer"
+        }
+      ]
+    },
+    "emulators": {
+      "hosting": {
+        "port": "5000"
+      },
+      "ui": {
+        "enabled": "true"
+      }
+    }
+  }
