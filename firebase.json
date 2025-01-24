@@ -1,24 +1,34 @@
 {
-    "hosting": {
-      "public": ".next",
-      "ignore": [
-        "firebase.json",
-        "**/.*",
-        "**/node_modules/**"
-      ],
-      "rewrites": [
-        {
-          "source": "**",
-          "function": "nextServer"
-        }
-      ]
-    },
-    "emulators": {
-      "hosting": {
-        "port": "5000"
-      },
-      "ui": {
-        "enabled": "true"
+  "hosting": {
+    "public": ".next",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "function": "nextServer"
       }
+    ]
+  },
+  "emulators": {
+    "hosting": {
+      "port": "5000"
+    },
+    "ui": {
+      "enabled": "true"
     }
+  },
+  "database": {
+    "rules": "database.rules.json"
+  },
+  "firestore": {
+    "rules": "firestore.rules",
+    "indexes": "firestore.indexes.json"
+  },
+  "storage": {
+    "rules": "storage.rules"
   }
+}
