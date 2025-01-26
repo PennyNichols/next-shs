@@ -3,7 +3,7 @@ import useStyles from './styles';
 import SubscribeForm from '../components/SubscribeForm';
 import CallButton from '../components/ActionButtons/CallButton';
 import TextButton from '../components/ActionButtons/TextButton';
-import RequestButton from '../components/ActionButtons/RequestButton';
+import EstimateRequestButton from '../components/ActionButtons/EstimateRequestButton';
 
 const Home = () => {
     const classes = useStyles();
@@ -14,7 +14,7 @@ const Home = () => {
             <p className={classes.paragraph}>Find the best professionals for all your home service needs.</p>
             <CallButton />
             <TextButton />
-            <RequestButton />
+            <EstimateRequestButton />
             <SubscribeForm />
             {/* Add your content and components here */}
         </div>

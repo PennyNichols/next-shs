@@ -13,9 +13,10 @@ const style = {
     transform: 'translate(-50%, -50%)',
     width: 400,
     bgcolor: 'background.paper',
-    border: '2px solid #000',
-    boxShadow: 24,
-    p: 4,
+    borderRadius: 2,
+    boxShadow: 10,
+    px: 4,
+    py: 2,
 };
 
 const CustomModal = ({ open, handleClose, title, children }) => {
@@ -37,14 +38,6 @@ const CustomModal = ({ open, handleClose, title, children }) => {
                 </Box>
                 <Box id="modal-description" sx={{ mt: 2 }}>
                     {children}
-                </Box>
-                <Box mt={2} display="flex" justifyContent="space-between">
-                    <Button variant="contained" color="primary" onClick={handleClose}>
-                        Submit Request
-                    </Button>
-                    <Button variant="outlined" color="secondary" onClick={handleClose}>
-                        Cancel
-                    </Button>
                 </Box>
             </Box>
         </Modal>

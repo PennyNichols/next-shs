@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import Button from '@mui/material/Button';
 import CustomModal from '../ReusableComponents/CustomModal/CustomModal';
-import { Typography } from '@mui/material';
+import EstimateRequestForm from '../Forms/EstimateRequestForm/EstimateRequestForm';
 
-const RequestButton = () => {
+const EstimateRequestButton = () => {
     const [open, setOpen] = useState(false);
 
     const handleOpen = () => setOpen(true);
@@ -15,11 +15,10 @@ const RequestButton = () => {
                 Request an Estimate
             </Button>
             <CustomModal open={open} handleClose={handleClose} title="Request an Estimate">
-                <Typography>Please fill out the form below to request an estimate.</Typography>
-                {/* Add form fields here */}
+                <EstimateRequestForm setOpen={setOpen} />
             </CustomModal>
         </>
     );
 };
 
-export default RequestButton;
+export default EstimateRequestButton;

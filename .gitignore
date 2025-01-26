@@ -36,3 +36,9 @@ firebase-debug.log
 
 # Miscellaneous
 .DS_Store
+
+# Webpack cache
+cache/webpack
+
+# Other cache
+.cache
