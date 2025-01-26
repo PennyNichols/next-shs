@@ -1,3 +1,10 @@
+/**
+ * Firebase configuration and initialization file.
+ * This file initializes the Firebase app with the provided configuration
+ * and sets up Firebase services such as Authentication, Firestore, Storage, and Analytics.
+ * It ensures that the Firebase app is initialized only once and exports the necessary services for use in the application.
+ */
+
 import { initializeApp, getApps } from 'firebase/app';
 import { getAuth } from 'firebase/auth'; // for authentication
 import { getFirestore } from 'firebase/firestore'; // for cloud firestore
