@@ -9,7 +9,8 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
-import Link from 'next/link'; // Import Next.js Link
+import Link from 'next/link';
+import Image from 'next/image';
 
 const pages = [
     { name: 'Home', href: '/' },
@@ -34,17 +35,16 @@ function ResponsiveAppBar() {
         <AppBar position="static">
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
-                    <Typography
-                        variant="h6"
-                        noWrap
-                        component="div"
-                        sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }} // Hide on small screens
-                    >
-                        {/* Your Logo/Brand Name */}
-                        Your Brand
-                    </Typography>
+                    <Box sx={{ mr: 2, display: { xs: 'none', sm: 'flex' } }}>
+                        <Image
+                            src="/images/shs-icon.png"
+                            alt="SHS Icon"
+                            width={70}
+                            height={70}
+                        />
+                    </Box>
 
-                    <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+                    <Box sx={{ flexGrow: 1, display: { xs: 'flex', sm: 'none' } }}>
                         <IconButton
                             size="large"
                             aria-label="account of current user"
@@ -70,7 +70,7 @@ function ResponsiveAppBar() {
                             open={Boolean(anchorElNav)}
                             onClose={handleCloseNavMenu}
                             sx={{
-                                display: { xs: 'block', md: 'none' },
+                                display: { xs: 'block', sm: 'none' },
                             }}
                         >
                             {pages.map((page) => (
@@ -82,16 +82,17 @@ function ResponsiveAppBar() {
                             ))}
                         </Menu>
                     </Box>
-                    <Typography
-                        variant="h5"
-                        noWrap
-                        component="div"
-                        sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }} // Show on small screens
+                    <Box
+                        sx={{ display: { xs: 'flex', sm: 'none' }, justifyContent: 'center', }}
                     >
-                        {/* Your Logo/Brand Name (Mobile) */}
-                        Your Brand
-                    </Typography>
-                    <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+                        <Image
+                            src="/images/shs-icon.png"
+                            alt="SHS Icon"
+                            width={50}
+                            height={50}
+                        />
+                    </Box>
+                    <Box sx={{ flexGrow: 1, display: { xs: 'none', sm: 'flex' } }}>
                         {pages.map((page) => (
                             <Link key={page.name} href={page.href} passHref>
                                 <Button

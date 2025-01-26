@@ -4,6 +4,7 @@ import SubscribeForm from '../components/SubscribeForm';
 import CallButton from '../components/ActionButtons/CallButton';
 import TextButton from '../components/ActionButtons/TextButton';
 import EstimateRequestButton from '../components/ActionButtons/EstimateRequestButton';
+import Image from 'next/image';
 
 const Home = () => {
     const classes = useStyles();
