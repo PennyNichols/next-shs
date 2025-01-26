@@ -111,6 +111,7 @@ shs-site-2024/
 ├── .env.local
 ├── package.json
 └── README.md
+```
 
 
 Firebase Setup
