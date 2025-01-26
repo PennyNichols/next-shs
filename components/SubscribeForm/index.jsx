@@ -1,10 +1,14 @@
 import { useState } from 'react';
 import { collection, addDoc } from 'firebase/firestore';
 import { db } from '../../firebase';
+import { TextField, Button, Typography, Box } from '@mui/material';
+import useStyles from './SubscribeForm.styles';
 
 const SubscribeForm = () => {
+    const classes = useStyles();
     const [email, setEmail] = useState('');
     const [message, setMessage] = useState('');
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
@@ -16,12 +20,27 @@ const SubscribeForm = () => {
             console.error("Error adding document: ", error);
         }
     };
+
     return (
-        <form onSubmit={handleSubmit}>
-            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Enter your email" required />
-            <button type="submit">Subscribe</button>
-            {message && <p>{message}</p>}
-        </form>
+        <Box component="form" onSubmit={handleSubmit} className={classes.formContainer}>
+            <TextField
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Enter your email"
+                required
+                label="Email"
+                variant="outlined"
+                size='small'
+                className={classes.input}
+
+            />
+            <Button type="submit" className={classes.button}>
+                Subscribe
+            </Button>
+            {message && <Typography variant="body1">{message}</Typography>}
+        </Box>
     );
 };
+
 export default SubscribeForm;

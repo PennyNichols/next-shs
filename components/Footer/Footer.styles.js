@@ -6,9 +6,36 @@ const useStyles = makeStyles((theme) => ({
         color: 'white',
         paddingTop: theme.spacing(3),
         paddingBottom: theme.spacing(1),
-        position: 'fixed',
-        bottom: 0,
         width: '100%',
+    },
+    topContainer: {
+        display: 'flex',
+        justifyContent: 'space-around',
+        alignItems: 'center',
+    },
+    logoContainer: {
+        display: 'flex',
+    },
+    middleContainer: {
+        display: 'flex',
+        justifyContent: 'space-around',
+        alignItems: 'center',
+        margin: theme.spacing(3),
+    },
+    middleContentContainer: {
+
+    },
+    bottomContainer: {
+        display: 'flex',
+        alignItems: 'end',
+        flexDirection: 'row-reverse',
+        justifyContent: 'space-between',
+    },
+    socialContainer: {
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        gap: theme.spacing(1),
     }
 }));
 
