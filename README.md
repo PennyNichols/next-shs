@@ -111,16 +111,18 @@ shs-site-2024/
 ├── .env.local
 ├── package.json
 └── README.md
+```
 
 
-Firebase Setup
+Firebase Setup:
 Go to the Firebase Console.
 Create a new project.
 Add a web app to your project and copy the Firebase configuration.
 Update the .env.local file with your Firebase configuration.
-Security Rules
-Update your Firestore security rules to allow the necessary permissions for adding documents:
 
+Security Rules:
+Update your Firestore security rules to allow the necessary permissions for adding documents:
+```
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
@@ -141,4 +143,4 @@ service cloud.firestore {
     }
   }
 }
-
+```
