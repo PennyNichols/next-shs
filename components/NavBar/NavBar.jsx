@@ -32,7 +32,7 @@ function ResponsiveAppBar() {
         setAnchorElNav(null);
     };
     return (
-        <AppBar position="static">
+        <AppBar position="sticky">
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
                     <Box sx={{ mr: 2, display: { xs: 'none', sm: 'flex' } }}>

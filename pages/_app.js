@@ -7,8 +7,12 @@ import Head from 'next/head';
 import Footer from '../components/Footer/Footer';
 import ShareButton from '../components/ActionButtons/ShareButton';
 import { Box } from '@mui/material';
+import { useRouter } from 'next/router';
+import Hero from '../components/Hero/Hero';
 
 function MyApp({ Component, pageProps }) {
+    const router = useRouter();
+    const isHomePage = router.pathname === '/';
     return (
         <React.Fragment>
             <Head>
@@ -17,6 +21,7 @@ function MyApp({ Component, pageProps }) {
             </Head>
             <ThemeProvider theme={theme}>
                 <Box display="flex" flexDirection="column" minHeight="100vh">
+                    {isHomePage && <Hero />}
                     <NavBar />
                     <Box flexGrow={1}>
                         <Component {...pageProps} />

@@ -35,7 +35,7 @@ const SubscribeForm = () => {
                 className={classes.input}
 
             />
-            <Button type="submit" className={classes.button}>
+            <Button type="submit" variant='contained' className={classes.button}>
                 Subscribe
             </Button>
             {message && <Typography variant="body1">{message}</Typography>}

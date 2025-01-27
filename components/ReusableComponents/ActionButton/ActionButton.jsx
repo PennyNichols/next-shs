@@ -1,16 +1,19 @@
 import React from 'react';
 import Button from '@mui/material/Button';
+import useStyles from './ActionButton.style';
 
-const ActionButton = ({ text, path, icon }) => {
+const ActionButton = ({ text, path = null, icon = null, onClick = null }) => {
+    const classes = useStyles();
     return (
         <Button
             variant="contained"
-            color="secondary"
+            className={classes.actionButton}
             startIcon={icon}
-            href={`${path}`}
+            {...(path && { href: path })}
+            onClick={onClick}
         >
             {text}
-        </Button>
+        </Button >
     );
 };
 

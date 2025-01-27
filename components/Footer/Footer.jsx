@@ -20,7 +20,7 @@ const Footer = () => {
                 </Box>
                 <Box component="section" className={classes.middleContainer}>
                     <Box className={classes.logoContainer}>
-                        <Image src='/images/shs-icon.png' alt="SHS Icon" width={80} height={80} />
+                        <Image src='/images/shs-icon.png' alt="SHS Icon" width={80} height={80} className={classes.logo} />
                         <Box ml={1}>
                             <Typography variant="body2" color="inherit">
                                 Serving SW Florida

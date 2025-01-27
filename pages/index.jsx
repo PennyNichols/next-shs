@@ -5,19 +5,32 @@ import CallButton from '../components/ActionButtons/CallButton';
 import TextButton from '../components/ActionButtons/TextButton';
 import EstimateRequestButton from '../components/ActionButtons/EstimateRequestButton';
 import Image from 'next/image';
-import { Box } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 
 const Home = () => {
     const classes = useStyles();
 
     return (
         <Box className={classes.container}>
-            <h1 className={classes.heading}>Welcome to our Home Services Website!</h1>
-            <p className={classes.paragraph}>Find the best professionals for all your home service needs.</p>
+            <Typography variant='h1'>Expert Hands. Exceptional Results.</Typography>
+            <Typography variant='h1'>Expert Hands. Exceptional Results.</Typography>
+            <Typography variant='h1'>Expert Hands. Exceptional Results.</Typography>
+            <Typography variant='h1'>Expert Hands. Exceptional Results.</Typography>
+            <Typography variant='h1'>Expert Hands. Exceptional Results.</Typography>
+            <Typography variant='h1'>Expert Hands. Exceptional Results.</Typography>
+            <Typography variant='h1'>Expert Hands. Exceptional Results.</Typography>
+            <Typography variant='h1'>Expert Hands. Exceptional Results.</Typography>
+            <Typography variant='h1'>Expert Hands. Exceptional Results.</Typography>
+            <Typography variant='h1'>Expert Hands. Exceptional Results.</Typography>
+            <Typography variant='h1'>Expert Hands. Exceptional Results.</Typography>
+            <Typography variant='h1'>Expert Hands. Exceptional Results.</Typography>
+            <Typography variant='h1'>Expert Hands. Exceptional Results.</Typography>
+            <Typography variant='h1'>Expert Hands. Exceptional Results.</Typography>
+            <Typography variant='h1'>Expert Hands. Exceptional Results.</Typography>
+            <Typography variant='h5'>From routine maintenance to complex projects, we handle every aspect of your home's upkeep with precision and care.</Typography>
             <CallButton />
             <TextButton />
             <EstimateRequestButton />
-            <SubscribeForm />
             {/* Add your content and components here */}
         </Box>
     );

@@ -16,10 +16,14 @@ const useStyles = makeStyles((theme) => ({
     logoContainer: {
         display: 'flex',
     },
+    logo: {
+        maxWidth: 70,
+        maxHeight: 60,
+    },
     middleContainer: {
         display: 'flex',
         justifyContent: 'space-around',
-        alignItems: 'center',
+        alignItems: 'top',
         margin: theme.spacing(3),
     },
     middleContentContainer: {
