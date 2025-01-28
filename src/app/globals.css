@@ -47,3 +47,25 @@ ul,
 ol {
   list-style: none;
 }
+
+body .grecaptcha-badge {
+  position: fixed !important;
+  /* Crucial for positioning relative to the viewport */
+  bottom: 100px !important;
+  /* Adjust vertical position (e.g., 20px from the bottom) */
+  right: 20px;
+  /* Adjust horizontal position (e.g., 20px from the right) */
+  z-index: 1000;
+  /* Ensure it's on top of other elements */
+
+  /* Optional styling */
+  opacity: 0.5;
+  /* Make slightly transparent */
+  transition: opacity 0.3s ease;
+  /* Add a smooth transition for hover effect */
+}
+
+body .grecaptcha-badge:hover {
+  opacity: 1;
+  /* Make fully opaque on hover */
+}

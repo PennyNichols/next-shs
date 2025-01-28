@@ -1,9 +1,9 @@
 import React from 'react';
 
-const ContactPage = () => {
+const CareersPage = () => {
     return (
         <div>
-            <h1>Contact Us</h1>
+            <h1>Join the team!</h1>
             <p>Feel free to reach out to us for any inquiries or feedback.</p>
             <form>
                 <label htmlFor="name">Name:</label>
@@ -21,4 +21,4 @@ const ContactPage = () => {
     );
 };
 
-export default ContactPage;
+export default CareersPage;

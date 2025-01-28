@@ -4,10 +4,10 @@ import { Facebook, Google, Instagram } from '@mui/icons-material';
 import SubscribeForm from '../SubscribeForm';
 import EstimateRequestButton from '../ActionButtons/EstimateRequestButton';
 import Image from 'next/image';
-import { EMAIL_ADDRESS, PHONE_NUMBER } from '../../constants/constants';
+import { EMAIL_ADDRESS, FACEBOOK_URL, GOOGLE_URL, INSTAGRAM_URL, PHONE_NUMBER } from '../../constants/constants';
 import { formatPhoneNumber } from '../../functions/utils/utils';
 import useStyles from './Footer.styles';
-import ShareButton from '../ActionButtons/ShareButton';
+import ReviewButton from '../ActionButtons/ReviewButton';
 
 const Footer = () => {
     const classes = useStyles();
@@ -16,6 +16,7 @@ const Footer = () => {
             <Container maxWidth="lg">
                 <Box component="section" className={classes.topContainer} >
                     <SubscribeForm />
+                    <ReviewButton />
                     <EstimateRequestButton />
                 </Box>
                 <Box component="section" className={classes.middleContainer}>
@@ -60,13 +61,13 @@ const Footer = () => {
                 <Box component="section" className={classes.bottomContainer} >
 
                     <Box className={classes.socialContainer} >
-                        <Link href="https://facebook.com" color="inherit" aria-label="Facebook">
+                        <Link href={FACEBOOK_URL} color="inherit" aria-label="Facebook">
                             <Facebook />
                         </Link>
-                        <Link href="https://instagram.com" color="inherit" aria-label="Instagram">
+                        <Link href={INSTAGRAM_URL} color="inherit" aria-label="Instagram">
                             <Instagram />
                         </Link>
-                        <Link href="https://google.com" color="inherit" aria-label="Google">
+                        <Link href={GOOGLE_URL} color="inherit" aria-label="Google">
                             <Google />
                         </Link>
                     </Box>

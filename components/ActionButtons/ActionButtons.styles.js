@@ -14,10 +14,6 @@ const useStyles = makeStyles((theme) => ({
     socialIcon: {
         color: theme.palette.primary.main,
     },
-    quoteButton: {
-        backgroundColor: theme.palette.secondary.main,
-        color: theme.palette.primary.main,
-    }
 }));
 
 export default useStyles;

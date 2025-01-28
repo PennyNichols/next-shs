@@ -17,7 +17,7 @@ const pages = [
     { name: 'Blog', href: '/blog' },
     { name: 'Services', href: '/services' },
     { name: 'About', href: '/about' },
-    { name: 'Contact', href: '/contact' },
+    { name: 'Careers', href: '/careers' },
     { name: 'FAQ', href: '/FAQ' },
 ];
 

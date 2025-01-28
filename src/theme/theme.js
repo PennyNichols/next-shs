@@ -1,22 +1,79 @@
 import { createTheme } from '@mui/material/styles';
 
+const navyBlue = 'rgb(0, 31, 63)';
+const warmGray = 'rgb(211, 211, 211)';
+const gold = 'rgb(255, 215, 0)';
+const offWhite = 'rgb(248, 248, 255)';
+const darkGray = 'rgb(51, 51, 51)';
+const darkText = 'rgb(20, 19, 19)';
+
 const theme = createTheme({
     palette: {
         primary: {
-            main: 'rgb(0, 31, 63)', // Navy Blue
+            main: navyBlue,
+            light: 'rgb(51, 82, 114)', // Adjusted light shade
+            dark: 'rgb(0, 22, 46)',  // Adjusted dark shade
+            contrastText: '#fff',
         },
         secondary: {
-            main: 'rgb(211, 211, 211)', // Warm Gray
+            main: warmGray,
+            light: 'rgb(230, 230, 230)', // Adjusted light shade
+            dark: 'rgb(180, 180, 180)', // Adjusted dark shade
+            contrastText: darkGray,
         },
         accent: {
-            main: 'rgb(255, 215, 0)', // Gold
+            main: gold,
+            light: 'rgb(255, 228, 102)', // Adjusted light shade
+            dark: 'rgb(204, 172, 0)',   // Adjusted dark shade
+            contrastText: 'rgb(0, 0, 0)',
         },
         background: {
-            default: 'rgb(248, 248, 255)', // Off White Background
-            paper: 'rgb(255, 255, 255)', // White paper background
+            default: offWhite,
+            paper: '#fff',
         },
         text: {
-            primary: 'rgb(51, 51, 51)', // Dark Gray or Black for text
+            primary: darkGray,
+        },
+    },
+    components: {
+        MuiButton: {
+            styleOverrides: {
+                root: {
+                    textTransform: 'none',
+                    fontWeight: 500,
+                },
+                containedPrimary: {
+                    backgroundColor: `${warmGray} !important`, // Warm gray background
+                    color: navyBlue,          // Navy text
+                    '&:hover': {
+                        backgroundColor: 'rgb(190, 190, 190)', // Slightly darker gray on hover
+                    },
+                },
+                outlinedPrimary: {
+                    color: navyBlue,
+                },
+                textPrimary: {
+                    color: navyBlue,
+                },
+                containedSecondary: {
+                    color: darkGray,
+                },
+                outlinedSecondary: {
+                    color: warmGray,
+                },
+                textSecondary: {
+                    color: warmGray,
+                },
+                containedAccent: {
+                    color: 'black',
+                },
+                outlinedAccent: {
+                    color: gold,
+                },
+                textAccent: {
+                    color: gold,
+                },
+            },
         },
     },
     typography: {

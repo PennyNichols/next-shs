@@ -3,6 +3,7 @@ import { collection, addDoc } from 'firebase/firestore';
 import { db } from '../../firebase';
 import { TextField, Button, Typography, Box } from '@mui/material';
 import useStyles from './SubscribeForm.styles';
+import ActionButton from '../ReusableComponents/ActionButton/ActionButton';
 
 const SubscribeForm = () => {
     const classes = useStyles();
@@ -35,9 +36,7 @@ const SubscribeForm = () => {
                 className={classes.input}
 
             />
-            <Button type="submit" variant='contained' className={classes.button}>
-                Subscribe
-            </Button>
+            <ActionButton type="submit" text='Subscribe' />
             {message && <Typography variant="body1">{message}</Typography>}
         </Box>
     );

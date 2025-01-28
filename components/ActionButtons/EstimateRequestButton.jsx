@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
-import Button from '@mui/material/Button';
 import CustomModal from '../ReusableComponents/CustomModal/CustomModal';
 import EstimateRequestForm from '../Forms/EstimateRequestForm/EstimateRequestForm';
-import useStyles from './ActionButtons.styles';
+import ActionButton from '../ReusableComponents/ActionButton/ActionButton';
+import { RequestQuoteRounded } from '@mui/icons-material';
 
 const EstimateRequestButton = () => {
-    const classes = useStyles();
     const [open, setOpen] = useState(false);
 
     const handleOpen = () => setOpen(true);
@@ -14,9 +13,7 @@ const EstimateRequestButton = () => {
     return (
         <>
 
-            <Button className={classes.quoteButton} variant='contained' onClick={handleOpen}>
-                Request an Estimate
-            </Button>
+            <ActionButton text='Request an Estimate' onClick={handleOpen} icon={<RequestQuoteRounded />} />
             <CustomModal open={open} handleClose={handleClose} title="Request an Estimate">
                 <EstimateRequestForm setOpen={setOpen} />
             </CustomModal>

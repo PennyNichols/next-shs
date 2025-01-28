@@ -6,10 +6,11 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormGroup from '@mui/material/FormGroup';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
-import CustomRecaptcha from '../../ReusableComponents/CustomRecaptcha/CustomRecaptcha';
 import { collection, addDoc } from 'firebase/firestore';
 import { db } from '../../../firebase';
 import useStyles from './EstimateRequestForm.styles';
+import useRecaptcha from '../../../hooks/useRecaptcha';
+import ActionButton from '../../ReusableComponents/ActionButton/ActionButton';
 
 
 const EstimateRequestForm = ({ setOpen }) => {
@@ -26,14 +27,14 @@ const EstimateRequestForm = ({ setOpen }) => {
             miscellaneous: false,
         },
         details: '',
-        honeypot: '', // Honeypot field
     }
 
     const classes = useStyles();
 
     const [formData, setFormData] = useState(initialData);
-    const [isHuman, setIsHuman] = useState(false);
-    const recaptchaRef = useRef();
+
+    const { executeRecaptcha } = useRecaptcha(process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY);
+
 
     const handleChange = (e) => {
         const { name, value, checked, type } = e.target;
@@ -55,8 +56,6 @@ const EstimateRequestForm = ({ setOpen }) => {
 
     const handleClear = () => {
         setFormData(initialData);
-        setIsHuman(false);
-        recaptchaRef.current.reset();
     };
 
     const transformScopeOfWork = (scopeOfWork) => {
@@ -65,29 +64,24 @@ const EstimateRequestForm = ({ setOpen }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (formData.honeypot) {
-            console.log('Bot detected');
-            return;
-        }
-
-        if (!isHuman) {
-            console.log('Please verify that you are human.');
-            return;
-        }
 
         const transformedFormData = {
             ...formData,
             scopeOfWork: transformScopeOfWork(formData.scopeOfWork),
         };
-        try {
-            const docRef = await addDoc(collection(db, 'estimateRequests'), transformedFormData);
-            console.log('Document written with ID: ', docRef.id);
-            console.log('form data:', transformedFormData);
-            handleClear(); // Reset form data and isHuman state
-        } catch (e) {
-            console.error('Error adding document: ', e);
+
+        const token = await executeRecaptcha('contact_form'); // Action name
+        if (token) {
+            try {
+                const docRef = await addDoc(collection(db, 'estimateRequests'), transformedFormData);
+                console.log('Document written with ID: ', docRef.id);
+                console.log('form data:', transformedFormData);
+                handleClear(); // Reset form data and isHuman state
+            } catch (e) {
+                console.error('Error adding document: ', e);
+            }
+            setOpen(false);
         }
-        setOpen(false);
     };
 
     return (
@@ -186,24 +180,12 @@ const EstimateRequestForm = ({ setOpen }) => {
                         margin="dense"
                         size='small'
                     />
-                    <input
-                        type="text"
-                        name="honeypot"
-                        value={formData.honeypot}
-                        onChange={handleChange}
-                        style={{ display: 'none' }}
-                    />
                 </Box>
                 <Box>
 
-                    <CustomRecaptcha onVerify={setIsHuman} ref={recaptchaRef} />
-                    <Box mt={2} display="flex" justifyContent="space-between">
-                        <Button type="button" variant="outlined" color="secondary" onClick={handleClear}>
-                            Clear
-                        </Button>
-                        <Button type="submit" disabled={!isHuman} variant="contained" color="primary">
-                            Submit
-                        </Button>
+                    <Box mt={2} gap={2} display="flex" justifyContent="flex-end">
+                        <ActionButton buttonType="clear" buttonVariant="text" text="Clear" onClick={handleClear} />
+                        <ActionButton buttonType="submit" text="Submit" />
                     </Box>
                 </Box>
             </Box>

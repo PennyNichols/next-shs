@@ -7,7 +7,7 @@ const useStyles = makeStyles((theme) => ({
         left: '50%',
         transform: 'translate(-50%, -50%)',
         width: 400,
-        maxHeight: '100vh',
+        maxHeight: '90vh',
         backgroundColor: theme.palette.background.paper,
         borderRadius: 2,
         boxShadow: 10,
@@ -17,13 +17,13 @@ const useStyles = makeStyles((theme) => ({
         [theme.breakpoints.down('sm')]: {
             width: '100%',
             height: '100%',
+            maxHeight: '100vh',
         },
         '&::-webkit-scrollbar': {
             display: 'none',
         },
-        // Hide scrollbar for Internet Explorer and Edge
         '-ms-overflow-style': 'none',
-        'scrollbar-width': 'none', // Hide scrollbar for Firefox
+        'scrollbar-width': 'none',
     },
 }));
 
