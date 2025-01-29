@@ -20,7 +20,7 @@ function MyApp({ Component, pageProps }) {
                 <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
             </Head>
             <ThemeProvider theme={theme}>
-                <Box display="flex" flexDirection="column" minHeight="100vh">
+                <Box display="flex" flexDirection="column" minHeight="100vh" sx={{ backgroundColor: theme.palette.secondary.light }}>
                     {isHomePage && <Hero />}
                     <NavBar />
                     <Box flexGrow={1}>
@@ -30,7 +30,7 @@ function MyApp({ Component, pageProps }) {
                     <ShareButton />
                 </Box>
             </ThemeProvider>
-        </React.Fragment>
+        </React.Fragment >
     );
 }
 
