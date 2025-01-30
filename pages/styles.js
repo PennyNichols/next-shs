@@ -5,6 +5,12 @@ const useStyles = makeStyles((theme) => ({
         textAlign: 'center',
         padding: theme.spacing(5),
         display: 'flex',
+        [theme.breakpoints.down('md')]: {
+            flexDirection: 'column',
+        },
+        [theme.breakpoints.down('sm')]: {
+            padding: '0px !important',
+        },
     },
     leftContent: {
         flexBasis: 500,
@@ -16,6 +22,15 @@ const useStyles = makeStyles((theme) => ({
         padding: theme.spacing(5), // Padding inside the box
         margin: theme.spacing(4),
         height: 'fit-content',
+        minWidth: 350,
+        [theme.breakpoints.down('md')]: {
+            margin: 0,
+            marginBottom: theme.spacing(4),
+            flexBasis: 300,
+        },
+        [theme.breakpoints.down('sm')]: {
+            borderRadius: 0,
+        },
     },
     divider: {
         height: '2px',
@@ -28,15 +43,32 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         flexDirection: 'column',
         margin: theme.spacing(4),
+        justifyContent: 'space-around',
+        alignItems: 'center',
+        height: '100%',
+        [theme.breakpoints.down('md')]: {
+            flexDirection: 'row',
+            margin: 0,
+        },
+        [theme.breakpoints.down('sm')]: {
+            flexDirection: 'column',
+        },
 
     },
     imageContainer: {
         margin: 'auto',
         flexGrow: 1,
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: theme.spacing(3),
     },
     image: {
-        maxWidth: '300px', // Adjust the width as needed
-        height: 'auto', // Adjust the height as needed
+        flexGrow: 1,
+        maxWidth: '100%', // Ensure the image scales correctly
+        width: '100%', // Allow the image to resize based on the container
+        height: 'auto', // Maintain the aspect ratio
+        objectFit: 'contain',
     },
 }));
 

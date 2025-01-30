@@ -18,7 +18,7 @@ const Award = () => {
                     <Star className={classes.starIcon} />
 
                 </Box>
-                <Typography variant="h5" className={classes.awardText}>Top-Rated<br />Home<br />Services</Typography>
+                <Typography className={classes.awardText}>Top-Rated<br />Home<br />Services</Typography>
             </Box>
         </Box>
     );

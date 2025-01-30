@@ -7,6 +7,7 @@ const useStyles = makeStyles((theme) => ({
         right: 30,
         backgroundColor: theme.palette.primary.main,
         borderRadius: '50%',
+        zIndex: 1000,
     },
     shareIcon: {
         color: theme.palette.background.default,

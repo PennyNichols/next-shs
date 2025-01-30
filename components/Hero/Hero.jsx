@@ -13,8 +13,12 @@ const Hero = () => {
             <Box
                 className={classes.heroContent}
             >
-                <Typography variant='h1'>Expert Hands. Exceptional Results.</Typography>
-                <Typography variant='h5'>From routine maintenance to complex projects, we handle every aspect of your home's upkeep with precision and care.</Typography>
+                <Box className={classes.headerContainer}>
+
+                    <Typography variant='h1' className={classes.header}>Expert Hands. </Typography>
+                    <Typography variant='h1' className={classes.header}>Exceptional Results.</Typography>
+                </Box>
+                <Typography variant='h5' className={classes.subheader}>From routine maintenance to complex projects, we handle every aspect of your home's upkeep with precision and care.</Typography>
                 <Box className={classes.actionButtons}>
                     <CallButton />
                     <TextButton />
