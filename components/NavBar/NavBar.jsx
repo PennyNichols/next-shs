@@ -11,6 +11,8 @@ import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import Link from 'next/link';
 import Image from 'next/image';
+import { ClassNames } from '@emotion/react';
+import useStyles from './NavBar.styles';
 
 const pages = [
     { name: 'Home', href: '/' },
@@ -22,6 +24,7 @@ const pages = [
 ];
 
 function ResponsiveAppBar() {
+    const classes = useStyles();
     const [anchorElNav, setAnchorElNav] = React.useState(null);
 
     const handleOpenNavMenu = (event) => {
@@ -35,7 +38,7 @@ function ResponsiveAppBar() {
         <AppBar position="sticky">
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
-                    <Box sx={{ mr: 2, display: { xs: 'none', sm: 'flex' } }}>
+                    <Box className={classes.leftLogoContainer} >
                         <Image
                             src="/images/shs-icon.png"
                             alt="SHS Icon"
@@ -44,10 +47,10 @@ function ResponsiveAppBar() {
                         />
                     </Box>
 
-                    <Box sx={{ flexGrow: 1, display: { xs: 'flex', sm: 'none' } }}>
+                    <Box className={classes.mobileMenuContainer} >
                         <IconButton
                             size="large"
-                            aria-label="account of current user"
+                            aria-label="menu icon"
                             aria-controls="menu-appbar"
                             aria-haspopup="true"
                             onClick={handleOpenNavMenu}
@@ -69,9 +72,8 @@ function ResponsiveAppBar() {
                             }}
                             open={Boolean(anchorElNav)}
                             onClose={handleCloseNavMenu}
-                            sx={{
-                                display: { xs: 'block', sm: 'none' },
-                            }}
+                            className={classes.mobileNavContainer}
+
                         >
                             {pages.map((page) => (
                                 <MenuItem key={page.name} onClick={handleCloseNavMenu}>
