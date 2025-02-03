@@ -24,6 +24,11 @@ const pages = [
 ];
 
 function ResponsiveAppBar() {
+
+
+    // to do: fix mobile responsiveness - transfer styles to NavBar.styles.js
+
+
     const classes = useStyles();
     const [anchorElNav, setAnchorElNav] = React.useState(null);
 

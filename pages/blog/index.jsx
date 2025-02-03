@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { Card, CardActionArea, CardContent, Container, Typography, Box } from '@mui/material';
+import CreateBlogButton from '../../components/ActionButtons/CreateBlogButton';
 
 const posts = [
     { id: '1', title: 'Post 1', excerpt: 'This is the first post.' },
@@ -14,6 +15,7 @@ const BlogHome = () => {
             <Typography variant="h2" gutterBottom>
                 Construction Blog
             </Typography>
+            <CreateBlogButton />
             <Box display="flex" flexWrap="wrap" justifyContent="space-around">
                 {posts.map((post) => (
                     <Box key={post.id} width={{ xs: '100%', sm: '45%', md: '30%' }} mb={4}>
