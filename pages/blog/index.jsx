@@ -1,15 +1,32 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { Card, CardActionArea, CardContent, Container, Typography, Box } from '@mui/material';
 import CreateBlogButton from '../../components/ActionButtons/CreateBlogButton';
-
-const posts = [
-    { id: '1', title: 'Post 1', excerpt: 'This is the first post.' },
-    { id: '2', title: 'Post 2', excerpt: 'This is the second post.' },
-    // ...additional posts...
-];
+import { collection, getDocs } from 'firebase/firestore';
+import { db } from '../../firebase';
 
 const BlogHome = () => {
+    const [posts, setPosts] = useState([]);
+
+    useEffect(() => {
+        const fetchPosts = async () => {
+            const querySnapshot = await getDocs(collection(db, 'blogPosts'));
+            const postsData = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+            setPosts(postsData);
+        };
+
+        fetchPosts();
+    }, []);
+
+    const getExcerpt = (html) => {
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, 'text/html');
+        const firstP = doc.querySelector('p');
+        return firstP ? firstP.textContent.substring(0, 100) + '...' : '';
+    };
+
+    console.log('posts', posts)
+
     return (
         <Container>
             <Typography variant="h2" gutterBottom>
@@ -24,10 +41,10 @@ const BlogHome = () => {
                                 <Link href={`/blog/${post.id}`} passHref>
                                     <CardContent>
                                         <Typography variant="h5" component="h2">
-                                            {post.title}
+                                            {post.header}
                                         </Typography>
                                         <Typography variant="body2" color="textSecondary" component="p">
-                                            {post.excerpt}
+                                            {getExcerpt(post.body)}
                                         </Typography>
                                     </CardContent>
                                 </Link>
