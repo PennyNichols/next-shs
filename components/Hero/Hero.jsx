@@ -9,7 +9,7 @@ const Hero = () => {
     const classes = useStyles();
     return (
         <Box className={classes.heroContainer}>
-            <Image src="/images/garden-shed-2.jpg" alt="Hero Image" layout="fill" objectFit="cover" className={classes.heroImage} />
+            <Image src="/images/whiteHouse.jpg" alt="Hero Image" layout="fill" objectFit="cover" className={classes.heroImage} />
             <Box
                 className={classes.heroContent}
             >

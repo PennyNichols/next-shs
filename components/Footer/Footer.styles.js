@@ -15,6 +15,8 @@ const useStyles = makeStyles((theme) => ({
     },
     logoContainer: {
         display: 'flex',
+        alignItems: 'center',
+        gap: theme.spacing(2),
     },
     logo: {
         maxWidth: 70,

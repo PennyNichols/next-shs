@@ -19,7 +19,7 @@ const theme = createTheme({
             main: warmGray,
             light: 'rgb(230, 230, 230)', // Adjusted light shade
             dark: 'rgb(180, 180, 180)', // Adjusted dark shade
-            contrastText: darkGray,
+            contrastText: navyBlue,
         },
         accent: {
             main: gold,
@@ -44,43 +44,13 @@ const theme = createTheme({
             xl: 1536,
         },
     },
+    spacing: 8,
     components: {
         MuiButton: {
             styleOverrides: {
                 root: {
                     textTransform: 'none',
                     fontWeight: 500,
-                },
-                containedPrimary: {
-                    backgroundColor: `${warmGray} !important`, // Warm gray background
-                    color: navyBlue,          // Navy text
-                    '&:hover': {
-                        backgroundColor: 'rgb(190, 190, 190)', // Slightly darker gray on hover
-                    },
-                },
-                outlinedPrimary: {
-                    color: navyBlue,
-                },
-                textPrimary: {
-                    color: navyBlue,
-                },
-                containedSecondary: {
-                    color: darkGray,
-                },
-                outlinedSecondary: {
-                    color: warmGray,
-                },
-                textSecondary: {
-                    color: warmGray,
-                },
-                containedAccent: {
-                    color: 'black',
-                },
-                outlinedAccent: {
-                    color: gold,
-                },
-                textAccent: {
-                    color: gold,
                 },
             },
         },

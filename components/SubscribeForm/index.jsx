@@ -36,7 +36,7 @@ const SubscribeForm = () => {
                 className={classes.input}
 
             />
-            <ActionButton type="submit" text='Subscribe' />
+            <ActionButton type="submit" color='secondary' text='Subscribe' />
             {message && <Typography variant="body1">{message}</Typography>}
         </Box>
     );

@@ -7,19 +7,19 @@ const useStyles = makeStyles((theme) => ({
             display: 'none',
         },
     },
-    mobileMenuContainer: {
-        flexGrow: 1,
-        display: 'none',
-        [theme.breakpoints.down('sm')]: {
-            display: 'flex',
-        },
-    },
-    mobileNavContainer: {
-        display: 'none',
-        [theme.breakpoints.down('sm')]: {
-            display: 'block',
-        },
-    },
+    // mobileMenuContainer: {
+    //     flexGrow: 1,
+    //     display: 'none',
+    //     [theme.breakpoints.down('sm')]: {
+    //         display: 'flex',
+    //     },
+    // },
+    // mobileNavContainer: {
+    //     display: 'none',
+    //     [theme.breakpoints.down('sm')]: {
+    //         display: 'block',
+    //     },
+    // },
 }));
 
 export default useStyles;

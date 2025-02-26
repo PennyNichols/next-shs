@@ -2,16 +2,16 @@ import React from 'react';
 import Button from '@mui/material/Button';
 import useStyles from './ActionButton.style';
 
-const ActionButton = ({ text, buttonType = 'button', buttonVariant = 'contained', path = null, icon = null, onClick = null }) => {
+const ActionButton = ({ text, buttonType = 'button', buttonVariant = 'contained', color = 'primary', path = null, icon = null, onClick = null }) => {
     const classes = useStyles();
     return (
         <Button
             variant={buttonVariant}
             type={buttonType}
-            color='primary'
+            color={color}
             // className={classes.actionButton}
             startIcon={icon}
-            {...(path && { href: path })}
+            {...(path && { href: path, target: '_blank', rel: 'noopener noreferrer' })}
             onClick={onClick}
         >
             {text}

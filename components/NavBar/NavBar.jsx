@@ -7,11 +7,13 @@ import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
+import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
+import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
+import AdbIcon from '@mui/icons-material/Adb';
 import Link from 'next/link';
 import Image from 'next/image';
-import { ClassNames } from '@emotion/react';
 import useStyles from './NavBar.styles';
 
 const pages = [
@@ -22,37 +24,41 @@ const pages = [
     { name: 'Careers', href: '/careers' },
     { name: 'FAQ', href: '/FAQ' },
 ];
+const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 function ResponsiveAppBar() {
-
-
-    // to do: fix mobile responsiveness - transfer styles to NavBar.styles.js
-
-
     const classes = useStyles();
     const [anchorElNav, setAnchorElNav] = React.useState(null);
+    const [anchorElUser, setAnchorElUser] = React.useState(null);
 
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
+    };
+    const handleOpenUserMenu = (event) => {
+        setAnchorElUser(event.currentTarget);
     };
 
     const handleCloseNavMenu = () => {
         setAnchorElNav(null);
     };
+
+    const handleCloseUserMenu = () => {
+        setAnchorElUser(null);
+    };
+
     return (
-        <AppBar position="sticky">
+        <AppBar position="static">
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
-                    <Box className={classes.leftLogoContainer} >
+                    <Box className={classes.leftLogoContainer} sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }}>
                         <Image
-                            src="/images/shs-icon.png"
+                            src="/images/logo.svg"
                             alt="SHS Icon"
                             width={70}
-                            height={70}
+                            height={50}
                         />
                     </Box>
-
-                    <Box className={classes.mobileMenuContainer} >
+                    <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
                         <IconButton
                             size="large"
                             aria-label="menu icon"
@@ -77,8 +83,7 @@ function ResponsiveAppBar() {
                             }}
                             open={Boolean(anchorElNav)}
                             onClose={handleCloseNavMenu}
-                            className={classes.mobileNavContainer}
-
+                            sx={{ display: { xs: 'block', md: 'none' } }}
                         >
                             {pages.map((page) => (
                                 <MenuItem key={page.name} onClick={handleCloseNavMenu}>
@@ -89,17 +94,15 @@ function ResponsiveAppBar() {
                             ))}
                         </Menu>
                     </Box>
-                    <Box
-                        sx={{ display: { xs: 'flex', sm: 'none' }, justifyContent: 'center', }}
-                    >
+                    <Box sx={{ display: { xs: 'flex', md: 'none' }, flexGrow: 1, justifyContent: 'flex-end' }}>
                         <Image
-                            src="/images/shs-icon.png"
+                            src="/images/logo.svg"
                             alt="SHS Icon"
-                            width={50}
+                            width={70}
                             height={50}
                         />
                     </Box>
-                    <Box sx={{ flexGrow: 1, display: { xs: 'none', sm: 'flex' } }}>
+                    <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, justifyContent: 'flex-end' }}>
                         {pages.map((page) => (
                             <Link key={page.name} href={page.href} passHref>
                                 <Button
@@ -111,6 +114,35 @@ function ResponsiveAppBar() {
                             </Link>
                         ))}
                     </Box>
+                    {/* <Box sx={{ flexGrow: 0 }}>
+                        <Tooltip title="Open settings">
+                            <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                            </IconButton>
+                        </Tooltip>
+                        <Menu
+                            sx={{ mt: '45px' }}
+                            id="menu-appbar"
+                            anchorEl={anchorElUser}
+                            anchorOrigin={{
+                                vertical: 'top',
+                                horizontal: 'right',
+                            }}
+                            keepMounted
+                            transformOrigin={{
+                                vertical: 'top',
+                                horizontal: 'right',
+                            }}
+                            open={Boolean(anchorElUser)}
+                            onClose={handleCloseUserMenu}
+                        >
+                            {settings.map((setting) => (
+                                <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                                    <Typography textAlign="center">{setting}</Typography>
+                                </MenuItem>
+                            ))}
+                        </Menu>
+                    </Box> */}
                 </Toolbar>
             </Container>
         </AppBar>
