@@ -21,7 +21,7 @@ const Footer = () => {
                 </Box>
                 <Box component="section" className={classes.middleContainer}>
                     <Box className={classes.logoContainer}>
-                        <Image src='/images/logo.svg' alt="SHS Icon" width={120} height={120} />
+                        <Image src='/images/logoSmall.svg' alt="SHS Icon" width={90} height={90} />
                         <Box>
                             <Typography variant="body2" color="inherit">
                                 Serving SW Florida
