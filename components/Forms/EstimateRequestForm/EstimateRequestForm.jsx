@@ -6,11 +6,13 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormGroup from '@mui/material/FormGroup';
 import Box from '@mui/material/Box';
 import { collection, addDoc } from 'firebase/firestore';
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { db } from '../../../firebase';
 import useStyles from './EstimateRequestForm.styles';
 import useRecaptcha from '../../../hooks/useRecaptcha';
 import ActionButton from '../../ReusableComponents/ActionButton/ActionButton';
-
+import { Button, IconButton, Alert } from '@mui/material';
+import { Add, Remove } from '@mui/icons-material';
 
 const EstimateRequestForm = ({ setOpen }) => {
     const initialData = {
@@ -26,14 +28,18 @@ const EstimateRequestForm = ({ setOpen }) => {
             miscellaneous: false,
         },
         details: '',
+        images: [],
     }
 
     const classes = useStyles();
 
     const [formData, setFormData] = useState(initialData);
+    const [imageFiles, setImageFiles] = useState([]);
+    const [imagePreviews, setImagePreviews] = useState([]);
+    const [uploadError, setUploadError] = useState(null);
+    const [uploadSuccess, setUploadSuccess] = useState(false);
 
     const { executeRecaptcha } = useRecaptcha(process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY);
-
 
     const handleChange = (e) => {
         const { name, value, checked, type } = e.target;
@@ -55,26 +61,69 @@ const EstimateRequestForm = ({ setOpen }) => {
 
     const handleClear = () => {
         setFormData(initialData);
+        setImageFiles([]);
+        setImagePreviews([]);
+        setUploadError(null);
+        setUploadSuccess(false);
+    };
+
+    const handleImageChange = (e) => {
+        const files = Array.from(e.target.files);
+        setImageFiles(files);
+
+        const previews = files.map(file => URL.createObjectURL(file));
+        setImagePreviews(previews);
     };
 
     const transformScopeOfWork = (scopeOfWork) => {
         return Object.keys(scopeOfWork).filter(key => scopeOfWork[key]);
     };
 
+    const transformFormData = async (data) => {
+        const trimString = (str) => str.trim();
+
+        try {
+            const uploadedImageUrls = await Promise.all(
+                imageFiles.map(async (file) => {
+                    const storageRef = ref(getStorage(), `images/${file.name}`);
+                    const snapshot = await uploadBytes(storageRef, file);
+                    return getDownloadURL(snapshot.ref);
+                })
+            );
+            setUploadSuccess(true);
+            setUploadError(null);
+            return {
+                ...data,
+                name: trimString(data.name),
+                address: trimString(data.address),
+                phone: trimString(data.phone),
+                email: trimString(data.email),
+                scopeOfWork: transformScopeOfWork(data.scopeOfWork),
+                images: uploadedImageUrls, // Store URLs
+                date_created: new Date().toISOString(),
+            };
+        } catch (error) {
+            console.error("Error uploading images:", error);
+            setUploadError("Error uploading images. Please try again.");
+            return { ...data, images: [] }; // Return data without images if upload fails
+        }
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
-
-        const transformedFormData = {
-            ...formData,
-            scopeOfWork: transformScopeOfWork(formData.scopeOfWork),
-        };
 
         const token = await executeRecaptcha('contact_form'); // Action name
         if (token) {
             try {
-                const docRef = await addDoc(collection(db, 'estimateRequests'), transformedFormData);
+                const transformedData = await transformFormData(formData);
+
+                if (transformedData.images.length === 0 && uploadError) {
+                    return; // Don't submit if there's an upload error
+                }
+
+                const docRef = await addDoc(collection(db, 'estimateRequests'), transformedData);
                 console.log('Document written with ID: ', docRef.id);
-                console.log('form data:', transformedFormData);
+                console.log('form data:', transformedData);
                 handleClear(); // Reset form data and isHuman state
             } catch (e) {
                 console.error('Error adding document: ', e);
@@ -164,7 +213,6 @@ const EstimateRequestForm = ({ setOpen }) => {
                                     control={<Checkbox checked={formData.scopeOfWork.other} onChange={handleChange} name="other" size='small' />}
                                     label="Other / Unsure"
                                 />
-
                             </Box>
                         </Box>
                     </FormGroup>
@@ -179,9 +227,36 @@ const EstimateRequestForm = ({ setOpen }) => {
                         margin="dense"
                         size='small'
                     />
+                    <input type="file" multiple id="image-upload" onChange={handleImageChange} style={{ display: 'none' }} />
+                    <Button variant="contained" component="label" htmlFor="image-upload">
+                        Upload Images
+                    </Button>
+
+                    {imagePreviews.length > 0 && (
+                        <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
+                            {imagePreviews.map((preview, index) => (
+                                <Box key={index} sx={{ position: 'relative' }}>
+                                    <img src={preview} alt={`Image ${index + 1}`} style={{ maxWidth: '150px', maxHeight: '150px' }} />
+                                    <IconButton
+                                        sx={{ position: 'absolute', top: 0, right: 0, minWidth: 'auto' }}
+                                        onClick={() => {
+                                            const newImageFiles = imageFiles.filter((_, i) => i !== index);
+                                            const newImagePreviews = imagePreviews.filter((_, i) => i !== index);
+                                            setImageFiles(newImageFiles);
+                                            setImagePreviews(newImagePreviews);
+                                        }}
+                                    >
+                                        X
+                                    </IconButton>
+                                </Box>
+                            ))}
+                        </Box>
+                    )}
+
+                    {uploadError && <Alert severity="error">{uploadError}</Alert>}
+                    {uploadSuccess && <Alert severity="success">Images uploaded successfully!</Alert>}
                 </Box>
                 <Box>
-
                     <Box mt={2} gap={2} display="flex" justifyContent="flex-end">
                         <ActionButton buttonType="clear" buttonVariant="text" text="Clear" onClick={handleClear} />
                         <ActionButton buttonType="submit" text="Submit" />
