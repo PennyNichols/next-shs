@@ -25,66 +25,66 @@ Before you begin, ensure you have met the following requirements:
 
 1. Clone the repository:
 
-    ```sh
-    git clone https://github.com/your-username/shs-site-2024.git
-    cd shs-site-2024
-    ```
+   ```sh
+   git clone https://github.com/your-username/shs-site-2024.git
+   cd shs-site-2024
+   ```
 
 2. Install the dependencies:
 
-    ```sh
-    npm install
-    # or
-    yarn install
-    ```
+   ```sh
+   npm install
+   # or
+   yarn install
+   ```
 
 ## Configuration
 
 1. Create a [.env.local](http://_vscodecontentref_/1) file in the root directory and add your Firebase configuration:
 
-    ```plaintext
-    NEXT_PUBLIC_FIREBASE_API_KEY=your_firebase_api_key
-    NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=your_firebase_auth_domain
-    NEXT_PUBLIC_FIREBASE_PROJECT_ID=your_firebase_project_id
-    NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=your_firebase_storage_bucket
-    NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=your_firebase_messaging_sender_id
-    NEXT_PUBLIC_FIREBASE_APP_ID=your_firebase_app_id
-    NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID=your_firebase_measurement_id
-    NEXT_PUBLIC_RECAPTCHA_SITE_KEY=your_recaptcha_site_key
-    ```
+   ```plaintext
+   NEXT_PUBLIC_FIREBASE_API_KEY=your_firebase_api_key
+   NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=your_firebase_auth_domain
+   NEXT_PUBLIC_FIREBASE_PROJECT_ID=your_firebase_project_id
+   NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=your_firebase_storage_bucket
+   NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=your_firebase_messaging_sender_id
+   NEXT_PUBLIC_FIREBASE_APP_ID=your_firebase_app_id
+   NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID=your_firebase_measurement_id
+   NEXT_PUBLIC_RECAPTCHA_SITE_KEY=your_recaptcha_site_key
+   ```
 
 2. Create a [firebase.js](http://_vscodecontentref_/2) file in the [src](http://_vscodecontentref_/3) directory and add your Firebase configuration:
 
-    ```javascript
-    // filepath: /c:/Users/pnich/Documents/SHS-site-2024/shs/src/firebase.js
-    import { initializeApp } from 'firebase/app';
-    import { getFirestore } from 'firebase/firestore';
+   ```javascript
+   // filepath: /c:/Users/pnich/Documents/SHS-site-2024/shs/src/firebase.js
+   import { initializeApp } from 'firebase/app';
+   import { getFirestore } from 'firebase/firestore';
 
-    const firebaseConfig = {
-        apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
-        authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
-        projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
-        storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
-        messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
-        appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
-        measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID
-    };
+   const firebaseConfig = {
+     apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+     authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+     projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+     storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+     messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
+     appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
+     measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
+   };
 
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
+   const app = initializeApp(firebaseConfig);
+   const db = getFirestore(app);
 
-    export { db };
-    ```
+   export { db };
+   ```
 
 ## Running the Application
 
 1. Start the development server:
 
-    ```sh
-    npm run dev
-    # or
-    yarn dev
-    ```
+   ```sh
+   npm run dev
+   # or
+   yarn dev
+   ```
 
 2. Open your browser and navigate to `http://localhost:3000`.
 
@@ -113,7 +113,6 @@ shs-site-2024/
 └── README.md
 ```
 
-
 Firebase Setup:
 Go to the Firebase Console.
 Create a new project.
@@ -122,6 +121,7 @@ Update the .env.local file with your Firebase configuration.
 
 Security Rules:
 Update your Firestore security rules to allow the necessary permissions for adding documents:
+
 ```
 rules_version = '2';
 service cloud.firestore {

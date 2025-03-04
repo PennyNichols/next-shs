@@ -5,38 +5,38 @@ import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../../firebase';
 
 const BlogPost = () => {
-    const router = useRouter();
-    const { id } = router.query;
-    const [post, setPost] = useState(null);
+  const router = useRouter();
+  const { id } = router.query;
+  const [post, setPost] = useState(null);
 
-    useEffect(() => {
-        if (id) {
-            const fetchPost = async () => {
-                const docRef = doc(db, 'blogPosts', id);
-                const docSnap = await getDoc(docRef);
-                if (docSnap.exists()) {
-                    setPost(docSnap.data());
-                } else {
-                    console.log('No such document!');
-                }
-            };
-
-            fetchPost();
+  useEffect(() => {
+    if (id) {
+      const fetchPost = async () => {
+        const docRef = doc(db, 'blogPosts', id);
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+          setPost(docSnap.data());
+        } else {
+          console.log('No such document!');
         }
-    }, [id]);
+      };
 
-    if (!post) {
-        return <Typography variant="h5">Post not found</Typography>;
+      fetchPost();
     }
+  }, [id]);
 
-    return (
-        <Container>
-            <Typography variant="h2" gutterBottom>
-                {post.header}
-            </Typography>
-            <Typography variant="body1" component="div" dangerouslySetInnerHTML={{ __html: post.body }} />
-        </Container>
-    );
+  if (!post) {
+    return <Typography variant="h5">Post not found</Typography>;
+  }
+
+  return (
+    <Container>
+      <Typography variant="h2" gutterBottom>
+        {post.header}
+      </Typography>
+      <Typography variant="body1" component="div" dangerouslySetInnerHTML={{ __html: post.body }} />
+    </Container>
+  );
 };
 
 export default BlogPost;
