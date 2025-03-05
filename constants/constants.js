@@ -6,5 +6,5 @@ export const REVIEW_BUTTON_TEXT = 'Leave a Review';
 export const URL = 'https://www.shs-florida.com';
 export const FACEBOOK_URL = 'https://www.facebook.com/share/1QKetFEue6/';
 export const INSTAGRAM_URL = 'https://www.instagram.com/schmidtshomeservices?igsh=MWwzdWdsdG80YTlveg==';
-export const GOOGLE_URL = 'https://g.co/kgs/rkuMBm5'
-export const GOOGLE_REVIEW_URL = 'https://g.page/r/CZdBLOah2hTLEBI/review'
+export const GOOGLE_URL = 'https://g.co/kgs/rkuMBm5';
+export const GOOGLE_REVIEW_URL = 'https://g.page/r/CZdBLOah2hTLEBI/review';

@@ -21,9 +21,7 @@ body {
   margin: 0;
   padding: 0;
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(to bottom,
-      transparent,
-      rgb(var(--background-end-rgb)))
+  background: linear-gradient(to bottom, transparent, rgb(var(--background-end-rgb)));
 }
 
 h1,
