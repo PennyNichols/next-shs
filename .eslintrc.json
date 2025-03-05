@@ -5,6 +5,7 @@
     "react/react-in-jsx-scope": "off",
     "react/prop-types": "off",
     "react/jsx-uses-react": "off",
+    "react/react-version": "detect",
     "indent": ["error", 2],
     "semi": ["error", "always"],
     "quotes": ["error", "single"],
