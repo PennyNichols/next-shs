@@ -8,7 +8,7 @@ const BlogPost = () => {
   const router = useRouter();
   const { id } = router.query;
   const [post, setPost] = useState(null);
-
+  console.log('post', post);
   useEffect(() => {
     if (id) {
       const fetchPost = async () => {
