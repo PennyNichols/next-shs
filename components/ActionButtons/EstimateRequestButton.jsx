@@ -3,6 +3,11 @@ import CustomModal from '../ReusableComponents/CustomModal/CustomModal';
 import EstimateRequestForm from '../Forms/EstimateRequestForm/EstimateRequestForm';
 import ActionButton from '../ReusableComponents/ActionButton/ActionButton';
 import { RequestQuoteRounded } from '@mui/icons-material';
+import PropTypes from 'prop-types';
+
+EstimateRequestButton.propTypes = {
+  isFooter: PropTypes.bool,
+};
 
 const EstimateRequestButton = ({ isFooter = false }) => {
   const [open, setOpen] = useState(false);
