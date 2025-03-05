@@ -44,14 +44,14 @@ const BlogForm = () => {
   };
 
   const handleArrayChange = (e, index, arrayName) => {
-    const { name, value } = e.target;
+    const { value } = e.target;
     const newArray = [...formData[arrayName]];
     newArray[index] = value;
     setFormData({ ...formData, [arrayName]: newArray });
   };
 
   const handleMapChange = (e, index, arrayName, mapName) => {
-    const { name, value } = e.target;
+    const { value } = e.target;
     const newArray = [...formData[arrayName]];
     newArray[index] = { ...newArray[index], [mapName]: value };
     setFormData({ ...formData, [arrayName]: newArray });

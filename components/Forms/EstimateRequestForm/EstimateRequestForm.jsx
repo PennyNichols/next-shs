@@ -12,7 +12,6 @@ import useStyles from './EstimateRequestForm.styles';
 import useRecaptcha from '../../../hooks/useRecaptcha';
 import ActionButton from '../../ReusableComponents/ActionButton/ActionButton';
 import { Button, IconButton, Alert } from '@mui/material';
-import { Add, Remove } from '@mui/icons-material';
 
 const EstimateRequestForm = ({ setOpen }) => {
   const initialData = {

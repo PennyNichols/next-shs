@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { collection, addDoc } from 'firebase/firestore';
 import { db } from '../../firebase';
-import { TextField, Button, Typography, Box } from '@mui/material';
+import { TextField, Typography, Box } from '@mui/material';
 import useStyles from './SubscribeForm.styles';
 import ActionButton from '../ReusableComponents/ActionButton/ActionButton';
 

@@ -1,13 +1,7 @@
 import React from 'react';
 import useStyles from './styles';
-import SubscribeForm from '../components/SubscribeForm';
-import CallButton from '../components/ActionButtons/CallButton';
-import TextButton from '../components/ActionButtons/TextButton';
-import EstimateRequestButton from '../components/ActionButtons/EstimateRequestButton';
 import Image from 'next/image';
 import { Box, Typography } from '@mui/material';
-import ReviewButton from '../components/ActionButtons/ReviewButton';
-import { EmojiEvents, Grade, Star } from '@mui/icons-material';
 import Award from '../components/Award/Award';
 
 const Home = () => {

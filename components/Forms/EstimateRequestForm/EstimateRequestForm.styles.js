@@ -6,6 +6,7 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     height: '100%',
     justifyContent: 'space-between',
+    padding: theme.spacing(1),
   },
 }));
 

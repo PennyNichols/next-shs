@@ -25,7 +25,7 @@ const theme = createTheme({
       main: gold,
       light: 'rgb(255, 228, 102)', // Adjusted light shade
       dark: 'rgb(204, 172, 0)', // Adjusted dark shade
-      contrastText: 'rgb(0, 0, 0)',
+      contrastText: darkText,
     },
     background: {
       default: offWhite,
