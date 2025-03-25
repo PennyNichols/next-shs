@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     color: 'white',
     textAlign: 'center',
-    background: `linear-gradient(to bottom, rgba(0, 31, 63, 0.75), rgba(255, 255, 255, 0.75))`,
+    background: 'linear-gradient(to bottom, rgba(0, 31, 63, 0.75), rgba(255, 255, 255, 0.75))',
     alignContent: 'bottom',
     padding: theme.spacing(4),
     [theme.breakpoints.down('md')]: {

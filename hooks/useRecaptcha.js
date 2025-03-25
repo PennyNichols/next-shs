@@ -1,4 +1,4 @@
-// hooks/useRecaptcha.js
+/* eslint-disable no-console */
 import { useState, useEffect } from 'react';
 
 const useRecaptcha = (siteKey) => {

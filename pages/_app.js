@@ -1,14 +1,16 @@
-import '../src/app/globals.css';
-import NavBar from '../components/NavBar/NavBar';
-import { ThemeProvider } from '@mui/material/styles';
-import theme from '@/theme/theme';
+/* eslint-disable no-unused-vars */
+/* eslint-disable unused-imports/no-unused-vars */
 import React from 'react';
 import Head from 'next/head';
-import Footer from '../components/Footer/Footer';
-import ShareButton from '../components/ActionButtons/ShareButton';
-import { Box } from '@mui/material';
+import { ThemeProvider } from '@mui/material/styles';
+import Box from '@mui/material/Box';
+import '../src/app/globals.css';
+import theme from '@/theme/theme';
 import { useRouter } from 'next/router';
 import Hero from '../components/Hero/Hero';
+import NavBar from '../components/NavBar/NavBar';
+import Footer from '../components/Footer/Footer';
+import ShareButton from '../components/ActionButtons/ShareButton';
 
 function MyApp({ Component, pageProps }) {
   const router = useRouter();

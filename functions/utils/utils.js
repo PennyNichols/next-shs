@@ -1,6 +1,6 @@
 export const formatPhoneNumber = (phoneNumber) => {
   // Remove the leading '+1'
-  const cleaned = phoneNumber.replace('+1', '');
+  const cleaned = phoneNumber.replace("+1", "");
 
   // Extract area code, central office code, and station code
   const areaCode = cleaned.slice(0, 3);
