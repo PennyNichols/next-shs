@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable unused-imports/no-unused-vars */
-/* eslint-disable max-len */
+
 /**
  * Custom Document component for the Next.js application.
  * This file is used to augment the application's <html> and <body> tags.
@@ -21,7 +21,7 @@
  */
 
 import React from 'react';
-import Document, { Html, Head, Main, NextScript } from 'next/document';
+import Document from 'next/document';
 import { ServerStyleSheets } from '@mui/styles';
 
 class MyDocument extends Document {
