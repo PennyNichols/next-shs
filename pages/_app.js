@@ -2,7 +2,14 @@
 /* eslint-disable unused-imports/no-unused-vars */
 import '../src/app/globals.css';
 import theme from '@/theme/theme';
+import Head from 'next/head';
 import { useRouter } from 'next/router';
+import React from 'react';
+import { Box, ThemeProvider } from '@mui/material';
+import NavBar from '../components/NavBar/NavBar';
+import Footer from '../components/Footer/Footer';
+import Hero from '../components/Hero/Hero';
+import ShareButton from '../components/ActionButtons/ShareButton';
 
 function MyApp({ Component, pageProps }) {
   const router = useRouter();

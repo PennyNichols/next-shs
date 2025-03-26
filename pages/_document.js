@@ -21,8 +21,9 @@
  */
 
 import React from 'react';
-import Document from 'next/document';
+import Document, { Html, Main, NextScript } from 'next/document';
 import { ServerStyleSheets } from '@mui/styles';
+import Head from 'next/head';
 
 class MyDocument extends Document {
   render() {
