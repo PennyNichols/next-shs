@@ -51,7 +51,7 @@ function ResponsiveAppBar() {
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Box className={classes.leftLogoContainer} sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }}>
-            <Image src="/images/logoSmall.svg" alt="SHS Icon" width={70} height={50} />
+            <Image src="/images/logo.svg" alt="SHS Icon" width={70} height={50} />
           </Box>
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
@@ -96,7 +96,7 @@ function ResponsiveAppBar() {
               justifyContent: 'flex-end',
             }}
           >
-            <Image src="/images/logoSmall.svg" alt="SHS Icon" width={70} height={50} />
+            <Image src="/images/logo.svg" alt="SHS Icon" width={70} height={50} />
           </Box>
           <Box
             sx={{
