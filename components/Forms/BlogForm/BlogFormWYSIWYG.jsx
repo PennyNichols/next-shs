@@ -41,7 +41,7 @@ const BlogForm = ({ setOpen }) => {
   };
 
   const handleArrayChange = (e, index, arrayName) => {
-    const { name, value } = e.target;
+    const { value } = e.target;
     const newArray = [...formData[arrayName]];
     newArray[index] = value;
     setFormData({ ...formData, [arrayName]: newArray });

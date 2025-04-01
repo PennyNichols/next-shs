@@ -1,47 +1,52 @@
 {
-  "extends": ["next/core-web-vitals", "plugin:prettier/recommended"],
-  "plugins": ["prettier"],
-  "rules": {
-    "react/react-in-jsx-scope": "off",
-    "react/prop-types": "off",
-    "react/jsx-uses-react": "off",
-    "indent": ["error", 2],
-    "semi": ["error", "always"],
-    "quotes": ["error", "single"],
-    "comma-dangle": ["error", "always-multiline"],
-    "object-curly-spacing": ["error", "always"],
-    "array-bracket-spacing": ["error", "never"],
-    "key-spacing": {
-      "error": {
-        "afterColon": true
-      }
+  "plugins": ["prettier", "unused-imports"],
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
     },
-    "no-unused-vars": "warn",
-    "no-console": "warn",
-    "no-multiple-empty-lines": [
-      "error",
+    "ecmaVersion": 12,
+    "sourceType": "module"
+  },
+  "rules": {
+    "react/react-in-jsx-scope": "off", // React 17+ does not require React to be in scope
+    "react/prop-types": "off", // Disable prop-types as we use TypeScript or other type checking
+    "react/jsx-uses-react": "off", // React 17+ does not require React to be in scope
+    "indent": ["error", 2], // Enforce 2-space indentation
+    "semi": ["error", "always"], // Enforce semicolons
+    "quotes": ["error", "single"], // Enforce single quotes
+    "comma-dangle": ["error", "always-multiline"], // Enforce trailing commas for multiline
+    "object-curly-spacing": ["error", "always"], // Enforce spacing inside curly braces
+    "array-bracket-spacing": ["error", "never"], // Disallow spacing inside array brackets
+    "key-spacing": ["error", { "afterColon": true }], // Enforce spacing after colon in object literals
+    "no-unused-vars": "warn", // Warn about unused variables
+    "no-console": "warn", // Warn about console statements
+    "no-multiple-empty-lines": ["error", { "max": 1 }], // Disallow multiple empty lines
+    "no-trailing-spaces": "error", // Disallow trailing spaces
+    "eqeqeq": "error", // Enforce strict equality
+    "no-var": "error", // Disallow var, use let or const instead
+    "prefer-const": "warn", // Prefer const over let where possible
+    "max-len": ["error", { "code": 120 }], // Enforce a maximum line length of 120 characters
+    "arrow-spacing": "error", // Enforce spacing around arrow function arrows
+    "block-spacing": ["error", "always"], // Enforce spacing inside single-line blocks
+    "brace-style": ["error", "1tbs", { "allowSingleLine": true }], // Enforce one true brace style
+    "unused-imports/no-unused-imports": "error", // Add rule to remove unused imports
+    "unused-imports/no-unused-vars": [
+      "warn",
       {
-        "max": 1
-      }
-    ],
-    "no-trailing-spaces": "error",
-    "eqeqeq": "error",
-    "no-var": "error",
-    "prefer-const": "warn",
-    "max-len": [
-      "error",
-      {
-        "code": 120
-      }
-    ],
-    "arrow-spacing": "error",
-    "block-spacing": ["error", "always"],
-    "brace-style": [
-      "error",
-      "1tbs",
-      {
-        "allowSingleLine": true
+        "vars": "all",
+        "varsIgnorePattern": "^_",
+        "args": "after-used",
+        "argsIgnorePattern": "^_"
       }
     ]
+  },
+  "settings": {
+    "react": {
+      "version": "detect" // Automatically detect the React version
+    }
   }
 }

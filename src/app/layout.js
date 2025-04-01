@@ -1,10 +1,13 @@
+/* eslint-disable quotes */
 import { Inter } from 'next/font/google';
 
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata = {
-  title: `Schmidt's Home Services`,
-  description: `Experienced handyman and construction professionals serving Florida's Port Charlotte / Punta Gorda / North Port / Englewood. We offer reliable service and quality workmanship for all your home improvement projects. Contact us today!`,
+  title: "Schmidt's Home Services",
+  description:
+    // eslint-disable-next-line max-len
+    "Experienced handyman and construction professionals serving Florida's Port Charlotte / Punta Gorda / North Port / Englewood. We offer reliable service and quality workmanship for all your home improvement projects. Contact us today!",
 };
 
 export default function RootLayout({ children }) {
