@@ -69,6 +69,17 @@ const useStyles = makeStyles((theme) => ({
     height: 'auto', // Maintain the aspect ratio
     objectFit: 'contain',
   },
+  authWrapper: {
+    display: 'flex',
+    height: '100%',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    padding: theme.spacing(5),
+    gap: theme.spacing(3),
+    [theme.breakpoints.down('md')]: {
+      padding: theme.spacing(3),
+    },
+  },
 }));
 
 export default useStyles;

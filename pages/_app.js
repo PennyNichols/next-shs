@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable unused-imports/no-unused-vars */
+/* eslint-disable unused-imports/no-unused-imports */
 import '../src/app/globals.css';
 import theme from '@/theme/theme';
 import Head from 'next/head';
