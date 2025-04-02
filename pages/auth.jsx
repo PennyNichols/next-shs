@@ -16,8 +16,8 @@ const Auth = () => {
           <img
             src="/images/logoWithTextDark.svg"
             alt="SHS Icon"
-            width={450}
-            height={350}
+            width={550}
+            height={450}
             style={{ display: 'block', padding: theme.spacing(5) }}
           />
         </Box>

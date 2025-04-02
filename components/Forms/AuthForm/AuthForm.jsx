@@ -1,13 +1,18 @@
 import React, { useState } from 'react';
-import { TextField, Button, Box, Typography, Alert } from '@mui/material';
+import { TextField, Button, Box, Typography, Alert, FormControlLabel, Checkbox } from '@mui/material';
 import { useAuth } from '../../../hooks/auth/auth';
 import theme from '@/theme/theme';
 import useMedia from '../../../hooks/useMedia';
 
 const AuthForm = () => {
-  const { signIn, signUp, error } = useAuth();
+  const { signIn, signUp, signOutUser, deleteAccount, getCurrentUser, error } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [subscribeToMarketing, setSubscribeToMarketing] = useState(true); // subscribe by default
   const [localError, setLocalError] = useState('');
   const [isSignUp, setIsSignUp] = useState(false);
 
@@ -16,17 +21,25 @@ const AuthForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLocalError('');
-    if (!email || !password) {
+
+    // Validate required fields
+    if (!email || !password || (isSignUp && (!firstName || !lastName || !phoneNumber))) {
       setLocalError('Please fill in all fields.');
       return;
     }
+
+    // Validate password match
+    if (isSignUp && password !== confirmPassword) {
+      setLocalError('Passwords do not match.');
+      return;
+    }
+
     try {
       if (isSignUp) {
-        await signUp(email, password);
-        // ...handle successful sign-up (e.g., redirect or show success message)...
+        await signUp(email, password, firstName, lastName, phoneNumber);
+        // Optionally, handle additional user data (e.g., save firstName, lastName, phoneNumber to Firestore)
       } else {
         await signIn(email, password);
-        // ...handle successful login (e.g., redirect or show success message)...
       }
     } catch (err) {
       setLocalError(err.message);
@@ -43,6 +56,12 @@ const AuthForm = () => {
         backgroundColor: '#fff',
       }}
     >
+      <Button variant="text" color="primary" onClick={signOutUser}>
+        Sign out
+      </Button>
+      <Button variant="text" color="primary" onClick={deleteAccount}>
+        Delete account
+      </Button>
       <Typography variant="h4" align="center" gutterBottom>
         {isSignUp ? 'Sign Up' : 'Login'}
       </Typography>
@@ -56,6 +75,34 @@ const AuthForm = () => {
           <Alert severity="error" sx={{ mb: 2 }}>
             {error.message}
           </Alert>
+        )}
+        {isSignUp && (
+          <>
+            <TextField
+              label="First Name"
+              type="text"
+              fullWidth
+              margin="normal"
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+            />
+            <TextField
+              label="Last Name"
+              type="text"
+              fullWidth
+              margin="normal"
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
+            />
+            <TextField
+              label="Phone Number"
+              type="tel"
+              fullWidth
+              margin="normal"
+              value={phoneNumber}
+              onChange={(e) => setPhoneNumber(e.target.value)}
+            />
+          </>
         )}
         <TextField
           label="Email"
@@ -73,9 +120,32 @@ const AuthForm = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
+        {isSignUp && (
+          <TextField
+            label="Confirm Password"
+            type="password"
+            fullWidth
+            margin="normal"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+          />
+        )}
         <Button type="submit" variant="contained" color="primary" fullWidth sx={{ mt: 2 }}>
           {isSignUp ? 'Sign Up' : 'Login'}
         </Button>
+        {isSignUp && (
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={subscribeToMarketing}
+                onChange={(e) => setSubscribeToMarketing(e.target.checked)}
+                color="primary"
+              />
+            }
+            label="Yes, I would like to subscribe to email marketing from SHS Florida"
+            sx={{ mt: 2 }}
+          />
+        )}
       </form>
       <Typography variant="body2" align="center" sx={{ mt: 2 }}>
         {isSignUp ? 'Already have an account?' : "Don't have an account?"}
