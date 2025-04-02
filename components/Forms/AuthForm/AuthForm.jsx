@@ -36,8 +36,8 @@ const AuthForm = () => {
 
     try {
       if (isSignUp) {
-        await signUp(email, password, firstName, lastName, phoneNumber, subscribeToMarketing);
-        // Optionally, handle additional user data (e.g., save firstName, lastName, phoneNumber, subscribeToMarketing to Firestore)
+        await signUp(email, password, firstName, lastName, phoneNumber);
+        // Optionally, handle additional user data (e.g., save firstName, lastName, phoneNumber to Firestore)
       } else {
         await signIn(email, password);
       }
