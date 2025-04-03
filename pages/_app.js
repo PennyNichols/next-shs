@@ -12,6 +12,7 @@ import NavBar from '../components/NavBar/NavBar';
 import Footer from '../components/Footer/Footer';
 import Hero from '../components/Hero/Hero';
 import ShareButton from '../components/ActionButtons/ShareButton';
+import { FirebaseCollectionProvider } from '../hooks/FirebaseService';
 
 function MyApp({ Component, pageProps }) {
   const router = useRouter();
@@ -23,20 +24,22 @@ function MyApp({ Component, pageProps }) {
         <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
       </Head>
       <ThemeProvider theme={theme}>
-        <Box
-          display="flex"
-          flexDirection="column"
-          minHeight="100vh"
-          sx={{ backgroundColor: theme.palette.secondary.light }}
-        >
-          {isHomePage && <Hero />}
-          <NavBar />
-          <Box flexGrow={1}>
-            <Component {...pageProps} />
+        <FirebaseCollectionProvider>
+          <Box
+            display="flex"
+            flexDirection="column"
+            minHeight="100vh"
+            sx={{ backgroundColor: theme.palette.secondary.light }}
+          >
+            {isHomePage && <Hero />}
+            <NavBar />
+            <Box flexGrow={1}>
+              <Component {...pageProps} />
+            </Box>
+            <Footer />
+            <ShareButton />
           </Box>
-          <Footer />
-          <ShareButton />
-        </Box>
+        </FirebaseCollectionProvider>
       </ThemeProvider>
     </React.Fragment>
   );

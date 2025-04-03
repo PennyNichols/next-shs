@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
+import dynamic from 'next/dynamic'; // Import dynamic from next/dynamic
 import { Box, Button, TextField, Typography, IconButton, Alert } from '@mui/material';
 import { Add, Remove } from '@mui/icons-material';
-import { collection, addDoc } from 'firebase/firestore';
-import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage'; // Import storage functions
-import { db } from '../../../firebase';
-import ReactQuill from 'react-quill';
+import { useFirebaseCollections } from '../../../hooks/FirebaseService';
+
+const ReactQuill = dynamic(() => import('react-quill'), { ssr: false }); // Dynamic import
+
 import 'react-quill/dist/quill.snow.css';
 
 const initialState = {
@@ -15,13 +16,12 @@ const initialState = {
 };
 
 const BlogForm = ({ setOpen }) => {
-  // to do: add author by logged in username
-
   const [formData, setFormData] = useState(initialState);
   const [imageFiles, setImageFiles] = useState([]);
   const [imagePreviews, setImagePreviews] = useState([]);
   const [uploadError, setUploadError] = useState(null);
   const [uploadSuccess, setUploadSuccess] = useState(false);
+  const { addBlogPost } = useFirebaseCollections();
 
   const handleClear = () => {
     setFormData(initialState);
@@ -64,51 +64,37 @@ const BlogForm = ({ setOpen }) => {
     setImagePreviews(previews);
   };
 
-  const transformFormData = async (data) => {
+  const transformFormData = (data) => {
     const trimString = (str) => str.trim();
     const trimArray = (arr) => arr.map((item) => (typeof item === 'string' ? trimString(item) : item));
 
-    try {
-      const uploadedImageUrls = await Promise.all(
-        imageFiles.map(async (file) => {
-          const storageRef = ref(getStorage(), `images/${file.name}`);
-          const snapshot = await uploadBytes(storageRef, file);
-          return getDownloadURL(snapshot.ref);
-        }),
-      );
-      setUploadSuccess(true);
-      setUploadError(null);
-      return {
-        ...data,
-        header: trimString(data.header),
-        keywords: trimArray(data.keywords),
-        images: uploadedImageUrls, // Store URLs
-        date_created: new Date().toISOString(), // Add current date and time
-      };
-    } catch (error) {
-      console.error('Error uploading images:', error);
-      setUploadError('Error uploading images. Please try again.');
-      return { ...data, images: [] }; // Return data without images if upload fails
-    }
+    return {
+      ...data,
+      header: trimString(data.header),
+      keywords: trimArray(data.keywords),
+    };
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
-      const transformedData = await transformFormData(formData);
+      const transformedData = transformFormData(formData);
 
-      if (transformedData.images.length === 0 && uploadError) {
-        return; // Don't submit if there's an upload error
+      const result = await addBlogPost(transformedData, imageFiles);
+
+      if (result.success) {
+        setUploadSuccess(true);
+        setUploadError(null);
+        handleClear();
+      } else {
+        console.error('Error adding document: ', result.error);
+        setUploadError('Error uploading images and blog post. Please try again.');
       }
-
-      const docRef = await addDoc(collection(db, 'blogPosts'), transformedData);
-      console.log('Document written with ID: ', docRef.id);
-      console.log('form data:', transformedData);
-      handleClear();
-    } catch (e) {
-      console.error('Error adding document: ', e);
+    } catch (error) {
+      console.error('An unexpected error occurred: ', error);
+      setUploadError('An unexpected error occurred. Please try again.');
     }
+
     setOpen(false);
   };
 
