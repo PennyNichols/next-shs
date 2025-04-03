@@ -16,7 +16,7 @@ const BlogPost = () => {
         if (docSnap.exists()) {
           setPost(docSnap.data());
         } else {
-          console.error('No such document!');
+          // console.error('No such document!');
         }
       };
 

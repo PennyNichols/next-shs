@@ -14,7 +14,7 @@ const BlogHome = () => {
         const postsData = await getBlogPosts();
         setPosts(postsData);
       } catch (error) {
-        console.error('Error fetching blog posts: ', error);
+        // console.error('Error fetching blog posts: ', error);
       }
     };
 

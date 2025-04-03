@@ -106,7 +106,7 @@ const EstimateRequestForm = ({ setOpen }) => {
         date_created: new Date().toISOString(),
       };
     } catch (error) {
-      console.error('Error uploading images:', error);
+      // console.error('Error uploading images:', error);
       setUploadError('Error uploading images. Please try again.');
       return { ...data, images: [] }; // Return data without images if upload fails
     }
@@ -127,7 +127,7 @@ const EstimateRequestForm = ({ setOpen }) => {
         const result = await addEstimateRequest(transformedData, imageFiles);
         handleClear(); // Reset form data and isHuman state
       } catch (e) {
-        console.error('Error adding document: ', e);
+        // console.error('Error adding document: ', e);
       }
       setOpen(false);
     }

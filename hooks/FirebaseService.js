@@ -11,7 +11,7 @@ export function FirebaseCollectionProvider({ children }) {
       await addDoc(collection(db, 'subscribers'), { email });
       return 'Thank you for subscribing!';
     } catch (error) {
-      console.error('Error adding subscriber:', error);
+      // console.error('Error adding subscriber:', error);
       return 'Error subscribing. Please try again.';
     }
   };
@@ -21,7 +21,7 @@ export function FirebaseCollectionProvider({ children }) {
       const querySnapshot = await getDocs(collection(db, 'subscribers'));
       return querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
     } catch (error) {
-      console.error('Error fetching subscribers:', error);
+      // console.error('Error fetching subscribers:', error);
       return [];
     }
   };
@@ -31,7 +31,7 @@ export function FirebaseCollectionProvider({ children }) {
       await deleteDoc(doc(db, 'subscribers', subscriberId));
       return { success: true };
     } catch (error) {
-      console.error('Error deleting subscriber:', error);
+      // console.error('Error deleting subscriber:', error);
       return { success: false, error: error.message };
     }
   };
@@ -55,7 +55,7 @@ export function FirebaseCollectionProvider({ children }) {
       const docRef = await addDoc(collection(db, 'blogPosts'), transformedData);
       return { success: true, docId: docRef.id };
     } catch (error) {
-      console.error('Error adding blog post with images:', error);
+      // console.error('Error adding blog post with images:', error);
       return { success: false, error: error.message };
     }
   };
@@ -65,7 +65,7 @@ export function FirebaseCollectionProvider({ children }) {
       const querySnapshot = await getDocs(collection(db, 'blogPosts'));
       return querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
     } catch (error) {
-      console.error('Error fetching blog posts:', error);
+      // console.error('Error fetching blog posts:', error);
       return [];
     }
   };
@@ -75,7 +75,7 @@ export function FirebaseCollectionProvider({ children }) {
       await deleteDoc(doc(db, 'blogPosts', blogPostId));
       return { success: true };
     } catch (error) {
-      console.error('Error deleting blog post:', error);
+      // console.error('Error deleting blog post:', error);
       return { success: false, error: error.message };
     }
   };
@@ -102,7 +102,7 @@ export function FirebaseCollectionProvider({ children }) {
       await updateDoc(doc(db, 'blogPosts', blogPostId), transformedData);
       return { success: true };
     } catch (error) {
-      console.error('Error updating blog post:', error);
+      // console.error('Error updating blog post:', error);
       return { success: false, error: error.message };
     }
   };
@@ -129,7 +129,7 @@ export function FirebaseCollectionProvider({ children }) {
       const docRef = await addDoc(collection(db, 'estimateRequests'), transformedData);
       return { success: true, docId: docRef.id };
     } catch (error) {
-      console.error('Error adding estimate request with images:', error);
+      // console.error('Error adding estimate request with images:', error);
       return { success: false, error: error.message };
     }
   };
@@ -139,7 +139,7 @@ export function FirebaseCollectionProvider({ children }) {
       const querySnapshot = await getDocs(collection(db, 'estimateRequests'));
       return querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
     } catch (error) {
-      console.error('Error fetching estimate requests:', error);
+      // console.error('Error fetching estimate requests:', error);
       return [];
     }
   };
@@ -149,7 +149,7 @@ export function FirebaseCollectionProvider({ children }) {
       await deleteDoc(doc(db, 'estimateRequests', estimateRequestId));
       return { success: true };
     } catch (error) {
-      console.error('Error deleting estimate request:', error);
+      // console.error('Error deleting estimate request:', error);
       return { success: false, error: error.message };
     }
   };
@@ -192,7 +192,7 @@ export function FirebaseCollectionProvider({ children }) {
       await updateDoc(docRef, transformedData);
       return { success: true };
     } catch (error) {
-      console.error('Error updating estimate request:', error);
+      // console.error('Error updating estimate request:', error);
       return { success: false, error: error.message };
     }
   };

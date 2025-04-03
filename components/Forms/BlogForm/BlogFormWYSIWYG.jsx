@@ -87,11 +87,11 @@ const BlogForm = ({ setOpen }) => {
         setUploadError(null);
         handleClear();
       } else {
-        console.error('Error adding document: ', result.error);
+        // console.error('Error adding document: ', result.error);
         setUploadError('Error uploading images and blog post. Please try again.');
       }
     } catch (error) {
-      console.error('An unexpected error occurred: ', error);
+      // console.error('An unexpected error occurred: ', error);
       setUploadError('An unexpected error occurred. Please try again.');
     }
 

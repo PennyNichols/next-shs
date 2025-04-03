@@ -228,7 +228,7 @@ const BlogForm = () => {
       const docRef = await addDoc(collection(db, 'blogPosts'), trimmedData);
       handleClear();
     } catch (e) {
-      console.error('Error adding document: ', e);
+      // console.error('Error adding document: ', e);
     }
   };
 
