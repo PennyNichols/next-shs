@@ -44,7 +44,6 @@ const EstimateRequestForm = ({ setOpen }) => {
   const { executeRecaptcha } = useRecaptcha(process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY);
   const { addEstimateRequest } = useFirebaseCollections();
   const { user } = useUser();
-  console.log('user', user);
   const handleChange = (e) => {
     const { name, value, checked, type } = e.target;
     if (type === 'checkbox') {

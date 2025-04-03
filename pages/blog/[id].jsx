@@ -8,7 +8,6 @@ const BlogPost = () => {
   const router = useRouter();
   const { id } = router.query;
   const [post, setPost] = useState(null);
-  console.log('post', post);
   useEffect(() => {
     if (id) {
       const fetchPost = async () => {
@@ -17,7 +16,7 @@ const BlogPost = () => {
         if (docSnap.exists()) {
           setPost(docSnap.data());
         } else {
-          console.log('No such document!');
+          console.error('No such document!');
         }
       };
 

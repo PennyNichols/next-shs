@@ -226,8 +226,6 @@ const BlogForm = () => {
 
     try {
       const docRef = await addDoc(collection(db, 'blogPosts'), trimmedData);
-      console.log('Document written with ID: ', docRef.id);
-      console.log('form data:', trimmedData);
       handleClear();
     } catch (e) {
       console.error('Error adding document: ', e);

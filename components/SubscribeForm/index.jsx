@@ -11,16 +11,13 @@ const SubscribeForm = () => {
   const { addSubscriber } = useFirebaseCollections();
 
   const handleSubmit = async (e) => {
-    console.log('handleSubmit called')
     e.preventDefault();
-    console.log('handleSubmit called, email is: ', email);
     const resultMessage = await addSubscriber(email);
-    console.log('resultMessage is: ', resultMessage);
     setMessage(resultMessage);
     if (resultMessage === 'Thank you for subscribing!') {
-        setEmail('');
+      setEmail('');
     }
-};
+  };
 
   return (
     <Box component="form" onSubmit={handleSubmit} className={classes.formContainer}>
