@@ -21,6 +21,7 @@ export function useAuth() {
         firstName: firstName,
         lastName: lastName,
         phoneNumber: phoneNumber,
+        userId: user.uid,
       });
       return user;
     } catch (err) {

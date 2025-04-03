@@ -20,7 +20,7 @@ service cloud.firestore {
       allow create: if true; // Allow all users to create estimate requests
       allow read: if false; // Disallow reading estimate requests by default
       // allow authenticated users to update their own requests
-      allow update: if request.auth != null && request.auth.uid == resource.data.userId; 
+      allow update: if request.auth != null && request.auth.uid == resource.data.userId;
       // allow authenticated users to delete their own requests
       allow delete: if request.auth != null && request.auth.uid == resource.data.userId;
     }
@@ -30,15 +30,16 @@ service cloud.firestore {
       // Allow users to read their own profile
       allow read: if request.auth != null && request.auth.uid == userId;
 
-      // Allow users to write to their own profile
-      allow write: if request.auth != null && request.auth.uid == userId;
+      // Allow users to write to their own profile (including creating if unauthenticated)
+      allow write, create: if request.auth != null && request.auth.uid == userId || request.auth == null;
 
       // Allow users to delete their own profile
       allow delete: if request.auth != null && request.auth.uid == userId;
     }
+
     // Rules for the 'blogPosts' collection
     match /blogPosts/{blogPostId} {
-        allow read: if true; // Allow everyone to read blog posts
+      allow read: if true; // Allow everyone to read blog posts
     }
   }
 }
