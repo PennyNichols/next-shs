@@ -14,6 +14,7 @@ import ActionButton from '../../ReusableComponents/ActionButton/ActionButton';
 import { Button, IconButton, Alert } from '@mui/material';
 import { Add, Remove } from '@mui/icons-material';
 import { useFirebaseCollections } from '../../../hooks/FirebaseService';
+import useUser from '../../../hooks/useUser';
 
 const EstimateRequestForm = ({ setOpen }) => {
   const initialData = {
@@ -42,6 +43,8 @@ const EstimateRequestForm = ({ setOpen }) => {
 
   const { executeRecaptcha } = useRecaptcha(process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY);
   const { addEstimateRequest } = useFirebaseCollections();
+  const { user } = useUser();
+  console.log('user', user);
   const handleChange = (e) => {
     const { name, value, checked, type } = e.target;
     if (type === 'checkbox') {

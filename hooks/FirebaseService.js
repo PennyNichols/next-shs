@@ -1,7 +1,7 @@
 import React, { createContext, useContext } from 'react';
 import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { db } from '../firebase';
-import { collection, addDoc, getDocs, doc, deleteDoc } from 'firebase/firestore';
+import { collection, addDoc, getDocs, doc, deleteDoc, updateDoc } from 'firebase/firestore';
 
 const FirebaseCollectionContext = createContext();
 
@@ -80,7 +80,35 @@ export function FirebaseCollectionProvider({ children }) {
     }
   };
 
-  const addEstimateRequest = async (estimateData, imageFiles) => {
+  const updateBlogPost = async (blogPostId, blogData, imageFiles) => {
+    try {
+      let uploadedImageUrls = [];
+      if (imageFiles && imageFiles.length > 0) {
+        uploadedImageUrls = await Promise.all(
+          imageFiles.map(async (file) => {
+            const storageRef = ref(getStorage(), `images/${file.name}`);
+            const snapshot = await uploadBytes(storageRef, file);
+            return getDownloadURL(snapshot.ref);
+          }),
+        );
+      }
+
+      const transformedData = {
+        ...blogData,
+        images: uploadedImageUrls.length > 0 ? uploadedImageUrls : blogData.images, //Keep old images if none uploaded
+        date_updated: new Date().toISOString(),
+      };
+
+      await updateDoc(doc(db, 'blogPosts', blogPostId), transformedData);
+      return { success: true };
+    } catch (error) {
+      console.error('Error updating blog post:', error);
+      return { success: false, error: error.message };
+    }
+  };
+
+  const addEstimateRequest = async (estimateData, imageFiles, userId = null) => {
+    // userId is now optional, defaults to null
     try {
       const uploadedImageUrls = await Promise.all(
         imageFiles.map(async (file) => {
@@ -95,6 +123,7 @@ export function FirebaseCollectionProvider({ children }) {
         scopeOfWork: Object.keys(estimateData.scopeOfWork).filter((key) => estimateData.scopeOfWork[key]),
         images: uploadedImageUrls,
         date_created: new Date().toISOString(),
+        userId: userId, // Store the user ID, or null if unauthenticated
       };
 
       const docRef = await addDoc(collection(db, 'estimateRequests'), transformedData);
@@ -125,6 +154,49 @@ export function FirebaseCollectionProvider({ children }) {
     }
   };
 
+  const updateEstimateRequest = async (estimateRequestId, estimateData, imageFiles, currentUserId) => {
+    try {
+      const docRef = doc(db, 'estimateRequests', estimateRequestId);
+      const docSnap = await getDoc(docRef);
+
+      if (docSnap.exists()) {
+        const docData = docSnap.data();
+        if (docData.userId && docData.userId !== currentUserId) {
+          // Check if userId exists and matches
+          return { success: false, error: 'You are not authorized to update this request.' };
+        } else if (!docData.userId) {
+          return { success: false, error: 'unauthenticated users cannot edit this estimate' };
+        }
+      } else {
+        return { success: false, error: 'Document does not exist.' };
+      }
+
+      let uploadedImageUrls = [];
+      if (imageFiles && imageFiles.length > 0) {
+        uploadedImageUrls = await Promise.all(
+          imageFiles.map(async (file) => {
+            const storageRef = ref(getStorage(), `images/${file.name}`);
+            const snapshot = await uploadBytes(storageRef, file);
+            return getDownloadURL(snapshot.ref);
+          }),
+        );
+      }
+
+      const transformedData = {
+        ...estimateData,
+        scopeOfWork: Object.keys(estimateData.scopeOfWork).filter((key) => estimateData.scopeOfWork[key]),
+        images: uploadedImageUrls.length > 0 ? uploadedImageUrls : estimateData.images,
+        date_updated: new Date().toISOString(),
+      };
+
+      await updateDoc(docRef, transformedData);
+      return { success: true };
+    } catch (error) {
+      console.error('Error updating estimate request:', error);
+      return { success: false, error: error.message };
+    }
+  };
+
   const value = {
     addSubscriber,
     getSubscribers,
@@ -132,9 +204,11 @@ export function FirebaseCollectionProvider({ children }) {
     addBlogPost,
     getBlogPosts,
     deleteBlogPost,
+    updateBlogPost,
     addEstimateRequest,
     getEstimateRequests,
     deleteEstimateRequest,
+    updateEstimateRequest,
   };
 
   return <FirebaseCollectionContext.Provider value={value}>{children}</FirebaseCollectionContext.Provider>;

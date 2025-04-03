@@ -19,8 +19,10 @@ service cloud.firestore {
     match /estimateRequests/{requestId} {
       allow create: if true; // Allow all users to create estimate requests
       allow read: if false; // Disallow reading estimate requests by default
-      allow update: if false; // Disallow updating estimate requests by default
-      allow delete: if false; // Disallow deleting estimate requests by default
+      // allow authenticated users to update their own requests
+      allow update: if request.auth != null && request.auth.uid == resource.data.userId; 
+      // allow authenticated users to delete their own requests
+      allow delete: if request.auth != null && request.auth.uid == resource.data.userId;
     }
 
     // Rules for the 'users' collection

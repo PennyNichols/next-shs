@@ -12,7 +12,8 @@ function useUser() {
       if (user) {
         const docSnap = await getDoc(doc(db, 'users', user.uid));
         if (docSnap.exists()) {
-          setUser(docSnap.data());
+          const uid = docSnap.id;
+          setUser({ ...docSnap.data(), uid: uid });
         } else {
           setUser(null);
         }
