@@ -1,4 +1,4 @@
-import { createContext, useContext } from 'react';
+import { createContext, useCallback, useContext } from 'react';
 import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { db } from '../firebase';
 import { collection, addDoc, getDocs, doc, deleteDoc, updateDoc, getDoc } from 'firebase/firestore';
@@ -60,7 +60,7 @@ export function FirebaseCollectionProvider({ children }) {
     }
   };
 
-  const getBlogPosts = async () => {
+  const getBlogPosts = useCallback(async () => {
     try {
       const querySnapshot = await getDocs(collection(db, 'blogPosts'));
       return querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
@@ -68,7 +68,7 @@ export function FirebaseCollectionProvider({ children }) {
       // console.error('Error fetching blog posts:', error);
       return [];
     }
-  };
+  }, []);
 
   const deleteBlogPost = async (blogPostId) => {
     try {
