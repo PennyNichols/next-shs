@@ -1,24 +1,21 @@
-import { useState } from 'react';
-import { collection, addDoc } from 'firebase/firestore';
-import { db } from '../../firebase';
+import React, { useState } from 'react';
 import { TextField, Typography, Box } from '@mui/material';
 import useStyles from './SubscribeForm.styles';
 import ActionButton from '../ReusableComponents/ActionButton/ActionButton';
+import { useFirebaseCollections } from '../../hooks/FirebaseService';
 
 const SubscribeForm = () => {
   const classes = useStyles();
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
+  const { addSubscriber } = useFirebaseCollections();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      await addDoc(collection(db, 'subscribers'), { email });
-      setMessage('Thank you for subscribing!');
+    const resultMessage = await addSubscriber(email);
+    setMessage(resultMessage);
+    if (resultMessage === 'Thank you for subscribing!') {
       setEmail('');
-    } catch (error) {
-      setMessage('Error subscribing. Please try again.');
-      console.error('Error adding document: ', error);
     }
   };
 
@@ -35,7 +32,7 @@ const SubscribeForm = () => {
         size="small"
         className={classes.input}
       />
-      <ActionButton type="submit" color="secondary" text="Subscribe" />
+      <ActionButton buttonType="submit" color="secondary" text="Subscribe" />
       {message && <Typography variant="body1">{message}</Typography>}
     </Box>
   );

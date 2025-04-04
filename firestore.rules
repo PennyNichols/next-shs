@@ -9,7 +9,7 @@ service cloud.firestore {
 
     // Rules for the 'subscribers' collection
     match /subscribers/{subscriptionId} {
-      allow create: if request.auth == null; // Allow unauthenticated users to create subscriptions
+      allow create: if true; // Allow all users (authenticated and unauthenticated) to create subscriptions
       allow read: if false; // Disallow reading subscriptions by default
       allow update: if false; // Disallow updating subscriptions by default
       allow delete: if false; // Disallow deleting subscriptions by default
@@ -17,10 +17,12 @@ service cloud.firestore {
 
     // Rules for the 'estimateRequests' collection
     match /estimateRequests/{requestId} {
-      allow create: if request.auth == null; // Allow unauthenticated users to create estimate requests
+      allow create: if true; // Allow all users to create estimate requests
       allow read: if false; // Disallow reading estimate requests by default
-      allow update: if false; // Disallow updating estimate requests by default
-      allow delete: if false; // Disallow deleting estimate requests by default
+      // allow authenticated users to update their own requests
+      allow update: if request.auth != null && request.auth.uid == resource.data.userId;
+      // allow authenticated users to delete their own requests
+      allow delete: if request.auth != null && request.auth.uid == resource.data.userId;
     }
 
     // Rules for the 'users' collection
@@ -28,11 +30,16 @@ service cloud.firestore {
       // Allow users to read their own profile
       allow read: if request.auth != null && request.auth.uid == userId;
 
-      // Allow users to write to their own profile
-      allow write: if request.auth != null && request.auth.uid == userId;
+      // Allow users to write to their own profile (including creating if unauthenticated)
+      allow write, create: if request.auth != null && request.auth.uid == userId || request.auth == null;
 
       // Allow users to delete their own profile
       allow delete: if request.auth != null && request.auth.uid == userId;
+    }
+
+    // Rules for the 'blogPosts' collection
+    match /blogPosts/{blogPostId} {
+      allow read: if true; // Allow everyone to read blog posts
     }
   }
 }

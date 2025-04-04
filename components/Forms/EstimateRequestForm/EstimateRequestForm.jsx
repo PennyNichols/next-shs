@@ -13,6 +13,8 @@ import useRecaptcha from '../../../hooks/useRecaptcha';
 import ActionButton from '../../ReusableComponents/ActionButton/ActionButton';
 import { Button, IconButton, Alert } from '@mui/material';
 import { Add, Remove } from '@mui/icons-material';
+import { useFirebaseCollections } from '../../../hooks/FirebaseService';
+import useUser from '../../../hooks/useUser';
 
 const EstimateRequestForm = ({ setOpen }) => {
   const initialData = {
@@ -40,7 +42,8 @@ const EstimateRequestForm = ({ setOpen }) => {
   const [uploadSuccess, setUploadSuccess] = useState(false);
 
   const { executeRecaptcha } = useRecaptcha(process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY);
-
+  const { addEstimateRequest } = useFirebaseCollections();
+  const { user } = useUser();
   const handleChange = (e) => {
     const { name, value, checked, type } = e.target;
     if (type === 'checkbox') {
@@ -103,7 +106,7 @@ const EstimateRequestForm = ({ setOpen }) => {
         date_created: new Date().toISOString(),
       };
     } catch (error) {
-      console.error('Error uploading images:', error);
+      // console.error('Error uploading images:', error);
       setUploadError('Error uploading images. Please try again.');
       return { ...data, images: [] }; // Return data without images if upload fails
     }
@@ -121,12 +124,10 @@ const EstimateRequestForm = ({ setOpen }) => {
           return; // Don't submit if there's an upload error
         }
 
-        const docRef = await addDoc(collection(db, 'estimateRequests'), transformedData);
-        console.log('Document written with ID: ', docRef.id);
-        console.log('form data:', transformedData);
+        const result = await addEstimateRequest(transformedData, imageFiles);
         handleClear(); // Reset form data and isHuman state
       } catch (e) {
-        console.error('Error adding document: ', e);
+        // console.error('Error adding document: ', e);
       }
       setOpen(false);
     }

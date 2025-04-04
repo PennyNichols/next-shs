@@ -2,24 +2,24 @@ import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { Card, CardActionArea, CardContent, Container, Typography, Box } from '@mui/material';
 import CreateBlogButton from '../../components/ActionButtons/CreateBlogButton';
-import { collection, getDocs } from 'firebase/firestore';
-import { db } from '../../firebase';
+import { useFirebaseCollections } from '../../hooks/FirebaseService'; // Import the hook
 
 const BlogHome = () => {
   const [posts, setPosts] = useState([]);
+  const { getBlogPosts } = useFirebaseCollections();
 
   useEffect(() => {
     const fetchPosts = async () => {
-      const querySnapshot = await getDocs(collection(db, 'blogPosts'));
-      const postsData = querySnapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-      setPosts(postsData);
+      try {
+        const postsData = await getBlogPosts();
+        setPosts(postsData);
+      } catch (error) {
+        // console.error('Error fetching blog posts: ', error);
+      }
     };
 
     fetchPosts();
-  }, []);
+  }, [getBlogPosts]); // Depend on getBlogPosts
 
   const getExcerpt = (html) => {
     const parser = new DOMParser();
@@ -27,8 +27,6 @@ const BlogHome = () => {
     const firstP = doc.querySelector('p');
     return firstP ? firstP.textContent.substring(0, 100) + '...' : '';
   };
-
-  console.log('posts', posts);
 
   return (
     <Container>
