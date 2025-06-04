@@ -1,3 +1,6 @@
+//come back and add subscribe to marketing checkbox:
+//only appear if the email address entered is not already subscribed
+//add option to save service address to user profile if authenticated
 import React, { useState } from 'react';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
@@ -11,26 +14,37 @@ import { db } from '../../../firebase';
 import useStyles from './EstimateRequestForm.styles';
 import useRecaptcha from '../../../hooks/useRecaptcha';
 import ActionButton from '../../ReusableComponents/ActionButton/ActionButton';
-import { Button, IconButton, Alert } from '@mui/material';
-import { Add, Remove } from '@mui/icons-material';
+import {
+  Button,
+  IconButton,
+  Alert,
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+} from '@mui/material';
+import { Add, ExpandMore, Remove } from '@mui/icons-material';
 import { useFirebaseCollections } from '../../../hooks/FirebaseService';
 import useUser from '../../../hooks/useUser';
+import { serviceCategories } from '../../../constants/services';
 
 const EstimateRequestForm = ({ setOpen }) => {
   const initialData = {
-    name: '',
+    firstName: '',
+    lastName: '',
     address: '',
     phone: '',
     email: '',
-    scopeOfWork: {
-      construction: false,
-      plumbing: false,
-      electrical: false,
-      painting: false,
-      miscellaneous: false,
-    },
+    propertyType: '',
+    animalsOnPremises: false,
+    ownerOccupied: false,
+    scopeOfWork: [], // Initialize as an empty array
     details: '',
     images: [],
+    date_created: '',
   };
 
   const classes = useStyles();
@@ -40,24 +54,59 @@ const EstimateRequestForm = ({ setOpen }) => {
   const [imagePreviews, setImagePreviews] = useState([]);
   const [uploadError, setUploadError] = useState(null);
   const [uploadSuccess, setUploadSuccess] = useState(false);
-
+  console.log('formData', formData);
   const { executeRecaptcha } = useRecaptcha(process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY);
   const { addEstimateRequest } = useFirebaseCollections();
   const { user } = useUser();
+  const propertyTypeOptions = ['apartment', 'condo', 'duplex', 'house', 'townhouse', 'other'];
+
   const handleChange = (e) => {
-    const { name, value, checked, type } = e.target;
+    const { name, checked, type } = e.target;
+
     if (type === 'checkbox') {
-      setFormData((prevData) => ({
-        ...prevData,
-        scopeOfWork: {
-          ...prevData.scopeOfWork,
-          [name]: checked,
-        },
-      }));
+      let foundSectionTitle = null;
+      let foundWorkItem = null;
+
+      serviceCategories.forEach((section) => {
+        section.typeOfWork.forEach((work) => {
+          const itemName = work.title.toLowerCase().replace(/[^a-z0-9]/g, '');
+          if (itemName === name) {
+            foundSectionTitle = section.sectionTitle;
+            foundWorkItem = { title: work.title, description: work.description };
+          }
+        });
+      });
+
+      if (foundSectionTitle && foundWorkItem) {
+        setFormData((prevData) => {
+          const updatedScopeOfWork = [...prevData.scopeOfWork];
+          const workItemToAdd = {
+            section: foundSectionTitle,
+            title: foundWorkItem.title,
+            description: foundWorkItem.description,
+          };
+
+          const existingIndex = updatedScopeOfWork.findIndex(
+            (item) => item.section === foundSectionTitle && item.title === foundWorkItem.title,
+          );
+
+          if (checked) {
+            if (existingIndex === -1) {
+              updatedScopeOfWork.push(workItemToAdd);
+            }
+          } else {
+            if (existingIndex !== -1) {
+              updatedScopeOfWork.splice(existingIndex, 1);
+            }
+          }
+
+          return { ...prevData, scopeOfWork: updatedScopeOfWork };
+        });
+      }
     } else {
       setFormData((prevData) => ({
         ...prevData,
-        [name]: value,
+        [name]: e.target.value,
       }));
     }
   };
@@ -97,13 +146,17 @@ const EstimateRequestForm = ({ setOpen }) => {
       setUploadError(null);
       return {
         ...data,
-        name: trimString(data.name),
-        address: trimString(data.address),
-        phone: trimString(data.phone),
-        email: trimString(data.email),
+        firstName: user ? user.firstName : trimString(data.firstName),
+        lastName: user ? user.lastName : trimString(data.lastName),
+        address: user ? user.address : trimString(data.address),
+        phone: user ? user.phoneNumber : trimString(data.phone),
+        email: user ? user.email : trimString(data.email),
+        propertyType: data.propertyType,
         scopeOfWork: transformScopeOfWork(data.scopeOfWork),
+        details: trimString(data.details),
         images: uploadedImageUrls, // Store URLs
         date_created: new Date().toISOString(),
+        createdBy: user ? user.uid : null, // Store the user ID if authenticated
       };
     } catch (error) {
       // console.error('Error uploading images:', error);
@@ -139,16 +192,25 @@ const EstimateRequestForm = ({ setOpen }) => {
         <Box>
           <Typography mb={2}>Please fill out the form below to request an estimate.</Typography>
           <TextField
-            label="Name"
-            name="name"
-            value={formData.name}
+            label="First Name"
+            name="firstName"
+            value={formData.firstName}
             onChange={handleChange}
             fullWidth
             margin="dense"
             size="small"
           />
           <TextField
-            label="Address"
+            label="Last Name"
+            name="lastName"
+            value={formData.lastName}
+            onChange={handleChange}
+            fullWidth
+            margin="dense"
+            size="small"
+          />
+          <TextField
+            label="Service Address"
             name="address"
             value={formData.address}
             onChange={handleChange}
@@ -174,94 +236,60 @@ const EstimateRequestForm = ({ setOpen }) => {
             margin="dense"
             size="small"
           />
+          {/* Property Type Dropdown */}
+          <FormControl fullWidth margin="dense" size="small">
+            <InputLabel id="property-type-label">Property Type</InputLabel>
+            <Select
+              labelId="property-type-label"
+              id="propertyType"
+              name="propertyType"
+              value={formData.propertyType}
+              label="Property Type"
+              onChange={handleChange}
+            >
+              {propertyTypeOptions.map((option) => (
+                <MenuItem key={option} value={option}>
+                  {option.charAt(0).toUpperCase() + option.slice(1)}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
           <Typography variant="h6" component="h3" sx={{ mt: 2 }}>
             Scope of Work
           </Typography>
           <FormGroup>
-            <Box sx={{ display: 'flex', gap: '30px', mb: 2 }}>
-              <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      checked={formData.scopeOfWork.carpentry}
-                      onChange={handleChange}
-                      name="carpentry"
-                      size="small"
-                    />
-                  }
-                  label="Carpentry"
-                />
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      checked={formData.scopeOfWork.masonry}
-                      onChange={handleChange}
-                      name="masonry"
-                      size="small"
-                    />
-                  }
-                  label="Masonry"
-                />
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      checked={formData.scopeOfWork.painting}
-                      onChange={handleChange}
-                      name="painting"
-                      size="small"
-                    />
-                  }
-                  label="Painting"
-                />
-                <FormControlLabel
-                  control={
-                    <Checkbox checked={formData.scopeOfWork.tile} onChange={handleChange} name="tile" size="small" />
-                  }
-                  label="Tile"
-                />
-              </Box>
-              <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      checked={formData.scopeOfWork.fencing}
-                      onChange={handleChange}
-                      name="fencing"
-                      size="small"
-                    />
-                  }
-                  label="Fencing"
-                />
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      checked={formData.scopeOfWork.fixtures}
-                      onChange={handleChange}
-                      name="fixtures"
-                      size="small"
-                    />
-                  }
-                  label="Fixtures"
-                />
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      checked={formData.scopeOfWork.miscellaneous}
-                      onChange={handleChange}
-                      name="miscellaneous"
-                      size="small"
-                    />
-                  }
-                  label="Miscellaneous"
-                />
-                <FormControlLabel
-                  control={
-                    <Checkbox checked={formData.scopeOfWork.other} onChange={handleChange} name="other" size="small" />
-                  }
-                  label="Other / Unsure"
-                />
-              </Box>
-            </Box>
+            {serviceCategories.map((section, index) => (
+              <Accordion key={index}>
+                <AccordionSummary
+                  expandIcon={<ExpandMore />}
+                  aria-controls={`panel-${index}-content`}
+                  id={`panel-${index}-header`}
+                >
+                  <Typography>{section.sectionTitle}</Typography>
+                </AccordionSummary>
+                <AccordionDetails>
+                  <Box sx={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                    {section.typeOfWork.map((work, idx) => {
+                      const name = work.title.toLowerCase().replace(/[^a-z0-9]/g, '');
+                      const isChecked = formData.scopeOfWork.some(
+                        (item) => item.section === section.sectionTitle && item.title === work.title,
+                      );
+                      return (
+                        <FormControlLabel
+                          key={idx}
+                          control={<Checkbox checked={isChecked} onChange={handleChange} name={name} size="small" />}
+                          label={
+                            <Typography>
+                              <strong>{work.title}:</strong> {work.description}
+                            </Typography>
+                          }
+                        />
+                      );
+                    })}
+                  </Box>
+                </AccordionDetails>
+              </Accordion>
+            ))}
           </FormGroup>
           <TextField
             label="Additional Details"

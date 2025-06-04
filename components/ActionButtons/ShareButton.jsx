@@ -6,7 +6,7 @@ import TwitterIcon from '@mui/icons-material/Twitter';
 import EmailIcon from '@mui/icons-material/Email';
 import SmsIcon from '@mui/icons-material/Sms';
 import useStyles from './ActionButtons.styles';
-import { URL } from '../../constants/constants';
+import { URL } from '../../constants/companyDetails';
 
 const ShareButton = () => {
   const classes = useStyles();

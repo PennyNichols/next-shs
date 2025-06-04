@@ -1,6 +1,6 @@
 import React from 'react';
 import ActionButton from '../ReusableComponents/ActionButton/ActionButton';
-import { GOOGLE_REVIEW_URL, REVIEW_BUTTON_TEXT } from '../../constants/constants';
+import { GOOGLE_REVIEW_URL, REVIEW_BUTTON_TEXT } from '../../constants/companyDetails';
 import { RateReview } from '@mui/icons-material';
 
 const ReviewButton = () => {

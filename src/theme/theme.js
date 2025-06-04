@@ -2,7 +2,7 @@ import { createTheme } from '@mui/material/styles';
 
 const navyBlue = 'rgb(0, 31, 63)';
 const warmGray = 'rgb(211, 211, 211)';
-const gold = 'rgb(255, 215, 0)';
+const gold = 'rgb(255, 204, 0)';
 const offWhite = 'rgb(248, 248, 255)';
 const darkGray = 'rgb(51, 51, 51)';
 const darkText = 'rgb(20, 19, 19)';
