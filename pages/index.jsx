@@ -9,32 +9,24 @@ const Home = () => {
 
   return (
     <Box className={classes.container}>
-      <Box className={classes.leftContent}>
-        <Typography variant="h1" sx={{ marginBottom: 0 }}>
-          {' '}
-          The SHS Difference
+      <Box className={classes.serviceAreas}>
+        <Typography variant="h2" className={classes.sectionTitle}>
+          Now Serving These
+          <wbr /> Florida Locations
         </Typography>
-        <div className={classes.divider}></div>
-        <Typography variant="body1">
-          At Schmidt's Home Services, we understand that maintaining your home requires a level of expertise and
-          attention to detail that goes beyond the ordinary. With 17 years of experience serving discerning homeowners,
-          we've built a reputation for providing unparalleled home improvement services. Our team of highly skilled
-          professionals is dedicated to delivering exceptional craftsmanship and meticulous care in every project we
-          undertake. From routine maintenance and expert repairs to seamless renovations and custom projects, we handle
-          every detail with precision and efficiency. Our team operates with the utmost professionalism and ensures
-          clear communication throughout every stage of the process. At SHS, your satisfaction is our highest priority.
-        </Typography>
-      </Box>
-      <Box className={classes.rightContent}>
-        <Award />
-        <Box className={classes.imageContainer}>
-          <Image
-            src="/images/garden-shed-2.jpg"
-            alt="Custom Garden Shed"
-            width={500}
-            height={500}
-            className={classes.image}
-          />
+        <div className={classes.dividerLine} />
+        <Box className={classes.serviceAreasList}>
+          <Typography variant="h3" className={classes.servviceAreaListItem}>
+            Port Charlotte
+          </Typography>
+          <div className={classes.separationDot} />
+          <Typography variant="h3" className={classes.servviceAreaListItem}>
+            Punta Gorda
+          </Typography>
+          <div className={classes.separationDot} />
+          <Typography variant="h3" className={classes.servviceAreaListItem}>
+            North Port
+          </Typography>
         </Box>
       </Box>
       {/* Add your content and components here */}

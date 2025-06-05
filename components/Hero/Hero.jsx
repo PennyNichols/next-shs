@@ -10,7 +10,7 @@ const Hero = () => {
   return (
     <Box className={classes.heroContainer}>
       <Image
-        src="/images/whiteHouse.jpg"
+        src="/images/poolWithPalms.jpg"
         alt="Hero Image"
         layout="fill"
         objectFit="cover"
@@ -19,10 +19,9 @@ const Hero = () => {
       <Box className={classes.heroContent}>
         <Box className={classes.headerContainer}>
           <Typography variant="h1" className={classes.header}>
-            Expert Hands.{' '}
-          </Typography>
-          <Typography variant="h1" className={classes.header}>
-            Exceptional Results.
+            <span className={classes.headerText}>SHS Florida</span>
+            <span className={classes.headerText}>Expert Hands.</span>
+            <span className={classes.headerText}>Exceptional Results.</span>
           </Typography>
         </Box>
         <Typography variant="h5" className={classes.subheader}>

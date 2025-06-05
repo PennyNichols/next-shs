@@ -48,7 +48,25 @@ const ShareButton = () => {
       <IconButton aria-label="share" aria-controls="share-menu" aria-haspopup="true" onClick={handleClick}>
         <ShareIcon className={classes.shareIcon} />
       </IconButton>
-      <Menu id="share-menu" anchorEl={anchorEl} open={open} onClose={handleClose}>
+      <Menu
+        id="share-menu"
+        className={classes.shareMenu}
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'center',
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'center',
+        }}
+        disableScrollLock={true}
+        MenuListProps={{
+          className: classes.menuList,
+        }}
+      >
         <MenuItem onClick={() => handleShare('facebook')} aria-label="Share on Facebook">
           <FacebookIcon className={classes.socialIcon} />
         </MenuItem>

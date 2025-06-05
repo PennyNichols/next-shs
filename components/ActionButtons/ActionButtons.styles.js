@@ -7,13 +7,19 @@ const useStyles = makeStyles((theme) => ({
     right: 30,
     backgroundColor: theme.palette.primary.main,
     borderRadius: '50%',
-    zIndex: 1000,
+    zIndex: 1300,
   },
   shareIcon: {
     color: theme.palette.background.default,
   },
+  shareMenu: {
+    marginTop: theme.spacing(1),
+  },
   socialIcon: {
-    color: theme.palette.primary.main,
+    color: theme.palette.secondary.light,
+  },
+  menuList: {
+    backgroundColor: theme.palette.primary.main,
   },
 }));
 
