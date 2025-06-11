@@ -63,8 +63,10 @@ const ShareButton = () => {
           horizontal: 'center',
         }}
         disableScrollLock={true}
-        MenuListProps={{
-          className: classes.menuList,
+        slotProps={{
+          paper: {
+            className: classes.menuList,
+          },
         }}
       >
         <MenuItem onClick={() => handleShare('facebook')} aria-label="Share on Facebook">

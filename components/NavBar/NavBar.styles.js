@@ -20,6 +20,10 @@ const useStyles = makeStyles((theme) => ({
       marginLeft: 'auto',
     },
   },
+  menuIcon: {
+    color: theme.palette.background.paper,
+    fontSize: 30,
+  },
   menu: {
     [theme.breakpoints.down('sm')]: {
       '& .MuiPaper-root': {
@@ -47,11 +51,21 @@ const useStyles = makeStyles((theme) => ({
   menuItem: {
     color: theme.palette.secondary.light,
     margin: 1,
-    transition: 'letter-spacing 0.3s cubic-bezier(.4,0,.2,1)',
-    letterSpacing: '0.02em',
+    textAlign: 'center',
+    fontSize: 16,
+    transition: 'letter-spacing 0.5s ease-in-out, text-shadow 0.3s ease-in-out',
+    letterSpacing: 1,
+    textShadow: 'none',
     '&:hover': {
-      letterSpacing: '0.1em',
+      letterSpacing: 2.5,
+      textShadow: `
+        0px 8px 12px ${theme.palette.accent.main},
+        0px 8px 12px ${theme.palette.accent.main}
+      `,
     },
+  },
+  mobileMenuItem: {
+    justifyContent: 'center',
   },
 }));
 

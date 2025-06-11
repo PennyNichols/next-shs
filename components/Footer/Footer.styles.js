@@ -3,20 +3,28 @@ import { makeStyles } from '@mui/styles';
 const useStyles = makeStyles((theme) => ({
   footerOuterContainer: {
     backgroundColor: theme.palette.primary.main,
-    color: 'white',
+    color: theme.palette.secondary.light,
     paddingTop: theme.spacing(3),
     paddingBottom: theme.spacing(1),
     width: '100%',
   },
   topContainer: {
     display: 'flex',
-    justifyContent: 'space-around',
+    justifyContent: 'center',
     alignItems: 'center',
+    gap: theme.spacing(3),
+    [theme.breakpoints.down('md')]: {
+      flexDirection: 'column',
+    },
+  },
+  actionButtonsContainer: {
+    display: 'flex',
+    gap: theme.spacing(3),
   },
   logoContainer: {
     display: 'flex',
     alignItems: 'center',
-    gap: theme.spacing(1),
+    gap: theme.spacing(2),
   },
   logo: {
     maxWidth: 70,
@@ -40,6 +48,9 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'space-between',
     alignItems: 'center',
     gap: theme.spacing(1),
+  },
+  socialIcon: {
+    color: theme.palette.accent.main,
   },
 }));
 

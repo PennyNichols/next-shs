@@ -14,19 +14,24 @@ import Image from 'next/image';
 import useStyles from './NavBar.styles';
 import theme from '@/theme/theme';
 import LogoSvg from '../SVG/LogoSvg';
+import { Handyman, HomeRepairService } from '@mui/icons-material';
 
 const pages = [
   { name: 'Home', href: '/' },
-  { name: 'Blog', href: '/blog' },
+  // { name: 'Blog', href: '/blog' },
   { name: 'Services', href: '/services' },
-  { name: 'About', href: '/about' },
+  // { name: 'About', href: '/about' },
   { name: 'Careers', href: '/careers' },
-  { name: 'FAQ', href: '/FAQ' },
+  // { name: 'FAQ', href: '/FAQ' },
 ];
 
 function ResponsiveAppBar() {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const isMenuOpen = Boolean(anchorEl);
+
+  const [logoColor, setLogoColor] = React.useState(theme.palette.background.paper);
+  const logoHoverColor = theme.palette.accent.main;
 
   const handleMenuOpen = (event) => setAnchorEl(event.currentTarget);
   const handleMenuClose = () => setAnchorEl(null);
@@ -38,7 +43,15 @@ function ResponsiveAppBar() {
           {/* Logo (always visible) */}
           <Box className={classes.leftLogoContainer}>
             <Link href="/" passHref>
-              <LogoSvg color={theme.palette.secondary.light} width={70} height={50} />
+              <span
+                style={{
+                  display: 'inline-block',
+                }}
+                onMouseEnter={() => setLogoColor(logoHoverColor)}
+                onMouseLeave={() => setLogoColor(theme.palette.background.paper)}
+              >
+                <LogoSvg color={logoColor} width={70} height={50} />
+              </span>
             </Link>
           </Box>
           {/* Desktop Links */}
@@ -52,7 +65,11 @@ function ResponsiveAppBar() {
           {/* Mobile Hamburger */}
           <Box className={classes.mobileNavLinkContainer}>
             <IconButton size="large" aria-label="menu" onClick={handleMenuOpen} color="inherit">
-              <MenuIcon />
+              {isMenuOpen ? (
+                <Handyman className={classes.menuIcon} />
+              ) : (
+                <HomeRepairService className={classes.menuIcon} />
+              )}
             </IconButton>
             <Menu
               anchorEl={anchorEl}
@@ -62,12 +79,14 @@ function ResponsiveAppBar() {
               transformOrigin={{ vertical: 'top', horizontal: 'right' }}
               disableScrollLock={true}
               className={classes.menu}
-              MenuListProps={{
-                className: classes.menuList,
+              slotProps={{
+                paper: {
+                  className: classes.menuList,
+                },
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page.name} onClick={handleMenuClose}>
+                <MenuItem key={page.name} className={classes.mobileMenuItem} onClick={handleMenuClose}>
                   <Link href={page.href} passHref>
                     <Typography variant="button" className={classes.menuItem} textAlign="center">
                       {page.name}

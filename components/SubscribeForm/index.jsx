@@ -32,7 +32,7 @@ const SubscribeForm = () => {
         size="small"
         className={classes.input}
       />
-      <ActionButton buttonType="submit" color="secondary" text="Subscribe" />
+      <ActionButton buttonType="submit" darkBackground text="Subscribe" />
       {message && <Typography variant="body1">{message}</Typography>}
     </Box>
   );

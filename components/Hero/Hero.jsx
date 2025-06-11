@@ -4,9 +4,12 @@ import TextButton from '../ActionButtons/TextButton';
 import EstimateRequestButton from '../ActionButtons/EstimateRequestButton';
 import Image from 'next/image';
 import useStyles from './Hero.styles';
+import useMedia from '../../hooks/useMedia';
+import { ArrowDownward, ExpandMore } from '@mui/icons-material';
 
 const Hero = () => {
   const classes = useStyles();
+  const { isMobile } = useMedia();
   return (
     <Box className={classes.heroContainer}>
       <Image
@@ -33,6 +36,25 @@ const Hero = () => {
           <TextButton />
           <EstimateRequestButton />
         </Box>
+        {isMobile && (
+          <Box className={classes.scrollIndicatorContainer}>
+            <Typography component="span" className={classes.scrollIcon}>
+              &#8595;
+            </Typography>
+            <Typography component="span" className={classes.scrollIcon}>
+              &#8595;
+            </Typography>
+            <Typography variant="body2" className={classes.scrollText}>
+              Scroll for more
+            </Typography>
+            <Typography component="span" className={classes.scrollIcon}>
+              &#8595;
+            </Typography>
+            <Typography component="span" className={classes.scrollIcon}>
+              &#8595;
+            </Typography>
+          </Box>
+        )}
       </Box>
     </Box>
   );

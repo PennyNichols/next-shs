@@ -29,6 +29,11 @@ const Home = () => {
           </Typography>
         </Box>
       </Box>
+      <Box className={classes.serviceAreas}>
+        <Typography variant="h2" className={classes.sectionTitle}>
+          Our Services
+        </Typography>
+      </Box>
       {/* Add your content and components here */}
     </Box>
   );

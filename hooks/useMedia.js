@@ -4,11 +4,11 @@ import { useState, useEffect } from 'react';
  * A custom hook to determine the current screen size and provide boolean flags for breakpoints.
  *
  * Breakpoints:
- * - mobile: 0-600px
- * - smallTablet: 601-900px
- * - largeTablet: 901-1200px
- * - desktop: 1201-1536px
- * - largeDesktop: 1537px and up
+ * - mobile: 0-599px
+ * - smallTablet: 600-899px
+ * - largeTablet: 900-1199px
+ * - desktop: 1200-1535px
+ * - largeDesktop: 1536px and up
  *
  * @returns {object} An object with boolean flags for each breakpoint and the current screen size.
  * - `isMobile`: `true` if the screen width is 0-600px.
@@ -40,11 +40,11 @@ import { useState, useEffect } from 'react';
  * export default ResponsiveComponent;
  */
 const breakpoints = {
-  mobile: '(max-width: 600px)',
-  smallTablet: '(min-width: 601px) and (max-width: 900px)',
-  largeTablet: '(min-width: 901px) and (max-width: 1200px)',
-  desktop: '(min-width: 1201px) and (max-width: 1536px)',
-  largeDesktop: '(min-width: 1537px)',
+  mobile: '(max-width: 599px)',
+  smallTablet: '(min-width: 600px) and (max-width: 899px)',
+  largeTablet: '(min-width: 900px) and (max-width: 1199px)',
+  desktop: '(min-width: 1200px) and (max-width: 1535px)',
+  largeDesktop: '(min-width: 1536px)',
 };
 
 const useMedia = () => {

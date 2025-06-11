@@ -1,14 +1,14 @@
 import { makeStyles } from '@mui/styles';
 
 const useStyles = makeStyles((theme) => {
-  const mainColor = theme.palette.secondary.main;
+  const mainColor = theme.palette.accent.main;
 
   return {
     formContainer: {
       display: 'flex',
       flexDirection: 'row',
       alignItems: 'center',
-      gap: theme.spacing(2),
+      gap: theme.spacing(1),
     },
     input: {
       '& .MuiInputBase-input': {
@@ -31,10 +31,6 @@ const useStyles = makeStyles((theme) => {
           borderColor: mainColor,
         },
       },
-    },
-    button: {
-      backgroundColor: mainColor,
-      color: theme.palette.primary.main,
     },
   };
 });

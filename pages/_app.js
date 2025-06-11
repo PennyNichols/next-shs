@@ -17,6 +17,10 @@ import { FirebaseCollectionProvider } from '../hooks/FirebaseService';
 function MyApp({ Component, pageProps }) {
   const router = useRouter();
   const isHomePage = router.pathname === '/';
+
+  // Disable specific paths
+  const disabledPaths = ['/blog', '/about', '/FAQ'];
+
   return (
     <React.Fragment>
       <Head>
@@ -34,7 +38,13 @@ function MyApp({ Component, pageProps }) {
             {isHomePage && <Hero />}
             <NavBar />
             <Box flexGrow={1}>
-              <Component {...pageProps} />
+              {disabledPaths.includes(router.pathname) ? (
+                <Box flexGrow={1} display="flex" alignItems="center" justifyContent="center">
+                  <h2>This page is currently unavailable.</h2>
+                </Box>
+              ) : (
+                <Component {...pageProps} />
+              )}
             </Box>
             <Footer />
             <ShareButton />

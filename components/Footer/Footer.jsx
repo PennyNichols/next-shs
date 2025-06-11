@@ -8,6 +8,7 @@ import { EMAIL_ADDRESS, FACEBOOK_URL, GOOGLE_URL, INSTAGRAM_URL, PHONE_NUMBER } 
 import { formatPhoneNumber } from '../../functions/utils/utils';
 import useStyles from './Footer.styles';
 import ReviewButton from '../ActionButtons/ReviewButton';
+import LogoSvg from '../SVG/LogoSvg';
 
 const Footer = () => {
   const classes = useStyles();
@@ -16,12 +17,14 @@ const Footer = () => {
       <Container maxWidth="lg">
         <Box component="section" className={classes.topContainer}>
           <SubscribeForm />
-          <ReviewButton />
-          <EstimateRequestButton isFooter={true} />
+          <Box className={classes.actionButtonsContainer}>
+            <ReviewButton />
+            <EstimateRequestButton darkBackground />
+          </Box>
         </Box>
         <Box component="section" className={classes.middleContainer}>
           <Box className={classes.logoContainer}>
-            <Image src="/images/logo.svg" alt="SHS Icon" width={90} height={90} />
+            <LogoSvg width={90} height={70} />
             <Box>
               <Typography variant="body2" color="inherit">
                 Serving SW Florida
@@ -59,13 +62,13 @@ const Footer = () => {
         <Box component="section" className={classes.bottomContainer}>
           <Box className={classes.socialContainer}>
             <Link href={FACEBOOK_URL} color="inherit" aria-label="Facebook">
-              <Facebook />
+              <Facebook className={classes.socialIcon} />
             </Link>
             <Link href={INSTAGRAM_URL} color="inherit" aria-label="Instagram">
-              <Instagram />
+              <Instagram className={classes.socialIcon} />
             </Link>
             <Link href={GOOGLE_URL} color="inherit" aria-label="Google">
-              <Google />
+              <Google className={classes.socialIcon} />
             </Link>
           </Box>
           <Typography variant="body2" color="inherit">

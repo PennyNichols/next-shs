@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
   dividerLine: {
     width: '50%',
     height: '2px',
-    backgroundColor: theme.palette.primary.main,
+    backgroundColor: theme.palette.accent.main,
   },
   separationDot: {
     width: '10px',
