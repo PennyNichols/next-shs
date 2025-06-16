@@ -7,6 +7,7 @@ import EmailIcon from '@mui/icons-material/Email';
 import SmsIcon from '@mui/icons-material/Sms';
 import useStyles from './ActionButtons.styles';
 import { URL } from '../../constants/companyDetails';
+import theme from '@/theme/theme';
 
 const ShareButton = () => {
   const classes = useStyles();

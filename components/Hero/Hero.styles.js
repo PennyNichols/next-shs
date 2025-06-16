@@ -50,6 +50,9 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     justifyContent: 'center',
     gap: theme.spacing(2),
+    [theme.breakpoints.down('xs')]: {
+      fontSize: 32,
+    },
   },
   headerText: {},
   subheader: {},

@@ -7,10 +7,13 @@ const useStyles = makeStyles((theme) => ({
     right: 30,
     borderRadius: '50%',
     zIndex: 1300,
-    transition: 'background-color 0.8s ease-in-out, color 0.8s ease-in-out',
+    border: `2px solid ${theme.palette.background.default}`,
+    transition: theme.transitions.slow,
     backgroundColor: theme.palette.primary.main,
+    opacity: 0.7,
     '&:hover': {
       backgroundColor: theme.palette.accent.main,
+      borderColor: theme.palette.primary.main,
       '& $shareIcon': {
         color: theme.palette.primary.main,
       },
@@ -24,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
   },
   socialIcon: {
     color: theme.palette.secondary.light,
-    transition: 'color 0.4s ease-in-out',
+    transition: theme.transitions.standard,
     '&:hover': {
       color: theme.palette.accent.main,
     },

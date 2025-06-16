@@ -53,7 +53,7 @@ const useStyles = makeStyles((theme) => ({
     margin: 1,
     textAlign: 'center',
     fontSize: 16,
-    transition: 'letter-spacing 0.5s ease-in-out, text-shadow 0.3s ease-in-out',
+    transition: theme.transitions.standard,
     letterSpacing: 1,
     textShadow: 'none',
     '&:hover': {

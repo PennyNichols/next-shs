@@ -20,6 +20,9 @@ const useStyles = makeStyles((theme) => ({
   actionButtonsContainer: {
     display: 'flex',
     gap: theme.spacing(3),
+    [theme.breakpoints.down('sm')]: {
+      flexDirection: 'column',
+    },
   },
   logoContainer: {
     display: 'flex',
@@ -35,8 +38,25 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'space-around',
     alignItems: 'top',
     margin: theme.spacing(3),
+    gap: theme.spacing(2),
+    [theme.breakpoints.down('sm')]: {
+      flexDirection: 'column',
+      alignItems: 'center',
+    },
   },
-  middleContentContainer: {},
+  middleContentContainer: {
+    [theme.breakpoints.down('sm')]: {
+      width: '100%',
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'space-around',
+    },
+  },
+  quickLinksTitle: {
+    [theme.breakpoints.down('sm')]: {
+      display: 'none',
+    },
+  },
   bottomContainer: {
     display: 'flex',
     alignItems: 'end',
@@ -51,6 +71,10 @@ const useStyles = makeStyles((theme) => ({
   },
   socialIcon: {
     color: theme.palette.accent.main,
+    transition: theme.transitions.standard,
+    '&:hover': {
+      transform: 'scale(1.2)',
+    },
   },
 }));
 

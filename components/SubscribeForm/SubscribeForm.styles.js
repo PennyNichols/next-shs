@@ -9,6 +9,10 @@ const useStyles = makeStyles((theme) => {
       flexDirection: 'row',
       alignItems: 'center',
       gap: theme.spacing(1),
+      [theme.breakpoints.down('sm')]: {
+        flexDirection: 'column',
+        alignItems: 'stretch',
+      },
     },
     input: {
       '& .MuiInputBase-input': {
@@ -21,6 +25,7 @@ const useStyles = makeStyles((theme) => {
         },
       },
       '& .MuiOutlinedInput-root': {
+        borderRadius: theme.shape.borderRadius.small,
         '& fieldset': {
           borderColor: mainColor,
         },

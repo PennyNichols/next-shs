@@ -9,9 +9,11 @@ import { formatPhoneNumber } from '../../functions/utils/utils';
 import useStyles from './Footer.styles';
 import ReviewButton from '../ActionButtons/ReviewButton';
 import LogoSvg from '../SVG/LogoSvg';
+import useMedia from '../../hooks/useMedia';
 
 const Footer = () => {
   const classes = useStyles();
+  const { isMobile, isSmallTablet } = useMedia();
   return (
     <Box component="footer" className={classes.footerOuterContainer}>
       <Container maxWidth="lg">
@@ -34,20 +36,21 @@ const Footer = () => {
               </Typography>
             </Box>
           </Box>
-
+          {!(isMobile || isSmallTablet) && (
+            <Box className={classes.middleContentContainer}>
+              <Typography variant="h6" color="inherit">
+                Contact Information
+              </Typography>
+              <Typography variant="body2" color="inherit">
+                Phone: {formatPhoneNumber(PHONE_NUMBER)}
+              </Typography>
+              <Typography variant="body2" color="inherit">
+                Email: {EMAIL_ADDRESS}
+              </Typography>
+            </Box>
+          )}
           <Box className={classes.middleContentContainer}>
-            <Typography variant="h6" color="inherit">
-              Contact Information
-            </Typography>
-            <Typography variant="body2" color="inherit">
-              Phone: {formatPhoneNumber(PHONE_NUMBER)}
-            </Typography>
-            <Typography variant="body2" color="inherit">
-              Email: {EMAIL_ADDRESS}
-            </Typography>
-          </Box>
-          <Box className={classes.middleContentContainer}>
-            <Typography variant="h6" color="inherit">
+            <Typography variant="h6" color="inherit" className={classes.quickLinksTitle}>
               Quick Links
             </Typography>
             <Link href="/privacy-policy" color="inherit">

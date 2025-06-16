@@ -6,12 +6,12 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    height: '300px',
+    height: 300,
     [theme.breakpoints.down('md')]: {
-      height: '200px',
+      height: 200,
     },
     [theme.breakpoints.down('sm')]: {
-      height: '300px',
+      height: 300,
     },
   },
   awardIconContainer: {
@@ -19,13 +19,13 @@ const useStyles = makeStyles((theme) => ({
     zIndex: 1,
   },
   awardIcon: {
-    fontSize: '390px',
+    fontSize: 390,
     color: theme.palette.primary.main,
     [theme.breakpoints.down('md')]: {
-      fontSize: '250px',
+      fontSize: 250,
     },
     [theme.breakpoints.down('sm')]: {
-      fontSize: '390px',
+      fontSize: 390,
     },
   },
   awardTextContainer: {

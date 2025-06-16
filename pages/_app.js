@@ -5,7 +5,7 @@ import '../src/app/globals.css';
 import theme from '@/theme/theme';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { ThemeProvider } from '@mui/material/styles';
 import { Box } from '@mui/material';
 import NavBar from '../components/NavBar/NavBar';
@@ -17,10 +17,11 @@ import { FirebaseCollectionProvider } from '../hooks/FirebaseService';
 function MyApp({ Component, pageProps }) {
   const router = useRouter();
   const isHomePage = router.pathname === '/';
-
-  // Disable specific paths
-  const disabledPaths = ['/blog', '/about', '/FAQ'];
-
+  const is404Page = router.pathname === '/404';
+  const disabledPaths = ['/blog', '/about', '/FAQ', '/auth'];
+  useEffect(() => {
+    console.log('Current Pathname in _app.js:', router.pathname);
+  }, []);
   return (
     <React.Fragment>
       <Head>
@@ -35,12 +36,12 @@ function MyApp({ Component, pageProps }) {
             minHeight="100vh"
             sx={{ backgroundColor: theme.palette.secondary.light }}
           >
-            {isHomePage && <Hero />}
+            {!is404Page && isHomePage && <Hero />}
             <NavBar />
             <Box flexGrow={1}>
               {disabledPaths.includes(router.pathname) ? (
                 <Box flexGrow={1} display="flex" alignItems="center" justifyContent="center">
-                  <h2>This page is currently unavailable.</h2>
+                  <h2>This page is coming soon!</h2>
                 </Box>
               ) : (
                 <Component {...pageProps} />

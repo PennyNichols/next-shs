@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme) => ({
     maxHeight: '90vh',
     backgroundColor: theme.palette.background.paper,
     borderRadius: 2,
-    boxShadow: 10,
+    boxShadow: theme.shadows[3],
     padding: theme.spacing(2, 4, 3),
     zIndex: theme.zIndex.modal,
     overflowY: 'auto',

@@ -10,3 +10,12 @@ export const formatPhoneNumber = (phoneNumber) => {
   // Format the phone number
   return `(${areaCode}) ${centralOfficeCode}-${stationCode}`;
 };
+
+export const truncateText = (text, maxWords) => {
+  if (!text || typeof text !== 'string') return '';
+
+  const words = text.split(' ');
+  if (words.length <= maxWords) return text;
+
+  return words.slice(0, maxWords).join(' ') + '...';
+};
