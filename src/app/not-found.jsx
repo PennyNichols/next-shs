@@ -53,37 +53,43 @@ const Custom404 = () => {
                 margin: 'auto',
               }}
             >
-              <Button
-                as="a"
-                variant="contained"
-                color="primary"
-                size="large"
-                sx={{
-                  '&:hover': {
-                    color: theme.palette.accent.main,
-                    backgroundColor: theme.palette.primary.main,
-                    borderColor: theme.palette.accent.main,
-                  },
-                }}
-              >
-                Go to Homepage
-              </Button>
+              <Link href="/" passHref legacyBehavior>
+                <Button
+                  as="a"
+                  variant="contained"
+                  color="primary"
+                  size="large"
+                  sx={{
+                    textDecoration: 'none',
+                    '&:hover': {
+                      color: theme.palette.accent.main,
+                      backgroundColor: theme.palette.primary.main,
+                      borderColor: theme.palette.accent.main,
+                    },
+                  }}
+                >
+                  Go to Homepage
+                </Button>
+              </Link>
               {/* You can add more links here */}
-              <Button
-                as="a"
-                variant="contained"
-                color="primary"
-                size="large"
-                sx={{
-                  '&:hover': {
-                    color: theme.palette.accent.main,
-                    backgroundColor: theme.palette.primary.main,
-                    borderColor: theme.palette.accent.main,
-                  },
-                }}
-              >
-                Explore Our Services
-              </Button>
+              <Link href="/services" passHref legacyBehavior>
+                <Button
+                  as="a"
+                  variant="contained"
+                  color="primary"
+                  size="large"
+                  sx={{
+                    textDecoration: 'none',
+                    '&:hover': {
+                      color: theme.palette.accent.main,
+                      backgroundColor: theme.palette.primary.main,
+                      borderColor: theme.palette.accent.main,
+                    },
+                  }}
+                >
+                  Explore Our Services
+                </Button>
+              </Link>
             </Box>
           </Box>
         </Box>
