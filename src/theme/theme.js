@@ -84,7 +84,11 @@ const theme = createTheme({
         root: {
           textTransform: 'none',
           fontWeight: 500,
-          boxShadow: customShadows[3],
+          boxShadow: customShadows[2],
+          borderRadius: customBorderRadius.small,
+          border: `2px solid transparent`,
+          transition: 'all 0.5s ease-in-out',
+          cursor: 'pointer',
         },
       },
     },
@@ -183,6 +187,7 @@ const theme = createTheme({
       fontWeight: 500,
       letterSpacing: 0.2,
       boxShadow: customShadows[3],
+      borderRadius: customBorderRadius.medium,
     },
   },
 });

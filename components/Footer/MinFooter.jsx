@@ -1,28 +1,18 @@
 import React from 'react';
 import { Box, Container, Typography, Link } from '@mui/material';
 import { Facebook, Google, Instagram } from '@mui/icons-material';
-import SubscribeForm from '../SubscribeForm';
-import EstimateRequestButton from '../ActionButtons/EstimateRequestButton';
 import { EMAIL_ADDRESS, FACEBOOK_URL, GOOGLE_URL, INSTAGRAM_URL, PHONE_NUMBER } from '../../constants/companyDetails';
 import { formatPhoneNumber } from '../../functions/utils/utils';
 import useStyles from './Footer.styles';
-import ReviewButton from '../ActionButtons/ReviewButton';
 import LogoSvg from '../SVG/LogoSvg';
 import useMedia from '../../hooks/useMedia';
 
-const Footer = () => {
+const MinFooter = () => {
   const classes = useStyles();
   const { isMobile, isSmallTablet } = useMedia();
   return (
     <Box component="footer" className={classes.footerOuterContainer}>
       <Container maxWidth="lg">
-        <Box component="section" className={classes.topContainer}>
-          <SubscribeForm />
-          <Box className={classes.actionButtonsContainer}>
-            <ReviewButton />
-            <EstimateRequestButton darkBackground />
-          </Box>
-        </Box>
         <Box component="section" className={classes.middleContainer}>
           <Box className={classes.logoContainer}>
             <LogoSvg width={90} height={70} />
@@ -82,4 +72,4 @@ const Footer = () => {
   );
 };
 
-export default Footer;
+export default MinFooter;

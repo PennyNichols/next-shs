@@ -12,12 +12,12 @@ import NavBar from '../components/NavBar/NavBar';
 import Footer from '../components/Footer/Footer';
 import Hero from '../components/Hero/Hero';
 import ShareButton from '../components/ActionButtons/ShareButton';
+import ComingSoon from '../components/ComingSoon/ComingSoon';
 import { FirebaseCollectionProvider } from '../hooks/FirebaseService';
 
 function MyApp({ Component, pageProps }) {
   const router = useRouter();
   const isHomePage = router.pathname === '/';
-  const is404Page = router.pathname === '/404';
   const disabledPaths = ['/blog', '/about', '/FAQ', '/auth'];
   useEffect(() => {
     console.log('Current Pathname in _app.js:', router.pathname);
@@ -36,13 +36,11 @@ function MyApp({ Component, pageProps }) {
             minHeight="100vh"
             sx={{ backgroundColor: theme.palette.secondary.light }}
           >
-            {!is404Page && isHomePage && <Hero />}
+            {isHomePage && <Hero />}
             <NavBar />
             <Box flexGrow={1}>
               {disabledPaths.includes(router.pathname) ? (
-                <Box flexGrow={1} display="flex" alignItems="center" justifyContent="center">
-                  <h2>This page is coming soon!</h2>
-                </Box>
+                <ComingSoon />
               ) : (
                 <Component {...pageProps} />
               )}
