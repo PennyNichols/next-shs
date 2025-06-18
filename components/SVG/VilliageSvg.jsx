@@ -4,36 +4,36 @@ import useMedia from "../../hooks/useMedia";
 
 const VilliageSvg = (props) => {
   const { style, ...rest } = props;
-  const {isSmallTablet, isMobile} = useMedia()
+  const { isSm, isXs } = useMedia();
   return (
     <svg
       version="1.1"
       id="Layer_1"
       xmlns="http://www.w3.org/2000/svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"
-      preserveAspectRatio= "none"
+      preserveAspectRatio="none"
       x="0px"
       y="0px"
       viewBox="0 0 122.88 94.97"
       style={{
         width: '80%',
         minWidth: 300,
-        height: (isSmallTablet || isMobile) ? 400 : 500,
+        height: isSm || isXs ? 400 : 500,
         enableBackground: 'new 0 0 122.88 94.97',
         overflow: 'visible',
-        ...style
+        ...style,
       }}
       xmlSpace="preserve"
       {...rest}
     >
       <defs>
         <filter id="frostGlow" x="-20%" y="-20%" width="140%" height="140%">
-          <feGaussianBlur stdDeviation="2.5" result="blur"/>
+          <feGaussianBlur stdDeviation="2.5" result="blur" />
           <feMerge>
-            <feMergeNode in="blur"/>
-            <feMergeNode in="SourceGraphic"/>
+            <feMergeNode in="blur" />
+            <feMergeNode in="SourceGraphic" />
           </feMerge>
-          <feDropShadow dx="0" dy="0" stdDeviation="3" floodColor="#2196f3" floodOpacity="0.4"/>
+          <feDropShadow dx="0" dy="0" stdDeviation="3" floodColor="#2196f3" floodOpacity="0.4" />
         </filter>
       </defs>
       <g>

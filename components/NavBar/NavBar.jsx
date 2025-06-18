@@ -18,11 +18,11 @@ import { Handyman, HomeRepairService } from '@mui/icons-material';
 
 const pages = [
   { name: 'Home', href: '/' },
-  // { name: 'Blog', href: '/blog' },
   { name: 'Services', href: '/services' },
-  // { name: 'About', href: '/about' },
   { name: 'Careers', href: '/careers' },
-  // { name: 'FAQ', href: '/FAQ' },
+  { name: 'Blog', href: '/blog' },
+  { name: 'About', href: '/about' },
+  { name: 'FAQ', href: '/FAQ' },
 ];
 
 function ResponsiveAppBar() {

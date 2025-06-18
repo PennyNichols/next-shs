@@ -4,35 +4,35 @@ import { useState, useEffect } from 'react';
  * A custom hook to determine the current screen size and provide boolean flags for breakpoints.
  *
  * Breakpoints:
- * - mobile: 0-599px
- * - smallTablet: 600-899px
- * - largeTablet: 900-1199px
- * - desktop: 1200-1535px
- * - largeDesktop: 1536px and up
+ * - xs: 0-599px
+ * - sm: 600-899px
+ * - md: 900-1199px
+ * - lg: 1200-1535px
+ * - xl: 1536px and up
  *
  * @returns {object} An object with boolean flags for each breakpoint and the current screen size.
- * - `isMobile`: `true` if the screen width is 0-600px.
- * - `isSmallTablet`: `true` if the screen width is 601-900px.
- * - `isLargeTablet`: `true` if the screen width is 901-1200px.
- * - `isDesktop`: `true` if the screen width is 1201-1536px.
- * - `isLargeDesktop`: `true` if the screen width is 1537px and up.
+ * - `isXs`: `true` if the screen width is 0-600px.
+ * - `isSm`: `true` if the screen width is 601-900px.
+ * - `isMd`: `true` if the screen width is 901-1200px.
+ * - `isLg`: `true` if the screen width is 1201-1536px.
+ * - `isXl`: `true` if the screen width is 1537px and up.
  * - `screenSize`: A string representing the current screen size:
- *    ('mobile', 'smallTablet', 'largeTablet', 'desktop', 'largeDesktop').
+ *    ('xs', 'sm', 'md', 'lg', 'xl').
  *
  * @example
  * import React from 'react';
  * import useMedia from '../../hooks/useMedia';
  *
  * const ResponsiveComponent = () => {
- *   const { isMobile, isDesktop, screenSize } = useMedia();
+ *   const { isXs, isLg, screenSize } = useMedia();
  *
  *   return (
  *     <div>
- *       {isMobile && <p>This is a mobile view.</p>}
- *       {screenSize === 'smallTablet' && <p>This is a small tablet view.</p>}
- *       {screenSize === 'largeTablet' && <p>This is a large tablet view.</p>}
- *       {isDesktop && <p>This is a desktop view.</p>}
- *       {screenSize === 'largeDesktop' && <p>This is a large desktop view.</p>}
+ *       {isXs && <p>xs is a mobile view.</p>}
+ *       {screenSize === 'sm' && <p>sm is a small tablet view.</p>}
+ *       {screenSize === 'md' && <p>md is a large tablet view.</p>}
+ *       {isLg && <p>lg is a desktop view.</p>}
+ *       {screenSize === 'xl' && <p>xl is a large desktop view.</p>}
  *     </div>
  *   );
  * };
@@ -40,21 +40,21 @@ import { useState, useEffect } from 'react';
  * export default ResponsiveComponent;
  */
 const breakpoints = {
-  mobile: '(max-width: 599px)',
-  smallTablet: '(min-width: 600px) and (max-width: 899px)',
-  largeTablet: '(min-width: 900px) and (max-width: 1199px)',
-  desktop: '(min-width: 1200px) and (max-width: 1535px)',
-  largeDesktop: '(min-width: 1536px)',
+  xs: '(max-width: 599px)',
+  sm: '(min-width: 600px) and (max-width: 899px)',
+  md: '(min-width: 900px) and (max-width: 1199px)',
+  lg: '(min-width: 1200px) and (max-width: 1535px)',
+  xl: '(min-width: 1536px)',
 };
 
 const useMedia = () => {
-  const [screenSize, setScreenSize] = useState('mobile');
+  const [screenSize, setScreenSize] = useState('xs');
   const [breakpointFlags, setBreakpointFlags] = useState({
-    isMobile: false,
-    isSmallTablet: false,
-    isLargeTablet: false,
-    isDesktop: false,
-    isLargeDesktop: false,
+    isXs: false,
+    isSm: false,
+    isMd: false,
+    isLg: false,
+    isXl: false,
   });
 
   useEffect(() => {
@@ -65,18 +65,18 @@ const useMedia = () => {
 
     const getActiveScreenSize = () => {
       const activeBreakpoint = mediaQueryLists.find(({ mql }) => mql.matches);
-      return activeBreakpoint ? activeBreakpoint.key : 'mobile';
+      return activeBreakpoint ? activeBreakpoint.key : 'xs';
     };
 
     const updateFlags = () => {
       const activeScreenSize = getActiveScreenSize();
       setScreenSize(activeScreenSize);
       setBreakpointFlags({
-        isMobile: activeScreenSize === 'mobile',
-        isSmallTablet: activeScreenSize === 'smallTablet',
-        isLargeTablet: activeScreenSize === 'largeTablet',
-        isDesktop: activeScreenSize === 'desktop',
-        isLargeDesktop: activeScreenSize === 'largeDesktop',
+        isXs: activeScreenSize === 'xs',
+        isSm: activeScreenSize === 'sm',
+        isMd: activeScreenSize === 'md',
+        isLg: activeScreenSize === 'lg',
+        isXl: activeScreenSize === 'xl',
       });
     };
 

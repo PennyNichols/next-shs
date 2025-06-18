@@ -14,6 +14,8 @@ import Hero from '../components/Hero/Hero';
 import ShareButton from '../components/ActionButtons/ShareButton';
 import ComingSoon from '../components/ComingSoon/ComingSoon';
 import { FirebaseCollectionProvider } from '../hooks/FirebaseService';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 
 function MyApp({ Component, pageProps }) {
   const router = useRouter();

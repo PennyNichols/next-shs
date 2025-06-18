@@ -12,7 +12,7 @@ import useMedia from '../../hooks/useMedia';
 
 const Footer = () => {
   const classes = useStyles();
-  const { isMobile, isSmallTablet } = useMedia();
+  const { isXs, isSm } = useMedia();
   return (
     <Box component="footer" className={classes.footerOuterContainer}>
       <Container maxWidth="lg">
@@ -35,7 +35,7 @@ const Footer = () => {
               </Typography>
             </Box>
           </Box>
-          {!(isMobile || isSmallTablet) && (
+          {!(isXs || isSm) && (
             <Box className={classes.middleContentContainer}>
               <Typography variant="h6" color="inherit">
                 Contact Information

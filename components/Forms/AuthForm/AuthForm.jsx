@@ -16,7 +16,7 @@ const AuthForm = () => {
   const [localError, setLocalError] = useState('');
   const [isSignUp, setIsSignUp] = useState(false);
 
-  const { isMobile, isSmallTablet } = useMedia();
+  const { isXs, isSm } = useMedia();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -49,7 +49,7 @@ const AuthForm = () => {
   return (
     <Box
       sx={{
-        maxWidth: isMobile || isSmallTablet ? 600 : 400,
+        maxWidth: isXs || isSm ? 600 : 400,
         padding: 3,
         borderRadius: 2,
         boxShadow: 3,

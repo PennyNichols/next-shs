@@ -7,11 +7,11 @@ import useMedia from '../hooks/useMedia';
 
 const Auth = () => {
   const classes = useStyles();
-  const { isMobile, isSmallTablet } = useMedia();
+  const { isXs, isSm } = useMedia();
 
   return (
     <Box className={classes.authWrapper}>
-      {!isMobile && !isSmallTablet && (
+      {!isXs && !isSm && (
         <Box>
           <img
             src="/images/logoWithTextDark.svg"

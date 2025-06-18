@@ -9,7 +9,7 @@ import { ArrowDownward, ExpandMore } from '@mui/icons-material';
 
 const Hero = () => {
   const classes = useStyles();
-  const { isMobile } = useMedia();
+  const { isXs } = useMedia();
   return (
     <Box className={classes.heroContainer}>
       <Image
@@ -36,7 +36,7 @@ const Hero = () => {
           <TextButton />
           <EstimateRequestButton />
         </Box>
-        {isMobile && (
+        {isXs && (
           <Box className={classes.scrollIndicatorContainer}>
             <Typography component="span" className={classes.scrollIcon}>
               &#8595;
