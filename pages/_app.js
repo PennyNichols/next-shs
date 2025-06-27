@@ -1,36 +1,46 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable unused-imports/no-unused-vars */
-/* eslint-disable unused-imports/no-unused-imports */
+// pages/_app.tsx
+// This file is for pages within the 'pages/' directory.
+// For pages in the 'app/' directory, refer to app/layout.tsx for global setup.
+
 import '../src/app/globals.css';
-import theme from '@/theme/theme';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+
+import React, { useEffect } from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import React, { useEffect } from 'react';
+
+// Material-UI Imports
 import { ThemeProvider } from '@mui/material/styles';
-import { Box } from '@mui/material';
+import { Box, CssBaseline, GlobalStyles } from '@mui/material';
+
+// Custom Theme and Global Styles
+import theme from '@/theme';
+import globalSlickStyles from '../src/theme/globalSlickStyles';
+
+// Your Custom Components/Providers
 import NavBar from '../components/NavBar/NavBar';
 import Footer from '../components/Footer/Footer';
 import Hero from '../components/Hero/Hero';
 import ShareButton from '../components/ActionButtons/ShareButton';
 import ComingSoon from '../components/ComingSoon/ComingSoon';
 import { FirebaseCollectionProvider } from '../hooks/FirebaseService';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
 
 function MyApp({ Component, pageProps }) {
   const router = useRouter();
   const isHomePage = router.pathname === '/';
   const disabledPaths = ['/blog', '/about', '/FAQ', '/auth'];
-  useEffect(() => {
-    console.log('Current Pathname in _app.js:', router.pathname);
-  }, []);
+
   return (
     <React.Fragment>
       <Head>
         <title>SHS Site 2024</title>
         <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
       </Head>
+
       <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <GlobalStyles styles={globalSlickStyles(theme)} />
         <FirebaseCollectionProvider>
           <Box
             display="flex"
@@ -41,11 +51,7 @@ function MyApp({ Component, pageProps }) {
             {isHomePage && <Hero />}
             <NavBar />
             <Box flexGrow={1}>
-              {disabledPaths.includes(router.pathname) ? (
-                <ComingSoon />
-              ) : (
-                <Component {...pageProps} />
-              )}
+              {disabledPaths.includes(router.pathname) ? <ComingSoon /> : <Component {...pageProps} />}
             </Box>
             <Footer />
             <ShareButton />

@@ -1,7 +1,8 @@
-import { makeStyles } from '@mui/styles';
-import { alpha } from '@mui/material/styles';
+// src/theme/globalSlickStyles.ts (or .js)
+import { customBorderRadius } from '@/theme/otherThemeConstants';
 
-const useStyles = makeStyles((theme) => ({
+// Define your global styles as a function that takes the theme
+const globalSlickStyles = (theme) => ({
   // --- Global Styles for react-slick Dots ---
   // Using @global to target classes created by react-slick, like 'slick-dots'
   '@global': {
@@ -50,8 +51,8 @@ const useStyles = makeStyles((theme) => ({
             opacity: 0.7, // Default opacity for inactive dots
             color: theme.palette.grey[500], // Default color for inactive dots
             // Improve text rendering for the dot character
-            '-webkit-font-smoothing': 'antialiased',
-            '-moz-osx-font-smoothing': 'grayscale',
+            WebkitFontSmoothing: 'antialiased',
+            MozOsxFontSmoothing: 'grayscale',
           },
         },
 
@@ -65,16 +66,16 @@ const useStyles = makeStyles((theme) => ({
     '.slick-arrow': {
       width: '20px',
       height: '20px',
-      borderRadius: '50%',
+      borderRadius: customBorderRadius.circle,
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
       backgroundColor: theme.palette.primary.main,
     },
     '.slick-prev:before, .slick-next:before': {
-        display: 'none',
-    }
+      display: 'none',
+    },
   },
-}));
+});
 
-export default useStyles;
+export default globalSlickStyles;

@@ -1,12 +1,15 @@
+// react-quill is incompatible with react 19, need to find a different library before using this component
+
+
 import React, { useState } from 'react';
-import dynamic from 'next/dynamic'; // Import dynamic from next/dynamic
+// import dynamic from 'next/dynamic'; // Import dynamic from next/dynamic
 import { Box, Button, TextField, Typography, IconButton, Alert } from '@mui/material';
 import { Add, Remove } from '@mui/icons-material';
 import { useFirebaseCollections } from '../../../hooks/FirebaseService';
 
-const ReactQuill = dynamic(() => import('react-quill'), { ssr: false }); // Dynamic import
+// const ReactQuill = dynamic(() => import('react-quill'), { ssr: false }); // Dynamic import
 
-import 'react-quill/dist/quill.snow.css';
+// import 'react-quill/dist/quill.snow.css';
 
 const initialState = {
   header: '',
@@ -101,11 +104,11 @@ const BlogForm = ({ setOpen }) => {
   return (
     <Box component="form" onSubmit={handleSubmit} sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
       <TextField label="Header" name="header" value={formData.header} onChange={handleChange} fullWidth />
-      <ReactQuill
+      {/* <ReactQuill
         value={formData.body}
         onChange={(value) => handleOnChangeBody(value)}
         placeholder="Write the details of your blog post here..."
-      />
+      /> */}
       <Typography variant="h6">Keywords</Typography>
       {formData.keywords.map((keyword, index) => (
         <Box key={index} sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>

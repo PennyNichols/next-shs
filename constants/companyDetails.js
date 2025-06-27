@@ -1,5 +1,5 @@
-export const PHONE_NUMBER = ['+1', '407', '414', '0012'].join('');
-export const EMAIL_ADDRESS = ['Joshua', '@', 'SHS-Florida', '.', 'com'].join('');
+export const PHONE_NUMBER = ['+1', '941', '979', '7879'].join('');
+export const EMAIL_ADDRESS = ['Contact', '@', 'SHS-Florida', '.', 'com'].join('');
 export const CALL_BUTTON_TEXT = 'Call Us';
 export const TEXT_BUTTON_TEXT = 'Text Us';
 export const REVIEW_BUTTON_TEXT = 'Leave a Review';

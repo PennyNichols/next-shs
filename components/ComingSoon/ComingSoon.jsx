@@ -1,8 +1,7 @@
-import theme from '@/theme/theme';
+import theme from '@/theme';
 import { Box, Button, Typography } from '@mui/material';
 import CementMixerSvg from '../SVG/CementMixerSvg';
 import Link from 'next/link';
-import useStyles from './ComingSoon.styles';
 
 // TO DO:
 // 1. TRANSFORM TITLE TO LOOK LIKE A SIGN ON THE SIDE OF THE ROAD
@@ -13,7 +12,6 @@ import useStyles from './ComingSoon.styles';
 // 4. COPY THE NEW SVG CODE INTO THE CementMixerSvg COMPONENT
 
 const ComingSoon = () => {
-  const classes = useStyles();
   return (
     <Box
       sx={{
@@ -29,7 +27,7 @@ const ComingSoon = () => {
         backgroundColor: theme.palette.background.default, // Example: use your theme
       }}
     >
-      <Box flexGrow={1} p={3} sx={{ maxWidth: '90vw', justifyContent: 'center' }}>
+      <Box flexGrow={1} sx={{ maxWidth: '90vw', justifyContent: 'center', py: { xs: 5, md: 8, xl: 10 } }}>
         <Box
           sx={{
             width: '100%',
@@ -43,20 +41,95 @@ const ComingSoon = () => {
           <Typography variant="h2" component="h1">
             Under Construction
           </Typography>
-          <Box className={classes.cementMixerDrive}>
-            <Box className={classes.cementMixerBounce}>
+          <Box
+            sx={{
+              animation: '$driveBackAndForth 20s linear infinite',
+              display: 'inline-block',
+              transformOrigin: 'center center',
+              position: 'relative',
+              zIndex: 10,
+              '@keyframes driveBackAndForth': {
+                '0%': {
+                  transform: 'translateX(calc(-60vw - 100px)) scaleX(1)',
+                },
+                '49%': {
+                  transform: 'translateX(calc(60vw + 100px)) scaleX(1)',
+                },
+                '50%': {
+                  transform: 'translateX(calc(60vw + 100px)) scaleX(-1)',
+                },
+                '99%': {
+                  transform: 'translateX(calc(-60vw - 100px)) scaleX(-1)',
+                },
+                '100%': {
+                  transform: 'translateX(calc(-60vw - 100px)) scaleX(1)',
+                },
+              },
+            }}
+          >
+            <Box
+              sx={{
+                animation: '$bounce 1s cubic-bezier(0.68, -0.55, 0.27, 1.55) infinite alternate',
+                display: 'inline-block',
+                position: 'relative',
+                zIndex: 10,
+                '@keyframes bounce': {
+                  '0%, 100%': {
+                    transform: 'translateY(0)',
+                  },
+                  '25%': {
+                    transform: 'translateY(-2px)',
+                  },
+                  '75%': {
+                    transform: 'translateY(2px)',
+                  },
+                },
+              }}
+            >
               <CementMixerSvg style={{ height: '130px', margin: 0, position: 'relative', zIndex: 10 }} />
             </Box>
           </Box>
-          <Box className={classes.road} style={{ margin: 0, marginTop: '-38px' }}>
-            <Box className={classes.roadLine} />
+          <Box
+            sx={{
+              width: '100vw',
+              height: 40,
+              border: `1px solid ${theme.palette.text.primary}`,
+              backgroundColor: theme.palette.secondary.dark,
+              marginTop: theme.spacing(1),
+              position: 'relative',
+              overflow: 'hidden',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              zIndex: 0,
+              margin: 0,
+              mt: '-38px',
+            }}
+          >
+            <Box
+              sx={{
+                width: '100vw',
+                height: 2,
+                backgroundImage: `repeating-linear-gradient(
+                  to right,
+                  ${theme.palette.accent.main},
+                  ${theme.palette.accent.main} 16px,
+                  transparent 16px,
+                  transparent 32px
+                )`,
+                backgroundRepeat: 'repeat-x',
+                backgroundPosition: 'center',
+                backgroundSize: 'auto 2px',
+                border: 'none',
+              }}
+            />
           </Box>
         </Box>
-        <Box sx={{ mt: 4, mb: 2 }}>
-          <Typography variant="h4" component="h2" sx={{ my: 2 }}>
+        <Box sx={{ my: 3 }}>
+          <Typography variant="h4" component="h2">
             Don't worry, this page will be available soon!
           </Typography>
-          <Typography variant="body1" sx={{ mb: 4 }}>
+          <Typography variant="body1" sx={{ mt: 4, mb: 6 }}>
             Our fantastic team is working hard to bring you the best experience. Stay tuned for updates!
           </Typography>
           <Box
@@ -70,43 +143,41 @@ const ComingSoon = () => {
               margin: 'auto',
             }}
           >
-            <Link href="/" passHref legacyBehavior>
-              <Button
-                as="a"
-                variant="contained"
-                color="primary"
-                size="large"
-                sx={{
-                  textDecoration: 'none',
-                  '&:hover': {
-                    color: theme.palette.accent.main,
-                    backgroundColor: theme.palette.primary.main,
-                    borderColor: theme.palette.accent.main,
-                  },
-                }}
-              >
-                Go to Homepage
-              </Button>
-            </Link>
+            <Button
+              href="/"
+              component={Link}
+              variant="contained"
+              color="primary"
+              size="large"
+              sx={{
+                textDecoration: 'none',
+                '&:hover': {
+                  color: theme.palette.accent.main,
+                  backgroundColor: theme.palette.primary.main,
+                  borderColor: theme.palette.accent.main,
+                },
+              }}
+            >
+              Go to Homepage
+            </Button>
             {/* You can add more links here */}
-            <Link href="/services" passHref legacyBehavior>
-              <Button
-                as="a"
-                variant="contained"
-                color="primary"
-                size="large"
-                sx={{
-                  textDecoration: 'none',
-                  '&:hover': {
-                    color: theme.palette.accent.main,
-                    backgroundColor: theme.palette.primary.main,
-                    borderColor: theme.palette.accent.main,
-                  },
-                }}
-              >
-                Explore Our Services
-              </Button>
-            </Link>
+            <Button
+              href="/services"
+              component={Link}
+              variant="contained"
+              color="primary"
+              size="large"
+              sx={{
+                textDecoration: 'none',
+                '&:hover': {
+                  color: theme.palette.accent.main,
+                  backgroundColor: theme.palette.primary.main,
+                  borderColor: theme.palette.accent.main,
+                },
+              }}
+            >
+              Explore Our Services
+            </Button>
           </Box>
         </Box>
       </Box>

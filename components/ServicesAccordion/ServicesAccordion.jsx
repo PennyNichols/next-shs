@@ -1,54 +1,88 @@
 import React from 'react';
 import { Accordion, AccordionDetails, AccordionSummary, Box, Typography } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { serviceCategories } from '../../constants/services';
-import useStyles from './ServicesAccordion.styles';
-import { useTheme } from '@mui/material/styles';
+import { SERVICE_CATEGORIES } from '../../constants/services';
+import { customBorderRadius } from '@/theme/otherThemeConstants';
+import theme from '@/theme';
 
 const ServicesAccordion = () => {
-  const classes = useStyles();
-  const theme = useTheme();
   return (
-    <Box className={classes.servicesAccordionContainer}>
-      {serviceCategories.map((section, idx) => (
+    <Box
+      sx={{
+        mt: 3,
+        maxWidth: { xs: '90vw', sm: '70vw' },
+      }}
+    >
+      {SERVICE_CATEGORIES.map((section, idx) => (
         <Accordion
           key={idx}
-          className={classes.servicesAccordion}
+          sx={{
+            mb: 3,
+            p: { xs: 1, md: 2 },
+            borderRadius: customBorderRadius.small,
+            border: `3px solid ${theme.palette.accent.main}`,
+            '&:before': { display: 'none' },
+            '&.Mui-expanded': {},
+          }}
           disableGutters
           elevation={0}
           square
         >
           <AccordionSummary
-            className={classes.servicesAccordionSummary}
+            sx={{
+              padding: '1 2',
+              borderRadius: customBorderRadius.medium,
+              color: 'accent.darkText',
+              fontWeight: 600,
+              '& .MuiTypography-root': {
+                color: 'primary.dark',
+                fontWeight: 600,
+                fontSize: { xs: '1rem', sm: '1.25rem' },
+              },
+            }}
             expandIcon={
               <ExpandMoreIcon
-                className={classes.servicesAccordionExpandIcon}
+                sx={{
+                  color: 'primary.dark',
+                  fontSize: '2rem',
+                }}
               />
             }
             aria-controls={`panel-${idx}-content`}
             id={`panel-${idx}-header`}
-            
           >
-            <Typography variant="h3">
-              {section.sectionTitle}
-            </Typography>
+            <Typography variant="h3">{section.sectionTitle}</Typography>
           </AccordionSummary>
           <AccordionDetails
-            className={classes.servicesAccordionDetails}
-            >
+            sx={{
+              padding: '1 2',
+              borderTop: `2px solid ${theme.palette.accent.main}`,
+              '&.MuiAccordionDetails-root': {
+                backgroundColor: 'background.paper',
+              },
+            }}
+          >
             <Box
-              className={classes.servicesAccordionDetailsContainer}
+              sx={{
+                mt: 1,
+                display: 'flex',
+                flexDirection: 'column',
+                gap: 1.5,
+              }}
             >
-              {section.typeOfWork.map((work, widx) => (
+              {section.typesOfWork.map((work, widx) => (
                 <Typography
                   key={widx}
                   variant="body1"
-                  className={classes.servicesAccordionDetailsText}
+                  sx={{
+                    color: 'primary.main',
+                    fontSize: { xs: '1rem', sm: '1.125rem' },
+                    fontWeight: 500,
+                    pl: 2,
+                    mb: 1,
+                  }}
                 >
-                  <strong className={classes.servicesAccordionDetailTitle} style={{ color: '#001f3f' }}>
-                    {work.title}:
-                  </strong>{' '}
-                  {work.description}
+                  <strong style={{ color: '#001f3f' }}>{work.title}:</strong> {work.description}
                 </Typography>
               ))}
             </Box>

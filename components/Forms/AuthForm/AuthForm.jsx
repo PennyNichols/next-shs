@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
-import { TextField, Button, Box, Typography, Alert, FormControlLabel, Checkbox } from '@mui/material';
+import React, { useEffect, useState } from 'react';
+import { TextField, Button, Box, Typography, Alert, FormControlLabel, Checkbox, Skeleton } from '@mui/material';
 import { useAuth } from '../../../hooks/auth/auth';
-import theme from '@/theme/theme';
 import useMedia from '../../../hooks/useMedia';
+import theme from '@/theme';
+import { customBorderRadius } from '@/theme/otherThemeConstants';
 
 const AuthForm = () => {
   const { signIn, signUp, signOutUser, deleteAccount, getCurrentUser, error } = useAuth();
@@ -16,7 +17,16 @@ const AuthForm = () => {
   const [localError, setLocalError] = useState('');
   const [isSignUp, setIsSignUp] = useState(false);
 
-  const { isXs, isSm } = useMedia();
+  const { isXs: initialIsXs, isSm: initialIsSm } = useMedia();
+  const [showClientContent, setShowClientContent] = useState(false);
+  const [isXs, setIsXs] = useState(false);
+  const [isSm, setIsSm] = useState(false);
+
+  useEffect(() => {
+    setShowClientContent(true);
+    setIsXs(initialIsXs);
+    setIsSm(initialIsSm);
+  }, [initialIsXs, initialIsSm]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -45,118 +55,150 @@ const AuthForm = () => {
       setLocalError(err.message);
     }
   };
-
   return (
-    <Box
-      sx={{
-        maxWidth: isXs || isSm ? 600 : 400,
-        padding: 3,
-        borderRadius: 2,
-        boxShadow: 3,
-        backgroundColor: '#fff',
-      }}
-    >
-      <Button variant="text" color="primary" onClick={signOutUser}>
-        Sign out
-      </Button>
-      <Button variant="text" color="primary" onClick={deleteAccount}>
-        Delete account
-      </Button>
-      <Typography variant="h4" align="center" gutterBottom>
-        {isSignUp ? 'Sign Up' : 'Login'}
-      </Typography>
-      <form onSubmit={handleSubmit}>
-        {localError && (
-          <Alert severity="error" sx={{ mb: 2 }}>
-            {localError}
-          </Alert>
-        )}
-        {error && (
-          <Alert severity="error" sx={{ mb: 2 }}>
-            {error.message}
-          </Alert>
-        )}
-        {isSignUp && (
-          <>
-            <TextField
-              label="First Name"
-              type="text"
-              fullWidth
-              margin="normal"
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
-            />
-            <TextField
-              label="Last Name"
-              type="text"
-              fullWidth
-              margin="normal"
-              value={lastName}
-              onChange={(e) => setLastName(e.target.value)}
-            />
-            <TextField
-              label="Phone Number"
-              type="tel"
-              fullWidth
-              margin="normal"
-              value={phoneNumber}
-              onChange={(e) => setPhoneNumber(e.target.value)}
-            />
-          </>
-        )}
-        <TextField
-          label="Email"
-          type="email"
-          fullWidth
-          margin="normal"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <TextField
-          label="Password"
-          type="password"
-          fullWidth
-          margin="normal"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        {isSignUp && (
-          <TextField
-            label="Confirm Password"
-            type="password"
-            fullWidth
-            margin="normal"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-          />
-        )}
-        <Button type="submit" variant="contained" color="primary" fullWidth sx={{ mt: 2 }}>
-          {isSignUp ? 'Sign Up' : 'Login'}
-        </Button>
-        {isSignUp && (
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={subscribeToMarketing}
-                onChange={(e) => setSubscribeToMarketing(e.target.checked)}
-                color="primary"
-              />
-            }
-            label="Yes, I would like to subscribe to email marketing from SHS Florida"
-            sx={{ mt: 2 }}
-          />
-        )}
-      </form>
-      <Typography variant="body2" align="center" sx={{ mt: 2 }}>
-        {isSignUp ? 'Already have an account?' : "Don't have an account?"}
-        <span
-          style={{ fontWeight: 600, color: theme.palette.primary.light, cursor: 'pointer' }}
-          onClick={() => setIsSignUp(!isSignUp)}
+    <React.Fragment>
+      {!showClientContent ? (
+        <Box
+          sx={{
+            maxWidth: 400,
+            padding: 3,
+            borderRadius: customBorderRadius.small,
+            boxShadow: 3,
+            backgroundColor: '#fff',
+          }}
         >
-          {isSignUp ? ' Login' : ' Sign Up'}
-        </span>
-      </Typography>
-    </Box>
+          {/* Skeleton for sign out and delete buttons */}
+          <Box sx={{ display: 'flex', gap: 1, mb: 2 }}>
+            <Skeleton variant="rectangular" width={80} height={36} />
+            <Skeleton variant="rectangular" width={120} height={36} />
+          </Box>
+
+          {/* Skeleton for title */}
+          <Skeleton variant="text" width="60%" height={40} sx={{ mx: 'auto', mb: 2 }} />
+
+          {/* Skeleton for form fields */}
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+            <Skeleton variant="rectangular" width="100%" height={56} />
+            <Skeleton variant="rectangular" width="100%" height={56} />
+            <Skeleton variant="rectangular" width="100%" height={48} sx={{ mt: 1 }} />
+          </Box>
+
+          {/* Skeleton for toggle text */}
+          <Skeleton variant="text" width="70%" height={20} sx={{ mx: 'auto', mt: 2 }} />
+        </Box>
+      ) : (
+        <Box
+          sx={{
+            maxWidth: isXs || isSm ? 600 : 400,
+            padding: 3,
+            borderRadius: customBorderRadius.small,
+            boxShadow: 3,
+            backgroundColor: '#fff',
+          }}
+        >
+          <Button variant="text" color="primary" onClick={signOutUser}>
+            Sign out
+          </Button>
+          <Button variant="text" color="primary" onClick={deleteAccount}>
+            Delete account
+          </Button>
+          <Typography variant="h4" align="center" gutterBottom>
+            {isSignUp ? 'Sign Up' : 'Login'}
+          </Typography>
+          <form onSubmit={handleSubmit}>
+            {localError && (
+              <Alert severity="error" sx={{ mb: 2 }}>
+                {localError}
+              </Alert>
+            )}
+            {error && (
+              <Alert severity="error" sx={{ mb: 2 }}>
+                {error.message}
+              </Alert>
+            )}
+            {isSignUp && (
+              <>
+                <TextField
+                  label="First Name"
+                  type="text"
+                  fullWidth
+                  margin="normal"
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
+                />
+                <TextField
+                  label="Last Name"
+                  type="text"
+                  fullWidth
+                  margin="normal"
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
+                />
+                <TextField
+                  label="Phone Number"
+                  type="tel"
+                  fullWidth
+                  margin="normal"
+                  value={phoneNumber}
+                  onChange={(e) => setPhoneNumber(e.target.value)}
+                />
+              </>
+            )}
+            <TextField
+              label="Email"
+              type="email"
+              fullWidth
+              margin="normal"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <TextField
+              label="Password"
+              type="password"
+              fullWidth
+              margin="normal"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            {isSignUp && (
+              <TextField
+                label="Confirm Password"
+                type="password"
+                fullWidth
+                margin="normal"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+              />
+            )}
+            <Button type="submit" variant="contained" color="primary" fullWidth sx={{ mt: 2 }}>
+              {isSignUp ? 'Sign Up' : 'Login'}
+            </Button>
+            {isSignUp && (
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={subscribeToMarketing}
+                    onChange={(e) => setSubscribeToMarketing(e.target.checked)}
+                    color="primary"
+                  />
+                }
+                label="Yes, I would like to subscribe to email marketing from SHS Florida"
+                sx={{ mt: 2 }}
+              />
+            )}
+          </form>
+          <Typography variant="body2" align="center" sx={{ mt: 2 }}>
+            {isSignUp ? 'Already have an account?' : "Don't have an account?"}
+            <span
+              style={{ fontWeight: 600, color: theme.palette.primary.light, cursor: 'pointer' }}
+              onClick={() => setIsSignUp(!isSignUp)}
+            >
+              {isSignUp ? ' Login' : ' Sign Up'}
+            </span>{' '}
+          </Typography>
+        </Box>
+      )}
+    </React.Fragment>
   );
 };
 

@@ -16,16 +16,16 @@
   }
 }
 
+
 html, body {
   box-sizing: border-box;
+  height: 100%;
   margin: 0;
   padding: 0;
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(to bottom, transparent, rgb(var(--background-end-rgb)));
-}
-
-html {
-  min-height: '100vh';
+  min-height: 100vh;
+    max-width: 100vw;
 }
 
 h1,

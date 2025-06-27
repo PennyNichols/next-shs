@@ -1,6 +1,7 @@
 import { alpha, Box } from '@mui/material';
-import theme from '@/theme/theme';
+import theme from '@/theme';
 import { KeyboardArrowLeft, KeyboardArrowRight } from '@mui/icons-material';
+import { customBorderRadius } from '@/theme/otherThemeConstants';
 
 export const CustomNextArrow = (props) => {
   const { className, style, onClick } = props;
@@ -12,7 +13,7 @@ export const CustomNextArrow = (props) => {
         ...style,
         display: 'block',
         color: theme.palette.primary.main,
-        borderRadius: theme.shape.borderRadius.circle,
+        borderRadius: customBorderRadius.circle,
         width: '20px !important',
         height: '20px !important',
         zIndex: 1,
@@ -21,7 +22,19 @@ export const CustomNextArrow = (props) => {
         },
       }}
     >
-      <KeyboardArrowRight sx={{fontSize: '20px', color: theme.palette.secondary.light, padding: 0, margin: 0, boxSizing: 'border-box', position: 'absolute', left: 1, top: 0, '&:hover': {color: theme.palette.primary.main}}} />
+      <KeyboardArrowRight
+        sx={{
+          fontSize: '1.25rem',
+          color: theme.palette.secondary.light,
+          padding: 0,
+          margin: 0,
+          boxSizing: 'border-box',
+          position: 'absolute',
+          left: 1,
+          top: 0,
+          '&:hover': { color: theme.palette.primary.main },
+        }}
+      />
     </Box>
   );
 };
@@ -36,7 +49,7 @@ export const CustomPrevArrow = (props) => {
         ...style,
         display: 'block',
         color: theme.palette.primary.main,
-        borderRadius: theme.shape.borderRadius.circle,
+        borderRadius: customBorderRadius.circle,
         zIndex: 1,
         width: '20px !important',
         height: '20px !important',
@@ -45,7 +58,19 @@ export const CustomPrevArrow = (props) => {
         },
       }}
     >
-      <KeyboardArrowLeft sx={{fontSize: '20px', color: theme.palette.secondary.light, padding: 0, margin: 0, boxSizing: 'border-box', position: 'absolute', left: -1, top: 0, '&:hover': {color: theme.palette.primary.main}}} />
+      <KeyboardArrowLeft
+        sx={{
+          fontSize: '1.25rem',
+          color: theme.palette.secondary.light,
+          padding: 0,
+          margin: 0,
+          boxSizing: 'border-box',
+          position: 'absolute',
+          left: -1,
+          top: 0,
+          '&:hover': { color: theme.palette.primary.main },
+        }}
+      />
     </Box>
   );
 };

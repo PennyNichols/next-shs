@@ -1,7 +1,46 @@
 {
   "compilerOptions": {
+    // --- Basic Type Checking and JavaScript Features ---
+    "checkJs": true, // CRITICAL: Enable semantic checks on .js and .jsx files
+    "esModuleInterop": true, // Allows `import React from 'react'`
+    "forceConsistentCasingInFileNames": true, // Helps prevent path resolution issues
+    "isolatedModules": true, // Each file can be transpiled independently
+    "jsx": "preserve", // Preserve JSX for Next.js's transpilation (or "react-jsx" for React 17+ and no explicit React import)
+    "lib": ["dom", "dom.iterable", "esnext"], // Standard browser and modern JS types
+    "resolveJsonModule": true, // Allow importing .json files
+    "skipLibCheck": true, // Skip type checking of declaration files in node_modules
+    "strict": false, // A more lenient starting point for JS; enable specific strict flags later if needed
+    "target": "es5", // Lowest common denominator, Next.js handles modern transpilation
+
+    // --- Module Resolution ---
+    "module": "esnext", // Use ES module syntax (import/export)
+    "moduleResolution": "node", // Resolve modules like Node.js (for node_modules and local files)
+    "baseUrl": "./", // Base directory for resolving non-relative imports
     "paths": {
+      // Your existing path alias. Adjust if your 'src' folder isn't at the root.
       "@/*": ["./src/*"]
-    }
-  }
+      // Example if your components folder is directly at the root:
+      // "@/components/*": ["./components/*"]
+    },
+
+    // --- Next.js Specific ---
+    "incremental": true, // Enable faster subsequent compilations
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ]
+  },
+  "include": [
+    "next-env.d.ts", // Next.js environment type definitions (even in JS projects)
+    "**/*.js", // Include all .js files
+    "**/*.jsx", // Include all .jsx files
+    "**/*.ts", // Include all .ts files
+    "**/*.tsx" // Include all .tsx files
+  ],
+  "exclude": [
+    "node_modules", // Exclude node_modules
+    ".next", // Exclude Next.js build output
+    "out" // Exclude Next.js export output
+  ]
 }

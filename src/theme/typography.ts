@@ -1,0 +1,70 @@
+// src/theme/typography.js
+import { TypographyOptions } from '@mui/material/styles/createTypography';
+import { darkText, navyBlue, darkGray } from './colors'; // Import relevant colors
+
+const typography: TypographyOptions = {
+  fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+  h1: {
+    fontSize: '2.5rem',
+    fontWeight: 600,
+    lineHeight: 1.2,
+    color: darkText,
+    letterSpacing: 2,
+  },
+  h2: {
+    fontSize: '2rem',
+    fontWeight: 600,
+    lineHeight: 1.3,
+    color: navyBlue,
+    letterSpacing: 0.5,
+  },
+  h3: {
+    fontSize: '1.75rem',
+    fontWeight: 500,
+    lineHeight: 1.4,
+    color: navyBlue,
+    letterSpacing: 0.2,
+  },
+  h4: {
+    fontSize: '1.5rem',
+    fontWeight: 500,
+    lineHeight: 1.5,
+    color: navyBlue,
+    letterSpacing: 0.2,
+  },
+  h5: {
+    fontSize: '1.25rem',
+    fontWeight: 500,
+    lineHeight: 1.6,
+    color: darkGray,
+    letterSpacing: 0.2,
+  },
+  h6: {
+    fontSize: '1.1rem',
+    fontWeight: 500,
+    lineHeight: 1.7,
+    color: navyBlue,
+    letterSpacing: 0.2,
+  },
+  body1: {
+    fontSize: '1rem',
+    lineHeight: 1.5,
+    color: darkGray,
+    letterSpacing: 0.2,
+  },
+  body2: {
+    fontSize: '0.875rem',
+    lineHeight: 1.5,
+    color: darkGray,
+    letterSpacing: 0.2,
+  },
+  button: {
+    textTransform: 'none',
+    fontWeight: 500,
+    letterSpacing: 0.2,
+    // boxShadow is commented out here as it will be applied via MuiButton component styles directly for consistency
+    // boxShadow: customShadows[3],
+  },
+};
+
+export default typography;

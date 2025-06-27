@@ -1,10 +1,10 @@
 import React from 'react';
-import useStyles from './styles';
 import { Box, Typography } from '@mui/material';
 import ServicesAccordion from '../components/ServicesAccordion/ServicesAccordion';
-import { useTheme } from '@mui/material/styles';
 import VilliageSvg from '../components/SVG/VilliageSvg';
 import ReviewCard from '../components/ReviewCard/ReviewCard';
+import { customBorderRadius } from '@/theme/otherThemeConstants';
+import theme from '@/theme';
 
 // Example review data (replace with Google review data as needed)
 const rawReviews = [
@@ -50,71 +50,256 @@ const getReviews = (rawReviews) => {
   }
 };
 
+const CustomDivider = () => {
+  return (
+    <Box
+      sx={{
+        width: '50%',
+        height: 2,
+        backgroundColor: 'accent.main',
+      }}
+    />
+  );
+};
+
+const CustomSeparationDot = () => {
+  return (
+    <Box
+      sx={{
+        width: 8,
+        height: 8,
+        borderRadius: customBorderRadius.circle,
+        backgroundColor: 'primary.main',
+      }}
+    />
+  );
+};
+
+const CustomTitleSideDecoration = () => {
+  return (
+    <Box
+      sx={{
+        flex: 1,
+        height: 2,
+        backgroundColor: 'accent.main',
+        margin: { xs: '5 1', md: 5 },
+      }}
+    />
+  );
+};
+
 const Home = () => {
-  const theme = useTheme();
-  const classes = useStyles();
   const reviews = getReviews(rawReviews);
 
   return (
-    <Box className={classes.container}>
-      <Box className={classes.serviceAreas}>
-        <Typography variant="h2" className={classes.sectionTitle}>
+    <Box
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'flex-start',
+        padding: { xs: `${theme.spacing(3)} ${theme.spacing(0)}`, sm: `${theme.spacing(3)} ${theme.spacing(5)}` },
+        minHeight: '100vh',
+        backgroundColor: 'background.default',
+        gap: { xs: 3, sm: 5 },
+      }}
+    >
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: 1,
+          marginTop: { xs: 1, sm: 3 },
+          padding: 4,
+          backgroundColor: 'background.paper',
+          boxShadow: 2,
+          borderRadius: customBorderRadius.small,
+          width: { xs: '90%', sm: '100%' },
+        }}
+      >
+        <Typography
+          variant="h2"
+          sx={{
+            textAlign: 'center',
+            whiteSpace: 'nowrap',
+            fontSize: { xs: '1.75rem', md: '2rem', lg: '2.25rem' },
+          }}
+        >
           Now Serving These
           <wbr /> Florida Locations
         </Typography>
-        <div className={classes.dividerLine} />
-        <Box className={classes.serviceAreasList}>
-          <Typography variant="h3" className={classes.serviceAreaListItem}>
+        <CustomDivider />
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: { xs: 'column', md: 'row' },
+            justifyContent: 'center',
+            alignItems: 'center',
+            gap: { xs: 2, md: 8 },
+            marginTop: 3,
+          }}
+        >
+          <Typography variant="h3" sx={{ fontSize: { xs: '1.5rem', md: '1.625rem', lg: '1.75rem' } }}>
             Port Charlotte
           </Typography>
-          <div className={classes.separationDot} />
-          <Typography variant="h3" className={classes.serviceAreaListItem}>
+          <CustomSeparationDot />
+          <Typography variant="h3" sx={{ fontSize: { xs: '1.5rem', md: '1.875rem', lg: '2.25rem' } }}>
             Punta Gorda
           </Typography>
-          <div className={classes.separationDot} />
-          <Typography variant="h3" className={classes.serviceAreaListItem}>
+          <CustomSeparationDot />
+          <Typography variant="h3" sx={{ fontSize: { xs: '1.5rem', md: '1.875rem', lg: '2.25rem' } }}>
             North Port
           </Typography>
         </Box>
       </Box>
-      <Box className={classes.services}>
-        <Box className={classes.lightTitleContainer}>
-          <div className={classes.lightTitleDecoration} />
-          <Typography variant="h2" className={`${classes.sectionTitle} ${classes.lightTitle}`}>
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          backgroundColor: 'primary.main',
+          padding: 2,
+          paddingBottom: 4,
+          borderRadius: { xs: customBorderRadius.none, sm: customBorderRadius.medium },
+          width: { xs: '100vw', sm: '100%' },
+          maxWidth: 1200,
+          boxShadow: 2,
+        }}
+      >
+        <Box
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: '90%',
+            mx: 'auto',
+            gap: 4,
+          }}
+        >
+          <CustomTitleSideDecoration />
+          <Typography
+            variant="h2"
+            sx={{
+              textAlign: 'center',
+              whiteSpace: 'nowrap',
+              fontSize: { xs: '1.75rem', sm: '2.25rem' },
+              color: 'secondary.light',
+            }}
+          >
             Our Services
           </Typography>
-          <div className={classes.lightTitleDecoration} />
+          <CustomTitleSideDecoration />
         </Box>
         <ServicesAccordion />
       </Box>
-      <Box className={classes.reviews}>
-        <Typography variant="h2" className={`${classes.sectionTitle} ${classes.reviewTitle}`}>
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: 1,
+          padding: '4 0',
+          marginBottom: 2,
+          backgroundColor: 'background.paper',
+          boxShadow: 2,
+          borderRadius: { xs: customBorderRadius.none, sm: customBorderRadius.medium },
+          width: '100%',
+          maxWidth: 1200,
+        }}
+      >
+        <Typography
+          variant="h2"
+          sx={{
+            textAlign: 'center',
+            whiteSpace: 'nowrap',
+            fontSize: { xs: '1.75rem', sm: '2.25rem' },
+            m: '0 3',
+            mb: 1,
+          }}
+        >
           What Our <wbr />
           Neighbors Say
         </Typography>
-        <Box className={classes.reviewContentContainer}>
-          <Box className={classes.reviewsBg}>
-            <VilliageSvg className={classes.reviewsSvg} />
-          </Box>
-          <Box className={classes.reviewCardsContainer}>
-            <Box
-              className={`${classes.reviewContent} ${classes.reviewContentMarquee}`}
-              tabIndex={0}
-              style={{
-                pointerEvents: 'auto',
+        <Box
+          sx={{
+            minWidth: '100%',
+            position: 'relative',
+            minHeight: 220,
+          }}
+        >
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              width: '100%',
+              marginBottom: 1,
+            }}
+          >
+            <VilliageSvg
+              sx={{
+                width: '60%',
+                height: 'auto',
+                display: 'block',
+                m: '0 auto',
               }}
+            />
+          </Box>
+          <Box
+            sx={{
+              width: '100%',
+              height: '120%',
+              position: 'absolute',
+              left: 0,
+              top: { xs: -30, sm: -40 },
+              overflow: 'hidden',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
+            <Box
+              sx={{
+                display: 'flex',
+                width: 'max-content',
+                height: '100%',
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                zIndex: 1,
+                flexDirection: 'row',
+                justifyContent: 'center',
+                alignItems: 'center',
+                flexWrap: 'nowrap',
+                animation: '$marquee 60s linear infinite',
+                willChange: 'transform',
+                pointerEvents: 'auto',
+                '&:hover': {
+                  animationPlayState: 'paused',
+                },
+                '@keyframes marquee': {
+                  '0%': {
+                    transform: 'translateX(0%)',
+                  },
+                  '100%': {
+                    transform: 'translateX(-50%)',
+                  },
+                },
+              }}
+              tabIndex={0}
             >
               {reviews.map((r, idx) => (
                 <Box
                   key={r.id}
                   sx={{
-                    mx: 5,
+                    mx: { xs: 2, sm: 5 },
                     transform: `translateY(${idx % 2 === 0 ? -48 : 32}px)`,
                     zIndex: 1,
                     flex: 'none',
-                    [theme.breakpoints.down('sm')]: {
-                      mx: 2,
-                    },
                   }}
                 >
                   <ReviewCard rating={r.rating} review={r.review} platform={r.platform} />
@@ -125,13 +310,10 @@ const Home = () => {
                 <Box
                   key={idx}
                   sx={{
-                    mx: 5,
+                    mx: { xs: 2, sm: 5 },
                     transform: `translateY(${idx % 2 === 0 ? -48 : 32}px)`,
                     zIndex: 1,
                     flex: 'none',
-                    [theme.breakpoints.down('sm')]: {
-                      mx: 2,
-                    },
                   }}
                 >
                   <ReviewCard rating={r.rating} review={r.review} platform={r.platform} />

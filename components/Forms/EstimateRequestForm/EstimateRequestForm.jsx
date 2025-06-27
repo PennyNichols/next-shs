@@ -8,10 +8,7 @@ import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormGroup from '@mui/material/FormGroup';
 import Box from '@mui/material/Box';
-import { collection, addDoc } from 'firebase/firestore';
 import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
-import { db } from '../../../firebase';
-import useStyles from './EstimateRequestForm.styles';
 import useRecaptcha from '../../../hooks/useRecaptcha';
 import ActionButton from '../../ReusableComponents/ActionButton/ActionButton';
 import {
@@ -26,10 +23,10 @@ import {
   Select,
   MenuItem,
 } from '@mui/material';
-import { Add, ExpandMore, Remove } from '@mui/icons-material';
+import { ExpandMore } from '@mui/icons-material';
 import { useFirebaseCollections } from '../../../hooks/FirebaseService';
 import useUser from '../../../hooks/useUser';
-import { serviceCategories } from '../../../constants/services';
+import { SERVICE_CATEGORIES } from '../../../constants/services';
 
 const EstimateRequestForm = ({ setOpen }) => {
   const initialData = {
@@ -46,8 +43,6 @@ const EstimateRequestForm = ({ setOpen }) => {
     images: [],
     date_created: '',
   };
-
-  const classes = useStyles();
 
   const [formData, setFormData] = useState(initialData);
   const [imageFiles, setImageFiles] = useState([]);
@@ -67,8 +62,8 @@ const EstimateRequestForm = ({ setOpen }) => {
       let foundSectionTitle = null;
       let foundWorkItem = null;
 
-      serviceCategories.forEach((section) => {
-        section.typeOfWork.forEach((work) => {
+      SERVICE_CATEGORIES.forEach((section) => {
+        section.typesOfWork.forEach((work) => {
           const itemName = work.title.toLowerCase().replace(/[^a-z0-9]/g, '');
           if (itemName === name) {
             foundSectionTitle = section.sectionTitle;
@@ -188,7 +183,15 @@ const EstimateRequestForm = ({ setOpen }) => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <Box className={classes.formContainer}>
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          height: '100%',
+          justifyContent: 'space-between',
+          padding: theme.spacing(1),
+        }}
+      >
         <Box>
           <Typography mb={2}>Please fill out the form below to request an estimate.</Typography>
           <TextField
@@ -258,7 +261,7 @@ const EstimateRequestForm = ({ setOpen }) => {
             Scope of Work
           </Typography>
           <FormGroup>
-            {serviceCategories.map((section, index) => (
+            {SERVICE_CATEGORIES.map((section, index) => (
               <Accordion key={index}>
                 <AccordionSummary
                   expandIcon={<ExpandMore />}
@@ -269,7 +272,7 @@ const EstimateRequestForm = ({ setOpen }) => {
                 </AccordionSummary>
                 <AccordionDetails>
                   <Box sx={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                    {section.typeOfWork.map((work, idx) => {
+                    {section.typesOfWork.map((work, idx) => {
                       const name = work.title.toLowerCase().replace(/[^a-z0-9]/g, '');
                       const isChecked = formData.scopeOfWork.some(
                         (item) => item.section === section.sectionTitle && item.title === work.title,

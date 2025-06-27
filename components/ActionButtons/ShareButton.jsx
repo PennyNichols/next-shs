@@ -5,12 +5,13 @@ import FacebookIcon from '@mui/icons-material/Facebook';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import EmailIcon from '@mui/icons-material/Email';
 import SmsIcon from '@mui/icons-material/Sms';
-import useStyles from './ActionButtons.styles';
 import { URL } from '../../constants/companyDetails';
-import theme from '@/theme/theme';
+import { customBorderRadius, customTransitions } from '@/theme/otherThemeConstants';
+import theme from '@/theme';
+
+// Change to use MUI Speed Dial instead
 
 const ShareButton = () => {
-  const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
 
@@ -45,13 +46,35 @@ const ShareButton = () => {
   };
 
   return (
-    <Box className={classes.shareWrapper}>
+    <Box
+      sx={{
+        position: 'fixed',
+        top: 90,
+        right: 30,
+        borderRadius: customBorderRadius.circle,
+        zIndex: 1300,
+        border: `2px solid ${theme.palette.background.default}`,
+        transition: customTransitions.standard,
+        backgroundColor: 'primary.main',
+        opacity: 0.7,
+        '&:hover': {
+          backgroundColor: 'accent.main',
+          borderColor: 'primary.main',
+          '& $shareIcon': {
+            color: 'primary.main',
+          },
+        },
+      }}
+    >
       <IconButton aria-label="share" aria-controls="share-menu" aria-haspopup="true" onClick={handleClick}>
-        <ShareIcon className={classes.shareIcon} />
+        <ShareIcon
+          sx={{
+            color: 'background.default',
+          }}
+        />
       </IconButton>
       <Menu
         id="share-menu"
-        className={classes.shareMenu}
         anchorEl={anchorEl}
         open={open}
         onClose={handleClose}
@@ -64,23 +87,58 @@ const ShareButton = () => {
           horizontal: 'center',
         }}
         disableScrollLock={true}
+        sx={{ mt: 1 }}
         slotProps={{
           paper: {
-            className: classes.menuList,
+            sx: {
+              backgroundColor: 'primary.main',
+            },
           },
         }}
       >
         <MenuItem onClick={() => handleShare('facebook')} aria-label="Share on Facebook">
-          <FacebookIcon className={classes.socialIcon} />
+          <FacebookIcon
+            sx={{
+              color: 'secondary.light',
+              transition: customTransitions.standard,
+              '&:hover': {
+                color: 'accent.main',
+              },
+            }}
+          />
         </MenuItem>
         <MenuItem onClick={() => handleShare('twitter')} aria-label="Share on Twitter">
-          <TwitterIcon className={classes.socialIcon} />
+          <TwitterIcon
+            sx={{
+              color: 'secondary.light',
+              transition: customTransitions.standard,
+              '&:hover': {
+                color: 'accent.main',
+              },
+            }}
+          />
         </MenuItem>
         <MenuItem onClick={() => handleShare('email')} aria-label="Share via Email">
-          <EmailIcon className={classes.socialIcon} />
+          <EmailIcon
+            sx={{
+              color: 'secondary.light',
+              transition: customTransitions.standard,
+              '&:hover': {
+                color: 'accent.main',
+              },
+            }}
+          />
         </MenuItem>
         <MenuItem onClick={() => handleShare('sms')} aria-label="Share via SMS">
-          <SmsIcon className={classes.socialIcon} />
+          <SmsIcon
+            sx={{
+              color: 'secondary.light',
+              transition: customTransitions.standard,
+              '&:hover': {
+                color: 'accent.main',
+              },
+            }}
+          />
         </MenuItem>
       </Menu>
     </Box>

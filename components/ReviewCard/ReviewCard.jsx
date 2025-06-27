@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
   Card,
   CardContent,
@@ -12,10 +12,11 @@ import {
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import StarIcon from '@mui/icons-material/Star';
-import theme from '@/theme/theme';
-import useStyles from './ReviewCard.styles';
 import { alpha } from '@mui/material/styles';
 import { truncateText } from '../../functions/utils/utils';
+import { customBorderRadius } from '@/theme/otherThemeConstants';
+import theme from '@/theme';
+import { navyBlue, gold } from '@/theme/colors';
 
 function ReviewCard({ rating = 5, review, platform }) {
   const words = review.split(' ');
@@ -27,64 +28,134 @@ function ReviewCard({ rating = 5, review, platform }) {
     setOpen(true);
   };
   const handleClose = () => setOpen(false);
-
-  const accentColor = theme.palette.accent.main; // gold
-  const classes = useStyles();
   return (
     <>
-      <Card className={classes.reviewCard}>
-        <Box className={classes.ratingContainer} display="flex" alignItems="center">
+      <Card
+        sx={{
+          width: 220,
+          height: 260,
+          borderRadius: customBorderRadius.medium,
+          boxShadow: 3,
+          background: `linear-gradient(135deg, secondary.main, 0.5)} 100%, rgba(237,235,243,0.18) 100%)`,
+          backdropFilter: 'blur(8px)',
+          padding: 2,
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          textAlign: 'center',
+        }}
+      >
+        <Box display="flex" alignItems="center">
           <Rating
             value={rating}
             precision={1}
             readOnly
-            icon={<StarIcon className={classes.starIcon} fontSize="inherit" htmlColor={accentColor} />}
+            icon={
+              <StarIcon
+                sx={{
+                  filter: 'drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.5))',
+                }}
+                fontSize="inherit"
+                htmlColor={gold}
+              />
+            }
             emptyIcon={
               <StarIcon
-                className={classes.starIcon}
+                sx={{
+                  filter: 'drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.5))',
+                }}
                 fontSize="inherit"
-                htmlColor={`${alpha(theme.palette.primary.main)}, 0.2`}
+                htmlColor={`${alpha(navyBlue, 0.2)}`}
               />
             }
           />
         </Box>
-        <CardContent className={classes.cardContentWrapper}>
-          <Typography variant="body1" className={classes.reviewText}>
+        <CardContent sx={{ p: 0 }}>
+          <Typography
+            variant="body1"
+            sx={{
+              color: 'primary.dark',
+              fontSize: '1rem',
+              fontStyle: 'italic',
+              textShadow: '0 1px 4px rgba(0,0,0,0.18)',
+              margin: '1 0',
+            }}
+          >
             “{truncateText(review, 10)}” <br />
             {isTruncated && (
-              <span className={classes.readMoreButton} onClick={handleOpen} tabIndex={0} role="button">
+              <Typography
+                variant="body2"
+                component="span"
+                sx={{
+                  textDecoration: 'underline',
+                  textDecorationThickness: 1,
+                  textUnderlineOffset: '3px',
+                  '&:hover': {
+                    cursor: 'pointer',
+                  },
+                }}
+                onClick={handleOpen}
+                tabIndex={0}
+                role="button"
+              >
                 read more
-              </span>
+              </Typography>
             )}
           </Typography>
         </CardContent>
         {platform && (
-          <Box className={classes.platformContainer}>
-            <div className={classes.platformDecoration} />
-            <Typography variant="subtitle2" className={classes.platformText}>
+          <Box
+            sx={{
+              display: 'flex',
+              width: '100%',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: 1,
+            }}
+          >
+            <Box
+              sx={{
+                height: 2,
+                flexGrow: 1,
+                backgroundColor: 'primary.light',
+              }}
+            />
+            <Typography
+              variant="subtitle2"
+              sx={{
+                color: theme.palette.primary.light,
+                fontSize: '0.875rem',
+                textShadow: '0 1px 2px rgba(0,0,0,0.12)',
+                fontWeight: 500,
+              }}
+            >
               {platform}
             </Typography>
-            <div className={classes.platformDecoration} />
+            <Box
+              sx={{
+                height: 2,
+                flexGrow: 1,
+                backgroundColor: 'primary.light',
+              }}
+            />
           </Box>
         )}
       </Card>
-      <Dialog
-        open={open}
-        onClose={handleClose}
-      >
-          <IconButton
-            aria-label="close"
-            onClick={handleClose}
-            sx={{
-              position: 'absolute',
-              right: 3,
-              top: 3,
-              color: theme.palette.primary.light,
-            }}
-            size="large"
-          >
-            <CloseIcon />
-          </IconButton>
+      <Dialog open={open} onClose={handleClose}>
+        <IconButton
+          aria-label="close"
+          onClick={handleClose}
+          sx={{
+            position: 'absolute',
+            right: 3,
+            top: 3,
+            color: 'primary.light',
+          }}
+          size="large"
+        >
+          <CloseIcon />
+        </IconButton>
         <DialogContent>
           <Typography
             variant="body1"

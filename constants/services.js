@@ -1,7 +1,7 @@
-export const serviceCategories = [
+export const SERVICE_CATEGORIES = [
   {
     sectionTitle: 'Core Repair & Maintenance',
-    typeOfWork: [
+    typesOfWork: [
       {
         title: 'General Repairs',
         description: 'Smaller, miscellaneous fixes.',
@@ -42,7 +42,7 @@ export const serviceCategories = [
       },
       {
         title: 'Appliance Installation (Non-Major)',
-        description: 'Dishwashers, microwaves, garbage disposals (verify licensing requirements).',
+        description: 'Dishwashers, microwaves, garbage disposals.',
       },
       {
         title: 'Door & Window Repairs',
@@ -56,7 +56,7 @@ export const serviceCategories = [
   },
   {
     sectionTitle: 'Installation & Assembly',
-    typeOfWork: [
+    typesOfWork: [
       {
         title: 'Furniture Assembly',
         description: 'Assembling flat-pack furniture (IKEA, etc.).',
@@ -79,21 +79,21 @@ export const serviceCategories = [
       },
       {
         title: 'Light Fixture Installation',
-        description: 'Installing new light fixtures (verify licensing requirements).',
+        description: 'Installing new light fixtures.',
       },
       {
         title: 'Faucet & Fixture Installation',
-        description: 'Installing new faucets, showerheads, toilets (verify licensing requirements).',
+        description: 'Installing new faucets, showerheads, toilets.',
       },
       {
         title: 'Door & Window Installation (Minor)',
-        description: 'Replacing storm doors, screen doors (verify licensing requirements).',
+        description: 'Replacing storm doors, screen doors.',
       },
     ],
   },
   {
     sectionTitle: 'Outdoor Work',
-    typeOfWork: [
+    typesOfWork: [
       {
         title: 'Deck & Patio Repairs',
         description: 'Fixing loose boards, railings, steps.',
@@ -101,6 +101,10 @@ export const serviceCategories = [
       {
         title: 'Fence Repair',
         description: 'Fixing broken posts, panels, gates.',
+      },
+      {
+        title: 'Fence Installation',
+        description: 'Installing new fences (wood, vinyl, chain link). *North Port only',
       },
       {
         title: 'Gate Repair & Installation (Simple)',
@@ -122,7 +126,7 @@ export const serviceCategories = [
   },
   {
     sectionTitle: 'Other',
-    typeOfWork: [
+    typesOfWork: [
       {
         title: 'Home Organization',
         description: 'Helping with decluttering and organizing spaces.',
