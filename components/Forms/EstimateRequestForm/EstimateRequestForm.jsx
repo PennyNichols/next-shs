@@ -27,6 +27,7 @@ import { ExpandMore } from '@mui/icons-material';
 import { useFirebaseCollections } from '../../../hooks/FirebaseService';
 import useUser from '../../../hooks/useUser';
 import { SERVICE_CATEGORIES } from '../../../constants/services';
+import theme from '@/theme';
 
 const EstimateRequestForm = ({ setOpen }) => {
   const initialData = {
@@ -336,7 +337,7 @@ const EstimateRequestForm = ({ setOpen }) => {
         </Box>
         <Box>
           <Box mt={2} gap={2} display="flex" justifyContent="flex-end">
-            <ActionButton buttonType="clear" buttonVariant="text" text="Clear" onClick={handleClear} />
+            <ActionButton buttonType="reset" buttonVariant="text" text="Clear" onClick={handleClear} />
             <ActionButton buttonType="submit" text="Submit" />
           </Box>
         </Box>

@@ -1,53 +1,127 @@
+//
+// Fix autofill style in textboxes. when hovering the autofill options, the styles change.
+//
+
 // src/theme/components.ts
 import { alpha } from '@mui/material/styles';
-// Import the necessary types from Material-UI for type safety
 import { Components, Theme } from '@mui/material/styles';
-import { CSSObject } from '@emotion/react'; // For explicit return type of style overrides
+import { CSSObject } from '@emotion/react';
 import { customShadows, customBorderRadius, customTransitions } from './otherThemeConstants'; // Assuming these are correctly typed as discussed
+import { lightGray } from './colors';
 
-// Explicitly type the 'components' object as Material-UI's Components type
+const svgDropShadowFilter = `%3Cdefs%3E%3Cfilter id='shadow' x='-70%25' y='-70%25' width='300%25' height='300%25'%3E%3CfeDropShadow dx='0' dy='2' stdDeviation='1' flood-color='%23000' flood-opacity='.5'/%3E%3C/filter%3E%3C/defs%3E`;
+
 const components: Components<Omit<Theme, 'components'>> = {
-  // Use Omit to prevent circular type reference
   // ---------------------------------------------------
-  // Global Scrollbar Customizations (Added here)
+  // Global Scrollbar Customizations
   // ---------------------------------------------------
   MuiCssBaseline: {
     styleOverrides: (theme: Theme) => ({
+      html: {
+        scrollbarGutter: 'stable',
+      },
       // For Webkit-based browsers (Chrome, Safari, Edge, etc.)
       body: {
-        // scrollbarColor: `${theme.palette.primary.main} ${theme.palette.background.paper}`, // Firefox specific
-        '&::-webkit-scrollbar, & *::-webkit-scrollbar': {
-          width: 10, // Width of the vertical scrollbar
-          height: 10, // Height of the horizontal scrollbar
-          backgroundColor: 'transparent', // Track background
+        '&::-webkit-scrollbar': {
+          width: 13,
+          height: 13,
+          backgroundColor: 'transparent',
         },
-        '&::-webkit-scrollbar-thumb, & *::-webkit-scrollbar-thumb': {
-          backgroundColor: alpha(theme.palette.primary.main, 0.7), // Thumb color
-          borderRadius: customBorderRadius.pill, // Rounded corners for the thumb
-          border: `none`, // Space around the thumb
+        '&::-webkit-scrollbar-thumb': {
+          backgroundColor: alpha(theme.palette.primary.main, 0.7),
+          borderRadius: customBorderRadius.pill,
+          border: `2px solid ${theme.palette.secondary.main}`,
           '&:hover': {
-            backgroundColor: theme.palette.primary.main, // Thumb color on hover
+            backgroundColor: theme.palette.primary.main,
           },
         },
-        '&::-webkit-scrollbar-track, & *::-webkit-scrollbar-track': {
-          backgroundColor: alpha(theme.palette.primary.main, 0.2), // Track background
-          borderRadius: 0,
+        '&::-webkit-scrollbar-track': {
+          backgroundColor: theme.palette.secondary.main,
         },
-        '&::-webkit-scrollbar-button, & *::-webkit-scrollbar-button': {
-          height: 0,
-          width: 0,
-          // '&:hover': {
-          //   backgroundColor: theme.palette.primary.main,
-          // },
+        '&::-webkit-scrollbar-button': {
+          backgroundColor: theme.palette.secondary.main,
+          height: 13,
+          width: 13,
+          transition: 'background-image 2s ease-in-out',
+          // Default arrows are not visible, use background-image for custom arrows:
+          '-webkit-appearance': 'none',
+          'background-repeat': 'no-repeat',
+          'background-position': 'center',
         },
-        // For Firefox (optional, but good for completeness)
-        // Note: Firefox scrollbar styling is limited compared to Webkit
-        // This targets the default scrollbars
+
+        // Specific arrow icons for vertical scrollbar buttons
+        '&::-webkit-scrollbar-button:vertical:start': {
+          // Solid Rounded Up Triangle
+          'background-image': `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='3 4 18 19'>${svgDropShadowFilter}%3E%3Cpath fill='${encodeURIComponent(theme.palette.primary.light)}' d='M6.41,16H17.59a1,1,0,0,0,.7-1.71L12.71,8.71a1,1,0,0,0-1.42,0L5.71,14.29A1,1,0,0,0,6.41,16Z' filter='url(%23shadow)'/%3E%3C/svg%3E")`,
+          '&:hover': {
+            'background-image': `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='3 4 18 19'>${svgDropShadowFilter}%3E%3Cpath fill='${encodeURIComponent(theme.palette.primary.dark)}' d='M6.41,16H17.59a1,1,0,0,0,.7-1.71L12.71,8.71a1,1,0,0,0-1.42,0L5.71,14.29A1,1,0,0,0,6.41,16Z' filter='url(%23shadow)'/%3E%3C/svg%3E")`,
+          },
+        },
+        '&::-webkit-scrollbar-button:vertical:end': {
+          // Solid Rounded Down Triangle (rotated from up)
+          'background-image': `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='3 4 18 19'>${svgDropShadowFilter}%3E%3Cpath fill='${encodeURIComponent(theme.palette.primary.light)}' d='M6.41,16H17.59a1,1,0,0,0,.7-1.71L12.71,8.71a1,1,0,0,0-1.42,0L5.71,14.29A1,1,0,0,0,6.41,16Z' transform='rotate(180 12 12)' filter='url(%23shadow)'/%3E%3C/svg%3E")`,
+          '&:hover': {
+            'background-image': `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='3 4 18 19'>${svgDropShadowFilter}%3E%3Cpath fill='${encodeURIComponent(theme.palette.primary.dark)}' d='M6.41,16H17.59a1,1,0,0,0,.7-1.71L12.71,8.71a1,1,0,0,0-1.42,0L5.71,14.29A1,1,0,0,0,6.41,16Z' transform='rotate(180 12 12)' filter='url(%23shadow)'/%3E%3C/svg%3E")`,
+          },
+        },
+        '&::-webkit-scrollbar-button:horizontal:start': {
+          // Solid Rounded Left Triangle (rotated from up)
+          'background-image': `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='3 4 18 19'>${svgDropShadowFilter}%3E%3Cpath fill='${encodeURIComponent(theme.palette.primary.light)}' d='M6.41,16H17.59a1,1,0,0,0,.7-1.71L12.71,8.71a1,1,0,0,0-1.42,0L5.71,14.29A1,1,0,0,0,6.41,16Z' transform='rotate(-90 12 12)' filter='url(%23shadow)'/%3E%3C/svg%3E")`,
+          '&:hover': {
+            'background-image': `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='3 4 18 19'>${svgDropShadowFilter}%3E%3Cpath fill='${encodeURIComponent(theme.palette.primary.dark)}' d='M6.41,16H17.59a1,1,0,0,0,.7-1.71L12.71,8.71a1,1,0,0,0-1.42,0L5.71,14.29A1,1,0,0,0,6.41,16Z' transform='rotate(-90 12 12)' filter='url(%23shadow)'/%3E%3C/svg%3E")`,
+          },
+        },
+        '&::-webkit-scrollbar-button:horizontal:end': {
+          // Solid Rounded Right Triangle (rotated from up)
+          'background-image': `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='3 4 18 19'>${svgDropShadowFilter}%3E%3Cpath fill='${encodeURIComponent(theme.palette.primary.light)}' d='M6.41,16H17.59a1,1,0,0,0,.7-1.71L12.71,8.71a1,1,0,0,0-1.42,0L5.71,14.29A1,1,0,0,0,6.41,16Z' transform='rotate(90 12 12)' filter='url(%23shadow)'/%3E%3C/svg%3E")`,
+          '&:hover': {
+            'background-image': `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='3 4 18 19'>${svgDropShadowFilter}%3E%3Cpath fill='${encodeURIComponent(theme.palette.primary.dark)}' d='M6.41,16H17.59a1,1,0,0,0,.7-1.71L12.71,8.71a1,1,0,0,0-1.42,0L5.71,14.29A1,1,0,0,0,6.41,16Z' transform='rotate(90 12 12)' filter='url(%23shadow)'/%3E%3C/svg%3E")`,
+          },
+        },
         '@supports not selector(::-webkit-scrollbar)': {
           scrollbarWidth: 'auto',
           scrollbarColor: `${alpha(theme.palette.primary.main, 0.5)} ${theme.palette.background.paper}`,
         },
+        // This targets the default scrollbars within scrollable elements
+        '& *::-webkit-scrollbar': {
+          width: 15,
+          height: 15,
+          backgroundColor: 'transparent',
+          borderRadius: customBorderRadius.pill,
+        },
+        '& *::-webkit-scrollbar-thumb': {
+          backgroundColor: alpha(theme.palette.primary.main, 0.7),
+          borderRadius: customBorderRadius.pill,
+          border: `4px solid ${lightGray}`,
+          '&:hover': {
+            backgroundColor: theme.palette.primary.main,
+          },
+        },
+        '& *::-webkit-scrollbar-track': {
+          margin: theme.spacing(0, 1),
+          backgroundColor: lightGray,
+          borderRadius: customBorderRadius.pill,
+        },
+        '& *::-webkit-scrollbar-button': {
+          height: 0,
+          width: 0,
+        },
       },
+      // Autofill styles for input elements
+      'input:-webkit-autofill': {
+        // Change the background color, keeping a subtle transition
+        WebkitBoxShadow: `0 0 0px 1000px ${theme.palette.background.paper} inset !important`,
+        WebkitTextFillColor: `${theme.palette.secondary.dark} !important`, // Text color
+        caretColor: `${theme.palette.secondary.dark} !important`, // Cursor color
+        transition: 'background-color 5000s ease-in-out 0s', // Long transition to keep the color
+      },
+      'input:-webkit-autofill:hover, input:-webkit-autofill:focus, input:-webkit-autofill:active': {
+        // Override hover/focus/active states for autofill
+        WebkitBoxShadow: `0 0 0px 1000px ${theme.palette.background.paper} inset !important`,
+        WebkitTextFillColor: `${theme.palette.secondary.dark} !important`,
+        caretColor: `${theme.palette.secondary.dark} !important`,
+      },
+
       // You can also target specific elements or globally within a container if needed
       // For example, if you have a common container class for scrollable content:
       // '.scrollable-container': {
@@ -63,19 +137,17 @@ const components: Components<Omit<Theme, 'components'>> = {
 
     styleOverrides: {
       // Targets the root element of the Button component
-      // Explicitly type the return value of the function to CSSObject
       root: ({ theme }: { theme: Theme }): CSSObject => ({
         textTransform: 'none',
         fontWeight: 500,
-        boxShadow: customShadows[2], // Access directly from import
-        borderRadius: customBorderRadius.small, // Access directly from import
+        boxShadow: customShadows[2],
+        borderRadius: customBorderRadius.small,
         border: `2px solid transparent`,
-        transition: customTransitions.standard, // Access directly from import
+        transition: customTransitions.standard,
         cursor: 'pointer',
         whiteSpace: 'nowrap',
         minWidth: 'auto',
       }),
-      // Apply explicit typing to other style overrides as well for consistency
       containedPrimary: ({ theme }: { theme: Theme }): CSSObject => ({
         backgroundColor: theme.palette.primary.main,
         color: theme.palette.primary.contrastText,
@@ -192,7 +264,7 @@ const components: Components<Omit<Theme, 'components'>> = {
         '&.Mui-focused': {
           boxShadow: theme.shadows[1],
           '& .MuiOutlinedInput-notchedOutline': {
-            borderColor: theme.palette.primary.light, // focused border color
+            borderColor: theme.palette.primary.light,
             borderWidth: '1px',
           },
         },
@@ -227,9 +299,9 @@ const components: Components<Omit<Theme, 'components'>> = {
           opacity: 1,
         },
         '.Mui-focused &': {
-          color: theme.palette.primary.light, // Change input text color on focus
+          color: theme.palette.primary.light,
         },
-        // Hide controls entirely (common practice for design consistency)
+        // Hide number controls entirely (common practice for design consistency)
         '&[type="number"]': {
           '-moz-appearance': 'textfield',
           '&::-webkit-outer-spin-button': {
@@ -276,56 +348,36 @@ const components: Components<Omit<Theme, 'components'>> = {
   MuiInputAdornment: {
     styleOverrides: {
       root: ({ theme }: { theme: Theme }): CSSObject => ({
-        // Styles applied to the root element.
-        color: theme.palette.text.secondary, // Default color for adornments
-        // fontSize: '0.125rem',
-        // When the parent InputBase is focused
-        // The InputBase has a class .Mui-focused when it's focused.
-        // We need to target the adornment when its parent has this class.
+        color: theme.palette.text.secondary,
         '.MuiInputBase-root.Mui-focused &': {
-          // Target .MuiInputBase-root (the parent) when focused
-          color: theme.palette.primary.light, // Change adornment color on focus
+          color: theme.palette.primary.light,
         },
-
-        // When the parent InputBase is hovered
-        // The InputBase has a class .Mui-hovered (though it might be .Mui-focused for some TextField variants)
-        // or you can target the direct hover state of InputBase.
         '.MuiInputBase-root:hover &': {
-          // Target .MuiInputBase-root (the parent) on hover
-          color: theme.palette.primary.light, // Change adornment color on hover
+          color: theme.palette.primary.light,
         },
-
-        // Ensure icons inherit the color
         '& .MuiSvgIcon-root': {
-          fontSize: '1.25rem', // Or whatever size you desire
-          // It's crucial for icons to inherit the color from their parent adornment
+          fontSize: '1.25rem',
           color: 'inherit',
         },
         '&.MuiInputAdornment-positionStart': {
-          marginRight: 0, // Example: Spacing for start adornments
+          marginRight: 0,
           marginLeft: theme.spacing(-1),
           '& .MuiSvgIcon-root': {
-            fontSize: '1.3rem', // Example: set a specific pixel size
-            // Or use theme values:
-            // fontSize: theme.typography.pxToRem(20),
+            fontSize: '1.3rem',
           },
         },
         '&.MuiInputAdornment-positionEnd': {
-          marginLeft: theme.spacing(1), // Example: Spacing for end adornments
+          marginLeft: theme.spacing(1),
         },
-        // You can also target specific variants if needed
-        // e.g., for Outlined Input adornments
-        '&.MuiInputAdornment-outlined': {
-          // Specific styles for outlined variant adornments
-        },
+        '&.MuiInputAdornment-outlined': {},
         '&.Mui-focus': {
           color: theme.palette.primary.light,
         },
         '&.Mui-error': {
-          color: theme.palette.error.main, // Adornment color when TextField is in error state
+          color: theme.palette.error.main,
         },
         '&.Mui-disabled': {
-          color: theme.palette.text.disabled, // Adornment color when TextField is disabled
+          color: theme.palette.text.disabled,
         },
       }),
       // You can also target specific variants or positions directly
@@ -370,10 +422,8 @@ const components: Components<Omit<Theme, 'components'>> = {
         padding: theme.spacing(0, 0.5),
         alignSelf: 'flex-end',
         fontSize: '0.7rem',
-        // When the parent FormControl is focused
-        // The FormControl-root gets the Mui-focused class when the TextField inside is focused.
         '&.Mui-focused': {
-          color: `${theme.palette.primary.light} !important`, // Change helper text color on focus
+          color: `${theme.palette.primary.light} !important`,
         },
         '&.Mui-error': {
           color: theme.palette.error.main,
@@ -390,9 +440,7 @@ const components: Components<Omit<Theme, 'components'>> = {
       size: 'small',
     },
     styleOverrides: {
-      root: ({ theme }: { theme: Theme }): CSSObject => ({
-        // Base styles for the select root
-      }),
+      root: ({ theme }: { theme: Theme }): CSSObject => ({}),
       select: ({ theme }: { theme: Theme }): CSSObject => ({
         color: theme.palette.secondary.dark,
         borderRadius: customBorderRadius.small,
@@ -448,6 +496,7 @@ const components: Components<Omit<Theme, 'components'>> = {
           duration: theme.transitions.duration.short,
           easing: theme.transitions.easing.easeOut,
         }),
+
         '&:hover': {
           backgroundColor: alpha(theme.palette.primary.light, 0.08),
           color: theme.palette.primary.main,
@@ -474,22 +523,60 @@ const components: Components<Omit<Theme, 'components'>> = {
   MuiMenu: {
     defaultProps: {
       disableScrollLock: true,
-
     },
     styleOverrides: {
       paper: ({ theme }: { theme: Theme }): CSSObject => ({
         borderRadius: customBorderRadius.small,
         boxShadow: customShadows[2],
         backgroundColor: theme.palette.background.paper,
-        border: `1px solid ${alpha(theme.palette.secondary.dark, 0.12)}`,
+        border: `1px solid ${alpha(theme.palette.primary.main, 0.1)}`,
+        maxHeight: 400,
         marginTop: theme.spacing(0.5),
-        minWidth: 120,
+        overflowY: 'auto',
+        overflowX: 'hidden',
+        '&.MuiSelect-dropdown-paper': {
+          borderRadius: customBorderRadius.none,
+          boxShadow: customShadows[4],
+          backgroundColor: theme.palette.background.paper,
+          outline: `8px solid ${theme.palette.background.paper}`,
+          padding: theme.spacing(0, 1),
+          borderTop: `10px solid ${theme.palette.background.paper}`,
+          borderBottom: `10px solid ${theme.palette.background.paper}`,
+          borderLeft: 'none',
+          borderRight: 'none',
+          minWidth: 120,
+          maxWidth: 450,
+          '&.MuiSelect-dropdown-headers': {
+            '&::-webkit-scrollbar-track': {
+              marginTop: theme.spacing(5),
+            },
+          },
+        },
         '& .MuiMenu-list': {
-          padding: theme.spacing(0.5, 0),
+          padding: theme.spacing(0),
         },
       }),
       list: ({ theme }: { theme: Theme }): CSSObject => ({
-        padding: theme.spacing(0.5, 0),
+        margin: theme.spacing(0, 0),
+      }),
+    },
+  }, // ---------------------------------------------------
+  // MuiListSubheader Component Customizations
+  // ---------------------------------------------------
+  MuiListSubheader: {
+    styleOverrides: {
+      root: ({ theme }: { theme: Theme }): CSSObject => ({
+        // Ensure the subheader has a distinct background so content doesn't show through
+        backgroundColor: theme.palette.primary.main, // Potentially add some padding if needed, but MuiList-padding should handle overall spacing
+        boxShadow: 'none',
+        // padding: theme.spacing(1, 2),
+        zIndex: 1, // Ensure it's above the list items
+      }),
+      sticky: ({ theme }: { theme: Theme }): CSSObject => ({
+        // The default Material-UI sticky implementation should handle this,
+        // but sometimes you might need to adjust top if there's other fixed elements
+        // top: -10, // Adding a small bottom border can help visually separate it when sticky
+        borderBottom: `1px solid ${theme.palette.divider}`,
       }),
     },
   },
@@ -504,11 +591,9 @@ const components: Components<Omit<Theme, 'components'>> = {
       paper: ({ theme }: { theme: Theme }): CSSObject => ({
         borderRadius: customBorderRadius.small,
         boxShadow: customShadows[2],
-        border: `1px solid ${alpha(theme.palette.secondary.dark, 0.12)}`,
-        '&.MuiMenu-paper': {
-          // Specific styles when used as a Menu (Select dropdown)
-          marginTop: theme.spacing(0.5),
-        },
+        // '&.MuiMenu-paper': {
+        //   backgroundColor: 'red',
+        // },
       }),
     },
   },
@@ -518,9 +603,7 @@ const components: Components<Omit<Theme, 'components'>> = {
   MuiFormControl: {
     styleOverrides: {
       root: ({ theme }: { theme: Theme }): CSSObject => ({
-        // Base styles for form control
         '& .MuiInputLabel-root': {
-          // Ensure label positioning for Select components
           '&.MuiInputLabel-outlined': {
             transform: 'translate(14px, 8.5px) scale(1)',
             '&.MuiInputLabel-shrink': {

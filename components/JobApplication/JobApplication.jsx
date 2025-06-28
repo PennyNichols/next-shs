@@ -359,15 +359,8 @@ const JobApplication = () => {
                     onChange={(event) => onChange(event.target.value)}
                     {...field}
                     MenuProps={{
-                      disableScrollLock: true,
                       PaperProps: {
-                        sx: {
-                          maxHeight: 250,
-                          boxShadow: theme.shadows[3],
-                          '& .MuiMenuItem-root': {
-                            padding: theme.spacing(1),
-                          },
-                        },
+                        className: 'MuiSelect-dropdown-paper', // Custom class
                       },
                     }}
                   >
@@ -413,22 +406,12 @@ const JobApplication = () => {
                     {...field}
                     MenuProps={{
                       PaperProps: {
-                        sx: {
-                          maxHeight: 225,
-                          maxWidth: 500,
-                          boxShadow: theme.shadows[3],
-                          '& .MuiMenuItem-root': {
-                            padding: theme.spacing(1),
-                          },
-                        },
+                        className: 'MuiSelect-dropdown-paper MuiSelect-dropdown-headers', // Custom class
                       },
                     }}
                   >
                     {skills.map((skill) => [
-                      <ListSubheader
-                        key={skill.sectionTitle}
-                        sx={{ backgroundColor: theme.palette.primary.main, boxShadow: theme.shadows[2] }}
-                      >
+                      <ListSubheader key={skill.sectionTitle}>
                         <Typography variant="h4" color="background.paper">
                           {skill.sectionTitle}
                         </Typography>
