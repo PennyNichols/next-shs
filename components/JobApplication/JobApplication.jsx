@@ -146,8 +146,52 @@ const JobApplication = () => {
       </Typography>
       <Box component="form" onSubmit={handleSubmit(onSubmit)} noValidate>
         <Grid container spacing={3}>
+          {/* Work Eligibility */}
+          <Grid item order={1} xs={12} sx={{ display: 'flex', justifyContent: 'flex-start' }}>
+            <FormControl
+              required
+              sx={{
+                display: 'flex',
+                gap: theme.spacing(2),
+                flexDirection: 'row',
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+              error={!!errors.eligible}
+            >
+              <FormLabel id="eligible-radio-buttons-group-label">Eligible to Work in US?</FormLabel>
+              <Controller
+                name="eligible"
+                control={control}
+                render={({ field }) => (
+                  <RadioGroup
+                    aria-labelledby="eligible-radio-buttons-group-label"
+                    name="eligible"
+                    {...field}
+                    row // Makes the radio buttons display in a row
+                  >
+                    <FormControlLabel
+                      value="Yes"
+                      control={<Radio size="small" />}
+                      label={<Typography variant="body2">Yes</Typography>}
+                    />
+                    <FormControlLabel
+                      value="No"
+                      control={<Radio size="small" />}
+                      label={<Typography variant="body2">No</Typography>}
+                    />
+                  </RadioGroup>
+                )}
+              />
+              {errors.eligible && (
+                <Typography variant="caption" color="error">
+                  {errors.eligible.message}
+                </Typography>
+              )}
+            </FormControl>
+          </Grid>
           {/* Personal Info */}
-          <Grid item xs={12} sm={6}>
+          <Grid item order={2} xs={12} sm={6}>
             <Controller
               name="firstName"
               control={control}
@@ -163,7 +207,7 @@ const JobApplication = () => {
               )}
             />
           </Grid>
-          <Grid item xs={12} sm={6}>
+          <Grid item order={3} xs={12} sm={6}>
             <Controller
               name="lastName"
               control={control}
@@ -179,7 +223,7 @@ const JobApplication = () => {
               )}
             />
           </Grid>
-          <Grid item xs={12} sm={6}>
+          <Grid item order={4} xs={12} sm={6}>
             <Controller
               name="email"
               control={control}
@@ -196,7 +240,7 @@ const JobApplication = () => {
               )}
             />
           </Grid>
-          <Grid item xs={12} sm={6}>
+          <Grid item order={5} xs={12} sm={6}>
             <Controller
               name="phone"
               control={control}
@@ -213,7 +257,7 @@ const JobApplication = () => {
               )}
             />
           </Grid>
-          <Grid item xs={12}>
+          <Grid item order={6} xs={12}>
             <Controller
               name="address"
               control={control}
@@ -229,7 +273,7 @@ const JobApplication = () => {
               )}
             />
           </Grid>
-          <Grid item xs={12} sm={4}>
+          <Grid item order={7} xs={12} sm={4}>
             <Controller
               name="city"
               control={control}
@@ -245,7 +289,7 @@ const JobApplication = () => {
               )}
             />
           </Grid>
-          <Grid item xs={6} sm={4}>
+          <Grid item order={8} xs={6} sm={4}>
             <Controller
               name="state"
               control={control}
@@ -261,7 +305,7 @@ const JobApplication = () => {
               )}
             />
           </Grid>
-          <Grid item xs={6} sm={4}>
+          <Grid item order={9} xs={6} sm={4}>
             <Controller
               name="zip"
               control={control}
@@ -279,7 +323,7 @@ const JobApplication = () => {
           </Grid>
 
           {/* Experience */}
-          <Grid item xs={6} sm={4}>
+          <Grid item order={10} xs={12} sm={4}>
             <Controller
               name="experience"
               control={control}
@@ -298,7 +342,7 @@ const JobApplication = () => {
             />
           </Grid>
           {/* Expected Pay */}
-          <Grid item xs={12} sm={4}>
+          <Grid item order={11} xs={12} sm={4}>
             <Controller
               name="expectedPay"
               control={control}
@@ -318,7 +362,7 @@ const JobApplication = () => {
             />
           </Grid>
           {/* Expected Hours */}
-          <Grid item xs={6} sm={4}>
+          <Grid item order={12} xs={12} sm={4}>
             <Controller
               name="expectedHours"
               control={control}
@@ -337,7 +381,7 @@ const JobApplication = () => {
             />
           </Grid>
           {/* Certifications */}
-          <Grid item xs={12}>
+          <Grid item order={13} xs={12}>
             <Controller
               name="certifications"
               control={control}
@@ -381,7 +425,7 @@ const JobApplication = () => {
             />
           </Grid>
           {/* Skills */}
-          <Grid item xs={12}>
+          <Grid item order={14} xs={12}>
             <Controller
               name="skills"
               control={control}
@@ -435,81 +479,40 @@ const JobApplication = () => {
               )}
             />
           </Grid>
-          {/* Work Eligibility */}
-          <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'flex-start', mb: 1 }}>
-            <FormControl
-              required
-              sx={{
-                display: 'flex',
-                gap: theme.spacing(2),
-                flexDirection: 'row',
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}
-              error={!!errors.eligible}
-            >
-              <FormLabel
-                id="eligible-radio-buttons-group-label"
-                sx={{ fontSize: { xs: '0.875rem', sm: '0.875rem', md: '1rem' } }}
-              >
-                Eligible to Work in US?
-              </FormLabel>
-              <Controller
-                name="eligible"
-                control={control}
-                render={({ field }) => (
-                  <RadioGroup
-                    aria-labelledby="eligible-radio-buttons-group-label"
-                    name="eligible"
-                    {...field}
-                    row // Makes the radio buttons display in a row
-                    sx={{
-                      fontSize: { xs: '0.875rem', sm: '0.875rem', md: '1rem' },
-                    }}
-                  >
-                    <FormControlLabel
-                      value="Yes"
-                      control={<Radio size="small" />}
-                      label={<Typography variant="body2">Yes</Typography>}
-                    />
-                    <FormControlLabel
-                      value="No"
-                      control={<Radio size="small" />}
-                      label={<Typography variant="body2">No</Typography>}
-                    />
-                  </RadioGroup>
-                )}
-              />
-              {errors.eligible && (
-                <Typography variant="caption" color="error">
-                  {errors.eligible.message}
-                </Typography>
-              )}
-            </FormControl>
-          </Grid>
           {/* References */}
-          <Grid item xs={12}>
+          <Grid item order={15} xs={12} mt={theme.spacing(1)}>
             <Controller
               name="references"
               control={control}
               render={({ field }) => (
                 <CustomTextField
-                  label="Professional References (names & contact info)"
+                  label="Professional References"
                   required
                   multiline
                   minRows={2}
                   shrinkLabel
                   placeholder="Please provide at least two references."
                   error={!!errors.references}
-                  helperText={errors.references?.message}
+                  helperText={errors.references ? errors.references.message : 'Names & Contact Info'}
                   {...field}
                 />
               )}
             />
           </Grid>
           {/* Resume Upload */}
-          <Grid item xs={12} mb={2}>
-            <Typography variant="subtitle1" sx={{ mt: { xs: 0, sm: 1 }, mb: 1 }}>
+          <Grid
+            item
+            order={16}
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              width: 'fit-content',
+              gap: theme.spacing(2),
+              justifyContent: 'space-between',
+              alignItems: 'flex-start',
+            }}
+          >
+            <Typography variant="subtitle1" sx={{ color: 'secondary.dark' }}>
               Upload Resume (PDF or DOC)
             </Typography>
             <Controller
@@ -517,7 +520,7 @@ const JobApplication = () => {
               control={control}
               render={({ field }) => (
                 <>
-                  <Button variant="contained" component="label">
+                  <Button variant="contained" component="label" sx={{ width: '100%', mb: { xs: 1, sm: 2 } }}>
                     <CloudUpload sx={{ mr: 1 }} />
                     Upload File
                     <input
@@ -544,13 +547,14 @@ const JobApplication = () => {
             />
           </Grid>
           {/* Cover Letter */}
-          <Grid item xs={12}>
+          <Grid item order={17} xs={12}>
             <Controller
               name="coverLetter"
               control={control}
               render={({ field }) => (
                 <CustomTextField
-                  label="Cover Letter (optional)"
+                  label="Cover Letter"
+                  helperText="Optional, but recommended"
                   multiline
                   minRows={3}
                   sx={{ mt: { xs: 2, sm: 0 } }}
@@ -562,7 +566,7 @@ const JobApplication = () => {
             />
           </Grid>
           {/* Submit */}
-          <Grid item xs={12} sx={{ mt: 2 }}>
+          <Grid item order={18} xs={12} sx={{ mt: { xs: 1, sm: 2 } }}>
             <Button
               type="submit"
               variant="contained"
@@ -570,8 +574,6 @@ const JobApplication = () => {
               size="large"
               fullWidth
               sx={{
-                fontWeight: 600,
-                boxShadow: theme.shadows[2],
                 py: 1.5,
                 fontSize: '1.1rem',
               }}

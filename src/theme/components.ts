@@ -130,6 +130,125 @@ const components: Components<Omit<Theme, 'components'>> = {
       // },
     }),
   },
+  // ---------------------------------------------------
+  // MuiFormLabel Component Customizations (for the main question label)
+  // ---------------------------------------------------
+  MuiFormLabel: {
+    styleOverrides: {
+      root: ({ theme }: { theme: Theme }): CSSObject => ({
+        color: theme.palette.secondary.dark, // Default label color
+        fontSize: '1rem', // Default font size for larger screens
+        [theme.breakpoints.down('md')]: {
+          fontSize: '0.875rem', // Smaller font for 'xs' breakpoint
+        },
+        '&.Mui-focused': {
+          color: theme.palette.primary.light, // Consistent with TextField labels on focus
+        },
+        '&.Mui-error': {
+          color: theme.palette.error.main,
+        },
+        '&.Mui-disabled': {
+          color: theme.palette.text.disabled,
+        },
+        '&.Mui-required .MuiFormLabel-asterisk': {
+          color: theme.palette.primary.light, // Asterisk color for required fields
+        },
+      }),
+    },
+  },
+
+  // ---------------------------------------------------
+  // MuiRadioGroup Component Customizations
+  // ---------------------------------------------------
+  MuiRadioGroup: {
+    styleOverrides: {
+      root: ({ theme }: { theme: Theme }): CSSObject => ({
+        // The display, flexDirection, and gap are handled by the parent FormControl,
+        // so generally minimal styles are needed directly on the RadioGroup root.
+        // If you were *not* using FormControl's flex properties, you might add:
+        // display: 'flex',
+        // flexDirection: 'row',
+        // gap: theme.spacing(2), // Spacing between individual FormControlLabel children
+      }),
+    },
+  },
+
+  // ---------------------------------------------------
+  // MuiRadio Component Customizations (the actual radio button circle)
+  // ---------------------------------------------------
+  MuiRadio: {
+    defaultProps: {
+      size: 'small', // Set default size to 'small' as per your usage
+    },
+    styleOverrides: {
+      root: ({ theme }: { theme: Theme }): CSSObject => ({
+        color: 'theme.palette.secondary.dark', // Default (unchecked) color
+        width: 30,
+        height: 30,
+        marginRight: theme.spacing(0.5), // Small left margin for spacing
+        padding: theme.spacing(1), // Consistent padding for the control element
+        transition: theme.transitions.create(['color']), // Smooth color transition
+        '&:hover': {
+          color: theme.palette.primary.light, // Hover color
+        },
+        '&.Mui-checked': {
+          color: theme.palette.primary.light, // Checked color
+          '&:hover': {
+            backgroundColor: alpha(theme.palette.primary.light, 0.1), // Hover background for checked state
+          },
+        },
+        '&:not(.Mui-checked):hover': {
+          backgroundColor: alpha(theme.palette.primary.light, 0.1), // Hover background for unchecked state
+        },
+        '&.Mui-disabled': {
+          color: alpha(theme.palette.secondary.dark, 0.5), // Disabled icon color
+        },
+        // Adjust the size of the internal SVG icon if needed
+        '& .MuiSvgIcon-root': {
+          fontSize: '1.25rem', // Example: make the icon slightly smaller than default 'medium'
+        },
+      }),
+    },
+  },
+
+  // ---------------------------------------------------
+  // MuiFormControlLabel Component Customizations (wraps Radio and its label text)
+  // ---------------------------------------------------
+  MuiFormControlLabel: {
+    styleOverrides: {
+      root: ({ theme }: { theme: Theme }): CSSObject => ({
+        // Remove default margins if the parent `FormControl` is handling spacing with `gap`
+        marginRight: theme.spacing(3),
+        '&:first-of-type': {
+          marginLeft: theme.spacing(1),
+        },
+        '&.Mui-disabled': {
+          cursor: 'not-allowed',
+        },
+        '&:hover .MuiRadio-root, &:hover .MuiTypography-root': {
+          color: theme.palette.primary.light,
+        },
+      }),
+      label: ({ theme }: { theme: Theme }): CSSObject => ({
+        color: theme.palette.secondary.dark, // Default label text color
+        fontSize: '1rem', // Default font size for label
+        [theme.breakpoints.down('md')]: {
+          fontSize: '0.875rem', // Responsive font size for 'xs' breakpoint
+        },
+        '&.Mui-disabled': {
+          color: theme.palette.text.disabled, // Disabled label text color
+        },
+      }),
+      // You can also target specific parts if needed, e.g., to adjust spacing between control and label:
+      // labelPlacementStart: {},
+      // labelPlacementEnd: {},
+      // control: { // Styles for the wrapper around the Radio component itself
+      //   marginRight: theme.spacing(1), // Example: small gap between Radio and label text
+      // },
+    },
+  },
+
+  //----------------------------------------------------
   // MuiButton Component Customizations
   // ---------------------------------------------------
   MuiButton: {
@@ -246,6 +365,7 @@ const components: Components<Omit<Theme, 'components'>> = {
     },
     styleOverrides: {
       root: ({ theme }: { theme: Theme }): CSSObject => ({
+        margin: 0,
         // You can control consistent spacing around the TextField here if needed.
         // For example, if you want a consistent bottom margin for all text fields:
         // marginBottom: theme.spacing(2),
@@ -265,11 +385,12 @@ const components: Components<Omit<Theme, 'components'>> = {
           boxShadow: theme.shadows[1],
           '& .MuiOutlinedInput-notchedOutline': {
             borderColor: theme.palette.primary.light,
-            borderWidth: '1px',
+            borderWidth: '1.5px',
           },
         },
         '&:hover .MuiOutlinedInput-notchedOutline': {
           borderColor: theme.palette.primary.light,
+          borderWidth: '1.5px',
         },
         '&.Mui-error': {
           '& .MuiOutlinedInput-notchedOutline': {
@@ -295,7 +416,7 @@ const components: Components<Omit<Theme, 'components'>> = {
       input: ({ theme }: { theme: Theme }): CSSObject => ({
         color: theme.palette.secondary.dark,
         '&::placeholder': {
-          color: alpha(theme.palette.secondary.dark, 0.7),
+          color: alpha(theme.palette.secondary.dark, 0.6),
           opacity: 1,
         },
         '.Mui-focused &': {
@@ -603,6 +724,11 @@ const components: Components<Omit<Theme, 'components'>> = {
   MuiFormControl: {
     styleOverrides: {
       root: ({ theme }: { theme: Theme }): CSSObject => ({
+        '& .MuiFormLabel-root.Mui-focused ~ .MuiRadioGroup-root': {
+          '& .MuiRadio-root.Mui-checked + .MuiTypography-root': {
+            color: theme.palette.primary.light,
+          },
+        },
         '& .MuiInputLabel-root': {
           '&.MuiInputLabel-outlined': {
             transform: 'translate(14px, 8.5px) scale(1)',

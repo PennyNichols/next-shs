@@ -20,17 +20,18 @@ const palette = {
 
   primary: {
     main: navyBlue,
-    light: 'rgb(51, 82, 114)',
+    light: 'rgb(53, 96, 139)',
     dark: 'rgb(0, 22, 46)',
     contrastText: offWhite,
   },
   secondary: {
     main: coolGray,
     light: offWhite,
-    dark: mediumGray,
+    dark: darkGray,
     contrastText: navyBlue,
   },
-  accent: { // Custom palette color
+  accent: {
+    // Custom palette color
     main: gold,
     light: 'rgb(255, 228, 102)',
     dark: 'rgb(204, 172, 0)',
