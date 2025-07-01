@@ -87,6 +87,7 @@ const ShareButton = () => {
           horizontal: 'center',
         }}
         disableScrollLock={true}
+        sx={{ mt: 1 }}
         slotProps={{
           paper: {
             sx: {

@@ -29,7 +29,7 @@ const SubscribeForm = () => {
         alignItems: { xs: 'stretch', md: 'center' },
       }}
     >
-      <Grid item xs={12} sm={6} md={8} sx={{ display: 'flex'}}>
+      <Grid item xs={12} sm={6} md={8} sx={{ display: 'flex' }}>
         <TextField
           type="email"
           value={email}
@@ -64,8 +64,8 @@ const SubscribeForm = () => {
           }}
         />
       </Grid>
-      <Grid item xs={12} sm={6} md={4} sx={{ display: 'flex'}}>
-        <ActionButton buttonType="submit" darkBackground text="Subscribe" sx={{ flexGrow: 1 }} />
+      <Grid item xs={12} sm={6} md={4} sx={{ display: 'flex' }}>
+        <ActionButton type="submit" variant="contained" color="secondary" text="Subscribe" />
         {message && <Typography variant="body1">{message}</Typography>}
       </Grid>
     </Grid>

@@ -1,4 +1,8 @@
 'use client';
+
+// NEED TO FIX LINK BG COLORS AND HOVER BG COLORS
+// STYLE MIGRATION TO SX BROKE IT
+// INTEGRATE INTO THEME, CAN USE CUSTOM CLASSNAMES IN GLOBAL THEME
 import React, { useEffect, useState } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -49,7 +53,7 @@ const NavBar = () => {
 
   return (
     <ClickAwayListener onClickAway={handleMenuClose}>
-      <AppBar position="sticky">
+      <AppBar position="sticky" sx={{py: 1}}>
         <Container>
           <Toolbar disableGutters>
             <Box mr={1}>

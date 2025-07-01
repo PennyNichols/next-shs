@@ -56,7 +56,7 @@ const Footer = () => {
                   <ReviewButton fullWidth={isFullWidth} />
                 </Grid>
                 <Grid item xs={12} sm={6} md="auto">
-                  <EstimateRequestButton darkBackground fullWidth={isFullWidth} />
+                  <EstimateRequestButton color="secondary" fullWidth={isFullWidth} />
                 </Grid>
               </Grid>
             </Grid>

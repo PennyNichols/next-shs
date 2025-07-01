@@ -1,7 +1,3 @@
-//
-// Fix autofill style in textboxes. when hovering the autofill options, the styles change.
-//
-
 // src/theme/components.ts
 import { alpha } from '@mui/material/styles';
 import { Components, Theme } from '@mui/material/styles';
@@ -9,7 +5,7 @@ import { CSSObject } from '@emotion/react';
 import { customShadows, customBorderRadius, customTransitions } from './otherThemeConstants'; // Assuming these are correctly typed as discussed
 import { lightGray } from './colors';
 
-const svgDropShadowFilter = `%3Cdefs%3E%3Cfilter id='shadow' x='-70%25' y='-70%25' width='300%25' height='300%25'%3E%3CfeDropShadow dx='0' dy='2' stdDeviation='1' flood-color='%23000' flood-opacity='.5'/%3E%3C/filter%3E%3C/defs%3E`;
+const svgDropShadowFilter = `%3Cdefs%3E%3Cfilter id='shadow' x='-70%25' y='-70%25' width='300%25' height='300%25'%3E%3CfeDropShadow dx='0' dy='2' stdDeviation='1' flood-color='%23000' flood-opacity='.3'/%3E%3C/filter%3E%3C/defs%3E`;
 
 const components: Components<Omit<Theme, 'components'>> = {
   // ---------------------------------------------------
@@ -42,14 +38,13 @@ const components: Components<Omit<Theme, 'components'>> = {
           backgroundColor: theme.palette.secondary.main,
           height: 13,
           width: 13,
-          transition: 'background-image 2s ease-in-out',
           // Default arrows are not visible, use background-image for custom arrows:
           '-webkit-appearance': 'none',
           'background-repeat': 'no-repeat',
           'background-position': 'center',
         },
 
-        // Specific arrow icons for vertical scrollbar buttons
+        // Vertical scrollbar buttons
         '&::-webkit-scrollbar-button:vertical:start': {
           // Solid Rounded Up Triangle
           'background-image': `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='3 4 18 19'>${svgDropShadowFilter}%3E%3Cpath fill='${encodeURIComponent(theme.palette.primary.light)}' d='M6.41,16H17.59a1,1,0,0,0,.7-1.71L12.71,8.71a1,1,0,0,0-1.42,0L5.71,14.29A1,1,0,0,0,6.41,16Z' filter='url(%23shadow)'/%3E%3C/svg%3E")`,
@@ -121,14 +116,41 @@ const components: Components<Omit<Theme, 'components'>> = {
         WebkitTextFillColor: `${theme.palette.secondary.dark} !important`,
         caretColor: `${theme.palette.secondary.dark} !important`,
       },
-
-      // You can also target specific elements or globally within a container if needed
-      // For example, if you have a common container class for scrollable content:
-      // '.scrollable-container': {
-      //   '&::-webkit-scrollbar': { /* ... */ },
-      //   '&::-webkit-scrollbar-thumb': { /* ... */ },
-      // },
+      form: {},
     }),
+  },
+  // ---------------------------------------------------
+  // MuiPaper Component Customizations
+  // ---------------------------------------------------
+  MuiPaper: {
+    defaultProps: {
+      elevation: 3,
+    },
+    styleOverrides: {
+      root: ({ theme }: { theme: Theme }): CSSObject => ({
+        borderRadius: customBorderRadius.slight,
+        background: theme.palette.background.paper,
+      }),
+    },
+  },
+  // ---------------------------------------------------
+  // MuiFormLabel Component Customizations (for the main question label)
+  // ---------------------------------------------------
+  MuiGrid: {
+    defaultProps: {
+      item: true,
+      // If you set container: true here, all Grid components would be containers unless specified otherwise
+      // container: true, // Not recommended to make ALL grids containers by default
+      // spacing: 2,      // Not recommended to make ALL grids have spacing 2 by default
+    },
+    styleOverrides: {
+      // This is where you put CSS for the .MuiGrid-root class
+      root: ({ theme, ownerState }) => ({
+        // CSS that applies to the root element of a Grid
+        // You can even target it when it's a form if you want specific styles
+        // if (ownerState.component === 'form') { ... }
+      }),
+    },
   },
   // ---------------------------------------------------
   // MuiFormLabel Component Customizations (for the main question label)
@@ -136,13 +158,13 @@ const components: Components<Omit<Theme, 'components'>> = {
   MuiFormLabel: {
     styleOverrides: {
       root: ({ theme }: { theme: Theme }): CSSObject => ({
-        color: theme.palette.secondary.dark, // Default label color
-        fontSize: '1rem', // Default font size for larger screens
+        color: theme.palette.secondary.dark,
+        fontSize: '1rem',
         [theme.breakpoints.down('md')]: {
-          fontSize: '0.875rem', // Smaller font for 'xs' breakpoint
+          fontSize: '0.875rem',
         },
         '&.Mui-focused': {
-          color: theme.palette.primary.light, // Consistent with TextField labels on focus
+          color: theme.palette.primary.light,
         },
         '&.Mui-error': {
           color: theme.palette.error.main,
@@ -151,12 +173,11 @@ const components: Components<Omit<Theme, 'components'>> = {
           color: theme.palette.text.disabled,
         },
         '&.Mui-required .MuiFormLabel-asterisk': {
-          color: theme.palette.primary.light, // Asterisk color for required fields
+          color: theme.palette.primary.light,
         },
       }),
     },
   },
-
   // ---------------------------------------------------
   // MuiRadioGroup Component Customizations
   // ---------------------------------------------------
@@ -165,59 +186,93 @@ const components: Components<Omit<Theme, 'components'>> = {
       root: ({ theme }: { theme: Theme }): CSSObject => ({
         // The display, flexDirection, and gap are handled by the parent FormControl,
         // so generally minimal styles are needed directly on the RadioGroup root.
-        // If you were *not* using FormControl's flex properties, you might add:
-        // display: 'flex',
-        // flexDirection: 'row',
-        // gap: theme.spacing(2), // Spacing between individual FormControlLabel children
       }),
     },
   },
-
   // ---------------------------------------------------
   // MuiRadio Component Customizations (the actual radio button circle)
   // ---------------------------------------------------
   MuiRadio: {
     defaultProps: {
-      size: 'small', // Set default size to 'small' as per your usage
+      size: 'small',
     },
     styleOverrides: {
       root: ({ theme }: { theme: Theme }): CSSObject => ({
-        color: 'theme.palette.secondary.dark', // Default (unchecked) color
+        color: theme.palette.secondary.dark,
         width: 30,
         height: 30,
-        marginRight: theme.spacing(0.5), // Small left margin for spacing
-        padding: theme.spacing(1), // Consistent padding for the control element
-        transition: theme.transitions.create(['color']), // Smooth color transition
+        marginRight: theme.spacing(0.5),
+        padding: theme.spacing(1),
+        transition: theme.transitions.create(['color']),
         '&:hover': {
-          color: theme.palette.primary.light, // Hover color
+          color: theme.palette.primary.light,
         },
         '&.Mui-checked': {
-          color: theme.palette.primary.light, // Checked color
+          color: theme.palette.secondary.dark,
           '&:hover': {
-            backgroundColor: alpha(theme.palette.primary.light, 0.1), // Hover background for checked state
+            backgroundColor: alpha(theme.palette.primary.light, 0.1),
           },
         },
         '&:not(.Mui-checked):hover': {
-          backgroundColor: alpha(theme.palette.primary.light, 0.1), // Hover background for unchecked state
+          backgroundColor: alpha(theme.palette.primary.light, 0.1),
         },
         '&.Mui-disabled': {
-          color: alpha(theme.palette.secondary.dark, 0.5), // Disabled icon color
+          color: alpha(theme.palette.secondary.dark, 0.5),
         },
-        // Adjust the size of the internal SVG icon if needed
         '& .MuiSvgIcon-root': {
-          fontSize: '1.25rem', // Example: make the icon slightly smaller than default 'medium'
+          fontSize: '1.25rem',
         },
       }),
     },
   },
-
+  // ---------------------------------------------------
+  // MuiCheckbox Component Customizations
+  // ---------------------------------------------------
+  MuiCheckbox: {
+    defaultProps: {
+      size: 'small', // Matches the default size of MuiRadio
+    },
+    styleOverrides: {
+      root: ({ theme }: { theme: Theme }): CSSObject => ({
+        // color: theme.palette.secondary.dark, // Default color for unchecked state
+        // width: 30, // Matches width of MuiRadio
+        // height: 30, // Matches height of MuiRadio
+        // marginRight: theme.spacing(0.5), // Matches margin of MuiRadio
+        // padding: theme.spacing(1), // Matches padding of MuiRadio
+        // transition: theme.transitions.create(['color']), // Smooth color transition
+        // // Hover effect for unchecked checkbox
+        // '&:hover': {
+        //   color: theme.palette.primary.light, // Hover color for unchecked
+        // },
+        // // Styles when checkbox is checked
+        // '&.Mui-checked': {
+        //   color: theme.palette.primary.light, // Color when checked
+        //   // Hover effect for checked checkbox
+        //   '&:hover': {
+        //     backgroundColor: alpha(theme.palette.primary.light, 0.1), // Background hover for checked
+        //   },
+        // },
+        // // Hover effect for unchecked checkbox (explicitly for when not checked)
+        // '&:not(.Mui-checked):hover': {
+        //   backgroundColor: alpha(theme.palette.primary.light, 0.1), // Background hover for unchecked
+        // },
+        // // Styles when checkbox is disabled
+        // '&.Mui-disabled': {
+        //   color: alpha(theme.palette.secondary.dark, 0.5), // Disabled color
+        // },
+        // // Icon size
+        // '& .MuiSvgIcon-root': {
+        //   fontSize: '1.25rem', // Matches icon size of MuiRadio
+        // },
+      }),
+    },
+  },
   // ---------------------------------------------------
   // MuiFormControlLabel Component Customizations (wraps Radio and its label text)
   // ---------------------------------------------------
   MuiFormControlLabel: {
     styleOverrides: {
       root: ({ theme }: { theme: Theme }): CSSObject => ({
-        // Remove default margins if the parent `FormControl` is handling spacing with `gap`
         marginRight: theme.spacing(3),
         '&:first-of-type': {
           marginLeft: theme.spacing(1),
@@ -228,37 +283,35 @@ const components: Components<Omit<Theme, 'components'>> = {
         '&:hover .MuiRadio-root, &:hover .MuiTypography-root': {
           color: theme.palette.primary.light,
         },
+        '&:hover .MuiCheckbox-icon': {
+          borderColor: theme.palette.primary.light,
+        },
       }),
       label: ({ theme }: { theme: Theme }): CSSObject => ({
-        color: theme.palette.secondary.dark, // Default label text color
-        fontSize: '1rem', // Default font size for label
+        color: theme.palette.secondary.dark,
+        fontSize: '1rem',
         [theme.breakpoints.down('md')]: {
-          fontSize: '0.875rem', // Responsive font size for 'xs' breakpoint
+          fontSize: '0.875rem',
         },
         '&.Mui-disabled': {
-          color: theme.palette.text.disabled, // Disabled label text color
+          color: theme.palette.text.disabled,
         },
       }),
-      // You can also target specific parts if needed, e.g., to adjust spacing between control and label:
-      // labelPlacementStart: {},
-      // labelPlacementEnd: {},
-      // control: { // Styles for the wrapper around the Radio component itself
-      //   marginRight: theme.spacing(1), // Example: small gap between Radio and label text
-      // },
     },
   },
-
   //----------------------------------------------------
   // MuiButton Component Customizations
   // ---------------------------------------------------
   MuiButton: {
-    // defaultProps: { ... }, // Keep this section if you use it
-
+    defaultProps: {
+      variant: 'contained',
+      color: 'primary',
+    }, // Keep this section, might want to use it
     styleOverrides: {
-      // Targets the root element of the Button component
       root: ({ theme }: { theme: Theme }): CSSObject => ({
         textTransform: 'none',
         fontWeight: 500,
+        letterSpacing: '0.07rem',
         boxShadow: customShadows[2],
         borderRadius: customBorderRadius.small,
         border: `2px solid transparent`,
@@ -266,26 +319,38 @@ const components: Components<Omit<Theme, 'components'>> = {
         cursor: 'pointer',
         whiteSpace: 'nowrap',
         minWidth: 'auto',
+        flexGrow: 1,
+        '&:hover': {
+          boxShadow: customShadows[2],
+          letterSpacing: '0.1rem',
+        },
       }),
       containedPrimary: ({ theme }: { theme: Theme }): CSSObject => ({
         backgroundColor: theme.palette.primary.main,
-        color: theme.palette.primary.contrastText,
+        color: theme.palette.secondary.light,
         '&:hover': {
-          backgroundColor: theme.palette.primary.dark,
+          color: theme.palette.accent.main,
+          backgroundColor: theme.palette.primary.main,
+          borderColor: theme.palette.accent.main,
         },
       }),
       containedSecondary: ({ theme }: { theme: Theme }): CSSObject => ({
-        backgroundColor: theme.palette.secondary.main,
-        color: theme.palette.secondary.contrastText,
+        backgroundColor: theme.palette.accent.main,
+        color: theme.palette.primary.main,
         '&:hover': {
-          backgroundColor: theme.palette.secondary.dark,
+          color: theme.palette.accent.main,
+          backgroundColor: theme.palette.primary.main,
+          borderColor: theme.palette.accent.main,
         },
       }),
       outlinedPrimary: ({ theme }: { theme: Theme }): CSSObject => ({
         borderColor: theme.palette.primary.main,
         color: theme.palette.primary.main,
+        backgroundColor: theme.palette.background.paper,
         '&:hover': {
-          backgroundColor: alpha(theme.palette.primary.main, 0.04),
+          color: theme.palette.accent.main,
+          border: `2px solid ${theme.palette.accent.main}`,
+          backgroundColor: theme.palette.background.paper,
         },
       }),
       outlinedSecondary: ({ theme }: { theme: Theme }): CSSObject => ({
@@ -295,9 +360,81 @@ const components: Components<Omit<Theme, 'components'>> = {
           backgroundColor: alpha(theme.palette.secondary.main, 0.04),
         },
       }),
-      // ... (other commented-out styleOverrides can be left as is,
-      //      but if you uncomment and use them, they should also have the
-      //      CSSObject return type for consistency)
+    },
+  },
+  MuiIconButton: {
+    defaultProps: {
+      // You can set default props here if needed, e.g., default color
+      color: 'inherit', // Default color to inherit from parent, common for icon buttons
+      size: 'medium', // Default size for consistency
+    },
+    styleOverrides: {
+      root: ({ theme }: { theme: Theme }): CSSObject => ({
+        // Base styles for all IconButtons
+        transition: customTransitions.standard, // Apply your custom transition
+        borderRadius: customBorderRadius.small, // Inherit button's border radius for consistency
+        padding: theme.spacing(1), // Standard padding for icon buttons
+        '&:hover': {
+          // Default hover effect for icon buttons
+          transform: 'scale(1.2)', // Slightly scale up on hover
+          // backgroundColor: alpha(theme.palette.action.active, theme.palette.action.hoverOpacity),
+        },
+        '&.Mui-disabled': {
+          // Disabled state for icon buttons
+          color: theme.palette.action.disabled,
+          cursor: 'not-allowed',
+        },
+      }),
+      // Style overrides based on 'color' prop (e.g., color="primary")
+      colorPrimary: ({ theme }: { theme: Theme }): CSSObject => ({
+        color: theme.palette.primary.main,
+        '&:hover': {
+          backgroundColor: alpha(theme.palette.primary.main, theme.palette.action.hoverOpacity),
+        },
+      }),
+      colorSecondary: ({ theme }: { theme: Theme }): CSSObject => ({
+        color: theme.palette.secondary.main,
+        '&:hover': {
+          backgroundColor: alpha(theme.palette.secondary.main, theme.palette.action.hoverOpacity),
+        },
+      }),
+      colorError: ({ theme }: { theme: Theme }): CSSObject => ({
+        color: theme.palette.error.main,
+        '&:hover': {
+          backgroundColor: alpha(theme.palette.error.main, theme.palette.action.hoverOpacity),
+        },
+      }),
+      colorInfo: ({ theme }: { theme: Theme }): CSSObject => ({
+        color: theme.palette.info.main,
+        '&:hover': {
+          backgroundColor: alpha(theme.palette.info.main, theme.palette.action.hoverOpacity),
+        },
+      }),
+      colorSuccess: ({ theme }: { theme: Theme }): CSSObject => ({
+        color: theme.palette.success.main,
+        '&:hover': {
+          backgroundColor: alpha(theme.palette.success.main, theme.palette.action.hoverOpacity),
+        },
+      }),
+      colorWarning: ({ theme }: { theme: Theme }): CSSObject => ({
+        color: theme.palette.warning.main,
+        '&:hover': {
+          backgroundColor: alpha(theme.palette.warning.main, theme.palette.action.hoverOpacity),
+        },
+      }),
+      // Style overrides based on 'size' prop
+      sizeSmall: ({ theme }: { theme: Theme }): CSSObject => ({
+        padding: theme.spacing(0.5), // Smaller padding for small size
+        fontSize: '1.125rem', // Default icon font size for small is 18px (adjust as needed)
+      }),
+      sizeMedium: ({ theme }: { theme: Theme }): CSSObject => ({
+        padding: theme.spacing(1), // Default padding for medium size
+        fontSize: '1.5rem', // Default icon font size for medium is 24px (adjust as needed)
+      }),
+      sizeLarge: ({ theme }: { theme: Theme }): CSSObject => ({
+        padding: theme.spacing(1.5), // Larger padding for large size
+        fontSize: '2rem', // Default icon font size for large is 32px (adjust as needed)
+      }),
     },
   },
   // ---------------------------------------------------
@@ -321,8 +458,21 @@ const components: Components<Omit<Theme, 'components'>> = {
   MuiDialogTitle: {
     styleOverrides: {
       root: ({ theme }: { theme: Theme }): CSSObject => ({
-        color: theme.palette.primary.main,
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        padding: theme.spacing(1),
+        paddingLeft: theme.spacing(3),
+        marginBottom: theme.spacing(1.5),
+        color: theme.palette.primary.contrastText,
+        backgroundColor: theme.palette.primary.main,
         fontWeight: 600,
+        '& .MuiIconButton-root': {
+          color: theme.palette.primary.contrastText,
+          '&:hover': {
+            color: theme.palette.accent.main,
+          },
+        },
       }),
     },
   },
@@ -337,7 +487,9 @@ const components: Components<Omit<Theme, 'components'>> = {
         background: 'transparent',
         display: 'flex',
         justifyContent: 'center',
-        alignItems: 'center',
+        overflowX: 'hidden',
+
+        // alignItems: 'center',   !!!! DO NOT USE ALIGN ITEMS !!!!!
       }),
     },
   },
@@ -366,9 +518,6 @@ const components: Components<Omit<Theme, 'components'>> = {
     styleOverrides: {
       root: ({ theme }: { theme: Theme }): CSSObject => ({
         margin: 0,
-        // You can control consistent spacing around the TextField here if needed.
-        // For example, if you want a consistent bottom margin for all text fields:
-        // marginBottom: theme.spacing(2),
       }),
     },
   },
@@ -422,7 +571,7 @@ const components: Components<Omit<Theme, 'components'>> = {
         '.Mui-focused &': {
           color: theme.palette.primary.light,
         },
-        // Hide number controls entirely (common practice for design consistency)
+        // Hide number controls entirely
         '&[type="number"]': {
           '-moz-appearance': 'textfield',
           '&::-webkit-outer-spin-button': {
@@ -501,25 +650,8 @@ const components: Components<Omit<Theme, 'components'>> = {
           color: theme.palette.text.disabled,
         },
       }),
-      // You can also target specific variants or positions directly
-      // positionStart: {
-      //   // Styles specific to start adornments
-      // },
-      // positionEnd: {
-      //   // Styles specific to end adornments
-      // },
-      // filled: {
-      //   // Styles specific to filled variant adornments
-      // },
-      // outlined: {
-      //   // Styles specific to outlined variant adornments
-      // },
-      // standard: {
-      //   // Styles specific to standard variant adornments
-      // },
     },
   },
-  // *** End of MuiInputAdornment style overrides ***
   // ---------------------------------------------------
   // MuiInputBase Component Customizations
   // ---------------------------------------------------
@@ -576,8 +708,9 @@ const components: Components<Omit<Theme, 'components'>> = {
         },
       }),
       outlined: ({ theme }: { theme: Theme }): CSSObject => ({
-        '&:hover .MuiOutlinedInput-notchedOutline': {
+        '&:hover .MuiOutlinedInput-notchedOutline, &:hover .MuiSvgIcon-root': {
           borderColor: theme.palette.primary.light,
+          color: theme.palette.primary.light,
         },
         '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
           borderColor: theme.palette.primary.light,
@@ -586,10 +719,8 @@ const components: Components<Omit<Theme, 'components'>> = {
       }),
       icon: ({ theme }: { theme: Theme }): CSSObject => ({
         color: theme.palette.secondary.dark,
-        transition: theme.transitions.create(['color', 'transform'], {
-          duration: theme.transitions.duration.short,
-          easing: theme.transitions.easing.easeOut,
-        }),
+        fill: theme.palette.secondary.dark,
+        transition: customTransitions.fast,
         '.MuiSelect-select:hover ~ &': {
           color: theme.palette.primary.light,
         },
@@ -611,26 +742,48 @@ const components: Components<Omit<Theme, 'components'>> = {
       root: ({ theme }: { theme: Theme }): CSSObject => ({
         color: theme.palette.secondary.dark,
         fontSize: '0.95rem',
-        padding: theme.spacing(1, 2),
+        padding: theme.spacing(0.5, 2, 1, 2),
+        alignItems: 'flex-start',
         minHeight: 'auto',
-        transition: theme.transitions.create(['background-color', 'color'], {
-          duration: theme.transitions.duration.short,
-          easing: theme.transitions.easing.easeOut,
-        }),
+        transition: customTransitions.fast,
+        '& .MuiCheckbox-root': {
+          transition: customTransitions.fast,
+          color: theme.palette.secondary.dark,
+          top: -5,
+          left: -1,
+        },
+        '& .Mui-checked .MuiSvgIcon-root': {
+          color: theme.palette.secondary.dark,
+          transition: customTransitions.fast,
+        },
+        '& .PrivateSwitchBase-input': {
+          width: 36,
+          height: 36,
+        },
+        '& .MuiTypography-root': {
+          paddingTop: theme.spacing(0.45),
+          transition: customTransitions.fast,
+        },
 
         '&:hover': {
-          backgroundColor: alpha(theme.palette.primary.light, 0.08),
-          color: theme.palette.primary.main,
+          backgroundColor: alpha(theme.palette.primary.light, 0.03),
+          color: theme.palette.primary.light,
+          '& .MuiCheckbox-root, .MuiTypography-root, & .Mui-checked .MuiSvgIcon-root': {
+            color: theme.palette.primary.light,
+          },
+          '& .checkbox-container': {
+            borderColor: theme.palette.primary.light,
+          },
         },
         '&.Mui-selected': {
-          backgroundColor: alpha(theme.palette.primary.light, 0.12),
-          color: theme.palette.primary.main,
+          backgroundColor: alpha(theme.palette.primary.light, 0.03),
+          color: theme.palette.secondary.dark,
           '&:hover': {
-            backgroundColor: alpha(theme.palette.primary.light, 0.16),
+            backgroundColor: alpha(theme.palette.primary.light, 0.06),
           },
         },
         '&.Mui-focusVisible': {
-          backgroundColor: alpha(theme.palette.primary.light, 0.08),
+          backgroundColor: alpha(theme.palette.primary.light, 0.03),
         },
         '&.Mui-disabled': {
           color: theme.palette.text.disabled,
@@ -655,33 +808,51 @@ const components: Components<Omit<Theme, 'components'>> = {
         marginTop: theme.spacing(0.5),
         overflowY: 'auto',
         overflowX: 'hidden',
+        '&.MuiList-root': {
+          boxShadow: 'none',
+        },
         '&.MuiSelect-dropdown-paper': {
           borderRadius: customBorderRadius.none,
           boxShadow: customShadows[4],
           backgroundColor: theme.palette.background.paper,
           outline: `8px solid ${theme.palette.background.paper}`,
+          outlineOffset: -1,
           padding: theme.spacing(0, 1),
           borderTop: `10px solid ${theme.palette.background.paper}`,
           borderBottom: `10px solid ${theme.palette.background.paper}`,
-          borderLeft: 'none',
-          borderRight: 'none',
+          borderLeft: `5px solid ${theme.palette.background.paper}`,
+          borderRight: `8px solid ${theme.palette.background.paper}`,
+          minHeight: '40vh',
+          maxHeight: '70vh',
           minWidth: 120,
           maxWidth: 450,
           '&.MuiSelect-dropdown-headers': {
+            '& .MuiListSubheader-root': {
+              backgroundColor: theme.palette.primary.main,
+              padding: theme.spacing(1, 2),
+              marginBottom: theme.spacing(1.5),
+              '& .MuiTypography-root': {
+                color: theme.palette.primary.contrastText,
+                fontSize: '1.3rem',
+                fontWeight: 600,
+              },
+            },
             '&::-webkit-scrollbar-track': {
-              marginTop: theme.spacing(5),
+              marginTop: theme.spacing(7),
             },
           },
         },
         '& .MuiMenu-list': {
           padding: theme.spacing(0),
+          boxShadow: 'none',
         },
       }),
       list: ({ theme }: { theme: Theme }): CSSObject => ({
         margin: theme.spacing(0, 0),
       }),
     },
-  }, // ---------------------------------------------------
+  },
+  // ---------------------------------------------------
   // MuiListSubheader Component Customizations
   // ---------------------------------------------------
   MuiListSubheader: {
@@ -712,9 +883,6 @@ const components: Components<Omit<Theme, 'components'>> = {
       paper: ({ theme }: { theme: Theme }): CSSObject => ({
         borderRadius: customBorderRadius.small,
         boxShadow: customShadows[2],
-        // '&.MuiMenu-paper': {
-        //   backgroundColor: 'red',
-        // },
       }),
     },
   },
@@ -722,6 +890,9 @@ const components: Components<Omit<Theme, 'components'>> = {
   // MuiFormControl Component Customizations
   // ---------------------------------------------------
   MuiFormControl: {
+    defaultProps: {
+      fullWidth: true,
+    },
     styleOverrides: {
       root: ({ theme }: { theme: Theme }): CSSObject => ({
         '& .MuiFormLabel-root.Mui-focused ~ .MuiRadioGroup-root': {

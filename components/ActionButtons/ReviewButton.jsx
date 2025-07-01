@@ -5,7 +5,14 @@ import { RateReview } from '@mui/icons-material';
 
 const ReviewButton = (props) => {
   return (
-    <ActionButton text={REVIEW_BUTTON_TEXT} path={GOOGLE_REVIEW_URL} icon={<RateReview />} darkBackground {...props} />
+    <ActionButton
+      text={REVIEW_BUTTON_TEXT}
+      variant="contained"
+      color="secondary"
+      icon={<RateReview />}
+      path={GOOGLE_REVIEW_URL}
+      {...props}
+    />
   );
 };
 

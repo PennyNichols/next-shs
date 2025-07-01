@@ -44,9 +44,9 @@ export const customBorderRadius = {
 };
 
 export const customTransitions = {
-  slow: 'all 1s ease-in-out',
-  standard: 'all 0.5s ease-in-out',
-  fast: 'all 0.2s ease-in-out',
+  slow: 'all 0.8s ease-in-out',
+  standard: 'all 0.3s ease-in-out',
+  fast: 'all 0.1s ease-in-out',
 };
 
 export const customBreakpoints = {

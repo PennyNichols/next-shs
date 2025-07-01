@@ -65,7 +65,7 @@ const CareersPage = () => {
         {Array.isArray(jobDetails)
           ? jobDetails.map((detail, idx) =>
               detail.bold ? (
-                <b style={{ fontWeight: 600, color: darkGray }} key={idx}>
+                <b style={{ fontWeight: 600, color: darkGray, whiteSpace: 'nowrap' }} key={idx}>
                   {detail.text}
                 </b>
               ) : (

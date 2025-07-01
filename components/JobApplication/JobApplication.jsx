@@ -26,6 +26,8 @@ import { SERVICE_CATEGORIES } from '../../constants/services';
 import { AttachMoney, CloudUpload } from '@mui/icons-material';
 import theme from '@/theme';
 import { customBorderRadius } from '@/theme/otherThemeConstants';
+import CustomCheckbox from 'components/ReusableComponents/CustomCheckbox/CustomCheckbox';
+import GroupedMultiSelect from 'components/ReusableComponents/GroupedMultiSelect/GroupedMultiSelect';
 
 const skills = SERVICE_CATEGORIES;
 
@@ -121,16 +123,13 @@ const JobApplication = () => {
 
   return (
     <Paper
-      elevation={3}
       sx={{
-        padding: theme.spacing(4),
-        maxWidth: { xs: '100%', sm: 700 },
-        margin: '0 auto',
+        p: 4,
         mb: 4,
         mt: 1,
         borderRadius: { xs: customBorderRadius.none, sm: customBorderRadius.small },
-        boxShadow: theme.shadows[3],
-        background: theme.palette.background.paper,
+        margin: '0 auto',
+        maxWidth: { xs: '100%', sm: 700 },
       }}
     >
       <Typography variant="h3" align="center" gutterBottom sx={{ color: theme.palette.primary.main }}>
@@ -154,7 +153,7 @@ const JobApplication = () => {
                 display: 'flex',
                 gap: theme.spacing(2),
                 flexDirection: 'row',
-                justifyContent: 'center',
+                justifyContent: 'flex-start',
                 alignItems: 'center',
               }}
               error={!!errors.eligible}
@@ -199,7 +198,6 @@ const JobApplication = () => {
                 <CustomTextField
                   label="First Name"
                   required
-                  shrinkLabel
                   error={!!errors.firstName}
                   helperText={errors.firstName?.message}
                   {...field}
@@ -215,7 +213,6 @@ const JobApplication = () => {
                 <CustomTextField
                   label="Last Name"
                   required
-                  shrinkLabel
                   error={!!errors.lastName}
                   helperText={errors.lastName?.message}
                   {...field}
@@ -232,7 +229,6 @@ const JobApplication = () => {
                   label="Email"
                   required
                   type="email"
-                  shrinkLabel
                   error={!!errors.email}
                   helperText={errors.email?.message}
                   {...field}
@@ -249,7 +245,6 @@ const JobApplication = () => {
                   label="Phone"
                   required
                   type="tel"
-                  shrinkLabel
                   error={!!errors.phone}
                   helperText={errors.phone?.message}
                   {...field}
@@ -265,7 +260,6 @@ const JobApplication = () => {
                 <CustomTextField
                   label="Street Address"
                   required
-                  shrinkLabel
                   error={!!errors.address}
                   helperText={errors.address?.message}
                   {...field}
@@ -281,7 +275,6 @@ const JobApplication = () => {
                 <CustomTextField
                   label="City"
                   required
-                  shrinkLabel
                   error={!!errors.city}
                   helperText={errors.city?.message}
                   {...field}
@@ -297,7 +290,6 @@ const JobApplication = () => {
                 <CustomTextField
                   label="State"
                   required
-                  shrinkLabel
                   error={!!errors.state}
                   helperText={errors.state?.message}
                   {...field}
@@ -313,7 +305,6 @@ const JobApplication = () => {
                 <CustomTextField
                   label="ZIP"
                   required
-                  shrinkLabel
                   error={!!errors.zip}
                   helperText={errors.zip?.message}
                   {...field}
@@ -333,7 +324,6 @@ const JobApplication = () => {
                   required
                   type="number"
                   inputProps={{ min: 0 }}
-                  shrinkLabel
                   error={!!errors.experience}
                   helperText={errors.experience?.message}
                   {...field}
@@ -352,7 +342,6 @@ const JobApplication = () => {
                   required
                   type="number"
                   inputProps={{ min: 15, max: 40 }}
-                  shrinkLabel
                   startIcon={<AttachMoney />}
                   error={!!errors.expectedPay}
                   helperText={errors.expectedPay ? errors.expectedPay?.message : 'Per Hour'}
@@ -372,7 +361,6 @@ const JobApplication = () => {
                   required
                   type="number"
                   inputProps={{ min: 5, max: 40 }}
-                  shrinkLabel
                   error={!!errors.expectedHours}
                   helperText={errors.expectedHours ? errors.expectedHours?.message : 'Per Week'}
                   {...field}
@@ -386,7 +374,7 @@ const JobApplication = () => {
               name="certifications"
               control={control}
               render={({ field: { onChange, value, ...field } }) => (
-                <FormControl fullWidth error={!!errors.certifications}>
+                <FormControl error={!!errors.certifications}>
                   <InputLabel id="certifications-label">Which certifications do you have?</InputLabel>
                   <Select
                     labelId="certifications-label"
@@ -429,53 +417,16 @@ const JobApplication = () => {
             <Controller
               name="skills"
               control={control}
-              render={({ field: { onChange, value, ...field } }) => (
-                <FormControl required fullWidth error={!!errors.skills}>
-                  <InputLabel id="skills-label">Which skills do you have?</InputLabel>
-                  <Select
-                    labelId="skills-label"
-                    multiple
-                    label="Which skills do you have?"
-                    renderValue={(selected) => (
-                      <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
-                        {selected.map((val) => (
-                          <Chip key={val} label={val} />
-                        ))}
-                      </Box>
-                    )}
-                    value={value || []}
-                    onChange={(event) => {
-                      onChange(event.target.value);
-                    }}
-                    {...field}
-                    MenuProps={{
-                      PaperProps: {
-                        className: 'MuiSelect-dropdown-paper MuiSelect-dropdown-headers', // Custom class
-                      },
-                    }}
-                  >
-                    {skills.map((skill) => [
-                      <ListSubheader key={skill.sectionTitle}>
-                        <Typography variant="h4" color="background.paper">
-                          {skill.sectionTitle}
-                        </Typography>
-                      </ListSubheader>,
-                      skill.typesOfWork.map((item) => (
-                        <MenuItem key={item.title} value={item.title}>
-                          <Checkbox checked={(value || []).includes(item.title)} />
-                          <Typography variant="body1" sx={{ textWrap: 'wrap' }}>
-                            <b>{item.title}:</b> {item.description}
-                          </Typography>
-                        </MenuItem>
-                      )),
-                    ])}
-                  </Select>
-                  {errors.skills && (
-                    <Typography variant="caption" color="error">
-                      {errors.skills.message}
-                    </Typography>
-                  )}
-                </FormControl>
+              render={({ field, fieldState: { error } }) => (
+                <GroupedMultiSelect
+                  label="Which skills do you have?"
+                  options={SERVICE_CATEGORIES}
+                  fieldValue={field.value}
+                  onChange={field.onChange} // Pass RHF's onChange
+                  required={true}
+                  error={!!error}
+                  helperText={error ? error.message : null}
+                />
               )}
             />
           </Grid>
@@ -490,7 +441,6 @@ const JobApplication = () => {
                   required
                   multiline
                   minRows={2}
-                  shrinkLabel
                   placeholder="Please provide at least two references."
                   error={!!errors.references}
                   helperText={errors.references ? errors.references.message : 'Names & Contact Info'}
@@ -558,7 +508,6 @@ const JobApplication = () => {
                   multiline
                   minRows={3}
                   sx={{ mt: { xs: 2, sm: 0 } }}
-                  shrinkLabel
                   placeholder="Tell us why you would be a great fit for SHS."
                   {...field}
                 />

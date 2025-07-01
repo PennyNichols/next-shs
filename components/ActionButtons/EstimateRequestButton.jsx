@@ -5,7 +5,7 @@ import ActionButton from '../ReusableComponents/ActionButton/ActionButton';
 import { RequestQuoteRounded } from '@mui/icons-material';
 import PropTypes from 'prop-types';
 
-const EstimateRequestButton = ({ darkBackground = false, fullWidth = false, ...props }) => {
+const EstimateRequestButton = ({ fullWidth = false, ...props }) => {
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => setOpen(true);
@@ -17,13 +17,10 @@ const EstimateRequestButton = ({ darkBackground = false, fullWidth = false, ...p
         text="Request an Estimate"
         onClick={handleOpen}
         icon={<RequestQuoteRounded />}
-        darkBackground={darkBackground}
         fullWidth={fullWidth}
         {...props}
       />
-      <CustomModal open={open} handleClose={handleClose} title="Request an Estimate">
-        <EstimateRequestForm setOpen={setOpen} />
-      </CustomModal>
+      <EstimateRequestForm open={open} setOpen={setOpen} />
     </>
   );
 };

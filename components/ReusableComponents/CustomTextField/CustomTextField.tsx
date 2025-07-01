@@ -18,7 +18,7 @@ const CustomTextField: React.FC<CustomTextFieldProps> = ({
   fullWidth = true,
   startIcon,
   endIcon,
-  shrinkLabel = false,
+  shrinkLabel = true,
   InputProps,
   InputLabelProps,
   ...props
@@ -27,18 +27,10 @@ const CustomTextField: React.FC<CustomTextFieldProps> = ({
   const inputProps = {
     ...InputProps,
     ...(startIcon && {
-      startAdornment: (
-        <InputAdornment position="start">
-          {startIcon}
-        </InputAdornment>
-      ),
+      startAdornment: <InputAdornment position="start">{startIcon}</InputAdornment>,
     }),
     ...(endIcon && {
-      endAdornment: (
-        <InputAdornment position="end">
-          {endIcon}
-        </InputAdornment>
-      ),
+      endAdornment: <InputAdornment position="end">{endIcon}</InputAdornment>,
     }),
   };
 
