@@ -28,10 +28,11 @@ import theme from '@/theme';
 import { customBorderRadius } from '@/theme/otherThemeConstants';
 import CustomCheckbox from 'components/ReusableComponents/CustomCheckbox/CustomCheckbox';
 import GroupedMultiSelect from 'components/ReusableComponents/GroupedMultiSelect/GroupedMultiSelect';
+import DropdownSelect from 'components/ReusableComponents/DropdownMultiSelect/DropdownMultiSelect';
 
 const skills = SERVICE_CATEGORIES;
 
-const certifications = CERTIFICATIONS;
+const certificationOptions = CERTIFICATIONS;
 
 const schema = yup.object().shape({
   firstName: yup.string().required('First name required'),
@@ -129,16 +130,28 @@ const JobApplication = () => {
         mt: 1,
         borderRadius: { xs: customBorderRadius.none, sm: customBorderRadius.small },
         margin: '0 auto',
+        width: { xs: '100%', sm: 'auto' },
         maxWidth: { xs: '100%', sm: 700 },
       }}
     >
-      <Typography variant="h3" align="center" gutterBottom sx={{ color: theme.palette.primary.main }}>
-        SHS Employment Application
+      <Typography
+        variant="h3"
+        align="center"
+        gutterBottom
+        sx={{ color: theme.palette.primary.main, whiteSpace: { xs: 'wrap', sm: 'nowrap' } }}
+      >
+        SHS <wbr />
+        Employment Application
       </Typography>
       <Typography
         variant="body1"
-        align="center"
-        sx={{ mb: { xs: 5, sm: 3 }, mt: { xs: 3, sm: 1 }, color: theme.palette.text.primary }}
+        sx={{
+          mb: { xs: 5, sm: 3 },
+          mt: { xs: 3, sm: 1 },
+          mx: 0,
+          color: theme.palette.text.primary,
+          textAlign: { xs: 'center', sm: 'left' },
+        }}
       >
         We are seeking skilled, reliable, and professional team members to deliver exceptional service to our discerning
         clientele. Please complete the form below with care and attention to detail.
@@ -149,26 +162,32 @@ const JobApplication = () => {
           <Grid item order={1} xs={12} sx={{ display: 'flex', justifyContent: 'flex-start' }}>
             <FormControl
               required
-              sx={{
-                display: 'flex',
-                gap: theme.spacing(2),
-                flexDirection: 'row',
-                justifyContent: 'flex-start',
-                alignItems: 'center',
-              }}
               error={!!errors.eligible}
+              className="MuiFormControl-radioGroup job-application"
+              sx={{
+                '@media(max-width:450px)': {
+                  alignItems: 'flex-start',
+                },
+                '& .MuiFormGroup-root': {
+                  '@media(max-width:450px)': {
+                    flexDirection: 'column',
+                    alignItems: 'flex-start',
+                  },
+                },
+              }}
             >
-              <FormLabel id="eligible-radio-buttons-group-label">Eligible to Work in US?</FormLabel>
+              <FormLabel
+                id="eligible-radio-buttons-group-label"
+                sx={{ whiteSpace: 'nowrap', '@media(max-width:450px)': { marginTop: 0.5, textAlign: 'center' } }}
+              >
+                Eligible to Work <wbr />
+                in US?
+              </FormLabel>
               <Controller
                 name="eligible"
                 control={control}
                 render={({ field }) => (
-                  <RadioGroup
-                    aria-labelledby="eligible-radio-buttons-group-label"
-                    name="eligible"
-                    {...field}
-                    row // Makes the radio buttons display in a row
-                  >
+                  <RadioGroup aria-labelledby="eligible-radio-buttons-group-label" name="eligible" {...field}>
                     <FormControlLabel
                       value="Yes"
                       control={<Radio size="small" />}
@@ -373,42 +392,51 @@ const JobApplication = () => {
             <Controller
               name="certifications"
               control={control}
-              render={({ field: { onChange, value, ...field } }) => (
-                <FormControl error={!!errors.certifications}>
-                  <InputLabel id="certifications-label">Which certifications do you have?</InputLabel>
-                  <Select
-                    labelId="certifications-label"
-                    multiple
-                    label="Which certifications do you have?"
-                    renderValue={(selected) => (
-                      <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
-                        {selected.map((value) => (
-                          <Chip key={value} label={value} />
-                        ))}
-                      </Box>
-                    )}
-                    value={value || []}
-                    onChange={(event) => onChange(event.target.value)}
-                    {...field}
-                    MenuProps={{
-                      PaperProps: {
-                        className: 'MuiSelect-dropdown-paper', // Custom class
-                      },
-                    }}
-                  >
-                    {certifications.map((certification) => (
-                      <MenuItem key={certification} value={certification}>
-                        <Checkbox checked={(value || []).includes(certification)} />
-                        {certification}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                  {errors.certifications && (
-                    <Typography variant="caption" color="error">
-                      {errors.certifications.message}
-                    </Typography>
-                  )}
-                </FormControl>
+              render={({ field }) => (
+                <DropdownSelect
+                  field={field}
+                  label="Which certifications do you have?"
+                  fieldValue={field.value || []}
+                  onChange={field.onChange}
+                  options={certificationOptions}
+                  error={!!errors.certifications}
+                  helperText={errors.certifications ? errors.certifications.message : 'Select all that apply'}
+                />
+                // <FormControl error={!!errors.certifications}>
+                //   <InputLabel id="certifications-label">Which certifications do you have?</InputLabel>
+                //   <Select
+                //     labelId="certifications-label"
+                //     multiple
+                //     label="Which certifications do you have?"
+                //     renderValue={(selected) => (
+                //       <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+                //         {selected.map((value) => (
+                //           <Chip key={value} label={value} />
+                //         ))}
+                //       </Box>
+                //     )}
+                //     value={value || []}
+                //     onChange={(event) => onChange(event.target.value)}
+                //     {...field}
+                //     MenuProps={{
+                //       PaperProps: {
+                //         className: 'MuiSelect-dropdown-paper', // Custom class
+                //       },
+                //     }}
+                //   >
+                //     {certifications.map((certification) => (
+                //       <MenuItem key={certification} value={certification}>
+                //         <Checkbox checked={(value || []).includes(certification)} />
+                //         {certification}
+                //       </MenuItem>
+                //     ))}
+                //   </Select>
+                //   {errors.certifications && (
+                //     <Typography variant="caption" color="error">
+                //       {errors.certifications.message}
+                //     </Typography>
+                //   )}
+                // </FormControl>
               )}
             />
           </Grid>
@@ -456,7 +484,7 @@ const JobApplication = () => {
             sx={{
               display: 'flex',
               flexDirection: 'column',
-              width: 'fit-content',
+              width: { xs: '100%', sm: 'fit-content' },
               gap: theme.spacing(2),
               justifyContent: 'space-between',
               alignItems: 'flex-start',
@@ -470,7 +498,7 @@ const JobApplication = () => {
               control={control}
               render={({ field }) => (
                 <>
-                  <Button variant="contained" component="label" sx={{ width: '100%', mb: { xs: 1, sm: 2 } }}>
+                  <Button fullWidth component="label" sx={{ mb: { xs: 1, sm: 2 } }}>
                     <CloudUpload sx={{ mr: 1 }} />
                     Upload File
                     <input

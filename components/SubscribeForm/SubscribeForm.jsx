@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { TextField, Typography, Box, Grid } from '@mui/material';
 import ActionButton from '../ReusableComponents/ActionButton/ActionButton';
 import { useFirebaseCollections } from '../../hooks/FirebaseService';
+import CustomTextField from 'components/ReusableComponents/CustomTextField';
 
 const SubscribeForm = () => {
   const [email, setEmail] = useState('');
@@ -30,38 +31,13 @@ const SubscribeForm = () => {
       }}
     >
       <Grid item xs={12} sm={6} md={8} sx={{ display: 'flex' }}>
-        <TextField
+        <CustomTextField
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          placeholder="Enter your email"
           required
           label="Email"
-          variant="outlined"
-          size="small"
-          sx={{
-            flexGrow: 1,
-            '& .MuiInputBase-input': {
-              color: 'accent.main',
-            },
-            '& .MuiInputLabel-root': {
-              color: 'accent.main',
-              '&.Mui-focused': {
-                color: 'accent.main',
-              },
-            },
-            '& .MuiOutlinedInput-root': {
-              '& fieldset': {
-                borderColor: 'accent.main',
-              },
-              '&:hover fieldset': {
-                borderColor: 'accent.main',
-              },
-              '&.Mui-focused fieldset': {
-                borderColor: 'accent.main',
-              },
-            },
-          }}
+          color="secondary"
         />
       </Grid>
       <Grid item xs={12} sm={6} md={4} sx={{ display: 'flex' }}>

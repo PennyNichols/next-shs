@@ -1,6 +1,6 @@
 export const SERVICE_CATEGORIES = [
   {
-    sectionTitle: 'Core Repair & Maintenance',
+    sectionTitle: 'Core Repair and Maintenance',
     typesOfWork: [
       {
         title: 'General Repairs',
@@ -33,7 +33,7 @@ export const SERVICE_CATEGORIES = [
         description: 'House painting (small areas), fence painting, deck staining/painting.',
       },
       {
-        title: 'Gutter Cleaning & Repair',
+        title: 'Gutter Cleaning and Repair',
         description: 'Clearing debris, fixing leaks, re-securing gutters.',
       },
       {
@@ -45,7 +45,7 @@ export const SERVICE_CATEGORIES = [
         description: 'Dishwashers, microwaves, garbage disposals.',
       },
       {
-        title: 'Door & Window Repairs',
+        title: 'Door and Window Repairs',
         description: 'Fixing broken hardware, adjusting alignment, replacing screens.',
       },
       {
@@ -55,7 +55,7 @@ export const SERVICE_CATEGORIES = [
     ],
   },
   {
-    sectionTitle: 'Installation & Assembly',
+    sectionTitle: 'Installation and Assembly',
     typesOfWork: [
       {
         title: 'Furniture Assembly',
@@ -66,15 +66,15 @@ export const SERVICE_CATEGORIES = [
         description: 'Installing wall-mounted televisions.',
       },
       {
-        title: 'Shelving & Storage Installation',
+        title: 'Shelving and Storage Installation',
         description: 'Installing shelves, closet organizers, bike racks.',
       },
       {
-        title: 'Picture & Mirror Hanging',
+        title: 'Picture and Mirror Hanging',
         description: 'Hanging artwork and mirrors.',
       },
       {
-        title: 'Blind & Curtain Rod Installation',
+        title: 'Blind and Curtain Rod Installation',
         description: 'Installing window treatments.',
       },
       {
@@ -82,11 +82,11 @@ export const SERVICE_CATEGORIES = [
         description: 'Installing new light fixtures.',
       },
       {
-        title: 'Faucet & Fixture Installation',
+        title: 'Faucet and Fixture Installation',
         description: 'Installing new faucets, showerheads, toilets.',
       },
       {
-        title: 'Door & Window Installation (Minor)',
+        title: 'Door and Window Installation (Minor)',
         description: 'Replacing storm doors, screen doors.',
       },
     ],
@@ -95,7 +95,7 @@ export const SERVICE_CATEGORIES = [
     sectionTitle: 'Outdoor Work',
     typesOfWork: [
       {
-        title: 'Deck & Patio Repairs',
+        title: 'Deck and Patio Repairs',
         description: 'Fixing loose boards, railings, steps.',
       },
       {
@@ -107,7 +107,7 @@ export const SERVICE_CATEGORIES = [
         description: 'Installing new fences (wood, vinyl, chain link). *North Port only',
       },
       {
-        title: 'Gate Repair & Installation (Simple)',
+        title: 'Gate Repair and Installation (Simple)',
         description: 'Adjusting hinges, installing basic gates.',
       },
       {

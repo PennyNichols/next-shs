@@ -120,6 +120,106 @@ const components: Components<Omit<Theme, 'components'>> = {
     }),
   },
   // ---------------------------------------------------
+  // MuiTypography Component Customizations
+  // ---------------------------------------------------
+  MuiTypography: {
+    defaultProps: {
+      variant: 'body1',
+      align: 'left',
+    },
+    styleOverrides: {
+      root: ({ theme }: { theme: Theme }): CSSObject => ({
+        margin: 0,
+        [theme.breakpoints.down('md')]: {
+          margin: '0 2rem',
+        },
+        '&.MuiTypography-h1': {
+          textAlign: 'center',
+          fontSize: '3rem',
+          fontWeight: 600,
+          lineHeight: 2,
+          color: theme.palette.primary.dark,
+          letterSpacing: 2,
+        },
+        '&.MuiTypography-h2': {
+          textAlign: 'center',
+          fontSize: '2.5rem',
+          fontWeight: 600,
+          lineHeight: 1.8,
+          color: theme.palette.primary.main,
+          letterSpacing: 0.5,
+        },
+        '&.MuiTypography-h3': {
+          fontSize: '1.8rem',
+          fontWeight: 500,
+          lineHeight: 1.4,
+          color: theme.palette.primary.main,
+          letterSpacing: 0.2,
+        },
+        '&.MuiTypography-h4': {
+          fontSize: '1.6rem',
+          fontWeight: 600,
+          lineHeight: 1.3,
+          color: theme.palette.primary.main,
+          letterSpacing: 0.5,
+        },
+        '&.MuiTypography-h5': {
+          fontSize: '1.4rem',
+          fontWeight: 500,
+          lineHeight: 1.6,
+          color: theme.palette.secondary.dark,
+          letterSpacing: 0.2,
+        },
+        '&.MuiTypography-h6': {
+          fontSize: '1.3rem',
+          fontWeight: 500,
+          lineHeight: 1.7,
+          color: theme.palette.primary.main,
+          letterSpacing: 0.2,
+        },
+        '&.MuiTypography-body1': {
+          fontSize: '1.1rem',
+          lineHeight: 1.3,
+          color: theme.palette.secondary.dark,
+          letterSpacing: 0.2,
+        },
+        '&.MuiTypography-body2': {
+          fontSize: '0.875rem',
+          lineHeight: 1.5,
+          color: theme.palette.secondary.dark,
+          letterSpacing: 0.2,
+        },
+      }),
+    },
+  },
+  // ---------------------------------------------------
+  // MuiDivider Component Customizations
+  // ---------------------------------------------------
+  MuiDivider: {
+    defaultProps: {},
+    styleOverrides: {
+      root: ({ theme }: { theme: Theme }): CSSObject => ({
+        margin: theme.spacing(4),
+        flexGrow: 1,
+        width: '70%',
+        alignSelf: 'center',
+        border: `1px solid ${theme.palette.accent.main}`,
+        [theme.breakpoints.down('sm')]: {
+          width: '100%',
+          margin: theme.spacing(4, 3),
+        },
+        '&.side': {
+          boxShadow: customShadows[1],
+          width: 'auto',
+          borderWidth: 1.5,
+          [theme.breakpoints.down('sm')]: {
+            width: '100%',
+          },
+        },
+      }),
+    },
+  },
+  // ---------------------------------------------------
   // MuiPaper Component Customizations
   // ---------------------------------------------------
   MuiPaper: {
@@ -153,6 +253,51 @@ const components: Components<Omit<Theme, 'components'>> = {
     },
   },
   // ---------------------------------------------------
+  // MuiIcon Component Customizations
+  // ---------------------------------------------------
+  MuiChip: {
+    defaultProps: {
+      size: 'small',
+      color: 'primary',
+    },
+    styleOverrides: {
+      root: ({ theme }: { theme: Theme }): CSSObject => ({
+        backgroundColor: theme.palette.background.paper,
+        borderRadius: customBorderRadius.pill,
+        boxShadow: customShadows[1],
+        color: theme.palette.secondary.dark,
+        fontSize: '0.875rem',
+        padding: theme.spacing(0.5, 1),
+        '& .MuiChip-label': {
+          paddingLeft: theme.spacing(0.5),
+          paddingRight: theme.spacing(0.5),
+        },
+        '&.MuiChip-outlined': {
+          borderColor: theme.palette.primary.main,
+          '&:hover': {
+            backgroundColor: alpha(theme.palette.primary.main, 0.1),
+          },
+        },
+      }),
+      colorPrimary: ({ theme }: { theme: Theme }): CSSObject => ({
+        backgroundColor: alpha(theme.palette.primary.main, 0.15),
+        color: theme.palette.primary.main,
+        '&:hover': {
+          backgroundColor: alpha(theme.palette.primary.main, 0.2),
+        },
+      }),
+    },
+  },
+  // ---------------------------------------------------
+  // MuiIcon Component Customizations
+  // ---------------------------------------------------
+  MuiIcon: {
+    defaultProps: {},
+    styleOverrides: {
+      root: ({ theme }: { theme: Theme }): CSSObject => ({}),
+    },
+  },
+  // ---------------------------------------------------
   // MuiFormLabel Component Customizations (for the main question label)
   // ---------------------------------------------------
   MuiFormLabel: {
@@ -163,11 +308,23 @@ const components: Components<Omit<Theme, 'components'>> = {
         [theme.breakpoints.down('md')]: {
           fontSize: '0.875rem',
         },
+        '&.MuiFormLabel-colorSecondary': {
+          color: theme.palette.accent.main,
+          '&.Mui-required .MuiFormLabel-asterisk': {
+            color: theme.palette.accent.main,
+          },
+        },
         '&.Mui-focused': {
           color: theme.palette.primary.light,
+          '&.MuiFormLabel-colorSecondary': {
+            color: theme.palette.accent.main,
+          },
         },
         '&.Mui-error': {
           color: theme.palette.error.main,
+          '&.MuiFormLabel-colorSecondary': {
+            color: theme.palette.error.light,
+          },
         },
         '&.Mui-disabled': {
           color: theme.palette.text.disabled,
@@ -199,11 +356,33 @@ const components: Components<Omit<Theme, 'components'>> = {
     styleOverrides: {
       root: ({ theme }: { theme: Theme }): CSSObject => ({
         color: theme.palette.secondary.dark,
-        width: 30,
-        height: 30,
+        width: 25,
+        height: 25,
         marginRight: theme.spacing(0.5),
         padding: theme.spacing(1),
         transition: theme.transitions.create(['color']),
+        '& .MuiTouchRipple-root': {
+          overflow: 'visible',
+          position: 'absolute',
+          // backgroundColor: 'red',
+          width: 22,
+          height: 22,
+          top: -2,
+          left: -2,
+          [theme.breakpoints.down('sm')]: {
+            width: 32,
+            height: 32,
+            top: -3,
+            left: -3,
+          },
+          '& .MuiTouchRipple-child': {
+            borderRadius: customBorderRadius.round,
+            // backgroundColor: 'red',
+          },
+        },
+        '&.MuiCheckbox-root': {
+          borderRadius: customBorderRadius.small,
+        },
         '&:hover': {
           color: theme.palette.primary.light,
         },
@@ -234,36 +413,50 @@ const components: Components<Omit<Theme, 'components'>> = {
     },
     styleOverrides: {
       root: ({ theme }: { theme: Theme }): CSSObject => ({
-        // color: theme.palette.secondary.dark, // Default color for unchecked state
-        // width: 30, // Matches width of MuiRadio
-        // height: 30, // Matches height of MuiRadio
-        // marginRight: theme.spacing(0.5), // Matches margin of MuiRadio
-        // padding: theme.spacing(1), // Matches padding of MuiRadio
-        // transition: theme.transitions.create(['color']), // Smooth color transition
-        // // Hover effect for unchecked checkbox
-        // '&:hover': {
-        //   color: theme.palette.primary.light, // Hover color for unchecked
-        // },
-        // // Styles when checkbox is checked
-        // '&.Mui-checked': {
-        //   color: theme.palette.primary.light, // Color when checked
-        //   // Hover effect for checked checkbox
-        //   '&:hover': {
-        //     backgroundColor: alpha(theme.palette.primary.light, 0.1), // Background hover for checked
-        //   },
-        // },
-        // // Hover effect for unchecked checkbox (explicitly for when not checked)
-        // '&:not(.Mui-checked):hover': {
-        //   backgroundColor: alpha(theme.palette.primary.light, 0.1), // Background hover for unchecked
-        // },
-        // // Styles when checkbox is disabled
-        // '&.Mui-disabled': {
-        //   color: alpha(theme.palette.secondary.dark, 0.5), // Disabled color
-        // },
-        // // Icon size
-        // '& .MuiSvgIcon-root': {
-        //   fontSize: '1.25rem', // Matches icon size of MuiRadio
-        // },
+        marginBottom: theme.spacing(0.5),
+        marginLeft: theme.spacing(-0.25),
+        borderRadius: customBorderRadius.small,
+        '&:hover': {
+          backgroundColor: alpha(theme.palette.primary.main, 0.08),
+        },
+        '&.custom-checkbox': {
+          overflow: 'visible',
+          [theme.breakpoints.up('sm')]: {
+            width: 22,
+            height: 22,
+          },
+          '& .MuiButtonBase-root': {},
+          '& .MuiTouchRipple-root': {
+            overflow: 'visible',
+            position: 'absolute',
+            // backgroundColor: 'red',
+            width: 22,
+            height: 22,
+            top: -2,
+            left: -2,
+            [theme.breakpoints.down('sm')]: {
+              width: 20,
+              height: 20,
+              top: -3,
+              left: -3,
+            },
+            '& .MuiTouchRipple-child': {
+              borderRadius: customBorderRadius.small,
+            },
+          },
+          '& .MuiSvgIcon-root': {
+            position: 'absolute',
+            transform: 'scale(1.5)',
+            backgroundColor: 'transparent',
+            // transition: customTransitions.fast,
+            left: 3,
+            top: 1,
+            [theme.breakpoints.down('sm')]: {
+              left: 5.5,
+              top: -2,
+            },
+          },
+        },
       }),
     },
   },
@@ -273,9 +466,10 @@ const components: Components<Omit<Theme, 'components'>> = {
   MuiFormControlLabel: {
     styleOverrides: {
       root: ({ theme }: { theme: Theme }): CSSObject => ({
-        marginRight: theme.spacing(3),
-        '&:first-of-type': {
-          marginLeft: theme.spacing(1),
+        marginRight: theme.spacing(2),
+        marginLeft: 0,
+        '& .MuiTypography-root': {
+          margin: 0,
         },
         '&.Mui-disabled': {
           cursor: 'not-allowed',
@@ -552,6 +746,27 @@ const components: Components<Omit<Theme, 'components'>> = {
             borderColor: alpha(theme.palette.secondary.dark, 0.5),
           },
         },
+        // Target the root when color="secondary" is applied
+        '&.MuiInputBase-colorSecondary': {
+          '&.Mui-focused': {
+            // If you want secondary fields to have primary.light focus outline
+            // you can keep it, or change it to theme.palette.accent.main
+            '& .MuiOutlinedInput-notchedOutline': {
+              borderColor: theme.palette.accent.main, // Secondary focused border
+              borderWidth: '1.5px', // Or whatever you need
+            },
+          },
+          // Specific hover for secondary fields
+          '&:hover .MuiOutlinedInput-notchedOutline': {
+            borderColor: theme.palette.accent.main, // Secondary hover border
+            borderWidth: '1.5px', // 0.5px increase from default 1px = 1.5px
+          },
+          // If you want the default (unfocused, unhovered) border to be accent.main
+          '& .MuiOutlinedInput-notchedOutline': {
+            borderColor: theme.palette.accent.main,
+            borderWidth: '1px',
+          },
+        },
       }),
       notchedOutline: ({ theme }: { theme: Theme }): CSSObject => ({
         borderColor: theme.palette.secondary.dark,
@@ -564,12 +779,18 @@ const components: Components<Omit<Theme, 'components'>> = {
       }),
       input: ({ theme }: { theme: Theme }): CSSObject => ({
         color: theme.palette.secondary.dark,
+        [theme.breakpoints.down('md')]: {
+          fontSize: '0.875rem',
+        },
         '&::placeholder': {
           color: alpha(theme.palette.secondary.dark, 0.6),
           opacity: 1,
         },
         '.Mui-focused &': {
           color: theme.palette.primary.light,
+        },
+        '.MuiInputBase-colorSecondary &': {
+          color: theme.palette.accent.main,
         },
         // Hide number controls entirely
         '&[type="number"]': {
@@ -693,7 +914,12 @@ const components: Components<Omit<Theme, 'components'>> = {
       size: 'small',
     },
     styleOverrides: {
-      root: ({ theme }: { theme: Theme }): CSSObject => ({}),
+      root: ({ theme }: { theme: Theme }): CSSObject => ({
+        '&:hover .MuiSvgIcon-root': {
+          color: theme.palette.primary.light,
+          fill: theme.palette.primary.light,
+        },
+      }),
       select: ({ theme }: { theme: Theme }): CSSObject => ({
         color: theme.palette.secondary.dark,
         borderRadius: customBorderRadius.small,
@@ -720,7 +946,7 @@ const components: Components<Omit<Theme, 'components'>> = {
       icon: ({ theme }: { theme: Theme }): CSSObject => ({
         color: theme.palette.secondary.dark,
         fill: theme.palette.secondary.dark,
-        transition: customTransitions.fast,
+        transition: customTransitions.standard,
         '.MuiSelect-select:hover ~ &': {
           color: theme.palette.primary.light,
         },
@@ -738,36 +964,71 @@ const components: Components<Omit<Theme, 'components'>> = {
   // MuiMenuItem Component Customizations
   // ---------------------------------------------------
   MuiMenuItem: {
+    defaultProps: {
+      disableRipple: true,
+    },
     styleOverrides: {
       root: ({ theme }: { theme: Theme }): CSSObject => ({
         color: theme.palette.secondary.dark,
-        fontSize: '0.95rem',
         padding: theme.spacing(0.5, 2, 1, 2),
         alignItems: 'flex-start',
         minHeight: 'auto',
-        transition: customTransitions.fast,
-        '& .MuiCheckbox-root': {
-          transition: customTransitions.fast,
-          color: theme.palette.secondary.dark,
-          top: -5,
-          left: -1,
+        transition: customTransitions.standard,
+        '& .checkbox-container': {
+          overflow: 'visible',
+          display: 'block',
+          maxWidth: 19,
+          maxHeight: 19,
+          margin: theme.spacing(1, 1.5, 0, 0),
+          boxSizing: 'border-box',
+          border: `2px solid ${theme.palette.secondary.dark}`,
+          borderRadius: customBorderRadius.small,
+          [theme.breakpoints.down('sm')]: {
+            maxWidth: 16,
+            maxHeight: 16,
+          },
         },
-        '& .Mui-checked .MuiSvgIcon-root': {
+        '& .MuiCheckbox-root': {
           color: theme.palette.secondary.dark,
-          transition: customTransitions.fast,
+          top: -4,
+          left: -1,
+          [theme.breakpoints.down('sm')]: {
+            top: -5,
+            left: -1,
+          },
+        },
+        '& .custom-checkbox': {
+          transform: 'scale(1.2)',
+        },
+        '& .custom-checkbox-checked': {
+          color: theme.palette.secondary.dark,
+          transition: customTransitions.standard,
+          paddingBottom: theme.spacing(0.4),
+
+          [theme.breakpoints.down('sm')]: {
+            transform: 'scale(1.7)',
+            paddingRight: theme.spacing(0.45),
+            paddingBottom: theme.spacing(0.5),
+          },
         },
         '& .PrivateSwitchBase-input': {
           width: 36,
           height: 36,
+          // backgroundColor: 'red',
         },
         '& .MuiTypography-root': {
+          fontSize: '0.95rem',
+          margin: 0,
           paddingTop: theme.spacing(0.45),
-          transition: customTransitions.fast,
+          [theme.breakpoints.down('sm')]: {
+            fontSize: '0.875rem',
+          },
         },
 
         '&:hover': {
           backgroundColor: alpha(theme.palette.primary.light, 0.03),
           color: theme.palette.primary.light,
+
           '& .MuiCheckbox-root, .MuiTypography-root, & .Mui-checked .MuiSvgIcon-root': {
             color: theme.palette.primary.light,
           },
@@ -826,15 +1087,43 @@ const components: Components<Omit<Theme, 'components'>> = {
           maxHeight: '70vh',
           minWidth: 120,
           maxWidth: 450,
+          [theme.breakpoints.down(450)]: {
+            maxWidth: '95%',
+            padding: 0,
+          },
+          '& .MuiTypography-root': {
+            fontSize: '1rem',
+            whiteSpace: 'nowrap',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+            margin: 0,
+            [theme.breakpoints.down('sm')]: {
+              fontSize: '0.9rem',
+            },
+          },
           '&.MuiSelect-dropdown-headers': {
             '& .MuiListSubheader-root': {
               backgroundColor: theme.palette.primary.main,
               padding: theme.spacing(1, 2),
               marginBottom: theme.spacing(1.5),
+              width: '100%',
+              [theme.breakpoints.down('sm')]: {
+                padding: theme.spacing(1),
+              },
+              [theme.breakpoints.down(450)]: {
+                padding: theme.spacing(1, 1),
+              },
               '& .MuiTypography-root': {
                 color: theme.palette.primary.contrastText,
                 fontSize: '1.3rem',
                 fontWeight: 600,
+                whiteSpace: 'nowrap',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                margin: 0,
+                [theme.breakpoints.down('sm')]: {
+                  fontSize: '1.1rem',
+                },
               },
             },
             '&::-webkit-scrollbar-track': {
@@ -895,8 +1184,26 @@ const components: Components<Omit<Theme, 'components'>> = {
     },
     styleOverrides: {
       root: ({ theme }: { theme: Theme }): CSSObject => ({
+        '&.MuiFormControl-radioGroup': {
+          flexDirection: 'row',
+          justifyContent: 'flex-start',
+          alignItems: 'center',
+          '&.job-application': {
+            alignItems: 'center',
+            [theme.breakpoints.down(450)]: {
+              alignItems: 'flex-start',
+            },
+          },
+        },
+        '& .MuiFormGroup-root': {
+          marginLeft: theme.spacing(2),
+          display: 'flex',
+          flexDirection: 'row',
+          justifyContent: 'flex-start',
+          // alignItems: 'center',
+        },
         '& .MuiFormLabel-root.Mui-focused ~ .MuiRadioGroup-root': {
-          '& .MuiRadio-root.Mui-checked + .MuiTypography-root': {
+          '& .MuiRadio-root.Mui-checked, & .MuiRadio-root.Mui-checked + .MuiTypography-root ': {
             color: theme.palette.primary.light,
           },
         },
