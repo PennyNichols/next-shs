@@ -46,6 +46,7 @@ function MyApp({ Component, pageProps }) {
             display="flex"
             flexDirection="column"
             minHeight="100vh"
+            width="100%"
             sx={{ backgroundColor: theme.palette.secondary.light }}
           >
             {isHomePage && <Hero />}

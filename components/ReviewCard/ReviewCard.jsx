@@ -13,7 +13,6 @@ import {
 import CloseIcon from '@mui/icons-material/Close';
 import StarIcon from '@mui/icons-material/Star';
 import { alpha } from '@mui/material/styles';
-import { truncateText } from '../../functions/utils/utils';
 import { customBorderRadius } from '@/theme/otherThemeConstants';
 import theme from '@/theme';
 import { navyBlue, gold } from '@/theme/colors';
@@ -78,30 +77,30 @@ function ReviewCard({ rating = 5, review, platform }) {
               color: 'primary.dark',
               fontSize: '1rem',
               fontStyle: 'italic',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
               textShadow: '0 1px 4px rgba(0,0,0,0.18)',
               margin: '1 0',
             }}
           >
-            “{truncateText(review, 10)}” <br />
-            {isTruncated && (
-              <Typography
-                variant="body2"
-                component="span"
-                sx={{
-                  textDecoration: 'underline',
-                  textDecorationThickness: 1,
-                  textUnderlineOffset: '3px',
-                  '&:hover': {
-                    cursor: 'pointer',
-                  },
-                }}
-                onClick={handleOpen}
-                tabIndex={0}
-                role="button"
-              >
-                read more
-              </Typography>
-            )}
+            “{review}” <br />
+            <Typography
+              variant="body2"
+              component="span"
+              sx={{
+                textDecoration: 'underline',
+                textDecorationThickness: 1,
+                textUnderlineOffset: '3px',
+                '&:hover': {
+                  cursor: 'pointer',
+                },
+              }}
+              onClick={handleOpen}
+              tabIndex={0}
+              role="button"
+            >
+              Expand
+            </Typography>
           </Typography>
         </CardContent>
         {platform && (

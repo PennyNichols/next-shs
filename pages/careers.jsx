@@ -47,7 +47,7 @@ const CareersPage = () => {
       {basicInfo &&
         basicInfo.map((info, idx) => (
           <Typography key={idx}>
-            <b>{info.label}:</b> {info.description}
+            <b style={{ margin: '0px' }}>{info.label}:</b> {info.description}
           </Typography>
         ))}
 
@@ -114,7 +114,7 @@ const CareersPage = () => {
       <Divider />
 
       <Typography variant="h4" component="h2">
-        Benefits of Subcontracting with SHS Florida
+        Benefits
       </Typography>
       <Typography>{benefits.intro}</Typography>
       {benefits.items &&

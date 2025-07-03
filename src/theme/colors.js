@@ -1,4 +1,4 @@
-export const navyBlue = 'rgb(0, 31, 63)';
+export const navyBlue = 'rgb(0, 37, 74)';
 export const coolGray = 'rgb(209, 209, 217)';
 export const gold = 'rgb(255, 204, 0)';
 export const white = 'rgb(255, 255, 255)';

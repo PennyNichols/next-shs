@@ -17,10 +17,11 @@ import Link from 'next/link';
 import LogoSvg from '../SVG/LogoSvg';
 import { Handyman, HomeRepairService } from '@mui/icons-material';
 import useMedia from '../../hooks/useMedia';
-import { customTransitions } from '@/theme/otherThemeConstants';
+import { customShadows, customTransitions } from '@/theme/otherThemeConstants';
 import theme from '@/theme';
 import { gold, white } from '@/theme/colors';
 import { ClickAwayListener, Collapse } from '@mui/material';
+import { useRouter } from 'next/router';
 
 const pages = [
   { name: 'Home', href: '/' },
@@ -34,7 +35,8 @@ const pages = [
 const NavBar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [logoColor, setLogoColor] = useState(white);
-  const logoHoverColor = gold;
+  const logoHoverColor = theme.palette.accent.main;
+  const [logoScale, setLogoScale] = useState(1);
 
   const { isXs: initialIsXs, isSm: initialIsSm } = useMedia();
   const [showClientContent, setShowClientContent] = useState(false);
@@ -51,23 +53,31 @@ const NavBar = () => {
   const handleMenuToggle = () => setIsMenuOpen((prev) => !prev);
   const handleMenuClose = () => setIsMenuOpen(false);
 
+  const iconSize = '2.5rem';
+
   return (
     <ClickAwayListener onClickAway={handleMenuClose}>
-      <AppBar position="sticky" sx={{py: 1}}>
+      <AppBar position="sticky" sx={{ py: 1 }}>
         <Container>
           <Toolbar disableGutters>
             <Box mr={1}>
               <Link href="/" passHref>
-                <span
-                  style={{
+                <Box
+                  component="span"
+                  sx={{
                     display: 'inline-block',
-                    paddingTop: 7,
+                    pt: 0.5,
+                    cursor: 'pointer',
+                    transition: 'all .1s ease-in-out',
+                    transform: `scale(${logoScale})`,
                   }}
                   onMouseEnter={() => setLogoColor(logoHoverColor)}
                   onMouseLeave={() => setLogoColor(white)}
+                  onMouseDown={() => setLogoScale(0.9)}
+                  onMouseUp={() => setLogoScale(1)}
                 >
                   <LogoSvg color={logoColor} width={70} height={50} />
-                </span>
+                </Box>
               </Link>
             </Box>{' '}
             {/* Desktop Links */}
@@ -81,26 +91,7 @@ const NavBar = () => {
               >
                 {pages.map((page) => (
                   <Link key={page.name} href={page.href} passHref>
-                    <Button
-                      sx={{
-                        color: 'secondary.light',
-                        margin: 1,
-                        textAlign: 'center',
-                        fontSize: '1rem',
-                        transition: customTransitions.standard,
-                        letterSpacing: 1,
-                        textShadow: 'none',
-                        '&:hover': {
-                          letterSpacing: 2.5,
-                          textShadow: `
-                        0px 8px 12px ${theme.palette.accent.main},
-                        0px 8px 12px ${theme.palette.accent.main}
-                        `,
-                        },
-                      }}
-                    >
-                      {page.name}
-                    </Button>
+                    <Button>{page.name}</Button>
                   </Link>
                 ))}
               </Box>
@@ -139,25 +130,46 @@ const NavBar = () => {
                 }}
               >
                 <IconButton size="large" aria-label="menu" onClick={handleMenuToggle} color="inherit">
-                  {isMenuOpen ? (
+                  <Box
+                    sx={{
+                      position: 'relative',
+                      width: iconSize,
+                      height: iconSize,
+                    }}
+                  >
                     <Handyman
                       sx={{
+                        position: 'absolute',
+                        top: 0,
+                        left: 0,
+                        width: '100%',
+                        height: '100%',
                         color: 'background.paper',
-                        transition: customTransitions.slow,
-                        fontSize: '2.5rem',
+                        transition: `${customTransitions.slow}, transform 0.3s ease-out, opacity 0.3s ease-out`,
+                        fontSize: iconSize,
                         '&:hover': { color: 'accent.main' },
+                        opacity: isMenuOpen ? 1 : 0,
+                        transform: isMenuOpen ? 'rotate(0deg)' : 'rotate(-180deg)',
+                        pointerEvents: isMenuOpen ? 'auto' : 'none',
                       }}
                     />
-                  ) : (
                     <HomeRepairService
                       sx={{
+                        position: 'absolute',
+                        top: 0,
+                        left: 0,
+                        width: '100%',
+                        height: '100%',
                         color: 'background.paper',
-                        transition: customTransitions.slow,
-                        fontSize: '2.5rem',
+                        transition: `${customTransitions.slow}, transform 0.3s ease-out, opacity 0.3s ease-out`,
+                        fontSize: iconSize,
                         '&:hover': { color: 'accent.main' },
+                        opacity: isMenuOpen ? 0 : 1,
+                        transform: isMenuOpen ? 'rotate(180deg)' : 'rotate(0deg)',
+                        pointerEvents: isMenuOpen ? 'none' : 'auto',
                       }}
                     />
-                  )}
+                  </Box>
                 </IconButton>
               </Box>
             )}
@@ -175,31 +187,19 @@ const NavBar = () => {
                 top: '100%',
                 left: 0,
                 right: 0,
-                width: { xs: '100vw', sm: 'auto' },
+                boxShadow: '0px 10px 15px -3px rgba(0, 0, 0, 0.3)',
+                width: { xs: '100%', sm: 'auto' },
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page.name} sx={{ justifyContent: 'center' }} onClick={handleMenuClose}>
+                <MenuItem
+                  key={page.name}
+                  className="nav-menu-item"
+                  sx={{ justifyContent: 'center' }}
+                  onClick={handleMenuClose}
+                >
                   <Link href={page.href} passHref>
-                    <Typography
-                      variant="button"
-                      sx={{
-                        color: 'secondary.light',
-                        margin: 1,
-                        textAlign: 'center',
-                        fontSize: '1rem',
-                        transition: customTransitions.standard,
-                        letterSpacing: 1,
-                        textShadow: 'none',
-                        '&:hover': {
-                          letterSpacing: 2.5,
-                          textShadow: `
-                            0px 8px 12px ${theme.palette.accent.main},
-                          0px 8px 12px ${theme.palette.accent.main}
-                          `,
-                        },
-                      }}
-                    >
+                    <Typography variant="button" className="nav-link">
                       {page.name}
                     </Typography>
                   </Link>

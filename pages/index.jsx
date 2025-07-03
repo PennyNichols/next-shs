@@ -164,7 +164,7 @@ const Home = () => {
           padding: 2,
           paddingBottom: 4,
           borderRadius: { xs: customBorderRadius.none, sm: customBorderRadius.medium },
-          width: { xs: '100vw', sm: '100%' },
+          width: '100%',
           maxWidth: 1200,
           boxShadow: 2,
         }}

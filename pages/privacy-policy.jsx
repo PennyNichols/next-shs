@@ -5,18 +5,19 @@ import { EMAIL_ADDRESS, PHONE_NUMBER } from '../constants/companyDetails';
 import { formatPhoneNumber } from '../functions/utils/utils';
 import { PRIVACY_POLICY } from '../constants/privacyPolicy';
 import { customTransitions } from '@/theme/otherThemeConstants';
+import theme from '@/theme';
+import LogoSvg from 'components/SVG/LogoSvg';
+import LogoWithTextSvg from 'components/SVG/LogoWithTextSvg';
 
-const ContactLink = ({ href, ariaLabel, content }) => {
+const ContactLink = ({ href, ariaLabel, content, sx = null, ...props }) => {
   return (
     <Link
       href={href}
-      sx={{
-        transition: customTransitions.standard,
-        textDecoration: 'none',
-        '&:hover': { color: 'accent.main', textDecoration: 'none' },
-      }}
       aria-label={ariaLabel}
       role="link"
+      className="contact-link"
+      sx={{ whiteSpace: 'nowrap', margin: '0px !important', ...sx }}
+      {...props}
     >
       {content}
     </Link>
@@ -47,39 +48,40 @@ const PrivacyPolicy = () => {
       </Head>
       <Container
         component="main"
+        className="page-container"
         maxWidth={false}
-        sx={{ maxWidth: 900, py: 6, px: { xs: 3, sm: 5, lg: 7 } }}
+        sx={{ maxWidth: 900, py: 6, px: { xs: '0px !important', sm: '30px !important' }, pt: { xs: 4, sm: 6 } }}
         role="region"
         aria-labelledby="privacy-policy-title"
       >
-        <Box sx={{ mb: 4 }}>
-          <Typography id="privacy-policy-title" variant="h1" align="center" gutterBottom tabIndex={-1}>
+        <Box sx={{ mb: 3 }}>
+          <Typography id="privacy-policy-title" variant="h2" component="h1" tabIndex={-1}>
             Privacy Policy
           </Typography>
-          <Typography variant="h5" align="center" color="text.secondary" id="privacy-policy-updated">
-            Last updated: {lastUpdated}
-          </Typography>
         </Box>
-        <Divider sx={{ mb: 4 }} />
+        <Typography variant="h5" align="center" id="privacy-policy-updated" sx={{ mb: { xs: 0, sm: 1 } }}>
+          Last updated: {lastUpdated}
+        </Typography>
+        <Divider className="title-divider" />
         <Box sx={{ mb: 4 }} component="section" aria-labelledby="privacy-policy-intro">
-          <Typography id="privacy-policy-intro" variant="body1">
-            {intro}
-          </Typography>
+          <Typography id="privacy-policy-intro">{intro}</Typography>
         </Box>
         {sections
           ? sections.map((section, idx) => (
               <Box id={String(idx)} sx={{ mb: 3 }} component="section" aria-labelledby="privacy-policy-collect">
-                <Typography id="privacy-policy-collect" variant="h3" component="h2" gutterBottom>
+                <Typography id="privacy-policy-collect" variant="h3" component="h2" mb={2}>
                   {section.title}
                 </Typography>
-                <Typography variant="body1">{section.description}</Typography>
+                <Typography sx={{ mb: '1.5rem' }}>{section.description}</Typography>
                 {section.details
-                  ? section.details.map((detail, detailIdx) => (
-                      <Typography id={String(detailIdx)} variant="body1" sx={{ mt: 2 }}>
-                        <Typography variant="body1" component="span" sx={{ fontWeight: 600 }}>
-                          {detail.text}
-                        </Typography>{' '}
-                        {detail.description}
+                  ? section.details.map((detail) => (
+                      <Typography
+                        variant="h6"
+                        component="h3"
+                        sx={{ marginBottom: '1.5rem', textIndent: '-1.5rem', pl: '1.5rem' }}
+                      >
+                        {detail.text}
+                        <span style={{ marginLeft: theme.spacing(1) }}>{detail.description}</span>
                       </Typography>
                     ))
                   : null}
@@ -87,36 +89,57 @@ const PrivacyPolicy = () => {
             ))
           : null}
         <Box>
-          <Box>
-            <Typography variant="h3" sx={{ fontSize: '1.5rem', fontWeight: 800, mt: 2, mb: 1, color: 'primary.main' }}>
-              SHS Florida
-            </Typography>
-          </Box>
-          <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-            <Typography variant="body1" sx={{ fontWeight: 600, color: 'primary.main' }}>
-              Call:{' '}
-              <ContactLink
-                href={`tel:${PHONE_NUMBER}`}
-                ariaLabel={`Call SHS Florida at ${formatPhoneNumber(PHONE_NUMBER)}`}
-                content={formatPhoneNumber(PHONE_NUMBER)}
-              />
-            </Typography>
-            <Typography variant="body1" sx={{ fontWeight: 600, color: 'primary.main' }}>
-              Text:{' '}
-              <ContactLink
-                href={`sms:${PHONE_NUMBER}`}
-                ariaLabel={`Text SHS Florida at ${formatPhoneNumber(PHONE_NUMBER)}`}
-                content={formatPhoneNumber(PHONE_NUMBER)}
-              />
-            </Typography>
-            <Typography variant="body1" sx={{ fontWeight: 600, color: 'primary.main' }}>
-              Email:{' '}
-              <ContactLink
-                href={`mailto:${EMAIL_ADDRESS}`}
-                ariaLabel={`Email SHS Florida at ${EMAIL_ADDRESS}`}
-                content={EMAIL_ADDRESS}
-              />
-            </Typography>
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              width: '100%',
+              gap: { xs: 2, sm: 4, md: 8 },
+              mx: 2,
+              [theme.breakpoints.down(520)]: { flexDirection: 'column', mx: 0 },
+            }}
+          >
+            <LogoWithTextSvg color={theme.palette.primary.main} width={150} height={150} />
+            <Box
+              sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                alignItems: 'center',
+                width: 'fit-content',
+                '& .MuiTypography-body1': { mb: 0.5 },
+                '& .contact-header': { mb: 1, letterSpacing: '5px' },
+              }}
+            >
+              <Typography variant="h4" component="h3" className="contact-header" sx={{ mb: 1, width: 'fit-content' }}>
+                SHS Florida
+              </Typography>
+              <Typography className="contact-link-label">
+                Call:{' '}
+                <ContactLink
+                  href={`tel:${PHONE_NUMBER}`}
+                  ariaLabel={`Call SHS Florida at ${formatPhoneNumber(PHONE_NUMBER)}`}
+                  content={formatPhoneNumber(PHONE_NUMBER)}
+                />
+              </Typography>
+              <Typography className="contact-link-label">
+                Text:{' '}
+                <ContactLink
+                  href={`sms:${PHONE_NUMBER}`}
+                  ariaLabel={`Text SHS Florida at ${formatPhoneNumber(PHONE_NUMBER)}`}
+                  content={formatPhoneNumber(PHONE_NUMBER)}
+                />
+              </Typography>
+              <Typography className="contact-link-label">
+                Email:{' '}
+                <ContactLink
+                  href={`mailto:${EMAIL_ADDRESS}`}
+                  ariaLabel={`Email SHS Florida at ${EMAIL_ADDRESS}`}
+                  content={EMAIL_ADDRESS}
+                />
+              </Typography>
+            </Box>
           </Box>
         </Box>
       </Container>
