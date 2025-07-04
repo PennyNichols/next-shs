@@ -1,4 +1,4 @@
-import { Box, Typography, Skeleton } from '@mui/material';
+import { Box, Typography, Skeleton, Container } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import ServicesAccordion from '../../components/ServicesAccordion/ServicesAccordion';
 import Slider from 'react-slick';
@@ -80,7 +80,7 @@ const ServicesPage = () => {
   }, [initialIsXs]);
   const imageDisplayHeight = isXs ? '300px' : '200px';
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', py: 5, px: 3 }}>
+    <Container className="page-wrapper">
       <Box
         sx={{
           width: '100%',
@@ -191,7 +191,7 @@ const ServicesPage = () => {
           ))}
         </Box>
       )}
-    </Box>
+    </Container>
   );
 };
 

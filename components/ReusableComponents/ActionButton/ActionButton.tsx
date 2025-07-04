@@ -40,9 +40,13 @@ const ActionButton: React.FC<ActionButtonProps> = ({
       variant={variant}
       color={color}
       sx={{
+        display: 'flex',
+        gap: 1,
+        fontSize: '1.2rem',
         transform: `scale(${scale})`,
         transition: 'all 0.5s ease-in-out, transform 0.1s ease-in-out',
         '& .MuiSvgIcon-root': {
+          fontSize: '1.5rem',
           color: iconColor || 'secondary.light',
           transition: 'all 0.5s ease-in-out',
         },

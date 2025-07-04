@@ -1,9 +1,11 @@
-import { Box, Grid, Typography } from '@mui/material';
+import { Box, Container, Grid, Typography } from '@mui/material';
 import CallButton from '../ActionButtons/CallButton';
 import TextButton from '../ActionButtons/TextButton';
 import EstimateRequestButton from '../ActionButtons/EstimateRequestButton';
 import Image from 'next/image';
 import theme from '@/theme';
+import { ContentBox, Section } from 'components/ReusableComponents/baseComponents';
+import { Web } from '@mui/icons-material';
 
 const bgScrollEffect = {
   background: `linear-gradient(to bottom, 
@@ -48,6 +50,32 @@ const bgScrollEffect = {
     },
   },
 };
+
+const shinyEffect = {
+  position: 'relative',
+  background: `linear-gradient(
+    90deg,
+    ${theme.palette.primary.main} 0%,
+    ${theme.palette.primary.main} 42%,
+rgba(229, 230, 235, 0.55) 50%,
+    ${theme.palette.primary.main} 58%,
+    ${theme.palette.primary.main} 100%
+  )`,
+  backgroundSize: '200% 200%',
+  backgroundClip: 'text',
+  WebkitBackgroundClip: 'text',
+  WebkitTextFillColor: 'transparent',
+  animation: 'shine 5s linear infinite',
+  '@keyframes shine': {
+    '0%': {
+      backgroundPosition: '100% -40%',
+    },
+    '100%': {
+      backgroundPosition: '-100% -40%',
+    },
+  },
+};
+
 const ScrollIcon = () => {
   return (
     <Typography
@@ -78,18 +106,9 @@ const ScrollText = () => {
   );
 };
 
-const CustomHeader = ({ text }) => {
+const CustomHeader = ({ text, sx = {}, className = '' }) => {
   return (
-    <Typography
-      variant="h1"
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        fontSize: { xs: '2rem', sm: '2.5rem', md: '3rem', lg: '4rem' },
-      }}
-    >
+    <Typography variant="h1" className={`hero-header ${className}`} component="h1" sx={{ ...sx }}>
       {text}
     </Typography>
   );
@@ -97,18 +116,7 @@ const CustomHeader = ({ text }) => {
 
 const Hero = () => {
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        position: 'relative',
-        width: '100%',
-        height: { xs: '100vh', sm: '75vh', md: '65vh' },
-      }}
-    >
-      {' '}
+    <Container className="hero-container">
       <Image src="/images/poolWithPalms.jpg" alt="Hero Image" layout="fill" objectFit="cover" />
       <Box
         sx={{
@@ -129,52 +137,96 @@ const Hero = () => {
           py: { xs: 2, sm: 5 },
         }}
       >
-        <Grid container spacing={2} justifyContent="center" alignItems="flex-end" sx={{ position: 'relative' }}>
-          <Grid item xs={12} sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', gap: 3 }}>
-            <Box gap={0}>
-              <CustomHeader text="SHS Florida" />
-              <CustomHeader text="Expert Hands." />
-              <CustomHeader text="Exceptional Results." />
+        {/* letterSpacing: '1.8rem !important',  */}
+        <Section sx={{ display: 'flex', flexDirection: 'column', flexGrow: 1, justifyContent: 'space-between' }}>
+          <Typography variant="h1" component="h1" className="company-name hero-header">
+            <span>S</span>
+            <span>H</span>
+            <span>S</span>
+            <span> </span>
+            <span>F</span>
+            <span>L</span>
+            <span>O</span>
+            <span>R</span>
+            <span>I</span>
+            <span>D</span>
+            <span>A</span>
+          </Typography>
+          <Box>
+            <Box>
+              <CustomHeader text="Expert Hands." sx={{ fontWeight: '700 !important', fontSize: '2.1rem !important' }} />
+              <Box
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                  justifyContent: 'center',
+                  alignItems: 'flex-end',
+                  gap: '0.8rem',
+                  marginBottom: '3rem',
+                }}
+              >
+                <Typography
+                  variant="h1"
+                  component="h1"
+                  className="hero-header"
+                  sx={{
+                    display: 'inline-block !important',
+                    transform: 'skewX(-20deg)',
+                    ...shinyEffect,
+                  }}
+                >
+                  Exceptional
+                </Typography>
+                <Typography variant="h1" component="h1" className="hero-header">
+                  Results.
+                </Typography>
+              </Box>
             </Box>
-            <Typography variant="h5" sx={{ fontSize: { xs: '1.25rem', sm: '1.5rem', md: '1.75rem', lg: '2rem' } }}>
+
+            <Typography
+              variant="body1"
+              component="p"
+              className="hero-description"
+              sx={{
+                my: 3,
+              }}
+            >
               From routine maintenance to complex projects, we handle every aspect of your home's upkeep with precision
               and care.
             </Typography>
-          </Grid>
-          <Grid
-            item
-            xs={12}
-            sx={{
-              display: 'flex',
-              flexDirection: { xs: 'column', sm: 'row' },
-              justifyContent: 'center',
-              gap: 2,
-              mt: { xs: 8, md: 6 },
-            }}
-          >
-            <CallButton />
-            <TextButton />
-            <EstimateRequestButton />
-          </Grid>
-          <Box
-            sx={{
-              display: { xs: 'flex', sm: 'none' },
-              flexDirection: 'row',
-              justifyContent: 'center',
-              alignItems: 'flex-end',
-              mt: { xs: 6 },
-              mb: 1,
-            }}
-          >
-            <ScrollIcon />
-            <ScrollIcon />
-            <ScrollText />
-            <ScrollIcon />
-            <ScrollIcon />
           </Box>
-        </Grid>
+        </Section>
+        <Section sx={{ width: '100%' }}>
+          <Grid container spacing={2} justifyContent="center" alignItems="center">
+            <Grid item xs={12} sm={5} md={4} lg={3}>
+              <CallButton />
+            </Grid>
+            <Grid item xs={12} sm={5} md={4} lg={3}>
+              <TextButton />
+            </Grid>
+            <Grid item xs={12} sm={10} md={4}>
+              <EstimateRequestButton fullWidth={true} />
+            </Grid>
+          </Grid>
+        </Section>
+        <Box
+          sx={{
+            display: { xs: 'flex', sm: 'none' },
+            flexDirection: 'row',
+            justifyContent: 'center',
+            alignItems: 'flex-end',
+            mt: { xs: 6 },
+            mb: 1,
+          }}
+        >
+          <ScrollIcon />
+          <ScrollIcon />
+          <ScrollText />
+          <ScrollIcon />
+          <ScrollIcon />
+        </Box>
       </Box>
-    </Box>
+    </Container>
   );
 };
 

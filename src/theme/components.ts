@@ -39,38 +39,38 @@ const components: Components<Omit<Theme, 'components'>> = {
           height: 13,
           width: 13,
           // Default arrows are not visible, use background-image for custom arrows:
-          '-webkit-appearance': 'none',
-          'background-repeat': 'no-repeat',
-          'background-position': 'center',
+          webkitAppearance: 'none',
+          backgroundRepeat: 'no-repeat',
+          backgroundPosition: 'center',
         },
 
         // Vertical scrollbar buttons
         '&::-webkit-scrollbar-button:vertical:start': {
           // Solid Rounded Up Triangle
-          'background-image': `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='3 4 18 19'>${svgDropShadowFilter}%3E%3Cpath fill='${encodeURIComponent(theme.palette.primary.light)}' d='M6.41,16H17.59a1,1,0,0,0,.7-1.71L12.71,8.71a1,1,0,0,0-1.42,0L5.71,14.29A1,1,0,0,0,6.41,16Z' filter='url(%23shadow)'/%3E%3C/svg%3E")`,
+          backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='3 4 18 19'>${svgDropShadowFilter}%3E%3Cpath fill='${encodeURIComponent(theme.palette.primary.light)}' d='M6.41,16H17.59a1,1,0,0,0,.7-1.71L12.71,8.71a1,1,0,0,0-1.42,0L5.71,14.29A1,1,0,0,0,6.41,16Z' filter='url(%23shadow)'/%3E%3C/svg%3E")`,
           '&:hover': {
-            'background-image': `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='3 4 18 19'>${svgDropShadowFilter}%3E%3Cpath fill='${encodeURIComponent(theme.palette.primary.dark)}' d='M6.41,16H17.59a1,1,0,0,0,.7-1.71L12.71,8.71a1,1,0,0,0-1.42,0L5.71,14.29A1,1,0,0,0,6.41,16Z' filter='url(%23shadow)'/%3E%3C/svg%3E")`,
+            backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='3 4 18 19'>${svgDropShadowFilter}%3E%3Cpath fill='${encodeURIComponent(theme.palette.primary.dark)}' d='M6.41,16H17.59a1,1,0,0,0,.7-1.71L12.71,8.71a1,1,0,0,0-1.42,0L5.71,14.29A1,1,0,0,0,6.41,16Z' filter='url(%23shadow)'/%3E%3C/svg%3E")`,
           },
         },
         '&::-webkit-scrollbar-button:vertical:end': {
           // Solid Rounded Down Triangle (rotated from up)
-          'background-image': `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='3 4 18 19'>${svgDropShadowFilter}%3E%3Cpath fill='${encodeURIComponent(theme.palette.primary.light)}' d='M6.41,16H17.59a1,1,0,0,0,.7-1.71L12.71,8.71a1,1,0,0,0-1.42,0L5.71,14.29A1,1,0,0,0,6.41,16Z' transform='rotate(180 12 12)' filter='url(%23shadow)'/%3E%3C/svg%3E")`,
+          backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='3 4 18 19'>${svgDropShadowFilter}%3E%3Cpath fill='${encodeURIComponent(theme.palette.primary.light)}' d='M6.41,16H17.59a1,1,0,0,0,.7-1.71L12.71,8.71a1,1,0,0,0-1.42,0L5.71,14.29A1,1,0,0,0,6.41,16Z' transform='rotate(180 12 12)' filter='url(%23shadow)'/%3E%3C/svg%3E")`,
           '&:hover': {
-            'background-image': `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='3 4 18 19'>${svgDropShadowFilter}%3E%3Cpath fill='${encodeURIComponent(theme.palette.primary.dark)}' d='M6.41,16H17.59a1,1,0,0,0,.7-1.71L12.71,8.71a1,1,0,0,0-1.42,0L5.71,14.29A1,1,0,0,0,6.41,16Z' transform='rotate(180 12 12)' filter='url(%23shadow)'/%3E%3C/svg%3E")`,
+            backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='3 4 18 19'>${svgDropShadowFilter}%3E%3Cpath fill='${encodeURIComponent(theme.palette.primary.dark)}' d='M6.41,16H17.59a1,1,0,0,0,.7-1.71L12.71,8.71a1,1,0,0,0-1.42,0L5.71,14.29A1,1,0,0,0,6.41,16Z' transform='rotate(180 12 12)' filter='url(%23shadow)'/%3E%3C/svg%3E")`,
           },
         },
         '&::-webkit-scrollbar-button:horizontal:start': {
           // Solid Rounded Left Triangle (rotated from up)
-          'background-image': `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='3 4 18 19'>${svgDropShadowFilter}%3E%3Cpath fill='${encodeURIComponent(theme.palette.primary.light)}' d='M6.41,16H17.59a1,1,0,0,0,.7-1.71L12.71,8.71a1,1,0,0,0-1.42,0L5.71,14.29A1,1,0,0,0,6.41,16Z' transform='rotate(-90 12 12)' filter='url(%23shadow)'/%3E%3C/svg%3E")`,
+          backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='3 4 18 19'>${svgDropShadowFilter}%3E%3Cpath fill='${encodeURIComponent(theme.palette.primary.light)}' d='M6.41,16H17.59a1,1,0,0,0,.7-1.71L12.71,8.71a1,1,0,0,0-1.42,0L5.71,14.29A1,1,0,0,0,6.41,16Z' transform='rotate(-90 12 12)' filter='url(%23shadow)'/%3E%3C/svg%3E")`,
           '&:hover': {
-            'background-image': `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='3 4 18 19'>${svgDropShadowFilter}%3E%3Cpath fill='${encodeURIComponent(theme.palette.primary.dark)}' d='M6.41,16H17.59a1,1,0,0,0,.7-1.71L12.71,8.71a1,1,0,0,0-1.42,0L5.71,14.29A1,1,0,0,0,6.41,16Z' transform='rotate(-90 12 12)' filter='url(%23shadow)'/%3E%3C/svg%3E")`,
+            backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='3 4 18 19'>${svgDropShadowFilter}%3E%3Cpath fill='${encodeURIComponent(theme.palette.primary.dark)}' d='M6.41,16H17.59a1,1,0,0,0,.7-1.71L12.71,8.71a1,1,0,0,0-1.42,0L5.71,14.29A1,1,0,0,0,6.41,16Z' transform='rotate(-90 12 12)' filter='url(%23shadow)'/%3E%3C/svg%3E")`,
           },
         },
         '&::-webkit-scrollbar-button:horizontal:end': {
           // Solid Rounded Right Triangle (rotated from up)
-          'background-image': `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='3 4 18 19'>${svgDropShadowFilter}%3E%3Cpath fill='${encodeURIComponent(theme.palette.primary.light)}' d='M6.41,16H17.59a1,1,0,0,0,.7-1.71L12.71,8.71a1,1,0,0,0-1.42,0L5.71,14.29A1,1,0,0,0,6.41,16Z' transform='rotate(90 12 12)' filter='url(%23shadow)'/%3E%3C/svg%3E")`,
+          backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='3 4 18 19'>${svgDropShadowFilter}%3E%3Cpath fill='${encodeURIComponent(theme.palette.primary.light)}' d='M6.41,16H17.59a1,1,0,0,0,.7-1.71L12.71,8.71a1,1,0,0,0-1.42,0L5.71,14.29A1,1,0,0,0,6.41,16Z' transform='rotate(90 12 12)' filter='url(%23shadow)'/%3E%3C/svg%3E")`,
           '&:hover': {
-            'background-image': `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='3 4 18 19'>${svgDropShadowFilter}%3E%3Cpath fill='${encodeURIComponent(theme.palette.primary.dark)}' d='M6.41,16H17.59a1,1,0,0,0,.7-1.71L12.71,8.71a1,1,0,0,0-1.42,0L5.71,14.29A1,1,0,0,0,6.41,16Z' transform='rotate(90 12 12)' filter='url(%23shadow)'/%3E%3C/svg%3E")`,
+            backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='3 4 18 19'>${svgDropShadowFilter}%3E%3Cpath fill='${encodeURIComponent(theme.palette.primary.dark)}' d='M6.41,16H17.59a1,1,0,0,0,.7-1.71L12.71,8.71a1,1,0,0,0-1.42,0L5.71,14.29A1,1,0,0,0,6.41,16Z' transform='rotate(90 12 12)' filter='url(%23shadow)'/%3E%3C/svg%3E")`,
           },
         },
         '@supports not selector(::-webkit-scrollbar)': {
@@ -102,12 +102,12 @@ const components: Components<Omit<Theme, 'components'>> = {
           width: 0,
         },
       },
-      span: {
-        fontSize: '1.1rem',
-        lineHeight: 1.2,
-        color: theme.palette.secondary.dark,
-        letterSpacing: 0.2,
-      },
+      // span: {
+      //   fontSize: '1.1rem',
+      //   lineHeight: 1.2,
+      //   color: theme.palette.secondary.dark,
+      //   letterSpacing: 0.2,
+      // },
 
       // Autofill styles for input elements
       'input:-webkit-autofill': {
@@ -127,22 +127,53 @@ const components: Components<Omit<Theme, 'components'>> = {
     }),
   },
   // ---------------------------------------------------
-  // MuiLink Component Customizations
+  // MuiContainer Component Customizations
   // ---------------------------------------------------
-  MuiLink: {
-    defaultProps: {},
+  MuiContainer: {
+    defaultProps: {
+      maxWidth: 'lg',
+    },
     styleOverrides: {
       root: ({ theme }: { theme: Theme }): CSSObject => ({
-        color: theme.palette.primary.light,
-        textDecoration: 'none',
-        transition: customTransitions.standard,
-        '&:hover': {
-          color: theme.palette.primary.main,
-          textDecoration: 'underline',
+        '&.page-wrapper': {
+          minHeight: '100dvh', // Use dynamic viewport height for better support
+          display: 'flex',
+          flexDirection: 'column',
+          gap: theme.spacing(4),
+          paddingTop: theme.spacing(4),
+          backgroundColor: theme.palette.background.default,
         },
-        '&.Mui-disabled': {
-          color: theme.palette.text.disabled,
-          cursor: 'not-allowed',
+        '&.hero-container': {
+          position: 'relative',
+          maxWidth: '100dvw',
+          height: '65vh',
+          '& .hero-header': {
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            lineHeight: 1.1,
+            fontSize: '2.3rem',
+            letterSpacing: '0.3rem',
+            textTransform: 'uppercase',
+            fontWeight: 800,
+            '&.company-name': {
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(0, 1fr))',
+              gap: 0,
+              width: '95%',
+              fontSize: '4rem',
+              textAlign: 'center',
+              justifyContent: 'center',
+              margin: theme.spacing(0, 'auto', 2),
+            },
+          },
+          '& .hero-description': {
+            marginBottom: theme.spacing(3),
+            fontSize: '1.4rem !important',
+            letterSpacing: '0.1rem',
+            color: theme.palette.secondary.dark,
+          },
         },
       }),
     },
@@ -151,24 +182,59 @@ const components: Components<Omit<Theme, 'components'>> = {
   // MuiTypography Component Customizations
   // ---------------------------------------------------
   MuiTypography: {
-    defaultProps: {
-      variant: 'body1',
-      align: 'left',
-      component: 'p',
-    },
-    styleOverrides: {
-      root: ({ theme }: { theme: Theme }): CSSObject => ({
-        [theme.breakpoints.down('md')]: {
-          marginLeft: '2rem',
-          marginRight: '2rem',
+    variants: [
+      {
+        props: {
+          variant: 'pageTitle',
         },
+        style: ({ theme }: { theme: Theme }) => ({
+          display: 'block',
+          fontSize: '2.4rem',
+          fontWeight: 600,
+          lineHeight: 1.5,
+          color: theme.palette.primary.main,
+          letterSpacing: 0.5,
+          textAlign: 'center',
+          margin: '0 auto',
+          whiteSpace: 'nowrap',
+          marginBottom: '1.5rem',
+          [theme.breakpoints.down('sm')]: {
+            fontSize: '2rem',
+            whiteSpace: 'normal',
+          },
+          [theme.breakpoints.down(500)]: {
+            fontSize: '1.8rem',
+            lineHeight: 1.3,
+          },
+        }),
+      },
+      {
+        props: { variant: 'sectionTitle' },
+        style: ({ theme }: { theme: Theme }) => ({
+          display: 'block',
+          fontSize: '1.6rem',
+          fontWeight: 500,
+          lineHeight: 1.1,
+          color: theme.palette.primary.main,
+          letterSpacing: 0.5,
+          marginBottom: theme.spacing(3.5),
+          [theme.breakpoints.down(500)]: {
+            fontSize: '1.4rem',
+            lineHeight: 1.1,
+          },
+        }),
+      },
+    ],
+    defaultProps: {},
+    styleOverrides: {
+      root: ({ theme }: { theme: Theme; ownerState: any }): CSSObject => ({
         '&.MuiTypography-h1': {
           textAlign: 'center',
           fontSize: '3rem',
           fontWeight: 600,
-          lineHeight: 2,
+          lineHeight: 1.2,
           color: theme.palette.primary.dark,
-          letterSpacing: 2,
+          letterSpacing: 1.5,
           [theme.breakpoints.down(500)]: {
             fontSize: '2.2rem',
             lineHeight: 1.5,
@@ -235,10 +301,10 @@ const components: Components<Omit<Theme, 'components'>> = {
         },
         '&.MuiTypography-body1': {
           fontSize: '1.1rem',
-          lineHeight: 1.15,
+          lineHeight: 1.25,
           color: theme.palette.secondary.dark,
           letterSpacing: 0.2,
-          marginBottom: '1.8rem',
+
           '&.contact-link-label': {
             marginBottom: theme.spacing(0.7),
             [theme.breakpoints.down(500)]: {
@@ -270,7 +336,8 @@ const components: Components<Omit<Theme, 'components'>> = {
     defaultProps: {},
     styleOverrides: {
       root: ({ theme }: { theme: Theme }): CSSObject => ({
-        margin: 'auto',
+        marginTop: theme.spacing(2),
+        marginBottom: theme.spacing(2),
         flexGrow: 1,
         width: '70%',
         alignSelf: 'center',
@@ -280,7 +347,7 @@ const components: Components<Omit<Theme, 'components'>> = {
           margin: theme.spacing(4, 3),
         },
         '&.side': {
-          margin: theme.spacing(4),
+          margin: theme.spacing(0, 4),
           boxShadow: customShadows[1],
           width: 'auto',
           borderWidth: 1.5,
@@ -389,14 +456,35 @@ const components: Components<Omit<Theme, 'components'>> = {
     },
   },
   // ---------------------------------------------------
+  // MuiLink Component Customizations
+  // ---------------------------------------------------
+  MuiLink: {
+    defaultProps: {},
+    styleOverrides: {
+      root: ({ theme }: { theme: Theme }): CSSObject => ({
+        color: theme.palette.primary.light,
+        textDecoration: 'none',
+        transition: customTransitions.standard,
+        '&:hover': {
+          color: theme.palette.primary.main,
+          textDecoration: 'underline',
+        },
+        '&.Mui-disabled': {
+          color: theme.palette.text.disabled,
+          cursor: 'not-allowed',
+        },
+      }),
+    },
+  },
+  // ---------------------------------------------------
   // MuiAppBar Component Customizations
   // --------------------------------------------------
-
   MuiAppBar: {
     defaultProps: {},
     styleOverrides: {
       root: ({ theme }: { theme: Theme }): CSSObject => ({
-        transitions: customTransitions.slow,
+        boxShadow: customShadows[3],
+        transition: customTransitions.slow,
         '& .nav-menu-item': {
           '& .MuiTypography-root': {
             color: theme.palette.secondary.light,
@@ -407,16 +495,63 @@ const components: Components<Omit<Theme, 'components'>> = {
             letterSpacing: 1,
             textShadow: 'none',
           },
+          '& .MuiButtonBase-root': {
+            color: theme.palette.secondary.light,
+            margin: 1,
+            textAlign: 'center',
+            fontSize: '1.2rem',
+            transition: customTransitions.standard,
+            letterSpacing: 1,
+            textShadow: 'none',
+            boxShadow: 'none',
+          },
           '&:hover': {
             '& .MuiTypography-root': {
               color: theme.palette.accent.main,
               letterSpacing: 2.5,
-              textShadow: `
-              0px 4px 14px ${theme.palette.accent.main},
-              0px 4px 14px ${theme.palette.accent.main}
-              `,
+              textShadow: `0px 4px 14px ${theme.palette.accent.main}, 0px 4px 14px ${theme.palette.accent.main}`,
+            },
+            '& .MuiButtonBase-root': {
+              borderColor: 'transparent',
+              color: theme.palette.accent.main,
+              letterSpacing: 2.5,
+              textShadow: `0px 4px 14px ${theme.palette.accent.main}, 0px 4px 14px ${theme.palette.accent.main}`,
             },
             backgroundColor: 'transparent',
+          },
+        },
+      }),
+    },
+  },
+  // ---------------------------------------------------
+  // MuiCard Component Customizations (for the main question label)
+  // --------------------------------------------------
+  MuiCard: {
+    defaultProps: {
+      variant: 'outlined',
+      elevation: 3,
+    },
+    styleOverrides: {
+      root: ({ theme }: { theme: Theme }): CSSObject => ({
+        borderRadius: customBorderRadius.small,
+        backgroundColor: theme.palette.background.paper,
+        padding: theme.spacing(2),
+        '&.review-card': {
+          width: 220,
+          height: 260,
+          border: 'none',
+          boxShadow: customShadows[2],
+          background: `linear-gradient(135deg, ${alpha(theme.palette.secondary.light, 0.5)})} 100%, rgba(237,235,243,0.18) 100%)`,
+          backdropFilter: 'blur(8px)',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          textAlign: 'center',
+          '& .MuiTypography-root': {
+            padding: 0,
+            margin: 0,
+            textAlign: 'center',
           },
         },
       }),
@@ -618,30 +753,13 @@ const components: Components<Omit<Theme, 'components'>> = {
       }),
     },
   },
-  //----------------------------------------------------
-  // MuiButtonBase Component Customizations
-  // ---------------------------------------------------
-  MuiButtonBase: {
-    defaultProps: {
-      disableRipple: true, // Disable ripple effect globally
-    },
-    styleOverrides: {
-      root: ({ theme }: { theme: Theme }): CSSObject => ({
-        // Base styles for all button-like components
-        transition: customTransitions.slow,
-        // borderRadius: customBorderRadius.small,
-        '&.Mui-disabled': {
-          cursor: 'not-allowed',
-          color: theme.palette.text.disabled,
-        },
-      }),
-    },
-  },
+
   //----------------------------------------------------
   // MuiButton Component Customizations
   // ---------------------------------------------------
   MuiButton: {
     defaultProps: {
+      disableRipple: true,
       variant: 'contained',
       color: 'primary',
     }, // Keep this section, might want to use it
@@ -656,7 +774,6 @@ const components: Components<Omit<Theme, 'components'>> = {
         transition: customTransitions.standard,
         cursor: 'pointer',
         whiteSpace: 'nowrap',
-        minWidth: 'auto',
         flexGrow: 1,
         '&:hover': {
           boxShadow: customShadows[2],
@@ -859,7 +976,7 @@ const components: Components<Omit<Theme, 'components'>> = {
         backgroundColor: 'transparent',
         transition: theme.transitions.create(['box-shadow']),
         '&.Mui-focused': {
-          boxShadow: theme.shadows[1],
+          // boxShadow: theme.shadows[1],
           '& .MuiOutlinedInput-notchedOutline': {
             borderColor: theme.palette.primary.light,
             borderWidth: '1.5px',
@@ -928,13 +1045,13 @@ const components: Components<Omit<Theme, 'components'>> = {
         },
         // Hide number controls entirely
         '&[type="number"]': {
-          '-moz-appearance': 'textfield',
+          MozAppearance: 'textfield',
           '&::-webkit-outer-spin-button': {
-            '-webkit-appearance': 'none',
+            WebkitAppearance: 'none',
             margin: 0,
           },
           '&::-webkit-inner-spin-button': {
-            '-webkit-appearance': 'none',
+            WebkitAppearance: 'none',
             margin: 0,
           },
         },
@@ -948,10 +1065,10 @@ const components: Components<Omit<Theme, 'components'>> = {
     styleOverrides: {
       root: ({ theme }: { theme: Theme }): CSSObject => ({
         color: theme.palette.secondary.dark,
-        fontSize: '0.95rem',
+        fontSize: '1rem',
         fontWeight: 400,
         '&.Mui-focused': {
-          fontSize: '0.95rem',
+          fontSize: '1rem',
           color: theme.palette.primary.light,
           fontWeight: 400,
         },
@@ -963,7 +1080,7 @@ const components: Components<Omit<Theme, 'components'>> = {
         },
       }),
       outlined: ({ theme }: { theme: Theme }): CSSObject => ({
-        transform: 'translate(14px, 8.5px) scale(1)',
+        transform: 'translate(14px, 8.5px) scale(.9)',
         '&.MuiInputLabel-shrink': {
           transform: 'translate(15px, -8px) scale(0.75)',
         },
@@ -1141,6 +1258,14 @@ const components: Components<Omit<Theme, 'components'>> = {
             margin: 0,
             [theme.breakpoints.down('sm')]: {
               fontSize: '0.9rem',
+            },
+            '&.review-text': {
+              color: 'primary.dark',
+              fontSize: '0.8rem',
+              fontStyle: 'italic',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              textShadow: '0 1px 4px rgba(0,0,0,0.18)',
             },
           },
           '&.MuiSelect-dropdown-headers': {
@@ -1361,14 +1486,6 @@ const components: Components<Omit<Theme, 'components'>> = {
   //       borderRadius: customBorderRadius.medium,
   //       boxShadow: customShadows[2],
   //       backgroundColor: theme.palette.background.default,
-  //     }),
-  //   },
-  // },
-  // MuiAppBar: {
-  //   styleOverrides: {
-  //     root: ({ theme }: { theme: Theme }): CSSObject => ({
-  //       backgroundColor: theme.palette.primary.main,
-  //       boxShadow: customShadows[1],
   //     }),
   //   },
   // },

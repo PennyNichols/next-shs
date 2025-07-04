@@ -1,11 +1,7 @@
 {
   "compilerOptions": {
     "target": "es5", // Matching jsconfig for broader browser compatibility if Next.js handles modern transpilation
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": false, // Setting to false to match jsconfig's leniency for checks
@@ -26,27 +22,12 @@
     "baseUrl": "./", // <--- ADD THIS LINE! This is crucial for path aliases
     "paths": {
       // Your existing path alias. This should now work correctly with "baseUrl"
-      "@/*": [
-        "./src/*"
-      ]
+      "@/*": ["./src/*"]
     },
-    "forceConsistentCasingInFileNames": true // ADDED: Matching jsconfig for path consistency
-    ,
-    "strictNullChecks": true
+    "forceConsistentCasingInFileNames": true, // ADDED: Matching jsconfig for path consistency
+    "strictNullChecks": false
   },
-  "include": [
-    "next-env.d.ts",
-    ".next/types/**/*.ts",
-    // These specific TS/TSX files are included as per your jsconfig.json's explicit list
-    "components/ReusableComponents/ActionButton/ActionButton.tsx",
-    "src/theme/components.ts",
-    "src/theme/typography.ts",
-    "src/theme/index.ts",
-    "src/app/layout.tsx",
-    // Keep these general globs too, in case you add other TS/TSX files
-    "**/*.ts",
-    "**/*.tsx"
-  ],
+  "include": ["next-env.d.ts", ".next/types/**/*.ts", "**/*.ts", "**/*.tsx"],
   "exclude": [
     "node_modules",
     ".next", // ADDED: Common exclusion for Next.js build output

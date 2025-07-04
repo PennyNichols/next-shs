@@ -1,11 +1,12 @@
+import { Container } from '@mui/material';
 import React from 'react';
 
 const FAQPage = () => {
   return (
-    <div>
+    <Container className="page-wrapper">
       <h1>Frequently Asked Questions</h1>
       {/* Add your FAQ content here */}
-    </div>
+    </Container>
   );
 };
 

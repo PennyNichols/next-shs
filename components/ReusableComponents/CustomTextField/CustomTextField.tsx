@@ -21,9 +21,10 @@ const CustomTextField: React.FC<CustomTextFieldProps> = ({
   shrinkLabel = true,
   InputProps,
   InputLabelProps,
+  value,
+  type = 'text',
   ...props
 }) => {
-  // Build InputProps with adornments if icons are provided
   const inputProps = {
     ...InputProps,
     ...(startIcon && {
@@ -34,11 +35,12 @@ const CustomTextField: React.FC<CustomTextFieldProps> = ({
     }),
   };
 
-  // Build InputLabelProps with shrink option
   const inputLabelProps = {
     ...InputLabelProps,
     ...(shrinkLabel && { shrink: true }),
   };
+
+  const displayValue = type === 'number' && value === null ? '' : value;
 
   return (
     <TextField
@@ -48,6 +50,8 @@ const CustomTextField: React.FC<CustomTextFieldProps> = ({
       fullWidth={fullWidth}
       InputProps={inputProps}
       InputLabelProps={inputLabelProps}
+      value={displayValue}
+      type={type}
       {...props}
     />
   );

@@ -29,22 +29,7 @@ function ReviewCard({ rating = 5, review, platform }) {
   const handleClose = () => setOpen(false);
   return (
     <>
-      <Card
-        sx={{
-          width: 220,
-          height: 260,
-          borderRadius: customBorderRadius.medium,
-          boxShadow: 3,
-          background: `linear-gradient(135deg, secondary.main, 0.5)} 100%, rgba(237,235,243,0.18) 100%)`,
-          backdropFilter: 'blur(8px)',
-          padding: 2,
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          textAlign: 'center',
-        }}
-      >
+      <Card className="review-card">
         <Box display="flex" alignItems="center">
           <Rating
             value={rating}
@@ -71,18 +56,7 @@ function ReviewCard({ rating = 5, review, platform }) {
           />
         </Box>
         <CardContent sx={{ p: 0 }}>
-          <Typography
-            variant="body1"
-            sx={{
-              color: 'primary.dark',
-              fontSize: '1rem',
-              fontStyle: 'italic',
-              overflow: 'hidden',
-              textOverflow: 'ellipsis',
-              textShadow: '0 1px 4px rgba(0,0,0,0.18)',
-              margin: '1 0',
-            }}
-          >
+          <Typography className="review-text">
             “{review}” <br />
             <Typography
               variant="body2"

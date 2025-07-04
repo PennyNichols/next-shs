@@ -1,35 +1,35 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { Container, Typography } from '@mui/material';
-import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../../firebase';
+import { doc, getDoc } from 'firebase/firestore';
+
+// add loading skeleton
 
 const BlogPost = () => {
   const router = useRouter();
   const { id } = router.query;
+  const postId = Array.isArray(id) ? id[0] : id;
   const [post, setPost] = useState(null);
+
   useEffect(() => {
-    if (id) {
+    if (typeof postId === 'string' && postId) {
       const fetchPost = async () => {
-        const docRef = doc(db, 'blogPosts', id);
+        const docRef = doc(db, 'blogPosts', postId as string);
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
           setPost(docSnap.data());
         } else {
-          // console.error('No such document!');
+          router.push('/404');
         }
       };
 
       fetchPost();
     }
-  }, [id]);
-
-  if (!post) {
-    return <Typography variant="h5">Post not found</Typography>;
-  }
+  }, [postId]);
 
   return (
-    <Container>
+    <Container className="page-wrapper">
       <Typography variant="h2" gutterBottom>
         {post.header}
       </Typography>

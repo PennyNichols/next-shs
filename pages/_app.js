@@ -25,12 +25,14 @@ import Hero from '../components/Hero/Hero';
 import ShareButton from '../components/ActionButtons/ShareButton';
 import ComingSoon from '../components/ComingSoon/ComingSoon';
 import { FirebaseCollectionProvider } from '../hooks/FirebaseService';
+import { CacheProvider } from '@emotion/react';
+import createEmotionCache from '@/createEmotionCache';
 
 function MyApp({ Component, pageProps }) {
   const router = useRouter();
   const isHomePage = router.pathname === '/';
   const disabledPaths = ['/blog', '/about', '/FAQ', '/auth'];
-
+  const clientSideEmotionCache = createEmotionCache();
   return (
     <React.Fragment>
       <Head>
@@ -38,27 +40,35 @@ function MyApp({ Component, pageProps }) {
         <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
       </Head>
 
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <GlobalStyles styles={globalSlickStyles(theme)} />
-        <FirebaseCollectionProvider>
-          <Box
-            display="flex"
-            flexDirection="column"
-            minHeight="100vh"
-            width="100%"
-            sx={{ backgroundColor: theme.palette.secondary.light }}
-          >
-            {isHomePage && <Hero />}
-            <NavBar />
-            <Box flexGrow={1}>
-              {disabledPaths.includes(router.pathname) ? <ComingSoon /> : <Component {...pageProps} />}
+      <CacheProvider value={clientSideEmotionCache}>
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+          <GlobalStyles styles={globalSlickStyles(theme)} />
+          <FirebaseCollectionProvider>
+            <Box
+              display="flex"
+              flexDirection="column"
+              minHeight="100vh"
+              width="100%"
+              sx={{ backgroundColor: theme.palette.secondary.light }}
+            >
+              {isHomePage && <Hero />}
+              <NavBar />
+              <Box
+                flexGrow={1}
+                sx={{
+                  paddingTop: 0,
+                  paddingBottom: 8,
+                }}
+              >
+                {disabledPaths.includes(router.pathname) ? <ComingSoon /> : <Component {...pageProps} />}
+              </Box>
+              <Footer />
+              <ShareButton />
             </Box>
-            <Footer />
-            <ShareButton />
-          </Box>
-        </FirebaseCollectionProvider>
-      </ThemeProvider>
+          </FirebaseCollectionProvider>
+        </ThemeProvider>
+      </CacheProvider>
     </React.Fragment>
   );
 }

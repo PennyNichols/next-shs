@@ -22,6 +22,7 @@ import theme from '@/theme';
 import { gold, white } from '@/theme/colors';
 import { ClickAwayListener, Collapse } from '@mui/material';
 import { useRouter } from 'next/router';
+import ActionButton from 'components/ReusableComponents/ActionButton/ActionButton';
 
 const pages = [
   { name: 'Home', href: '/' },
@@ -90,8 +91,8 @@ const NavBar = () => {
                 }}
               >
                 {pages.map((page) => (
-                  <Link key={page.name} href={page.href} passHref>
-                    <Button>{page.name}</Button>
+                  <Link className="nav-menu-item" key={page.name} href={page.href} passHref>
+                    <ActionButton text={page.name} />
                   </Link>
                 ))}
               </Box>

@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Skeleton } from '@mui/material';
+import { Box, Container, Skeleton } from '@mui/material';
 import AuthForm from '../components/Forms/AuthForm/AuthForm';
 import useMedia from '../hooks/useMedia';
+import LogoWithTextSvg from 'components/SVG/LogoWithTextSvg';
+import theme from '@/theme';
 
 const Auth = () => {
   const { isXs: initialIsXs, isSm: initialIsSm } = useMedia();
@@ -15,16 +17,7 @@ const Auth = () => {
     setIsSm(initialIsSm);
   }, [initialIsXs, initialIsSm]);
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        height: '100%',
-        justifyContent: 'space-around',
-        alignItems: 'center',
-        p: { xs: 3, md: 5 },
-        gap: 3,
-      }}
-    >
+    <Container className="page-wrapper">
       {!showClientContent ? (
         // Skeleton loading state
         <>
@@ -47,19 +40,13 @@ const Auth = () => {
         <>
           {!isXs && !isSm && (
             <Box>
-              <img
-                src="/images/logoWithTextDark.svg"
-                alt="SHS Icon"
-                width={550}
-                height={450}
-                style={{ display: 'block', p: 5 }}
-              />
+              <LogoWithTextSvg color={theme.palette.primary.main} />
             </Box>
           )}
           <AuthForm />
         </>
       )}
-    </Box>
+    </Container>
   );
 };
 

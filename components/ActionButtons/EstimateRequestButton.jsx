@@ -15,9 +15,9 @@ const EstimateRequestButton = ({ fullWidth = false, ...props }) => {
     <>
       <ActionButton
         text="Request an Estimate"
+        fullWidth={fullWidth}
         onClick={handleOpen}
         icon={<RequestQuoteRounded />}
-        fullWidth={fullWidth}
         {...props}
       />
       <EstimateRequestForm open={open} setOpen={setOpen} />

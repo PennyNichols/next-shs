@@ -46,14 +46,7 @@ const PrivacyPolicy = () => {
         <meta property="og:site_name" content="SHS Florida" />
         <link rel="canonical" href="https://shsflorida.com/privacy-policy" />
       </Head>
-      <Container
-        component="main"
-        className="page-container"
-        maxWidth={false}
-        sx={{ maxWidth: 900, py: 6, px: { xs: '0px !important', sm: '30px !important' }, pt: { xs: 4, sm: 6 } }}
-        role="region"
-        aria-labelledby="privacy-policy-title"
-      >
+      <Container className="page-wrapper" role="region" aria-labelledby="privacy-policy-title">
         <Box sx={{ mb: 3 }}>
           <Typography id="privacy-policy-title" variant="h2" component="h1" tabIndex={-1}>
             Privacy Policy

@@ -3,34 +3,28 @@ import {
   Box,
   Button,
   Typography,
-  MenuItem,
   FormControl,
-  InputLabel,
-  Select,
-  Checkbox,
   FormControlLabel,
   Grid,
   Paper,
-  Chip,
-  ListSubheader,
   FormLabel,
   RadioGroup,
   Radio,
 } from '@mui/material';
-import CustomTextField from '../ReusableComponents/CustomTextField';
+import CustomTextField from '../../ReusableComponents/CustomTextField';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { CERTIFICATIONS } from '../../constants/careers';
-import { SERVICE_CATEGORIES } from '../../constants/services';
+import { CERTIFICATIONS } from '../../../constants/careers';
+import { SERVICE_CATEGORIES } from '../../../constants/services';
 import { AttachMoney, CloudUpload } from '@mui/icons-material';
 import theme from '@/theme';
 import { customBorderRadius } from '@/theme/otherThemeConstants';
-import CustomCheckbox from 'components/ReusableComponents/CustomCheckbox/CustomCheckbox';
 import GroupedMultiSelect from 'components/ReusableComponents/GroupedMultiSelect/GroupedMultiSelect';
 import DropdownSelect from 'components/ReusableComponents/DropdownMultiSelect/DropdownMultiSelect';
-
-const skills = SERVICE_CATEGORIES;
+import { ContentBox, Section } from 'components/ReusableComponents/baseComponents';
+import PageTitle from 'components/ReusableComponents/baseComponents/PageTitle';
+import ActionButton from 'components/ReusableComponents/ActionButton/ActionButton';
 
 const certificationOptions = CERTIFICATIONS;
 
@@ -134,28 +128,20 @@ const JobApplication = () => {
         maxWidth: { xs: '100%', sm: 700 },
       }}
     >
-      <Typography
-        variant="h3"
-        align="center"
-        gutterBottom
-        sx={{ color: theme.palette.primary.main, whiteSpace: { xs: 'wrap', sm: 'nowrap' } }}
-      >
-        SHS <wbr />
-        Employment Application
-      </Typography>
-      <Typography
-        variant="body1"
-        sx={{
-          mb: { xs: 5, sm: 3 },
-          mt: { xs: 3, sm: 1 },
-          mx: 0,
-          color: theme.palette.text.primary,
-          textAlign: { xs: 'center', sm: 'left' },
-        }}
-      >
-        We are seeking skilled, reliable, and professional team members to deliver exceptional service to our discerning
-        clientele. Please complete the form below with care and attention to detail.
-      </Typography>
+      <Section>
+        <PageTitle component="h2" sx={{ fontSize: '1.6rem' }}>
+          SHS <wbr />
+          Employment Application
+        </PageTitle>
+      </Section>
+      <Section>
+        <ContentBox sx={{ mb: 4 }}>
+          <Typography>
+            We are seeking skilled, reliable, and professional team members to deliver exceptional service to our
+            discerning clientele. Please complete the form below with care and attention to detail.
+          </Typography>
+        </ContentBox>
+      </Section>
       <Box component="form" onSubmit={handleSubmit(onSubmit)} noValidate>
         <Grid container spacing={3}>
           {/* Work Eligibility */}
@@ -544,19 +530,18 @@ const JobApplication = () => {
           </Grid>
           {/* Submit */}
           <Grid item order={18} xs={12} sx={{ mt: { xs: 1, sm: 2 } }}>
-            <Button
+            <ActionButton
               type="submit"
               variant="contained"
               color="primary"
               size="large"
               fullWidth
+              text='Submit Application'
               sx={{
                 py: 1.5,
                 fontSize: '1.1rem',
               }}
-            >
-              Submit Application
-            </Button>
+            />
           </Grid>
         </Grid>
       </Box>

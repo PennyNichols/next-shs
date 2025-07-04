@@ -1,3 +1,4 @@
+import { Container } from '@mui/material';
 import { useRouter } from 'next/router';
 
 const ServicePage = () => {
@@ -5,11 +6,11 @@ const ServicePage = () => {
   const { id } = router.query;
 
   return (
-    <div>
+    <Container className="page-wrapper">
       <h1>Service Details</h1>
       <p>Service ID: {id}</p>
       {/* Add your service details here */}
-    </div>
+    </Container>
   );
 };
 

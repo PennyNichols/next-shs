@@ -1,11 +1,12 @@
+import { Container } from '@mui/material';
 import React from 'react';
 
 const NewsPage = () => {
   return (
-    <div>
+    <Container className="page-wrapper">
       <h1>News</h1>
       {/* Add your news content here */}
-    </div>
+    </Container>
   );
 };
 

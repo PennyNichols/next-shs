@@ -8,7 +8,7 @@
 
 import { initializeApp, getApps } from 'firebase/app';
 import { getAuth } from 'firebase/auth'; // for authentication
-import { getFirestore } from 'firebase/firestore'; // for cloud firestore
+import { Firestore, getFirestore } from 'firebase/firestore'; // for cloud firestore
 import { getStorage } from 'firebase/storage'; // for cloud storage
 import { getAnalytics } from 'firebase/analytics'; // for analytics
 import { getFunctions } from 'firebase/functions'; // for cloud functions
@@ -26,7 +26,7 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = getApps().length ? getApps()[0] : initializeApp(firebaseConfig);
 const auth = getAuth(app);
-const db = getFirestore(app);
+const db: Firestore = getFirestore(app);
 const storage = getStorage(app);
 const analytics = typeof window !== 'undefined' ? getAnalytics(app) : null;
 const functions = getFunctions(app);

@@ -29,7 +29,7 @@ const BlogHome = () => {
   };
 
   return (
-    <Container>
+    <Container className="page-wrapper">
       <Typography variant="h2" gutterBottom>
         Construction Blog
       </Typography>

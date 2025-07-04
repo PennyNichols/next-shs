@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Typography } from '@mui/material';
+import { Box, Container, Typography } from '@mui/material';
 import ServicesAccordion from '../components/ServicesAccordion/ServicesAccordion';
 import VilliageSvg from '../components/SVG/VilliageSvg';
 import ReviewCard from '../components/ReviewCard/ReviewCard';
@@ -92,18 +92,7 @@ const Home = () => {
   const reviews = getReviews(rawReviews);
 
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'flex-start',
-        padding: { xs: `${theme.spacing(3)} ${theme.spacing(0)}`, sm: `${theme.spacing(3)} ${theme.spacing(5)}` },
-        minHeight: '100vh',
-        backgroundColor: 'background.default',
-        gap: { xs: 3, sm: 5 },
-      }}
-    >
+    <Container className="page-wrapper">
       <Box
         sx={{
           display: 'flex',
@@ -323,7 +312,7 @@ const Home = () => {
           </Box>
         </Box>
       </Box>
-    </Box>
+    </Container>
   );
 };
 

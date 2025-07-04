@@ -5,7 +5,7 @@ export const white = 'rgb(255, 255, 255)';
 export const offWhite = 'rgb(237, 235, 243)';
 export const lightGray = 'rgb(242, 240, 247)';
 export const mediumGray = 'rgb(156, 156, 161)';
-export const darkGray = 'rgb(87, 87, 88)';
+export const darkGray = 'rgb(74, 74, 76)';
 export const darkText = 'rgb(20, 19, 19)';
 
 // New colors for system states

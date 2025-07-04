@@ -1,19 +1,12 @@
 'use client';
-import { Box, Typography, Button } from '@mui/material';
+import { Box, Typography, Button, Container } from '@mui/material';
 import Link from 'next/link';
 import NavBar from '../../components/NavBar/NavBar';
 import MinFooter from '../../components/Footer/MinFooter';
 
 const Custom404 = () => {
   return (
-    <Box
-      sx={{
-        minHeight: '100dvh', // dynamic viewport height for better support
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'space-between',
-      }}
-    >
+    <Container className="page-wrapper">
       <NavBar />
       <Box
         sx={{
@@ -88,7 +81,7 @@ const Custom404 = () => {
         </Box>
       </Box>
       <MinFooter />
-    </Box>
+    </Container>
   );
 };
 
