@@ -1,13 +1,12 @@
 // src/theme/components.ts
 import { alpha } from '@mui/material/styles';
-import { Components, Theme } from '@mui/material/styles';
-import { CSSObject } from '@emotion/react';
+import type { Components, Theme } from '@mui/material/styles';
+import type { CSSObject } from '@emotion/react';
 import { customShadows, customBorderRadius, customTransitions } from './otherThemeConstants'; // Assuming these are correctly typed as discussed
-import { lightGray } from './colors';
 
 const svgDropShadowFilter = `%3Cdefs%3E%3Cfilter id='shadow' x='-70%25' y='-70%25' width='300%25' height='300%25'%3E%3CfeDropShadow dx='0' dy='2' stdDeviation='1' flood-color='%23000' flood-opacity='.3'/%3E%3C/filter%3E%3C/defs%3E`;
 
-const components: Components<Omit<Theme, 'components'>> = {
+const components: Components<Theme> = {
   // ---------------------------------------------------
   // Global Scrollbar Customizations
   // ---------------------------------------------------
@@ -26,16 +25,16 @@ const components: Components<Omit<Theme, 'components'>> = {
         '&::-webkit-scrollbar-thumb': {
           backgroundColor: alpha(theme.palette.primary.main, 0.7),
           borderRadius: customBorderRadius.pill,
-          border: `2px solid ${theme.palette.secondary.main}`,
+          border: `2.5px solid ${theme.palette.secondary.light}`,
           '&:hover': {
             backgroundColor: theme.palette.primary.main,
           },
         },
         '&::-webkit-scrollbar-track': {
-          backgroundColor: theme.palette.secondary.main,
+          backgroundColor: theme.palette.secondary.light,
         },
         '&::-webkit-scrollbar-button': {
-          backgroundColor: theme.palette.secondary.main,
+          backgroundColor: theme.palette.secondary.light,
           height: 13,
           width: 13,
           // Default arrows are not visible, use background-image for custom arrows:
@@ -87,14 +86,14 @@ const components: Components<Omit<Theme, 'components'>> = {
         '& *::-webkit-scrollbar-thumb': {
           backgroundColor: alpha(theme.palette.primary.main, 0.7),
           borderRadius: customBorderRadius.pill,
-          border: `4px solid ${lightGray}`,
+          border: `4px solid ${theme.palette.secondary.light}`,
           '&:hover': {
             backgroundColor: theme.palette.primary.main,
           },
         },
         '& *::-webkit-scrollbar-track': {
           margin: theme.spacing(0, 1),
-          backgroundColor: lightGray,
+          backgroundColor: theme.palette.secondary.light,
           borderRadius: customBorderRadius.pill,
         },
         '& *::-webkit-scrollbar-button': {
@@ -102,26 +101,20 @@ const components: Components<Omit<Theme, 'components'>> = {
           width: 0,
         },
       },
-      // span: {
-      //   fontSize: '1.1rem',
-      //   lineHeight: 1.2,
-      //   color: theme.palette.secondary.dark,
-      //   letterSpacing: 0.2,
-      // },
 
       // Autofill styles for input elements
       'input:-webkit-autofill': {
         // Change the background color, keeping a subtle transition
         WebkitBoxShadow: `0 0 0px 1000px ${theme.palette.background.paper} inset !important`,
-        WebkitTextFillColor: `${theme.palette.secondary.dark} !important`, // Text color
-        caretColor: `${theme.palette.secondary.dark} !important`, // Cursor color
+        WebkitTextFillColor: `${theme.palette.primary.light} !important`, // Text color
+        caretColor: `${theme.palette.primary.light} !important`, // Cursor color
         transition: 'background-color 5000s ease-in-out 0s', // Long transition to keep the color
       },
       'input:-webkit-autofill:hover, input:-webkit-autofill:focus, input:-webkit-autofill:active': {
         // Override hover/focus/active states for autofill
         WebkitBoxShadow: `0 0 0px 1000px ${theme.palette.background.paper} inset !important`,
-        WebkitTextFillColor: `${theme.palette.secondary.dark} !important`,
-        caretColor: `${theme.palette.secondary.dark} !important`,
+        WebkitTextFillColor: `${theme.palette.primary.light} !important`,
+        caretColor: `${theme.palette.primary.light} !important`,
       },
       form: {},
     }),
@@ -131,12 +124,13 @@ const components: Components<Omit<Theme, 'components'>> = {
   // ---------------------------------------------------
   MuiContainer: {
     defaultProps: {
-      maxWidth: 'lg',
+      maxWidth: 'xl',
     },
     styleOverrides: {
       root: ({ theme }: { theme: Theme }): CSSObject => ({
         '&.page-wrapper': {
-          minHeight: '100dvh', // Use dynamic viewport height for better support
+          minHeight: '100dvh',
+          maxWidth: '100dvw',
           display: 'flex',
           flexDirection: 'column',
           gap: theme.spacing(4),
@@ -166,6 +160,9 @@ const components: Components<Omit<Theme, 'components'>> = {
               textAlign: 'center',
               justifyContent: 'center',
               margin: theme.spacing(0, 'auto', 2),
+              [theme.breakpoints.up('lg')]: {
+                fontSize: '8rem',
+              },
             },
           },
           '& .hero-description': {
@@ -227,104 +224,103 @@ const components: Components<Omit<Theme, 'components'>> = {
     ],
     defaultProps: {},
     styleOverrides: {
-      root: ({ theme }: { theme: Theme; ownerState: any }): CSSObject => ({
-        '&.MuiTypography-h1': {
+      root: ({ theme }: { theme: Theme; ownerState: any }): CSSObject => ({}),
+      h1: ({ theme }: { theme: Theme }): CSSObject => ({
+        textAlign: 'center',
+        fontSize: '3rem',
+        fontWeight: 600,
+        lineHeight: 1.2,
+        color: theme.palette.primary.dark,
+        letterSpacing: 1.5,
+        [theme.breakpoints.down(500)]: {
+          fontSize: '2.2rem',
+          lineHeight: 1.5,
+        },
+      }),
+      h2: ({ theme }: { theme: Theme }): CSSObject => ({
+        textAlign: 'center',
+        fontSize: '2.4rem',
+        fontWeight: 600,
+        lineHeight: 1.5,
+        color: theme.palette.primary.main,
+        letterSpacing: 0.5,
+        [theme.breakpoints.down(500)]: {
+          fontSize: '1.9rem',
+          lineHeight: 1.25,
+        },
+      }),
+      h3: ({ theme }: { theme: Theme }): CSSObject => ({
+        fontSize: '1.6rem',
+        fontWeight: 600,
+        lineHeight: 1.5,
+        color: theme.palette.primary.main,
+        letterSpacing: 0.2,
+        [theme.breakpoints.down('sm')]: {
           textAlign: 'center',
-          fontSize: '3rem',
-          fontWeight: 600,
-          lineHeight: 1.2,
-          color: theme.palette.primary.dark,
-          letterSpacing: 1.5,
-          [theme.breakpoints.down(500)]: {
-            fontSize: '2.2rem',
-            lineHeight: 1.5,
-          },
         },
-        '&.MuiTypography-h2': {
-          textAlign: 'center',
-          fontSize: '2.4rem',
-          fontWeight: 600,
-          lineHeight: 1.5,
-          color: theme.palette.primary.main,
-          letterSpacing: 0.5,
-          [theme.breakpoints.down(500)]: {
-            fontSize: '1.9rem',
-            lineHeight: 1.25,
-          },
-        },
-        '&.MuiTypography-h3': {
-          fontSize: '1.6rem',
-          fontWeight: 600,
-          lineHeight: 1.5,
-          color: theme.palette.primary.main,
-          letterSpacing: 0.2,
-          [theme.breakpoints.down('sm')]: {
-            textAlign: 'center',
-          },
-          [theme.breakpoints.down(500)]: {
-            fontSize: '1.4rem',
-            lineHeight: 1.6,
-          },
-        },
-        '&.MuiTypography-h4': {
-          fontSize: '1.6rem',
-          fontWeight: 500,
-          lineHeight: 1.5,
-          color: theme.palette.primary.main,
-          letterSpacing: 0.5,
-          [theme.breakpoints.down(500)]: {
-            fontSize: '1.4rem',
-            lineHeight: 1.6,
-          },
-        },
-        '&.MuiTypography-h5': {
+        [theme.breakpoints.down(500)]: {
           fontSize: '1.4rem',
-          fontWeight: 500,
-          lineHeight: 1.3,
-          color: theme.palette.secondary.dark,
-          letterSpacing: 0.2,
-          [theme.breakpoints.down(500)]: {
-            fontSize: '1.25rem',
-            lineHeight: 1.2,
-          },
+          lineHeight: 1.6,
         },
-        '&.MuiTypography-h6': {
-          fontSize: '1.2rem',
-          fontWeight: 500,
-          lineHeight: 1.15,
-          color: theme.palette.primary.light,
-          letterSpacing: 0.2,
+      }),
+      h4: ({ theme }: { theme: Theme }): CSSObject => ({
+        fontSize: '1.6rem',
+        fontWeight: 500,
+        lineHeight: 1.5,
+        color: theme.palette.primary.main,
+        letterSpacing: 0.5,
+        [theme.breakpoints.down(500)]: {
+          fontSize: '1.4rem',
+          lineHeight: 1.6,
+        },
+      }),
+      h5: ({ theme }: { theme: Theme }): CSSObject => ({
+        fontSize: '1.4rem',
+        fontWeight: 500,
+        lineHeight: 1.3,
+        color: theme.palette.secondary.dark,
+        letterSpacing: 0.2,
+        [theme.breakpoints.down(500)]: {
+          fontSize: '1.25rem',
+          lineHeight: 1.2,
+        },
+      }),
+      h6: ({ theme }: { theme: Theme }): CSSObject => ({
+        fontSize: '1.2rem',
+        fontWeight: 500,
+        lineHeight: 1.15,
+        color: theme.palette.primary.light,
+        letterSpacing: 0.2,
+        [theme.breakpoints.down(500)]: {
+          fontSize: '1.15rem',
+          lineHeight: 1,
+        },
+      }),
+      body1: ({ theme }: { theme: Theme }): CSSObject => ({
+        fontSize: '1.1rem',
+        lineHeight: 1.25,
+        color: theme.palette.secondary.dark,
+        letterSpacing: 0.2,
+
+        '&.contact-link-label': {
+          marginBottom: theme.spacing(0.7),
           [theme.breakpoints.down(500)]: {
-            fontSize: '1.15rem',
+            fontSize: '0.9rem',
             lineHeight: 1,
           },
         },
-        '&.MuiTypography-body1': {
-          fontSize: '1.1rem',
-          lineHeight: 1.25,
-          color: theme.palette.secondary.dark,
-          letterSpacing: 0.2,
-
-          '&.contact-link-label': {
-            marginBottom: theme.spacing(0.7),
-            [theme.breakpoints.down(500)]: {
-              fontSize: '0.9rem',
-              lineHeight: 1,
-            },
-          },
-          [theme.breakpoints.down('sm')]: {
-            textAlign: 'center',
-          },
+        [theme.breakpoints.down('sm')]: {
+          textAlign: 'center',
         },
-        '&.MuiTypography-body2': {
-          fontSize: '0.875rem',
-          lineHeight: 1.2,
-          color: theme.palette.secondary.dark,
-          letterSpacing: 0.2,
-          [theme.breakpoints.down(500)]: {
-            fontSize: '0.85rem',
-            lineHeight: 1.1,
-          },
+      }),
+      body2: ({ theme }: { theme: Theme }): CSSObject => ({
+        fontSize: '0.875rem',
+        lineHeight: 1.2,
+        color: theme.palette.secondary.dark,
+        letterSpacing: 0.2,
+        [theme.breakpoints.down(500)]: {
+          fontSize: '0.85rem',
+          lineHeight: 1.1,
         },
       }),
     },
@@ -341,7 +337,7 @@ const components: Components<Omit<Theme, 'components'>> = {
         flexGrow: 1,
         width: '70%',
         alignSelf: 'center',
-        border: `1px solid ${theme.palette.accent.main}`,
+        border: `1px solid ${theme.palette.accent.primary}`,
         [theme.breakpoints.down('sm')]: {
           width: '100%',
           margin: theme.spacing(4, 3),
@@ -507,15 +503,15 @@ const components: Components<Omit<Theme, 'components'>> = {
           },
           '&:hover': {
             '& .MuiTypography-root': {
-              color: theme.palette.accent.main,
+              color: theme.palette.accent.primary,
               letterSpacing: 2.5,
-              textShadow: `0px 4px 14px ${theme.palette.accent.main}, 0px 4px 14px ${theme.palette.accent.main}`,
+              textShadow: `0px 4px 14px ${theme.palette.accent.primary}, 0px 4px 14px ${theme.palette.accent.primary}`,
             },
             '& .MuiButtonBase-root': {
               borderColor: 'transparent',
-              color: theme.palette.accent.main,
+              color: theme.palette.accent.primary,
               letterSpacing: 2.5,
-              textShadow: `0px 4px 14px ${theme.palette.accent.main}, 0px 4px 14px ${theme.palette.accent.main}`,
+              textShadow: `0px 4px 14px ${theme.palette.accent.primary}, 0px 4px 14px ${theme.palette.accent.primary}`,
             },
             backgroundColor: 'transparent',
           },
@@ -569,15 +565,15 @@ const components: Components<Omit<Theme, 'components'>> = {
           fontSize: '0.875rem',
         },
         '&.MuiFormLabel-colorSecondary': {
-          color: theme.palette.accent.main,
+          color: theme.palette.accent.primary,
           '&.Mui-required .MuiFormLabel-asterisk': {
-            color: theme.palette.accent.main,
+            color: theme.palette.accent.primary,
           },
         },
         '&.Mui-focused': {
           color: theme.palette.primary.light,
           '&.MuiFormLabel-colorSecondary': {
-            color: theme.palette.accent.main,
+            color: theme.palette.accent.primary,
           },
         },
         '&.Mui-error': {
@@ -784,18 +780,18 @@ const components: Components<Omit<Theme, 'components'>> = {
         backgroundColor: theme.palette.primary.main,
         color: theme.palette.secondary.light,
         '&:hover': {
-          color: theme.palette.accent.main,
+          color: theme.palette.accent.primary,
           backgroundColor: theme.palette.primary.main,
-          borderColor: theme.palette.accent.main,
+          borderColor: theme.palette.accent.primary,
         },
       }),
       containedSecondary: ({ theme }: { theme: Theme }): CSSObject => ({
-        backgroundColor: theme.palette.accent.main,
+        backgroundColor: theme.palette.accent.primary,
         color: theme.palette.primary.main,
         '&:hover': {
-          color: theme.palette.accent.main,
+          color: theme.palette.accent.primary,
           backgroundColor: theme.palette.primary.main,
-          borderColor: theme.palette.accent.main,
+          borderColor: theme.palette.accent.primary,
         },
       }),
       outlinedPrimary: ({ theme }: { theme: Theme }): CSSObject => ({
@@ -803,8 +799,8 @@ const components: Components<Omit<Theme, 'components'>> = {
         color: theme.palette.primary.main,
         backgroundColor: theme.palette.background.paper,
         '&:hover': {
-          color: theme.palette.accent.main,
-          border: `2px solid ${theme.palette.accent.main}`,
+          color: theme.palette.accent.primary,
+          border: `2px solid ${theme.palette.accent.primary}`,
           backgroundColor: theme.palette.background.paper,
         },
       }),
@@ -922,13 +918,13 @@ const components: Components<Omit<Theme, 'components'>> = {
         padding: theme.spacing(1),
         paddingLeft: theme.spacing(3),
         marginBottom: theme.spacing(1.5),
-        color: theme.palette.primary.contrastText,
+        color: theme.palette.text.primary,
         backgroundColor: theme.palette.primary.main,
         fontWeight: 600,
         '& .MuiIconButton-root': {
-          color: theme.palette.primary.contrastText,
+          color: theme.palette.text.primary,
           '&:hover': {
-            color: theme.palette.accent.main,
+            color: theme.palette.accent.primary,
           },
         },
       }),
@@ -1001,20 +997,20 @@ const components: Components<Omit<Theme, 'components'>> = {
         '&.MuiInputBase-colorSecondary': {
           '&.Mui-focused': {
             // If you want secondary fields to have primary.light focus outline
-            // you can keep it, or change it to theme.palette.accent.main
+            // you can keep it, or change it to theme.palette.accent.primary
             '& .MuiOutlinedInput-notchedOutline': {
-              borderColor: theme.palette.accent.main, // Secondary focused border
+              borderColor: theme.palette.accent.primary, // Secondary focused border
               borderWidth: '1.5px', // Or whatever you need
             },
           },
           // Specific hover for secondary fields
           '&:hover .MuiOutlinedInput-notchedOutline': {
-            borderColor: theme.palette.accent.main, // Secondary hover border
+            borderColor: theme.palette.accent.primary, // Secondary hover border
             borderWidth: '1.5px', // 0.5px increase from default 1px = 1.5px
           },
-          // If you want the default (unfocused, unhovered) border to be accent.main
+          // If you want the default (unfocused, unhovered) border to be accent.primary
           '& .MuiOutlinedInput-notchedOutline': {
-            borderColor: theme.palette.accent.main,
+            borderColor: theme.palette.accent.primary,
             borderWidth: '1px',
           },
         },
@@ -1041,7 +1037,7 @@ const components: Components<Omit<Theme, 'components'>> = {
           color: theme.palette.primary.light,
         },
         '.MuiInputBase-colorSecondary &': {
-          color: theme.palette.accent.main,
+          color: theme.palette.accent.primary,
         },
         // Hide number controls entirely
         '&[type="number"]': {
@@ -1281,7 +1277,7 @@ const components: Components<Omit<Theme, 'components'>> = {
                 padding: theme.spacing(1, 1),
               },
               '& .MuiTypography-root': {
-                color: theme.palette.primary.contrastText,
+                color: theme.palette.text.primary,
                 fontSize: '1.3rem',
                 fontWeight: 600,
                 whiteSpace: 'nowrap',

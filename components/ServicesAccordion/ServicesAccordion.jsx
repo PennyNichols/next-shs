@@ -20,7 +20,7 @@ const ServicesAccordion = () => {
             mb: 3,
             p: { xs: 1, md: 2 },
             borderRadius: customBorderRadius.small,
-            border: `3px solid ${theme.palette.accent.main}`,
+            border: `3px solid ${theme.palette.accent.primary}`,
             '&:before': { display: 'none' },
             '&.Mui-expanded': {},
           }}
@@ -32,7 +32,7 @@ const ServicesAccordion = () => {
             sx={{
               padding: '1 2',
               borderRadius: customBorderRadius.medium,
-              color: 'accent.darkText',
+              color: 'text.primary',
               fontWeight: 600,
               '& .MuiTypography-root': {
                 color: 'primary.dark',
@@ -56,7 +56,7 @@ const ServicesAccordion = () => {
           <AccordionDetails
             sx={{
               padding: '1 2',
-              borderTop: `2px solid ${theme.palette.accent.main}`,
+              borderTop: `2px solid ${theme.palette.accent.primary}`,
               '&.MuiAccordionDetails-root': {
                 backgroundColor: 'background.paper',
               },

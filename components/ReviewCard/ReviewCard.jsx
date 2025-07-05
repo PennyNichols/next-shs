@@ -15,7 +15,6 @@ import StarIcon from '@mui/icons-material/Star';
 import { alpha } from '@mui/material/styles';
 import { customBorderRadius } from '@/theme/otherThemeConstants';
 import theme from '@/theme';
-import { navyBlue, gold } from '@/theme/colors';
 
 function ReviewCard({ rating = 5, review, platform }) {
   const words = review.split(' ');
@@ -41,7 +40,7 @@ function ReviewCard({ rating = 5, review, platform }) {
                   filter: 'drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.5))',
                 }}
                 fontSize="inherit"
-                htmlColor={gold}
+                htmlColor={theme.palette.accent.primary}
               />
             }
             emptyIcon={
@@ -50,7 +49,7 @@ function ReviewCard({ rating = 5, review, platform }) {
                   filter: 'drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.5))',
                 }}
                 fontSize="inherit"
-                htmlColor={`${alpha(navyBlue, 0.2)}`}
+                htmlColor={`${alpha(theme.palette.primary.main, 0.2)}`}
               />
             }
           />

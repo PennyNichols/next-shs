@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Button, { ButtonProps } from '@mui/material/Button';
-import { customTransitions } from '@/theme/otherThemeConstants';
+import { customShadows } from '@/theme/otherThemeConstants';
 
 interface ActionButtonProps
   extends Omit<ButtonProps, 'variant' | 'type' | 'onClick' | 'fullWidth' | 'startIcon' | 'sx' | 'color'> {
@@ -42,17 +42,18 @@ const ActionButton: React.FC<ActionButtonProps> = ({
       sx={{
         display: 'flex',
         gap: 1,
-        fontSize: '1.2rem',
+        boxShadow: { xs: customShadows[10], xl: customShadows[10] },
+        fontSize: { xs: '1.2rem', xl: '2rem' },
         transform: `scale(${scale})`,
         transition: 'all 0.5s ease-in-out, transform 0.1s ease-in-out',
         '& .MuiSvgIcon-root': {
-          fontSize: '1.5rem',
+          fontSize: { xs: '1.5rem', xl: '2.5rem' },
           color: iconColor || 'secondary.light',
           transition: 'all 0.5s ease-in-out',
         },
         '&:hover': {
           '& .MuiSvgIcon-root': {
-            color: iconHoverColor || 'accent.main',
+            color: iconHoverColor || 'accent.primary',
           },
         },
         ...sx,
@@ -61,7 +62,7 @@ const ActionButton: React.FC<ActionButtonProps> = ({
       fullWidth={fullWidth}
       {...(path && {
         href: path,
-        target: { target },
+        target: target,
         rel: 'noopener noreferrer',
       })}
       onClick={onClick}

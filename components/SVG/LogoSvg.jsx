@@ -4,7 +4,7 @@ import * as React from 'react';
 
 const LogoSvg = ({
   color = theme.palette.secondary.light,
-  hoverColor = theme.palette.accent.main,
+  hoverColor = theme.palette.accent.primary,
   transition = 'fill 1s ease',
   ...props
 }) => {

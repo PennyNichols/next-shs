@@ -112,8 +112,8 @@ const ComingSoon = () => {
                 height: 2,
                 backgroundImage: `repeating-linear-gradient(
                   to right,
-                  ${theme.palette.accent.main},
-                  ${theme.palette.accent.main} 16px,
+                  ${theme.palette.accent.primary},
+                  ${theme.palette.accent.primary} 16px,
                   transparent 16px,
                   transparent 32px
                 )`,
@@ -152,9 +152,9 @@ const ComingSoon = () => {
               sx={{
                 textDecoration: 'none',
                 '&:hover': {
-                  color: theme.palette.accent.main,
+                  color: theme.palette.accent.primary,
                   backgroundColor: theme.palette.primary.main,
-                  borderColor: theme.palette.accent.main,
+                  borderColor: theme.palette.accent.primary,
                 },
               }}
             >
@@ -170,9 +170,9 @@ const ComingSoon = () => {
               sx={{
                 textDecoration: 'none',
                 '&:hover': {
-                  color: theme.palette.accent.main,
+                  color: theme.palette.accent.primary,
                   backgroundColor: theme.palette.primary.main,
-                  borderColor: theme.palette.accent.main,
+                  borderColor: theme.palette.accent.primary,
                 },
               }}
             >

@@ -1,9 +1,5 @@
-// src/theme.d.ts (or mui.d.ts)
-// This file is for global module augmentations.
-
-import '@mui/material/styles'; // IMPORTANT: Keep this import for global module augmentation.
+import '@mui/material/styles';
 import '@mui/material/Typography';
-import { PaletteColor, PaletteColorOptions } from '@mui/material/styles';
 
 declare module '@mui/material/styles' {
   /**
@@ -11,7 +7,10 @@ declare module '@mui/material/styles' {
    * This is for when you access theme.palette.accent directly.
    */
   interface Palette {
-    accent: PaletteColor;
+    accent: {
+      primary: string;
+      secondary?: string;
+    };
   }
 
   /**
@@ -19,20 +18,15 @@ declare module '@mui/material/styles' {
    * to be passed when creating the theme with createTheme.
    */
   interface PaletteOptions {
-    accent?: PaletteColorOptions;
+    accent?: {
+      primary?: string;
+      secondary?: string;
+    };
   }
 
-  /**
-   * Optional: If you want to add 'accent' as a color in `theme.palette.augmentColor` (e.g., for `Button` color prop),
-   * you would extend the `PaletteColor` interface.
-   *
-   * Example (if you want <Button color="accent"> to work):
-   * declare module '@mui/material/Button' {
-   * interface ButtonPropsColorOverrides {
-   * accent: true;
-   * }
-   * }
-   */
+  interface TypeBackground {
+    dark?: string;
+  }
 
   // 1. Extend the TypographyVariants interface:
   //    This makes your custom variant names available on `theme.typography`
@@ -50,17 +44,7 @@ declare module '@mui/material/styles' {
     sectionTitle?: React.CSSProperties;
     // Add any other custom variant names here
   }
-
-  // 3. Extend the TypographyPropsVariantOverrides interface:
-  //    This makes your custom variant names valid for the `variant` prop of <Typography>.
-  interface TypographyPropsVariantOverrides {
-    pageTitle: true; // Enables <Typography variant="pageTitle">
-    sectionTitle: true; // Enables <Typography variant="sectionTitle">
-    // Add any other custom variant names here with 'true'
-    // You can also disable default variants here if you wish (e.g., h3: false)
-  }
 }
-
 declare module '@mui/material/Typography' {
   // This is the CRITICAL part for the `variant` prop to recognize your new types.
   interface TypographyPropsVariantOverrides {

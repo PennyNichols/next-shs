@@ -17,11 +17,9 @@ import Link from 'next/link';
 import LogoSvg from '../SVG/LogoSvg';
 import { Handyman, HomeRepairService } from '@mui/icons-material';
 import useMedia from '../../hooks/useMedia';
-import { customShadows, customTransitions } from '@/theme/otherThemeConstants';
+import { customTransitions } from '@/theme/otherThemeConstants';
 import theme from '@/theme';
-import { gold, white } from '@/theme/colors';
 import { ClickAwayListener, Collapse } from '@mui/material';
-import { useRouter } from 'next/router';
 import ActionButton from 'components/ReusableComponents/ActionButton/ActionButton';
 
 const pages = [
@@ -35,8 +33,8 @@ const pages = [
 
 const NavBar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [logoColor, setLogoColor] = useState(white);
-  const logoHoverColor = theme.palette.accent.main;
+  const [logoColor, setLogoColor] = useState(theme.palette.background.paper);
+  const logoHoverColor = theme.palette.accent.primary;
   const [logoScale, setLogoScale] = useState(1);
 
   const { isXs: initialIsXs, isSm: initialIsSm } = useMedia();
@@ -73,7 +71,7 @@ const NavBar = () => {
                     transform: `scale(${logoScale})`,
                   }}
                   onMouseEnter={() => setLogoColor(logoHoverColor)}
-                  onMouseLeave={() => setLogoColor(white)}
+                  onMouseLeave={() => setLogoColor(theme.palette.background.paper)}
                   onMouseDown={() => setLogoScale(0.9)}
                   onMouseUp={() => setLogoScale(1)}
                 >
@@ -148,7 +146,7 @@ const NavBar = () => {
                         color: 'background.paper',
                         transition: `${customTransitions.slow}, transform 0.3s ease-out, opacity 0.3s ease-out`,
                         fontSize: iconSize,
-                        '&:hover': { color: 'accent.main' },
+                        '&:hover': { color: 'accent.primary' },
                         opacity: isMenuOpen ? 1 : 0,
                         transform: isMenuOpen ? 'rotate(0deg)' : 'rotate(-180deg)',
                         pointerEvents: isMenuOpen ? 'auto' : 'none',
@@ -164,7 +162,7 @@ const NavBar = () => {
                         color: 'background.paper',
                         transition: `${customTransitions.slow}, transform 0.3s ease-out, opacity 0.3s ease-out`,
                         fontSize: iconSize,
-                        '&:hover': { color: 'accent.main' },
+                        '&:hover': { color: 'accent.primary' },
                         opacity: isMenuOpen ? 0 : 1,
                         transform: isMenuOpen ? 'rotate(180deg)' : 'rotate(0deg)',
                         pointerEvents: isMenuOpen ? 'none' : 'auto',

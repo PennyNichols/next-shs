@@ -1,7 +1,5 @@
 // src/theme/typography.js
 import { TypographyOptions } from '@mui/material/styles/createTypography';
-import { darkText, navyBlue, darkGray } from './colors'; // Import relevant colors
-import palette from './palette';
 
 const typography: TypographyOptions = {
   fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',

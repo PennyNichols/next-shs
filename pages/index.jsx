@@ -5,6 +5,7 @@ import VilliageSvg from '../components/SVG/VilliageSvg';
 import ReviewCard from '../components/ReviewCard/ReviewCard';
 import { customBorderRadius } from '@/theme/otherThemeConstants';
 import theme from '@/theme';
+import PageContainer from 'components/ReusableComponents/baseComponents/PageContainer';
 
 // Example review data (replace with Google review data as needed)
 const rawReviews = [
@@ -56,7 +57,7 @@ const CustomDivider = () => {
       sx={{
         width: '50%',
         height: 2,
-        backgroundColor: 'accent.main',
+        backgroundColor: 'accent.primary',
       }}
     />
   );
@@ -81,7 +82,7 @@ const CustomTitleSideDecoration = () => {
       sx={{
         flex: 1,
         height: 2,
-        backgroundColor: 'accent.main',
+        backgroundColor: 'accent.primary',
         margin: { xs: '5 1', md: 5 },
       }}
     />
@@ -92,7 +93,7 @@ const Home = () => {
   const reviews = getReviews(rawReviews);
 
   return (
-    <Container className="page-wrapper">
+    <PageContainer>
       <Box
         sx={{
           display: 'flex',
@@ -312,7 +313,7 @@ const Home = () => {
           </Box>
         </Box>
       </Box>
-    </Container>
+    </PageContainer>
   );
 };
 

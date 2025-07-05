@@ -128,7 +128,7 @@ const Footer = () => {
                     sx={{
                       transition: customTransitions.standard,
                       textDecoration: 'none',
-                      '&:hover': { color: 'accent.main' },
+                      '&:hover': { color: 'accent.primary' },
                     }}
                   >
                     {formatPhoneNumber(PHONE_NUMBER)}
@@ -143,7 +143,7 @@ const Footer = () => {
                     sx={{
                       transition: customTransitions.standard,
                       textDecoration: 'none',
-                      '&:hover': { color: 'accent.main' },
+                      '&:hover': { color: 'accent.primary' },
                     }}
                   >
                     {formatPhoneNumber(PHONE_NUMBER)}
@@ -158,7 +158,7 @@ const Footer = () => {
                     sx={{
                       transition: customTransitions.standard,
                       textDecoration: 'none',
-                      '&:hover': { color: 'accent.main' },
+                      '&:hover': { color: 'accent.primary' },
                     }}
                   >
                     {EMAIL_ADDRESS}
@@ -202,7 +202,7 @@ const Footer = () => {
                   color="inherit"
                   sx={{
                     transition: customTransitions.standard,
-                    '&:hover': { color: 'accent.main' },
+                    '&:hover': { color: 'accent.primary' },
                   }}
                 >
                   Privacy Policy
@@ -212,7 +212,7 @@ const Footer = () => {
                   color="inherit"
                   sx={{
                     transition: customTransitions.standard,
-                    '&:hover': { color: 'accent.main' },
+                    '&:hover': { color: 'accent.primary' },
                   }}
                 >
                   Terms of Service
@@ -284,7 +284,7 @@ const Footer = () => {
                   color="inherit"
                   sx={{
                     transition: customTransitions.standard,
-                    '&:hover': { color: 'accent.main' },
+                    '&:hover': { color: 'accent.primary' },
                   }}
                 >
                   Privacy Policy
@@ -294,7 +294,7 @@ const Footer = () => {
                   color="inherit"
                   sx={{
                     transition: customTransitions.standard,
-                    '&:hover': { color: 'accent.main' },
+                    '&:hover': { color: 'accent.primary' },
                   }}
                 >
                   Terms of Service
@@ -326,7 +326,7 @@ const Footer = () => {
               <Link href={FACEBOOK_URL} color="inherit" aria-label="Facebook">
                 <Facebook
                   sx={{
-                    color: 'accent.main',
+                    color: 'accent.primary',
                     transition: customTransitions.standard,
                     fontSize: { xs: '3.125rem', sm: '1.75rem' },
                     '&:hover': {
@@ -338,7 +338,7 @@ const Footer = () => {
               <Link href={INSTAGRAM_URL} color="inherit" aria-label="Instagram">
                 <Instagram
                   sx={{
-                    color: 'accent.main',
+                    color: 'accent.primary',
                     transition: customTransitions.standard,
                     fontSize: { xs: '3.125rem', sm: '1.75rem' },
                     '&:hover': {
@@ -350,7 +350,7 @@ const Footer = () => {
               <Link href={GOOGLE_URL} color="inherit" aria-label="Google">
                 <Google
                   sx={{
-                    color: 'accent.main',
+                    color: 'accent.primary',
                     transition: customTransitions.standard,
                     fontSize: { xs: '3.125rem', sm: '1.75rem' },
                     '&:hover': {

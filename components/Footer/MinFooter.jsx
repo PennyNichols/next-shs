@@ -90,7 +90,7 @@ const MinFooter = () => {
                     sx={{
                       transition: customTransitions.standard,
                       textDecoration: 'none',
-                      '&:hover': { color: 'accent.main' },
+                      '&:hover': { color: 'accent.primary' },
                     }}
                   >
                     {formatPhoneNumber(PHONE_NUMBER)}
@@ -105,7 +105,7 @@ const MinFooter = () => {
                     sx={{
                       transition: customTransitions.standard,
                       textDecoration: 'none',
-                      '&:hover': { color: 'accent.main' },
+                      '&:hover': { color: 'accent.primary' },
                     }}
                   >
                     {formatPhoneNumber(PHONE_NUMBER)}
@@ -120,7 +120,7 @@ const MinFooter = () => {
                     sx={{
                       transition: customTransitions.standard,
                       textDecoration: 'none',
-                      '&:hover': { color: 'accent.main' },
+                      '&:hover': { color: 'accent.primary' },
                     }}
                   >
                     {EMAIL_ADDRESS}
@@ -160,7 +160,7 @@ const MinFooter = () => {
                   color="inherit"
                   sx={{
                     transition: customTransitions.standard,
-                    '&:hover': { color: 'accent.main' },
+                    '&:hover': { color: 'accent.primary' },
                   }}
                 >
                   Privacy Policy
@@ -170,7 +170,7 @@ const MinFooter = () => {
                   color="inherit"
                   sx={{
                     transition: customTransitions.standard,
-                    '&:hover': { color: 'accent.main' },
+                    '&:hover': { color: 'accent.primary' },
                   }}
                 >
                   Terms of Service
@@ -242,7 +242,7 @@ const MinFooter = () => {
                   color="inherit"
                   sx={{
                     transition: customTransitions.standard,
-                    '&:hover': { color: 'accent.main' },
+                    '&:hover': { color: 'accent.primary' },
                   }}
                 >
                   Privacy Policy
@@ -252,7 +252,7 @@ const MinFooter = () => {
                   color="inherit"
                   sx={{
                     transition: customTransitions.standard,
-                    '&:hover': { color: 'accent.main' },
+                    '&:hover': { color: 'accent.primary' },
                   }}
                 >
                   Terms of Service
@@ -284,7 +284,7 @@ const MinFooter = () => {
               <Link href={FACEBOOK_URL} color="inherit" aria-label="Facebook">
                 <Facebook
                   sx={{
-                    color: 'accent.main',
+                    color: 'accent.primary',
                     transition: customTransitions.standard,
                     fontSize: { xs: '3.125rem', sm: '1.75rem' },
                     '&:hover': {
@@ -296,7 +296,7 @@ const MinFooter = () => {
               <Link href={INSTAGRAM_URL} color="inherit" aria-label="Instagram">
                 <Instagram
                   sx={{
-                    color: 'accent.main',
+                    color: 'accent.primary',
                     transition: customTransitions.standard,
                     fontSize: { xs: '3.125rem', sm: '1.75rem' },
                     '&:hover': {
@@ -308,7 +308,7 @@ const MinFooter = () => {
               <Link href={GOOGLE_URL} color="inherit" aria-label="Google">
                 <Google
                   sx={{
-                    color: 'accent.main',
+                    color: 'accent.primary',
                     transition: customTransitions.standard,
                     fontSize: { xs: '3.125rem', sm: '1.75rem' },
                     '&:hover': {

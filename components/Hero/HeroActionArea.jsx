@@ -1,0 +1,22 @@
+import { Grid } from "@mui/material";
+import CallButton from "components/ActionButtons/CallButton";
+import TextButton from '../ActionButtons/TextButton';
+import EstimateRequestButton from "components/ActionButtons/EstimateRequestButton";
+
+const HeroActionArea = () => {
+    return (
+        <Grid container spacing={{xs:2, xl:6}} justifyContent={{xs:"center", xl: "space-between"}} alignItems="center">
+              <Grid item xs={12} sm={5} md={4} >
+                <CallButton />
+              </Grid>
+              <Grid item xs={12} sm={5} md={4} >
+                <TextButton />
+              </Grid>
+              <Grid item xs={12} sm={10} md={4} >
+                <EstimateRequestButton fullWidth={true} />
+              </Grid>
+            </Grid>
+    );
+}
+
+export default HeroActionArea;

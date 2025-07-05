@@ -52,9 +52,9 @@ const Custom404 = () => {
               sx={{
                 textDecoration: 'none',
                 '&:hover': {
-                  color: 'accent.main',
+                  color: 'accent.primary',
                   backgroundColor: 'primary.main',
-                  borderColor: 'accent.main',
+                  borderColor: 'accent.primary',
                 },
               }}
             >
@@ -69,9 +69,9 @@ const Custom404 = () => {
               sx={{
                 textDecoration: 'none',
                 '&:hover': {
-                  color: 'accent.main',
+                  color: 'accent.primary',
                   backgroundColor: 'primary.main',
-                  borderColor: 'accent.main',
+                  borderColor: 'accent.primary',
                 },
               }}
             >

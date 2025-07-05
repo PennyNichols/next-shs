@@ -17,7 +17,8 @@
 }
 
 
-html, body {
+html,
+body {
   box-sizing: border-box;
   height: 100%;
   margin: 0;
@@ -25,7 +26,7 @@ html, body {
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(to bottom, transparent, rgb(var(--background-end-rgb)));
   min-height: 100vh;
-  max-width: 100%;
+  width: 100%;
     overflow-x: hidden;
 }
 
@@ -53,19 +54,11 @@ ol {
 
 body .grecaptcha-badge {
   position: fixed !important;
-  /* Crucial for positioning relative to the viewport */
   bottom: 100px !important;
-  /* Adjust vertical position (e.g., 20px from the bottom) */
-  right: 20px;
-  /* Adjust horizontal position (e.g., 20px from the right) */
-  z-index: 1000;
-  /* Ensure it's on top of other elements */
-
-  /* Optional styling */
+  margin-right: -250px !important;
+    z-index: 1 !important;
   opacity: 0.5;
-  /* Make slightly transparent */
   transition: opacity 0.3s ease;
-  /* Add a smooth transition for hover effect */
 }
 
 body .grecaptcha-badge:hover {

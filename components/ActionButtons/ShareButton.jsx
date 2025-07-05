@@ -58,7 +58,7 @@ const ShareButton = () => {
         backgroundColor: 'primary.main',
         opacity: 0.7,
         '&:hover': {
-          backgroundColor: 'accent.main',
+          backgroundColor: 'accent.primary',
           borderColor: 'primary.main',
           '& $shareIcon': {
             color: 'primary.main',
@@ -102,7 +102,7 @@ const ShareButton = () => {
               color: 'secondary.light',
               transition: customTransitions.standard,
               '&:hover': {
-                color: 'accent.main',
+                color: 'accent.primary',
               },
             }}
           />
@@ -113,7 +113,7 @@ const ShareButton = () => {
               color: 'secondary.light',
               transition: customTransitions.standard,
               '&:hover': {
-                color: 'accent.main',
+                color: 'accent.primary',
               },
             }}
           />
@@ -124,7 +124,7 @@ const ShareButton = () => {
               color: 'secondary.light',
               transition: customTransitions.standard,
               '&:hover': {
-                color: 'accent.main',
+                color: 'accent.primary',
               },
             }}
           />
@@ -135,7 +135,7 @@ const ShareButton = () => {
               color: 'secondary.light',
               transition: customTransitions.standard,
               '&:hover': {
-                color: 'accent.main',
+                color: 'accent.primary',
               },
             }}
           />
