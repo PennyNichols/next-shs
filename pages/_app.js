@@ -31,7 +31,7 @@ import createEmotionCache from '@/createEmotionCache';
 function MyApp({ Component, pageProps }) {
   const router = useRouter();
   const isHomePage = router.pathname === '/';
-  const disabledPaths = ['/blog', '/about', '/FAQ', '/auth'];
+  const disabledPaths = ['/blog', '/about', '/auth'];
   const clientSideEmotionCache = createEmotionCache();
   return (
     <React.Fragment>
