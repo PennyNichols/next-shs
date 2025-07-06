@@ -4,5 +4,40 @@
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "[css]": {
     "editor.defaultFormatter": "vscode.css-language-features"
-  }
+  },
+  "fileTreeGenerator.ignorePatterns": [
+    "**/node_modules/", // Excludes node_modules directories anywhere
+    "**/.git/", // Excludes .git directories
+    "**/.next/", // Excludes Next.js build output directory
+    "**/out/", // Excludes Next.js static export output directory
+    "**/build/", // Common for compiled/bundled output
+    "**/dist/", // Another common distribution output directory
+    "**/coverage/", // Test coverage reports
+    "**/firebase-debug.log", // Firebase debug logs
+    "**/.firebase/", // Firebase local emulator data/config
+    "**/.firebase-tools.log", // Firebase tools logs
+    "**/*.log", // All log files
+    "**/*.emulators.log", // Firebase emulator logs
+    "**/firebase-export/", // If you export Firebase data locally
+    "**/.DS_Store", // macOS specific
+    "**/Thumbs.db", // Windows specific
+    "**/cache/webpack/", // Webpack cache
+    "**/.cache/", // Generic cache directory
+    "**/*.png", // If you don't want images in the tree, but be careful!
+    "**/*.d.ts", // TypeScript declaration files
+    "**/*.tsbuildinfo", // TypeScript build info files
+    "**/*.map", // Source map files
+    "**/temp/", // Temporary directories
+    "**/tmp/", // Another common temporary directory
+    "**/generated-tree.txt", // The output file of the generator itself
+    "**/.env", // .env file anywhere
+    "**/.env.local", // .env.local file anywhere
+    "**/.env*.local", // Any .env.*.local file
+    "**/npm-debug.log*" // npm debug logs
+  ],
+  "fileTreeGenerator.useGitignore": true, // Ensure this is true!
+
+  "fileTreeGenerator.includeFileContent": false,
+  "fileTreeGenerator.outputFileName": "PROJECT_STRUCTURE.md",
+  "fileTreeGenerator.maxDepth": -1
 }

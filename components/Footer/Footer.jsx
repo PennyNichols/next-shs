@@ -4,7 +4,7 @@ import { Facebook, Google, Instagram } from '@mui/icons-material';
 import SubscribeForm from '../SubscribeForm/SubscribeForm';
 import EstimateRequestButton from '../ActionButtons/EstimateRequestButton';
 import { EMAIL_ADDRESS, FACEBOOK_URL, GOOGLE_URL, INSTAGRAM_URL, PHONE_NUMBER } from '../../constants/companyDetails';
-import { formatPhoneNumber } from '../../functions/utils/utils';
+import { formatPhoneNumber } from '../../utils/utils';
 import ReviewButton from '../ActionButtons/ReviewButton';
 import LogoSvg from '../SVG/LogoSvg';
 import useMedia from '../../hooks/useMedia';

@@ -2,44 +2,85 @@ rules_version = '2';
 
 service cloud.firestore {
   match /databases/{database}/documents {
-    // Global rule for admin users
-    match /{document=**} {
-      allow read, write, update, delete: if request.auth != null && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
+
+    // Helper function to check if the requesting user is authenticated
+    function isAuthenticated() {
+      return request.auth != null;
     }
 
-    // Rules for the 'subscribers' collection
-    match /subscribers/{subscriptionId} {
-      allow create: if true; // Allow all users (authenticated and unauthenticated) to create subscriptions
-      allow read: if false; // Disallow reading subscriptions by default
-      allow update: if false; // Disallow updating subscriptions by default
-      allow delete: if false; // Disallow deleting subscriptions by default
+    // Helper function to get the user's role from their 'users' document
+    function getUserRole(userId) {
+      return get(/databases/$(database)/documents/users/$(userId)).data.role;
     }
 
-    // Rules for the 'estimateRequests' collection
-    match /estimateRequests/{requestId} {
-      allow create: if true; // Allow all users to create estimate requests
-      allow read: if false; // Disallow reading estimate requests by default
-      // allow authenticated users to update their own requests
-      allow update: if request.auth != null && request.auth.uid == resource.data.userId;
-      // allow authenticated users to delete their own requests
-      allow delete: if request.auth != null && request.auth.uid == resource.data.userId;
+    // Define roles that have elevated privileges
+    function isSuperUser() {
+      return isAuthenticated() && getUserRole(request.auth.uid) == 'super';
+    }
+
+    function isAdmin() {
+      return isAuthenticated() && (getUserRole(request.auth.uid) == 'admin' || getUserRole(request.auth.uid) == 'super');
     }
 
     // Rules for the 'users' collection
     match /users/{userId} {
-      // Allow users to read their own profile
-      allow read: if request.auth != null && request.auth.uid == userId;
+      // Allow a user to read their own profile.
+      // Allow 'admin' or 'super' users to read any user profile.
+      allow read: if isAuthenticated() && (request.auth.uid == userId || isAdmin());
 
-      // Allow users to write to their own profile (including creating if unauthenticated)
-      allow write, create: if request.auth != null && request.auth.uid == userId || request.auth == null;
+      // Allow a user to update their own profile.
+      // Allow 'admin' or 'super' users to update any user profile.
+      // Prevent direct client-side role changes by non-super users.
+      allow update: if isAuthenticated() && (
+        (request.auth.uid == userId && request.resource.data.role == resource.data.role) || // User can update self, but not change role
+        (isAdmin() && (!request.resource.data.role || isSuperUser())) // Admin can update, Super can change roles
+      ); // Removed strict updatedAt == request.time check to allow client updates
 
-      // Allow users to delete their own profile
-      allow delete: if request.auth != null && request.auth.uid == userId;
+      // Allow a user to create their own profile during signup (if doc ID matches UID).
+      // Allow 'super' users to create user profiles via backend (which this rule implicitly allows if doc matches UID and is handled by client-side setDoc).
+      allow create: if isAuthenticated() && request.auth.uid == userId && request.resource.data.createdAt == request.time;
+
+      // Allow a user to delete their own account (handled by client-side deleteUser in auth.js).
+      // Backend 'delete /users/:userId' is restricted to 'super' and prevents self-deletion.
+      allow delete: if isAuthenticated() && request.auth.uid == userId;
+    }
+
+    // Rules for the 'subscribers' collection
+    match /subscribers/{subscriptionId} {
+      // Allow unauthenticated and authenticated users to create (subscribe).
+      allow create: if true;
+      // Restrict read and delete to 'admin' or 'super' roles only, which are handled by Cloud Functions.
+      // No direct client-side delete/read for subscribers.
+      allow read, delete: if false; // Only via backend functions
     }
 
     // Rules for the 'blogPosts' collection
     match /blogPosts/{blogPostId} {
-      allow read: if true; // Allow everyone to read blog posts
+      // Allow everyone to read blog posts publicly.
+      allow read: if true;
+      // Allow 'admin' or 'super' users to create, update, or delete blog posts via backend functions.
+      // Direct client-side writes are forbidden for security.
+      allow create, update, delete: if false; // Only via backend functions
+    }
+
+    // Rules for the 'estimate_requests' collection
+    match /estimate_requests/{requestId} {
+      // Allow unauthenticated and authenticated users to create new estimate requests.
+      allow create: if request.resource.data.createdAt == request.time;
+
+      // Allow clients to read their own estimate requests.
+      // Allow 'admin' or 'super' users to read any estimate request.
+      allow read: if isAuthenticated() && (
+        request.auth.uid == resource.data.userId || // Client owns it
+        isAdmin() // Admin or Super user
+      );
+
+      // Allow only 'admin' or 'super' to update an estimate request status.
+      // Clients *cannot* change status. Other fields updated via backend.
+      allow update: if isAuthenticated() && isAdmin();
+
+      // Allow only 'admin' or 'super' to delete estimate requests.
+      allow delete: if isAuthenticated() && isAdmin();
     }
   }
 }

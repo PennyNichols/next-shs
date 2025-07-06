@@ -2,7 +2,7 @@ import React from 'react';
 import Head from 'next/head';
 import { Container, Typography, Box, Divider, Link } from '@mui/material';
 import { EMAIL_ADDRESS, PHONE_NUMBER } from '../constants/companyDetails';
-import { formatPhoneNumber } from '../functions/utils/utils';
+import { formatPhoneNumber } from '../utils/utils';
 import { PRIVACY_POLICY } from '../constants/privacyPolicy';
 import { customTransitions } from '@/theme/otherThemeConstants';
 import theme from '@/theme';
@@ -61,14 +61,21 @@ const PrivacyPolicy = () => {
         </Box>
         {sections
           ? sections.map((section, idx) => (
-              <Box id={String(idx)} sx={{ mb: 3 }} component="section" aria-labelledby="privacy-policy-collect">
-                <Typography id="privacy-policy-collect" variant="h3" component="h2" mb={2}>
+              <Box
+                key={idx}
+                id={String(idx)}
+                sx={{ mb: 3 }}
+                component="section"
+                aria-labelledby={`privacy-policy-collect-${idx}`}
+              >
+                <Typography id={`privacy-policy-collect-${idx}`} variant="h3" component="h2" mb={2}>
                   {section.title}
                 </Typography>
                 <Typography sx={{ mb: '1.5rem' }}>{section.description}</Typography>
                 {section.details
-                  ? section.details.map((detail) => (
+                  ? section.details.map((detail, detailIdx) => (
                       <Typography
+                        key={detailIdx}
                         variant="h6"
                         component="h3"
                         sx={{ marginBottom: '1.5rem', textIndent: '-1.5rem', pl: '1.5rem' }}

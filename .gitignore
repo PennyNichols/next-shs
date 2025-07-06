@@ -1,5 +1,6 @@
 # Node modules
-/node_modules
+node_modules/
+/functions/node_modules/
 
 # Yarn
 .pnp
@@ -22,7 +23,12 @@ yarn-debug.log*
 yarn-error.log*
 
 # Local env files
+.env
+.env.local
 .env*.local
+.env.development.local
+.env.test.local
+.env.production.local
 
 # Vercel
 .vercel
@@ -30,12 +36,18 @@ yarn-error.log*
 # TypeScript
 *.tsbuildinfo
 
-# Firebase
+# Firebase CLI & Emulators
 firebase-debug.log
+*.log
+.firebase/
+.firebase-tools.log
+*.emulators.log
+firebase-export/
 .firebaserc
 
 # Miscellaneous
 .DS_Store
+Thumbs.db
 
 # Webpack cache
 cache/webpack

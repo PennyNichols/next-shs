@@ -3,15 +3,17 @@
  * This file initializes the Firebase app with the provided configuration
  * and sets up Firebase services such as Authentication, Firestore, Storage,
  * and Analytics. It ensures that the Firebase app is initialized only once
- * and exports the necessary services for use in the application.
+ * and exports the necessary services for use in the application. It also 
+ * initializes Firebase Emulators to provide a local development environment
+ * for testing to all developers. View the README for more information.
  */
 
 import { initializeApp, getApps } from 'firebase/app';
-import { getAuth } from 'firebase/auth'; // for authentication
-import { Firestore, getFirestore } from 'firebase/firestore'; // for cloud firestore
-import { getStorage } from 'firebase/storage'; // for cloud storage
-import { getAnalytics } from 'firebase/analytics'; // for analytics
-import { getFunctions } from 'firebase/functions'; // for cloud functions
+import { getAuth, connectAuthEmulator } from 'firebase/auth'; 
+import { Firestore, getFirestore, connectFirestoreEmulator } from 'firebase/firestore'; 
+import { getStorage, connectStorageEmulator } from 'firebase/storage'; 
+import { getAnalytics } from 'firebase/analytics'; 
+import { getFunctions, connectFunctionsEmulator } from 'firebase/functions'; 
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -29,6 +31,21 @@ const auth = getAuth(app);
 const db: Firestore = getFirestore(app);
 const storage = getStorage(app);
 const analytics = typeof window !== 'undefined' ? getAnalytics(app) : null;
-const functions = getFunctions(app);
+// For Cloud Functions, the region is required if your functions are not in us-central1
+// Region must match the deployed functions' region
+const functions = getFunctions(app, 'us-east1');
+
+// IMPORTANT: Connect to Firebase Emulators ONLY in development
+if (process.env.NODE_ENV === 'development') {
+  console.log('Connecting to Firebase Emulators...');
+
+  connectAuthEmulator(auth, 'http://localhost:9099');
+
+  connectFirestoreEmulator(db, 'localhost', 8080);
+
+  connectStorageEmulator(storage, 'localhost', 9199);
+
+  connectFunctionsEmulator(functions, 'localhost', 5001);
+}
 
 export { app, auth, db, storage, analytics, functions };
