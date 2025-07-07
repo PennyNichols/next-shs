@@ -1,8 +1,8 @@
 'use client';
 import { Box, Typography, Button, Container } from '@mui/material';
 import Link from 'next/link';
-import NavBar from '../../components/NavBar/NavBar';
-import MinFooter from '../../components/Footer/MinFooter';
+import NavBar from '../components/NavBar/NavBar';
+import MinFooter from '../components/Footer/MinFooter';
 
 const Custom404 = () => {
   return (

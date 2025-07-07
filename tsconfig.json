@@ -27,7 +27,14 @@
     "forceConsistentCasingInFileNames": true, // ADDED: Matching jsconfig for path consistency
     "strictNullChecks": false
   },
-  "include": ["next-env.d.ts", ".next/types/**/*.ts", "**/*.ts", "**/*.tsx", "**/*.d.ts"],
+  "include": [
+    "next-env.d.ts",
+    ".next/types/**/*.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "**/*.d.ts",
+    "src/contexts/AuthContext/AuthContext.tsx"
+  ],
   "exclude": [
     "node_modules",
     ".next", // ADDED: Common exclusion for Next.js build output

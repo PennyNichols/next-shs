@@ -1,4 +1,4 @@
-# SHS Site 2024
+# SHS Site 2025
 
 This project is a web application for SHS Site 2024. It includes features such as an estimate request form and a subscription form, integrated with Firebase for data storage.
 
