@@ -1,10 +1,12 @@
+'use client';
+
 import React, { useState } from 'react';
 import { Card, CardContent, Typography, Box, Rating, Dialog, DialogContent, IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import StarIcon from '@mui/icons-material/Star';
 import { alpha } from '@mui/material/styles';
-import { customBorderRadius } from '@/theme/otherThemeConstants';
-import theme from '@/theme';
+import { customBorderRadius } from '@/styles/theme/otherThemeConstants';
+import theme from '@/styles/theme';
 
 function ReviewCard({ rating = 5, review, platform }) {
   const words = review.split(' ');

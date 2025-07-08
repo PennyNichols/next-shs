@@ -1,3 +1,5 @@
+/* eslint-disable max-len */
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   // Helps identify potential problems in an application by running extra checks in development.

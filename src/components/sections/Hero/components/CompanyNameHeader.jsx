@@ -1,4 +1,4 @@
-import theme from '@/theme';
+import theme from '@/styles/theme';
 import { Typography } from '@mui/material';
 
 const CompanyNameHeader = () => {

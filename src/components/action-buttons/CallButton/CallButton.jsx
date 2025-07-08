@@ -1,6 +1,6 @@
 import React from 'react';
 import PhoneIcon from '@mui/icons-material/Phone';
-import ActionButton from '../ReusableComponents/ActionButton/ActionButton';
+import ActionButton from '../../common/ActionButton/ActionButton';
 import { CALL_BUTTON_TEXT, PHONE_NUMBER } from '../../../constants/companyDetails';
 
 const CallButton = () => {

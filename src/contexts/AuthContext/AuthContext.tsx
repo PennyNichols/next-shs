@@ -10,7 +10,7 @@ import {
   EmailAuthProvider, // For reauthentication credential
 } from 'firebase/auth';
 import { doc, setDoc, deleteDoc } from 'firebase/firestore';
-import { auth, db } from '../../lib/firebase'; // Assuming firebase.ts is in lib
+import { auth, db } from '../../lib/firebase/firebase'; // Assuming firebase.ts is in lib
 
 interface AuthContextType {
   currentUser: User | null;

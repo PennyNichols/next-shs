@@ -1,5 +1,5 @@
 // src/theme/globalSlickStyles.ts (or .js)
-import { customBorderRadius } from '@/theme/otherThemeConstants';
+import { customBorderRadius } from '@/styles/theme/otherThemeConstants';
 
 // Define your global styles as a function that takes the theme
 const globalSlickStyles = (theme) => ({

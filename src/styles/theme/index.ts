@@ -1,8 +1,9 @@
+'use client';
 import { createTheme, Shadows } from '@mui/material/styles';
 import palette from './palette';
 import { customShadows, customBorderRadius, customBreakpoints } from './otherThemeConstants';
 import typography from './typography';
-import {components} from './components';
+import { components } from './components';
 
 const theme = createTheme({
   palette: palette,

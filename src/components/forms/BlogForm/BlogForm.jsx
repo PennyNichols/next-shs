@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Box, Button, TextField, Typography, IconButton } from '@mui/material';
 import { Add, Remove } from '@mui/icons-material';
 import { collection, addDoc } from 'firebase/firestore';
-import { db } from '../../../lib/firebase';
+import { db } from '../../../lib/firebase/firebase';
 
 const initialState = {
   conclusion: '',

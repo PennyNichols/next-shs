@@ -1,7 +1,9 @@
-import theme from '@/theme';
+'use client';
+
+import theme from '@/styles/theme';
 import { alpha } from '@mui/material/styles';
 import { Skeleton } from '@mui/material';
-import useMedia from '../../hooks/useMedia';
+import useMedia from '../../../hooks/useMedia';
 import React, { useEffect, useState } from 'react';
 
 const VilliageSvg = (props) => {

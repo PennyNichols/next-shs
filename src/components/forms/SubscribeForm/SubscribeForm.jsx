@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { TextField, Typography, Box, Grid } from '@mui/material';
-import ActionButton from '../common/ActionButton/ActionButton';
-import { useFirebaseCollections } from '../../../hooks/FirebaseService';
+import ActionButton from '../../common/ActionButton/ActionButton';
+import { useFirebaseCollections } from '../../../contexts/FirebaseCollectionContext/FirebaseCollectionContext';
 import CustomTextField from '@/components/common/CustomTextField';
 
 const SubscribeForm = () => {

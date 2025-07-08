@@ -18,11 +18,12 @@ import * as yup from 'yup';
 import { CERTIFICATIONS } from '../../../constants/careers';
 import { SERVICE_CATEGORIES } from '../../../constants/services';
 import { AttachMoney, CloudUpload } from '@mui/icons-material';
-import theme from '@/theme';
-import { customBorderRadius } from '@/theme/otherThemeConstants';
-import GroupedMultiSelect from '@/components/ReusableComponents/GroupedMultiSelect/GroupedMultiSelect';
-import DropdownSelect from '@/components/ReusableComponents/DropdownMultiSelect/DropdownMultiSelect';
-import { ContentBox, Section } from '@/components/ReusableComponents/baseComponents';
+import theme from '@/styles/theme';
+import { customBorderRadius } from '@/styles/theme/otherThemeConstants';
+import GroupedMultiSelect from '@/components/common/GroupedMultiSelect/GroupedMultiSelect';
+import DropdownSelect from '@/components/common/DropdownMultiSelect/DropdownMultiSelect';
+import ContentBox from '@/components/common/ContentBox/ContentBox';
+import Section from '@/components/common/Section/Section';
 import PageTitle from '@/components/common/PageTitle/PageTitle';
 import ActionButton from '@/components/common/ActionButton/ActionButton';
 

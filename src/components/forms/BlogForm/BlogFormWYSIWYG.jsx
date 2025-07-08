@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 // import dynamic from 'next/dynamic'; // Import dynamic from next/dynamic
 import { Box, Button, TextField, Typography, IconButton, Alert } from '@mui/material';
 import { Add, Remove } from '@mui/icons-material';
-import { useFirebaseCollections } from '../../../hooks/FirebaseService';
+import { useFirebaseCollections } from '../../../contexts/FirebaseCollectionContext/FirebaseCollectionContext';
 
 // const ReactQuill = dynamic(() => import('react-quill'), { ssr: false }); // Dynamic import
 

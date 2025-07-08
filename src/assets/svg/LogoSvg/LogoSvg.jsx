@@ -1,5 +1,5 @@
 // components/SVG/LogoSvg.jsx
-import theme from '@/theme';
+import theme from '@/styles/theme';
 import * as React from 'react';
 
 const LogoSvg = ({

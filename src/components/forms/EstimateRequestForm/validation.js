@@ -1,4 +1,4 @@
-import * as yup from "yup";
+import * as yup from 'yup';
 export const estimateRequestSchema = yup.object().shape({
   firstName: yup.string().trim().required('First name is required.'),
   lastName: yup.string().trim().required('Last name is required.'),

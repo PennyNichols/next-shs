@@ -1,5 +1,5 @@
 // components/SVG/LogoWithTextSvg.jsx
-import theme from '@/theme';
+import theme from '@/styles/theme';
 import * as React from 'react';
 
 const LogoWithTextSvg = ({ color = theme.palette.primary.main, transition = 'fill 1s ease', ...props }) => {

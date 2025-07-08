@@ -1,10 +1,13 @@
 // src/lib/services/apiService.ts
 import axios from 'axios';
-import { auth } from '../firebase'; // Assuming firebase.ts is in src/lib/
+import { auth } from '../firebase/firebase'; // Assuming firebase.ts is in src/lib/
 
 // Base URL for your Cloud Functions API
 // IMPORTANT: Adjust for local development vs. production!
-const BASE_CLOUD_FUNCTION_URL = process.env.NEXT_PUBLIC_CLOUD_FUNCTION_API_URL || 'http://localhost:5001/YOUR_PROJECT_ID/us-east1/api';
+const BASE_CLOUD_FUNCTION_URL =
+  //   process.env.NEXT_PUBLIC_CLOUD_FUNCTION_API_URL
+  //   ||
+  'http://localhost:5001/next-shs/us-east1/api';
 
 const apiService = axios.create({
   baseURL: BASE_CLOUD_FUNCTION_URL,

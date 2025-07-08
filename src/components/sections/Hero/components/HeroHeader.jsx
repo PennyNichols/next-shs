@@ -1,4 +1,6 @@
-import theme from '@/theme';
+'use client';
+
+import theme from '@/styles/theme';
 import { alpha, Box, Typography } from '@mui/material';
 import { useRef, useState } from 'react';
 

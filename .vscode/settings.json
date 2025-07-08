@@ -6,11 +6,18 @@
     "editor.defaultFormatter": "vscode.css-language-features"
   },
   "fileTreeGenerator.ignorePatterns": [
-    "**/node_modules/", // Excludes node_modules directories anywhere
-    "**/.git/", // Excludes .git directories
-    "**/.next/", // Excludes Next.js build output directory
-    "**/out/", // Excludes Next.js static export output directory
-    "**/build/", // Common for compiled/bundled output
+    "**/node_modules/",
+    "**/.git/",
+    "**/.next/",
+    ".next/",
+    ".next/**",
+    "**/.next/**",
+    "shs/.next/",
+    "shs/.next/**",
+    "**/out/",
+    "out/",
+    "**/build/",
+    "build/",
     "**/dist/", // Another common distribution output directory
     "**/coverage/", // Test coverage reports
     "**/firebase-debug.log", // Firebase debug logs

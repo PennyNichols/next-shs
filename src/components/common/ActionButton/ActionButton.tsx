@@ -1,6 +1,8 @@
+'use client';
+
 import React, { useState } from 'react';
 import Button, { ButtonProps } from '@mui/material/Button';
-import { customShadows } from '@/theme/otherThemeConstants';
+import { customShadows } from '@/styles/theme/otherThemeConstants';
 
 interface ActionButtonProps
   extends Omit<ButtonProps, 'variant' | 'type' | 'onClick' | 'fullWidth' | 'startIcon' | 'sx' | 'color'> {

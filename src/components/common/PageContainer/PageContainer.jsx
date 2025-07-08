@@ -1,4 +1,5 @@
-import theme from '@/theme';
+'use client';
+import theme from '@/styles/theme';
 import { Box, Container } from '@mui/material';
 
 const PageContainer = ({ children }) => {

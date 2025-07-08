@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import { Menu, MenuItem, IconButton, Box } from '@mui/material';
 import ShareIcon from '@mui/icons-material/Share';
@@ -6,8 +8,8 @@ import TwitterIcon from '@mui/icons-material/Twitter';
 import EmailIcon from '@mui/icons-material/Email';
 import SmsIcon from '@mui/icons-material/Sms';
 import { URL } from '../../../constants/companyDetails';
-import { customBorderRadius, customTransitions } from '@/theme/otherThemeConstants';
-import theme from '@/theme';
+import { customBorderRadius, customTransitions } from '@/styles/theme/otherThemeConstants';
+import theme from '@/styles/theme';
 
 // Change to use MUI Speed Dial instead
 

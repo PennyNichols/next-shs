@@ -1,3 +1,6 @@
+/* eslint-disable no-console */
+/* eslint-disable max-len */
+
 const { onRequest } = require('firebase-functions/v2/https');
 const express = require('express');
 const cors = require('cors');

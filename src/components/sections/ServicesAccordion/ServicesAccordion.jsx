@@ -1,9 +1,10 @@
+'use client';
 import React from 'react';
 import { Accordion, AccordionDetails, AccordionSummary, Box, Typography } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { SERVICE_CATEGORIES } from '../../../constants/services';
-import { customBorderRadius } from '@/theme/otherThemeConstants';
-import theme from '@/theme';
+import { customBorderRadius } from '@/styles/theme/otherThemeConstants';
+import theme from '@/styles/theme';
 
 const ServicesAccordion = () => {
   return (

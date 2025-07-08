@@ -1,8 +1,10 @@
+'use client';
+
 import React, { useState } from 'react';
-import CustomModal from '../ReusableComponents/CustomModal/CustomModal';
-import ActionButton from '../ReusableComponents/ActionButton/ActionButton';
 import { Create } from '@mui/icons-material';
-import BlogFormWYSIWYG from '../Forms/BlogForm/BlogFormWYSIWYG';
+import ActionButton from '@/components/common/ActionButton/ActionButton';
+import CustomModal from '@/components/common/CustomModal/CustomModal';
+import { BlogFormWYSIWYG } from '@/components/forms/BlogForm';
 
 const CreateBlogButton = () => {
   const [open, setOpen] = useState(false);
@@ -13,7 +15,7 @@ const CreateBlogButton = () => {
   return (
     <>
       <ActionButton text="Write a new blog" onClick={handleOpen} icon={<Create />} />
-      <CustomModal open={open} handleClose={handleClose} title="New Blog">
+      <CustomModal open={open} onClose={handleClose} title="New Blog">
         <BlogFormWYSIWYG setOpen={setOpen} />
       </CustomModal>
     </>

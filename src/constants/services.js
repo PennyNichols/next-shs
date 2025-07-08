@@ -1,3 +1,5 @@
+/* eslint-disable max-len */
+
 export const SERVICE_CATEGORIES = [
   {
     sectionTitle: 'Core Repair and Maintenance',

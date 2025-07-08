@@ -1,23 +1,25 @@
+/* eslint-disable max-len */
+
 export const CAREERS = [
   {
     position: 'Home Service Technician',
     basicInfo: [
-        {
-            label: 'Location',
-            description: 'Charlotte County, FL'
-        },
-        {
-            label: 'Job Type',
-            description: 'Subcontract'
-        },
-        {
-            label: 'Compensation',
-            description: '$15 - $30 per hour, based on skill level and job performance.'
-        },
-        {
-            label: 'Hiring',
-            description: 'We are continuously seeking skilled technicians to join our team.'
-        }
+      {
+        label: 'Location',
+        description: 'Charlotte County, FL',
+      },
+      {
+        label: 'Job Type',
+        description: 'Subcontract',
+      },
+      {
+        label: 'Compensation',
+        description: '$15 - $30 per hour, based on skill level and job performance.',
+      },
+      {
+        label: 'Hiring',
+        description: 'We are continuously seeking skilled technicians to join our team.',
+      },
     ],
     jobDetails: [
       {
@@ -58,7 +60,7 @@ export const CAREERS = [
             'Strong spatial reasoning with the ability to visualize projects in 3-D space.',
             'Proficient knowledge of common tools, including their names and proper uses.',
             'A baseline understanding across a wide range of home service categories, including but not limited to: carpentry, masonry, plumbing, electrical, roofing, framing, sheetrock, door and window installation and repair, and painting.',
-            "Possess a valid driver's license and have reliable transportation.",
+            'Possess a valid driver\'s license and have reliable transportation.',
             'Maintain excellent hygiene and a professional appearance.',
             'No criminal history.',
             'Must be authorized to work in the U.S.',
@@ -108,7 +110,7 @@ export const CAREERS = [
       items: [
         {
           title: 'Set Your Own Schedule:',
-          description: "You have the freedom to choose when you work and when you don't.",
+          description: 'You have the freedom to choose when you work and when you don\'t.',
         },
         {
           title: 'Unlimited Time Off:',
@@ -129,24 +131,24 @@ export const CAREERS = [
 ];
 
 export const CERTIFICATIONS = [
-  "OSHA 10-Hour Construction Safety ",
-  "EPA Lead-Safe Certified Renovator (RRP)",
-  "HVAC Universal (EPA Section 608)",
-  "Florida Certified Electrical Contractor",
-  "Florida Certified Plumbing Contractor",
-  "Florida Certified General Contractor",
-  "First Aid & CPR/AED",
-  "Certified Pool Operator (CPO)",
-  "Florida Licensed Home Inspector",
-  "Florida Licensed Mold Remediator",
-  "Florida Certified Pest Control Operator",
-  "Backflow Prevention Assembly Tester (BPAT)",
-  "Water Heater Installation & Service",
-  "Hurricane Protection Installer Certification",
-  "Asbestos Awareness/Abatement",
-  "Rough Terrain Forklift Operator",
-  "Confined Space Entry Certification",
-  "Drywall Installation & Repair Best Practices",
-  "Tile & Flooring Installation Techniques",
-  "Basic Welding Safety & Techniques"
+  'OSHA 10-Hour Construction Safety ',
+  'EPA Lead-Safe Certified Renovator (RRP)',
+  'HVAC Universal (EPA Section 608)',
+  'Florida Certified Electrical Contractor',
+  'Florida Certified Plumbing Contractor',
+  'Florida Certified General Contractor',
+  'First Aid & CPR/AED',
+  'Certified Pool Operator (CPO)',
+  'Florida Licensed Home Inspector',
+  'Florida Licensed Mold Remediator',
+  'Florida Certified Pest Control Operator',
+  'Backflow Prevention Assembly Tester (BPAT)',
+  'Water Heater Installation & Service',
+  'Hurricane Protection Installer Certification',
+  'Asbestos Awareness/Abatement',
+  'Rough Terrain Forklift Operator',
+  'Confined Space Entry Certification',
+  'Drywall Installation & Repair Best Practices',
+  'Tile & Flooring Installation Techniques',
+  'Basic Welding Safety & Techniques',
 ];

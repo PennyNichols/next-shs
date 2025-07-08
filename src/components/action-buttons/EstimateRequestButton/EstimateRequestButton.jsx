@@ -1,7 +1,9 @@
+'use client';
+
 import React, { useState } from 'react';
-import CustomModal from '../ReusableComponents/CustomModal/CustomModal';
-import EstimateRequestForm from '../Forms/EstimateRequestForm/EstimateRequestForm';
-import ActionButton from '../ReusableComponents/ActionButton/ActionButton';
+import CustomModal from '../../common/CustomModal/CustomModal';
+import EstimateRequestForm from '../../forms/EstimateRequestForm/EstimateRequestForm';
+import ActionButton from '../../common/ActionButton/ActionButton';
 import { RequestQuoteRounded } from '@mui/icons-material';
 import PropTypes from 'prop-types';
 

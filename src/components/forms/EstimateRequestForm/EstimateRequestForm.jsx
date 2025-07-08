@@ -25,17 +25,17 @@ import {
   FormHelperText,
 } from '@mui/material';
 import { Close, ExpandMore, AttachMoney, CloudUpload, ArrowBack, Check } from '@mui/icons-material';
-import { useFirebaseCollections } from '../../../hooks/FirebaseService';
-import useUser from '../../../hooks/useUser';
+import { useFirebaseCollections } from '../../../contexts/FirebaseCollectionContext/FirebaseCollectionContext';
+import useUser from '../../../hooks/auth/useUser';
 import { SERVICE_CATEGORIES } from '../../../constants/services';
-import theme from '@/theme';
-import { customBorderRadius, customTransitions } from '@/theme/otherThemeConstants';
+import theme from '@/styles/theme';
+import { customBorderRadius, customTransitions } from '@/styles/theme/otherThemeConstants';
 import CustomTextField from '@/components/common/CustomTextField';
 import CustomCheckbox from '@/components/common/CustomCheckbox/CustomCheckbox';
 import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { estimateRequestSchema } from './validation';
-import GroupedMultiSelect from '@/components/ReusableComponents/GroupedMultiSelect/GroupedMultiSelect';
+import GroupedMultiSelect from '@/components/common/GroupedMultiSelect/GroupedMultiSelect';
 
 const EstimateRequestForm = ({ open, setOpen }) => {
   const {

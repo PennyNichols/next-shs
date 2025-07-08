@@ -1,14 +1,22 @@
+'use client';
+
 import React, { useEffect, useState } from 'react';
 import { Box, Typography, Link, Grid, Skeleton } from '@mui/material'; // Removed Container from import
 import { Facebook, Google, Instagram } from '@mui/icons-material';
-import SubscribeForm from '../SubscribeForm/SubscribeForm';
-import EstimateRequestButton from '../action-buttons/EstimateRequestButton';
-import { EMAIL_ADDRESS, FACEBOOK_URL, GOOGLE_URL, INSTAGRAM_URL, PHONE_NUMBER } from '../../../constants/companyDetails';
-import { formatPhoneNumber } from '../../../utils/utils';
-import ReviewButton from '../action-buttons/ReviewButton';
-import LogoSvg from '../../assets/svg/LogoSvg/LogoSvg';
+import SubscribeForm from '../../forms/SubscribeForm/SubscribeForm';
+import EstimateRequestButton from '../../action-buttons/EstimateRequestButton/EstimateRequestButton';
+import {
+  EMAIL_ADDRESS,
+  FACEBOOK_URL,
+  GOOGLE_URL,
+  INSTAGRAM_URL,
+  PHONE_NUMBER,
+} from '../../../constants/companyDetails';
+import { formatPhoneNumber } from '../../../lib/utils/utils';
+import ReviewButton from '../../action-buttons/ReviewButton/ReviewButton';
+import LogoSvg from '../../../assets/svg/LogoSvg/LogoSvg';
 import useMedia from '../../../hooks/useMedia';
-import { customTransitions } from '@/theme/otherThemeConstants';
+import { customTransitions } from '@/styles/theme/otherThemeConstants';
 
 const Footer = () => {
   const { isXs: initialIsXs, isSm: initialIsSm } = useMedia();

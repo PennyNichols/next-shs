@@ -1,54 +1,61 @@
-// This file sets up global providers and styles for pages within the 'app/' directory.
-'use client'; 
+// src/app/layout.tsx
+// This file replaces the functionality of _document.js and part of _app.js in the App Router.
 
-// Global CSS Imports
-import './globals.css'; 
+// 1. Global CSS Imports (from _app.js)
+import './globals.css';
 import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css'; 
+import 'slick-carousel/slick/slick-theme.css';
 
-// Next.js Font Optimization
-import { Inter } from 'next/font/google';
-
-// React (implicitly used by JSX)
+// 2. React, Next.js Metadata Type
 import React from 'react';
+import type { Metadata } from 'next';
 
-// Material-UI Imports
-import { ThemeProvider } from '@mui/material/styles';
-import { CssBaseline, GlobalStyles } from '@mui/material'; 
+// 3. Import your client-side Providers wrapper (new file)
+import { AppProviders } from './providers'; // We will create this file below
 
-// Your Custom Theme and Global Styles for react-slick
-import theme from '../theme'
-import globalSlickStyles from '../theme/globalSlickStyles';
+// 4. Import global UI components (assuming they are Server Components or marked with "use client" internally)
+// If NavBar and Footer don't need "use client", they can be directly rendered here.
+// If they do, they'll need "use client" at their own file top.
+import NavBar from '@/components/layout/NavBar/NavBar'; // Adjust path if moved
+import Footer from '@/components/layout/Footer/Footer'; // Adjust path if moved
+import { ShareButton } from '@/components/action-buttons';
 
-import EmotionRegistry from './EmotionRegistry';
-
-
-const inter = Inter({ subsets: ['latin'] });
-
-const metadata = {
-  title: "Schmidt's Home Services",
-  description:
-    // eslint-disable-next-line max-len
-    "Experienced handyman and construction professionals serving Florida's Port Charlotte / Punta Gorda / North Port / Englewood. We offer reliable service and quality workmanship for all your home improvement projects. Contact us today!",
+// 5. Global Metadata (from _app.js <Head> and _document.js <meta>)
+export const metadata: Metadata = {
+  title: 'SHS Site 2024', // From _app.js
+  description: 'Your site description', // Add a descriptive one for your app
+  viewport: 'minimum-scale=1, initial-scale=1, width=device-width', // From _app.js
+  themeColor: '#00112c', // From _document.js (using your primary color from palette.js)
+  icons: {
+    icon: '/favicon.ico', // From _document.js
+    // You can also add apple: '/apple-touch-icon.png' etc.
+  },
+  // Add other global metadata here (e.g., openGraph, twitter, etc.)
+  // See: https://nextjs.org/docs/app/building-your-application/optimizing/metadata
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
-  console.log('App Router - Theme Debug: Type of theme:', typeof theme);
-  console.log('App Router - Theme Debug: Is theme a plain object:', Object.prototype.toString.call(theme));
+export default function RootLayout({
+  children, // This represents the content of your pages (e.g., app/page.jsx, app/about/page.jsx)
+}: {
+  children: React.ReactNode;
+}) {
   return (
+    // Html and Body structure (from _document.js)
     <html lang="en">
-      <head>
-        <title>{metadata.title}</title>
-        <meta name="description" content={metadata.description} />
-      </head>
-      <body className={inter.className} suppressHydrationWarning={true}>
-        <EmotionRegistry>
-          <ThemeProvider theme={theme}>
-            <CssBaseline />
-            <GlobalStyles styles={globalSlickStyles} />
-            {children}
-          </ThemeProvider>
-        </EmotionRegistry>
+      <body>
+        {/*
+          AppProviders will wrap your entire application content.
+          It handles Emotion/MUI Theme, AuthContext, and FirebaseCollectionContext.
+          It must be a "use client" component.
+        */}
+        {/*
+            Global UI components that appear on every page,
+            like your NavBar and Footer, are placed here.
+            */}
+        <div style={{ flexGrow: 1 }}>
+          <AppProviders>{children}</AppProviders>
+        </div>
+        <ShareButton />
       </body>
     </html>
   );

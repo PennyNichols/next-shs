@@ -1,5 +1,5 @@
 import React from 'react';
-import ActionButton from '../ReusableComponents/ActionButton/ActionButton';
+import ActionButton from '../../common/ActionButton/ActionButton';
 import { GOOGLE_REVIEW_URL, REVIEW_BUTTON_TEXT } from '../../../constants/companyDetails';
 import { RateReview } from '@mui/icons-material';
 

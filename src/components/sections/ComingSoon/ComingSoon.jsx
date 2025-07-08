@@ -1,6 +1,6 @@
-import theme from '@/theme';
+import theme from '@/styles/theme';
 import { Box, Button, Typography } from '@mui/material';
-import CementMixerSvg from '../../assets/svg/CementMixerSvg/CementMixerSvg';
+import CementMixerSvg from '../../../assets/svg/CementMixerSvg/CementMixerSvg';
 import Link from 'next/link';
 
 // TO DO:

@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { Box, Typography, Link, Grid, Skeleton } from '@mui/material'; // Removed Container from import
 import { Facebook, Google, Instagram } from '@mui/icons-material';
 import { EMAIL_ADDRESS, FACEBOOK_URL, GOOGLE_URL, INSTAGRAM_URL, PHONE_NUMBER } from '../../../constants/companyDetails';
-import { formatPhoneNumber } from '../../../utils/utils';
-import LogoSvg from '../../assets/svg/LogoSvg/LogoSvg';
+import { formatPhoneNumber } from '../../../lib/utils/utils';
+import LogoSvg from '../../../assets/svg/LogoSvg/LogoSvg';
 import useMedia from '../../../hooks/useMedia';
-import { customTransitions } from '@/theme/otherThemeConstants';
+import { customTransitions } from '@/styles/theme/otherThemeConstants';
 
 const MinFooter = () => {
   const { isXs: initialIsXs, isSm: initialIsSm } = useMedia();

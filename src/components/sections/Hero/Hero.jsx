@@ -1,11 +1,11 @@
 import { Box, Container, Typography } from '@mui/material';
 import Image from 'next/image';
-import theme from '@/theme';
-import { Section } from '@/components/ReusableComponents/baseComponents';
+import theme from '@/styles/theme';
+import Section from '@/components/common/Section/Section';
 import CompanyNameHeader from './components/CompanyNameHeader';
 import HeroContainer from './components/HeroContainer';
 import HeroHeader from './components/HeroHeader';
-import HeroActionArea from '../HeroActionArea';
+import HeroActionArea from './components/HeroActionArea';
 import HeroScroll from './components/HeroScroll';
 
 const Hero = () => {

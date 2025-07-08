@@ -14,11 +14,11 @@ import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import Skeleton from '@mui/material/Skeleton';
 import Link from 'next/link';
-import LogoSvg from '../../assets/svg/LogoSvg/LogoSvg';
+import LogoSvg from '../../../assets/svg/LogoSvg/LogoSvg';
 import { Handyman, HomeRepairService } from '@mui/icons-material';
 import useMedia from '../../../hooks/useMedia';
-import { customTransitions } from '@/theme/otherThemeConstants';
-import theme from '@/theme';
+import { customTransitions } from '@/styles/theme/otherThemeConstants';
+import theme from '@/styles/theme';
 import { ClickAwayListener, Collapse } from '@mui/material';
 import ActionButton from '@/components/common/ActionButton/ActionButton';
 

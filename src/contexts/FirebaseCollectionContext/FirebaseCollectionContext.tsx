@@ -1,6 +1,6 @@
 import { createContext, useCallback, useContext } from 'react';
 import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
-import { db } from '../../lib/firebase';
+import { db } from '../../lib/firebase/firebase';
 import { collection, addDoc, getDocs, doc, deleteDoc, updateDoc, getDoc } from 'firebase/firestore';
 import { useAuth } from '../AuthContext/AuthContext'; // Corrected import path for useAuth
 import apiService from '../../lib/services/apiService'; // Import the generic Axios client
