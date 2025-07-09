@@ -16,14 +16,8 @@ const Hero = () => {
     const handleScroll = () => {
       setIsAtTop(window.scrollY === 0);
     };
-
-    // Set initial state
     handleScroll();
-
-    // Add scroll event listener
     window.addEventListener('scroll', handleScroll);
-
-    // Cleanup
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
@@ -38,7 +32,7 @@ const Hero = () => {
         maxHeight: '100%',
         overflow: 'hidden',
         zIndex: 1200,
-        [theme.breakpoints.up('xs')]: {
+        [theme.breakpoints.up('xxs')]: {
           height: '100dvh',
         },
         [theme.breakpoints.up('sm')]: {
@@ -74,7 +68,7 @@ const Hero = () => {
                 flexGrow: 1,
                 display: 'flex',
                 flexDirection: 'column',
-                justifyContent: { xs: 'center', sm: 'flex-end', lg: 'flex-end' },
+                justifyContent: { xxs: 'center', sm: 'flex-end', lg: 'flex-end' },
                 alignItems: 'center',
               }}
             >
@@ -83,13 +77,10 @@ const Hero = () => {
                 sx={{
                   width: '90dvw',
                   maxWidth: '100%',
-                  marginBottom: { xs: theme.spacing(2), md: theme.spacing(0), lg: theme.spacing(2) },
-                  fontSize: { xs: '1.4rem', sm: '1.2rem', md: '1.6rem', lg: '1.9rem', xl: '2.7rem' },
+                  marginBottom: { xxs: theme.spacing(2), md: theme.spacing(0), lg: theme.spacing(2) },
+                  fontSize: { xxs: '1rem', sm: '1.2rem', md: '1.6rem', lg: '1.9rem', xl: '2.7rem' },
                   letterSpacing: '0.1rem',
                   color: theme.palette.secondary.dark,
-                  [theme.breakpoints.down(450)]: {
-                    fontSize: '1.2rem',
-                  },
                 }}
               >
                 From routine maintenance to complex projects, we handle every aspect of your home's upkeep with
@@ -102,7 +93,7 @@ const Hero = () => {
               display: 'flex',
               justifyContent: 'center',
               alignItems: 'flex-end',
-              flexGrow: { xs: 0, sm: 1 },
+              flexGrow: { xxs: 0, sm: 1 },
               margin: 0,
             }}
           >
@@ -111,7 +102,7 @@ const Hero = () => {
           {isAtTop ? (
             <HeroScroll />
           ) : (
-            <Box sx={{ height: '4.57rem', [theme.breakpoints.down('xxs')] : { height: '3.92rem' }, }} />
+            <Box sx={{ height: { xxs: '3.92rem', xs: '4.57rem' }, display: { xs: 'block', sm: 'none' } }} />
           )}
         </Box>
       </HeroContainer>

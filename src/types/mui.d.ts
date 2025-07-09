@@ -64,21 +64,3 @@ declare module '@mui/material/Typography' {
     // You can also disable default variants here if you wish (e.g., h3: false)
   }
 }
-
-declare module '@mui/material/Container' {
-  interface ContainerPropsMaxWidthOverrides {
-    xxs: true;
-  }
-}
-
-declare module '@mui/material/Button' {
-  interface ButtonPropsSizeOverrides {
-    'extra-small': true;
-  }
-}
-
-declare module '@mui/material/IconButton' {
-  interface IconButtonPropsSizeOverrides {
-    'extra-small': true;
-  }
-}

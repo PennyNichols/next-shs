@@ -37,7 +37,10 @@ const ScrollIcon = () => {
   return (
     <AnimatedText
       sx={{
-        fontSize: { xxs: '2rem', xs: '2.5rem' },
+        fontSize: '2.5rem',
+        '@media(max-width:400px)': {
+          fontSize: '2rem',
+        },
       }}
     >
       &#8595;
@@ -49,7 +52,7 @@ const ScrollText = () => {
   return (
     <AnimatedText
       sx={{
-        fontSize: { xxs: '1.2rem', xs: '2rem' },
+        fontSize: { xxs: '1.5rem', xs: '2rem' },
         marginLeft: 3,
         marginRight: 3,
       }}
@@ -63,12 +66,13 @@ const HeroScroll = () => {
   return (
     <Box
       sx={{
-        display: { xs: 'flex', sm: 'none' },
+        display: { xxs: 'flex', sm: 'none' },
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'flex-end',
-        mt: { xs: 2 },
+        mt: { xxs: 2 },
         mb: 1,
+        whiteSpace: 'nowrap',
       }}
     >
       <ScrollIcon />

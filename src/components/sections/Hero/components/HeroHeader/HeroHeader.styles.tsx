@@ -41,9 +41,9 @@ const rotateAnimation = keyframes`
 export const initialShinyEffect = {
   position: 'relative',
   color: 'transparent',
-  width: { xs: '71.5rem', xl: '71.5rem' },
+  width: { xxs: '71.5rem', xl: '71.5rem' },
   background: silverGradient,
-  backgroundSize: { xs: '155rem 30rem', xl: '140rem 30rem' },
+  backgroundSize: { xxs: '120rem 30rem', xl: '140rem 30rem' },
   backgroundPosition: '-80rem 0%',
   backgroundClip: 'text',
   WebkitBackgroundClip: 'text',
@@ -59,9 +59,9 @@ export const initialShinyEffect = {
 export const interactionShinyEffect = {
   position: 'relative',
   color: 'transparent',
-  width: { xs: '71.5rem', xl: '71.5rem' },
+  width: { xxs: '51.5rem', xl: '71.5rem' },
   background: silverGradient,
-  backgroundSize: { xs: '155rem 30rem', xl: '140rem 30rem' },
+  backgroundSize: { xxs: '120rem 30rem', xl: '140rem 30rem' },
   backgroundClip: 'text',
   WebkitBackgroundClip: 'text',
   textShadow: `
@@ -75,7 +75,7 @@ export const interactionShinyEffect = {
 };
 
 export const shineTypography = {
-  display: { xs: 'flex', sm: 'inline-block !important' },
+  display: { xxs: 'flex !important', md: 'inline-block !important' },
   transform: 'skewX(-20deg)',
   textShadow: `
         -2px -2px 0 rgba(255, 255, 255, 0.1),
@@ -87,8 +87,15 @@ export const shineTypography = {
   justifyContent: 'center',
   lineHeight: 1.1,
   textTransform: 'uppercase',
-  fontSize: { xs: '2.8rem', sm: '2rem', md: '2.8rem', lg: '3.3rem', xl: '5rem' },
-  letterSpacing: { xs: '0.5rem', xl: '0.5rem' },
+  fontSize: {
+    xxs: '1.5rem',
+    xs: '2rem',
+    sm: '2rem',
+    md: '2.2rem',
+    lg: '3.3rem',
+    xl: '5rem',
+  },
+  letterSpacing: '0.5rem',
   cursor: 'pointer',
   userSelect: 'none',
   WebkitUserSelect: 'none',
@@ -105,10 +112,4 @@ export const shineTypography = {
     outline: 'none',
   },
   WebkitTapHighlightColor: 'transparent',
-  '@media (max-width: 450px)': {
-    fontSize: '1.8rem',
-  }
-  // '@media (max-width: 4px)': {
-  //   fontSize: '2.3rem',
-  // }
 };

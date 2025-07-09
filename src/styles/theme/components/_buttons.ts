@@ -13,7 +13,7 @@ const buttonComponents: Components<Theme> = {
       disableRipple: true,
       variant: 'contained',
       color: 'primary',
-    }, 
+    },
     styleOverrides: {
       root: ({ theme }: { theme: Theme }): CSSObject => ({
         textTransform: 'none',
@@ -25,7 +25,7 @@ const buttonComponents: Components<Theme> = {
         transition: customTransitions.standard,
         cursor: 'pointer',
         whiteSpace: 'nowrap',
-        padding: theme.spacing(1, 2),
+        padding: theme.spacing(0.75, 2),
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
@@ -73,24 +73,22 @@ const buttonComponents: Components<Theme> = {
       }),
       // Style overrides based on 'size' prop
       sizeSmall: ({ theme }: { theme: Theme }): CSSObject => ({
-        padding: theme.spacing(0.5, 1), 
-        fontSize: '1rem', 
+        fontSize: '1rem',
         '& .MuiSvgIcon-root': {
-          fontSize: '1.2rem', 
+          fontSize: '1.2rem',
         },
       }),
       sizeMedium: ({ theme }: { theme: Theme }): CSSObject => ({
-        padding: theme.spacing(1, 2), 
-        fontSize: '1.2rem', 
+        fontSize: '1.2rem',
         '& .MuiSvgIcon-root': {
-          fontSize: '1.4rem', 
+          fontSize: '1.4rem',
         },
       }),
       sizeLarge: ({ theme }: { theme: Theme }): CSSObject => ({
-        padding: theme.spacing(1.5, 3), 
-        fontSize: '1.3rem', 
+        padding: theme.spacing(1.5, 3),
+        fontSize: '1.5rem',
         '& .MuiSvgIcon-root': {
-          fontSize: '1.5rem', 
+          fontSize: '1.8rem',
         },
       }),
     },
@@ -100,16 +98,16 @@ const buttonComponents: Components<Theme> = {
   // ---------------------------------------------------
   MuiIconButton: {
     defaultProps: {
-      color: 'inherit', 
-      size: 'medium', 
+      color: 'inherit',
+      size: 'medium',
     },
     styleOverrides: {
       root: ({ theme }: { theme: Theme }): CSSObject => ({
-        transition: customTransitions.standard, 
-        borderRadius: customBorderRadius.small, 
-        padding: theme.spacing(1), 
+        transition: customTransitions.standard,
+        borderRadius: customBorderRadius.small,
+        padding: theme.spacing(1),
         '&:hover': {
-          transform: 'scale(1.2)', 
+          transform: 'scale(1.2)',
         },
         '&.Mui-disabled': {
           color: theme.palette.action.disabled,
@@ -155,16 +153,16 @@ const buttonComponents: Components<Theme> = {
       }),
       // Style overrides based on 'size' prop
       sizeSmall: ({ theme }: { theme: Theme }): CSSObject => ({
-        padding: theme.spacing(0.5), 
-        fontSize: '1.125rem', 
+        padding: theme.spacing(0.5),
+        fontSize: '1.125rem',
       }),
       sizeMedium: ({ theme }: { theme: Theme }): CSSObject => ({
-        padding: theme.spacing(1), 
-        fontSize: '1.5rem', 
+        padding: theme.spacing(1),
+        fontSize: '1.5rem',
       }),
       sizeLarge: ({ theme }: { theme: Theme }): CSSObject => ({
-        padding: theme.spacing(1.5), 
-        fontSize: '2rem', 
+        padding: theme.spacing(1.5),
+        fontSize: '2rem',
       }),
     },
   },

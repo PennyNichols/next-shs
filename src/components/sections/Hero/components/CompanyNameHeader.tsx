@@ -11,7 +11,7 @@ const CompanyNameHeader = () => {
         gridTemplateColumns: 'repeat(auto-fit, minmax(0, 1fr))',
         gap: 0,
         width: '100%',
-        fontSize: { xs: '2.5rem',sm: '3rem', md: '4rem',lg: '5rem', xl: '8rem' },
+        fontSize: { xxs: '2rem', sm: '2.7rem', md: '4rem', lg: '5rem', xl: '8rem' },
         textAlign: 'center',
         justifyContent: 'center',
         margin: theme.spacing(0, 'auto', 2),
@@ -21,9 +21,6 @@ const CompanyNameHeader = () => {
         letterSpacing: '0.3rem',
         textTransform: 'uppercase',
         fontWeight: 800,
-        [theme.breakpoints.down(450)]: {
-          fontSize: '2rem',
-        },
       }}
     >
       <span>S</span>

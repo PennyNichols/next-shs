@@ -12,37 +12,35 @@ const HeroActionArea = () => {
   if (isXxs) {
     size = 'small';
   } else if (isXs) {
-    size = 'medium';
+    size = 'small';
   } else if (isSm) {
     size = 'medium';
   } else if (isMd) {
-    size = 'large';
+    size = 'medium';
   } else if (isLg) {
     size = 'large';
   } else if (isXl) {
     size = 'large';
   }
 
-
-
   return (
     <Grid
       container
-      spacing={{ xs: 2, xl: 6 }}
+      spacing={{ xxs: 2, xl: 6 }}
       sx={{
-        maxWidth: {xs: '100%', md:'90%'},
+        maxWidth: { xxs: '100%', md: '90%' },
         alignSelf: 'flex-end',
       }}
-      justifyContent={{ xs: 'center', xl: 'space-between' }}
+      justifyContent={{ xxs: 'center', xl: 'space-between' }}
       alignItems="center"
     >
-      <Grid item xs={12} sm={6} lg={4}>
+      <Grid item xxs={12} sm={6} lg={4}>
         <CallButton size={size} />
       </Grid>
-      <Grid item xs={12} sm={6} lg={4}>
+      <Grid item xxs={12} sm={6} lg={4}>
         <SmsButton size={size} />
       </Grid>
-      <Grid item xs={12} sm={12} lg={4}>
+      <Grid item xxs={12} sm={12} lg={4}>
         <EstimateRequestButton size={size} fullWidth={true} />
       </Grid>
     </Grid>
