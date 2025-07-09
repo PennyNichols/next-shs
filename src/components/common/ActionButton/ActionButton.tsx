@@ -40,12 +40,14 @@ const ActionButton: React.FC<ActionButtonProps> = ({
 }) => {
   const [scale, setScale] = useState(1);
 
-  const { isXs, isSm, isMd, isLg, isXl } = useMedia();
+  const { isXxs, isXs, isSm, isMd, isLg, isXl } = useMedia();
 
   let buttonSize;
 
   if (size) {
     buttonSize = size;
+  } else if (isXxs) {
+    buttonSize = 'small';
   } else if (isXs) {
     buttonSize = 'small';
   } else if (isSm) {

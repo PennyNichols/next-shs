@@ -28,6 +28,16 @@ declare module '@mui/material/styles' {
     dark?: string;
   }
 
+  // Extend breakpoints to include custom 'xxs' breakpoint
+  interface BreakpointOverrides {
+    xxs: true; // adds the `xxs` breakpoint
+    xs: true;
+    sm: true;
+    md: true;
+    lg: true;
+    xl: true;
+  }
+
   // 1. Extend the TypographyVariants interface:
   //    This makes your custom variant names available on `theme.typography`
   interface TypographyVariants {
@@ -52,5 +62,23 @@ declare module '@mui/material/Typography' {
     sectionTitle: true; // Enables <Typography variant="sectionTitle">
     // Add any other custom variant names here with 'true'
     // You can also disable default variants here if you wish (e.g., h3: false)
+  }
+}
+
+declare module '@mui/material/Container' {
+  interface ContainerPropsMaxWidthOverrides {
+    xxs: true;
+  }
+}
+
+declare module '@mui/material/Button' {
+  interface ButtonPropsSizeOverrides {
+    'extra-small': true;
+  }
+}
+
+declare module '@mui/material/IconButton' {
+  interface IconButtonPropsSizeOverrides {
+    'extra-small': true;
   }
 }

@@ -13,7 +13,7 @@ const buttonComponents: Components<Theme> = {
       disableRipple: true,
       variant: 'contained',
       color: 'primary',
-    }, // Keep this section, might want to use it
+    }, 
     styleOverrides: {
       root: ({ theme }: { theme: Theme }): CSSObject => ({
         textTransform: 'none',
@@ -35,6 +35,7 @@ const buttonComponents: Components<Theme> = {
           letterSpacing: '0.1rem',
         },
       }),
+      // Style overrides based on 'variant' prop
       containedPrimary: ({ theme }: { theme: Theme }): CSSObject => ({
         backgroundColor: theme.palette.primary.main,
         color: theme.palette.secondary.light,
@@ -72,24 +73,24 @@ const buttonComponents: Components<Theme> = {
       }),
       // Style overrides based on 'size' prop
       sizeSmall: ({ theme }: { theme: Theme }): CSSObject => ({
-        padding: theme.spacing(0.5, 1), // Smaller padding for small size
-        fontSize: '1rem', // Smaller font size for small buttons
+        padding: theme.spacing(0.5, 1), 
+        fontSize: '1rem', 
         '& .MuiSvgIcon-root': {
-          fontSize: '1.2rem', // Smaller icon size for small buttons
+          fontSize: '1.2rem', 
         },
       }),
       sizeMedium: ({ theme }: { theme: Theme }): CSSObject => ({
-        padding: theme.spacing(1, 2), // Default padding for medium size
-        fontSize: '1.2rem', // Default font size for medium buttons
+        padding: theme.spacing(1, 2), 
+        fontSize: '1.2rem', 
         '& .MuiSvgIcon-root': {
-          fontSize: '1.4rem', // Default icon size for medium buttons
+          fontSize: '1.4rem', 
         },
       }),
       sizeLarge: ({ theme }: { theme: Theme }): CSSObject => ({
-        padding: theme.spacing(1.5, 3), // Larger padding for large size
-        fontSize: '1.3rem', // Larger font size for large buttons
+        padding: theme.spacing(1.5, 3), 
+        fontSize: '1.3rem', 
         '& .MuiSvgIcon-root': {
-          fontSize: '1.5rem', // Larger icon size for large buttons
+          fontSize: '1.5rem', 
         },
       }),
     },
@@ -99,23 +100,18 @@ const buttonComponents: Components<Theme> = {
   // ---------------------------------------------------
   MuiIconButton: {
     defaultProps: {
-      // You can set default props here if needed, e.g., default color
-      color: 'inherit', // Default color to inherit from parent, common for icon buttons
-      size: 'medium', // Default size for consistency
+      color: 'inherit', 
+      size: 'medium', 
     },
     styleOverrides: {
       root: ({ theme }: { theme: Theme }): CSSObject => ({
-        // Base styles for all IconButtons
-        transition: customTransitions.standard, // Apply your custom transition
-        borderRadius: customBorderRadius.small, // Inherit button's border radius for consistency
-        padding: theme.spacing(1), // Standard padding for icon buttons
+        transition: customTransitions.standard, 
+        borderRadius: customBorderRadius.small, 
+        padding: theme.spacing(1), 
         '&:hover': {
-          // Default hover effect for icon buttons
-          transform: 'scale(1.2)', // Slightly scale up on hover
-          // backgroundColor: alpha(theme.palette.action.active, theme.palette.action.hoverOpacity),
+          transform: 'scale(1.2)', 
         },
         '&.Mui-disabled': {
-          // Disabled state for icon buttons
           color: theme.palette.action.disabled,
           cursor: 'not-allowed',
         },
@@ -159,16 +155,16 @@ const buttonComponents: Components<Theme> = {
       }),
       // Style overrides based on 'size' prop
       sizeSmall: ({ theme }: { theme: Theme }): CSSObject => ({
-        padding: theme.spacing(0.5), // Smaller padding for small size
-        fontSize: '1.125rem', // Default icon font size for small is 18px (adjust as needed)
+        padding: theme.spacing(0.5), 
+        fontSize: '1.125rem', 
       }),
       sizeMedium: ({ theme }: { theme: Theme }): CSSObject => ({
-        padding: theme.spacing(1), // Default padding for medium size
-        fontSize: '1.5rem', // Default icon font size for medium is 24px (adjust as needed)
+        padding: theme.spacing(1), 
+        fontSize: '1.5rem', 
       }),
       sizeLarge: ({ theme }: { theme: Theme }): CSSObject => ({
-        padding: theme.spacing(1.5), // Larger padding for large size
-        fontSize: '2rem', // Default icon font size for large is 32px (adjust as needed)
+        padding: theme.spacing(1.5), 
+        fontSize: '2rem', 
       }),
     },
   },

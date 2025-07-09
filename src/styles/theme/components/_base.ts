@@ -126,6 +126,14 @@ const baseComponents: Components<Theme> = {
   // ---------------------------------------------------
   MuiContainer: {
     defaultProps: {},
+    variants: [
+      {
+        props: { maxWidth: 'xxs' },
+        style: {
+          maxWidth: '399px',
+        },
+      },
+    ],
     styleOverrides: {
       root: ({ theme }: { theme: Theme }): CSSObject => ({
         width: '100%',

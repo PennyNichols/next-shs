@@ -5,11 +5,13 @@ import { Grid } from '@mui/material';
 
 const HeroActionArea = () => {
 
-  const { isXs, isSm, isMd, isLg, isXl } = useMedia();
+  const { isXxs, isXs, isSm, isMd, isLg, isXl } = useMedia();
 
   let size;
 
-  if (isXs) {
+  if (isXxs) {
+    size = 'small';
+  } else if (isXs) {
     size = 'medium';
   } else if (isSm) {
     size = 'medium';

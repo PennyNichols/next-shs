@@ -97,10 +97,22 @@ const Hero = () => {
               </Typography>
             </Box>
           </Section>
-          <Section sx={{ display: 'flex', justifyContent: 'center', alignItems: 'flex-end', flexGrow: {xs: 0, sm:1}, margin: 0 }}>
+          <Section
+            sx={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'flex-end',
+              flexGrow: { xs: 0, sm: 1 },
+              margin: 0,
+            }}
+          >
             <HeroActionArea />
           </Section>
-          {isAtTop ? <HeroScroll /> : <Box sx={{height: '4.57rem'}}/>}
+          {isAtTop ? (
+            <HeroScroll />
+          ) : (
+            <Box sx={{ height: '4.57rem', [theme.breakpoints.down('xxs')] : { height: '3.92rem' }, }} />
+          )}
         </Box>
       </HeroContainer>
     </Container>

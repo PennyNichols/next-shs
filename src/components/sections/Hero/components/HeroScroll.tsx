@@ -37,7 +37,7 @@ const ScrollIcon = () => {
   return (
     <AnimatedText
       sx={{
-        fontSize: '2.5rem',
+        fontSize: { xxs: '2rem', xs: '2.5rem' },
       }}
     >
       &#8595;
@@ -49,7 +49,7 @@ const ScrollText = () => {
   return (
     <AnimatedText
       sx={{
-        fontSize: '2rem',
+        fontSize: { xxs: '1.2rem', xs: '2rem' },
         marginLeft: 3,
         marginRight: 3,
       }}
