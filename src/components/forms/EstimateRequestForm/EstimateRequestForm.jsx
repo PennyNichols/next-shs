@@ -238,10 +238,10 @@ const EstimateRequestForm = ({ open, setOpen }) => {
       <DialogContent sx={{}}>
         <Box component="form" onSubmit={handleSubmit(onSubmit)} noValidate>
           <Grid container spacing={3}>
-            <Grid item xs={12}>
+            <Grid item xxs={12}>
               <Typography variant="body1">Please fill out the form below to request an estimate.</Typography>
             </Grid>
-            <Grid item xs={12} sm={6}>
+            <Grid item xxs={12} sm={6}>
               <Controller
                 name="firstName"
                 control={control}
@@ -258,7 +258,7 @@ const EstimateRequestForm = ({ open, setOpen }) => {
                 )}
               />
             </Grid>
-            <Grid item xs={12} sm={6}>
+            <Grid item xxs={12} sm={6}>
               <Controller
                 name="lastName"
                 control={control}
@@ -275,7 +275,7 @@ const EstimateRequestForm = ({ open, setOpen }) => {
                 )}
               />
             </Grid>
-            <Grid item xs={12} sm={6}>
+            <Grid item xxs={12} sm={6}>
               <Controller
                 name="email"
                 control={control}
@@ -293,7 +293,7 @@ const EstimateRequestForm = ({ open, setOpen }) => {
                 )}
               />
             </Grid>
-            <Grid item xs={12} sm={6}>
+            <Grid item xxs={12} sm={6}>
               <Controller
                 name="phone"
                 control={control}
@@ -311,7 +311,7 @@ const EstimateRequestForm = ({ open, setOpen }) => {
                 )}
               />
             </Grid>
-            <Grid item xs={12}>
+            <Grid item xxs={12}>
               <Controller
                 name="address"
                 control={control}
@@ -348,7 +348,7 @@ const EstimateRequestForm = ({ open, setOpen }) => {
               )}
             </Grid>
             {/* Property Type Dropdown */}
-            <Grid item xs={12} sm={6}>
+            <Grid item xxs={12} sm={6}>
               <Controller
                 name="propertyType"
                 control={control}
@@ -373,8 +373,8 @@ const EstimateRequestForm = ({ open, setOpen }) => {
               />
             </Grid>
             {/* Animals on Premises and Owner Occupied Checkboxes */}
-            <Grid item xs={12} sm={6} container spacing={2} sx={{ pl: 2 }}>
-              <Grid item xs={12} sm={6}>
+            <Grid item xxs={12} sm={6} container spacing={2} sx={{ pl: 2 }}>
+              <Grid item xxs={12} sm={6}>
                 <Controller
                   name="animalsOnPremises"
                   control={control}
@@ -391,7 +391,7 @@ const EstimateRequestForm = ({ open, setOpen }) => {
                   )}
                 />
               </Grid>
-              <Grid item xs={12} sm={6}>
+              <Grid item xxs={12} sm={6}>
                 <Controller
                   name="ownerOccupied"
                   control={control}
@@ -405,7 +405,7 @@ const EstimateRequestForm = ({ open, setOpen }) => {
               </Grid>
             </Grid>
             {/* Scope of Work - Multi-select Dropdown with Headers */}
-            <Grid item xs={12}>
+            <Grid item xxs={12}>
               <Controller
                 name="scopeOfWork"
                 control={control}
@@ -465,7 +465,7 @@ const EstimateRequestForm = ({ open, setOpen }) => {
               </FormControl>
             </Grid> */}
             {/* Additional Details */}
-            <Grid item xs={12}>
+            <Grid item xxs={12}>
               <Controller
                 name="details"
                 control={control}
@@ -486,7 +486,7 @@ const EstimateRequestForm = ({ open, setOpen }) => {
             {/* Image Upload */}
             <Grid
               item
-              xs={12}
+              xxs={12}
               sx={{
                 display: 'flex',
                 flexDirection: 'column',
@@ -495,7 +495,7 @@ const EstimateRequestForm = ({ open, setOpen }) => {
                 alignItems: 'flex-start',
               }}
             >
-              <Button variant="contained" component="label" sx={{ width: '100%', mb: { xs: 1, sm: 2 } }}>
+              <Button variant="contained" component="label" sx={{ width: '100%', mb: { xxs: 1, sm: 2 } }}>
                 <CloudUpload sx={{ mr: 1 }} />
                 Upload Image(s)
                 <input
@@ -555,7 +555,7 @@ const EstimateRequestForm = ({ open, setOpen }) => {
             </Grid>
             {/* Subscribe to marketing checkbox */}
             {!isEmailSubscribed && email && (
-              <Grid item xs={12}>
+              <Grid item xxs={12}>
                 <Controller
                   name="subscribeToMarketing"
                   control={control}
@@ -580,10 +580,10 @@ const EstimateRequestForm = ({ open, setOpen }) => {
             )}
             {/* Submit Buttons */}
             <Grid container spacing={2}>
-              <Grid item xs={12} sm={6}>
+              <Grid item xxs={12} sm={6}>
                 <ActionButton type="button" fullWidth variant="outlined" text="Clear" onClick={handleClear} />
               </Grid>
-              <Grid item xs={12} sm={6}>
+              <Grid item xxs={12} sm={6}>
                 <ActionButton type="submit" fullWidth variant="contained" text="Submit" disabled={isSubmitting} />
               </Grid>
             </Grid>

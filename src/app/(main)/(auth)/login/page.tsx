@@ -8,22 +8,24 @@ import theme from '@/styles/theme';
 import {AuthForm} from '@/components/auth';
 
 const Auth = () => {
-  const { isXs: initialIsXs, isSm: initialIsSm } = useMedia();
+  const { isXxs: initialIsXxs, isXs: initialIsXs, isSm: initialIsSm } = useMedia();
   const [showClientContent, setShowClientContent] = useState(false);
+  const [isXxs, setIsXxs] = useState(false);
   const [isXs, setIsXs] = useState(false);
   const [isSm, setIsSm] = useState(false);
 
   useEffect(() => {
     setShowClientContent(true);
+    setIsXxs(initialIsXxs);
     setIsXs(initialIsXs);
     setIsSm(initialIsSm);
-  }, [initialIsXs, initialIsSm]);
+  }, [initialIsXxs, initialIsXs, initialIsSm]);
   return (
     <Container className="page-wrapper">
       {!showClientContent ? (
         // Skeleton loading state
         <>
-          {!isXs && !isSm && (
+          {!isXxs && !isXs && !isSm && (
             <Box>
               <Skeleton variant="rectangular" width={550} height={450} sx={{ borderRadius: 2 }} />
             </Box>
@@ -40,7 +42,7 @@ const Auth = () => {
       ) : (
         // Actual content
         <>
-          {!isXs && !isSm && (
+          {!isXxs && !isXs && !isSm && (
             <Box>
               <LogoWithTextSvg color={theme.palette.primary.main} />
             </Box>

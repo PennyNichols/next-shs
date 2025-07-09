@@ -83,7 +83,7 @@ const CustomTitleSideDecoration = () => {
         flex: 1,
         height: 2,
         backgroundColor: 'accent.primary',
-        margin: { xs: '5 1', md: 5 },
+        margin: { xxs: '5 1', md: 5 },
       }}
     />
   );
@@ -102,12 +102,12 @@ const Home = () => {
             alignItems: 'center',
             justifyContent: 'center',
             gap: 1,
-            marginTop: { xs: 1, sm: 3 },
+            marginTop: { xxs: 1, sm: 3 },
             padding: 4,
             backgroundColor: 'background.paper',
             boxShadow: 2,
             borderRadius: customBorderRadius.small,
-            width: { xs: '90%', sm: '100%' },
+            width: { xxs: '90%', sm: '100%' },
           }}
         >
           <Typography
@@ -115,7 +115,7 @@ const Home = () => {
             sx={{
               textAlign: 'center',
               whiteSpace: 'nowrap',
-              fontSize: { xs: '1.75rem', md: '2rem', lg: '2.25rem' },
+              fontSize: { xxs: '1.75rem', md: '2rem', lg: '2.25rem' },
             }}
           >
             Now Serving These
@@ -125,22 +125,22 @@ const Home = () => {
           <Box
             sx={{
               display: 'flex',
-              flexDirection: { xs: 'column', md: 'row' },
+              flexDirection: { xxs: 'column', md: 'row' },
               justifyContent: 'center',
               alignItems: 'center',
-              gap: { xs: 2, md: 8 },
+              gap: { xxs: 2, md: 8 },
               marginTop: 3,
             }}
           >
-            <Typography variant="h3" sx={{ fontSize: { xs: '1.5rem', md: '1.625rem', lg: '1.75rem' } }}>
+            <Typography variant="h3" sx={{ fontSize: { xxs: '1.5rem', md: '1.625rem', lg: '1.75rem' } }}>
               Port Charlotte
             </Typography>
             <CustomSeparationDot />
-            <Typography variant="h3" sx={{ fontSize: { xs: '1.5rem', md: '1.875rem', lg: '2.25rem' } }}>
+            <Typography variant="h3" sx={{ fontSize: { xxs: '1.5rem', md: '1.875rem', lg: '2.25rem' } }}>
               Punta Gorda
             </Typography>
             <CustomSeparationDot />
-            <Typography variant="h3" sx={{ fontSize: { xs: '1.5rem', md: '1.875rem', lg: '2.25rem' } }}>
+            <Typography variant="h3" sx={{ fontSize: { xxs: '1.5rem', md: '1.875rem', lg: '2.25rem' } }}>
               North Port
             </Typography>
           </Box>
@@ -154,7 +154,7 @@ const Home = () => {
             backgroundColor: 'primary.main',
             padding: 2,
             paddingBottom: 4,
-            borderRadius: { xs: customBorderRadius.none, sm: customBorderRadius.medium },
+            borderRadius: { xxs: customBorderRadius.none, sm: customBorderRadius.medium },
             width: '100%',
             maxWidth: 1200,
             boxShadow: 2,
@@ -176,7 +176,7 @@ const Home = () => {
               sx={{
                 textAlign: 'center',
                 whiteSpace: 'nowrap',
-                fontSize: { xs: '1.75rem', sm: '2.25rem' },
+                fontSize: { xxs: '1.75rem', sm: '2.25rem' },
                 color: 'secondary.light',
               }}
             >
@@ -197,7 +197,7 @@ const Home = () => {
             marginBottom: 2,
             backgroundColor: 'background.paper',
             boxShadow: 2,
-            borderRadius: { xs: customBorderRadius.none, sm: customBorderRadius.medium },
+            borderRadius: { xxs: customBorderRadius.none, sm: customBorderRadius.medium },
             width: '100%',
             maxWidth: 1200,
           }}
@@ -207,7 +207,7 @@ const Home = () => {
             sx={{
               textAlign: 'center',
               whiteSpace: 'nowrap',
-              fontSize: { xs: '1.75rem', sm: '2.25rem' },
+              fontSize: { xxs: '1.75rem', sm: '2.25rem' },
               m: '0 3',
               mb: 1,
             }}
@@ -246,7 +246,7 @@ const Home = () => {
                 height: '120%',
                 position: 'absolute',
                 left: 0,
-                top: { xs: -30, sm: -40 },
+                top: { xxs: -30, sm: -40 },
                 overflow: 'hidden',
                 display: 'flex',
                 alignItems: 'center',
@@ -287,7 +287,7 @@ const Home = () => {
                   <Box
                     key={idx.toString()}
                     sx={{
-                      mx: { xs: 2, sm: 5 },
+                      mx: { xxs: 2, sm: 5 },
                       transform: `translateY(${idx % 2 === 0 ? -48 : 32}px)`,
                       zIndex: 1,
                       flex: 'none',
@@ -301,7 +301,7 @@ const Home = () => {
                   <Box
                     key={idx}
                     sx={{
-                      mx: { xs: 2, sm: 5 },
+                      mx: { xxs: 2, sm: 5 },
                       transform: `translateY(${idx % 2 === 0 ? -48 : 32}px)`,
                       zIndex: 1,
                       flex: 'none',

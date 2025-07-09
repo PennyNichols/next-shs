@@ -9,7 +9,7 @@ const Award = () => {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        height: { xs: 300, sm: 400, md: 200 },
+        height: { xxs: 300, sm: 400, md: 200 },
       }}
     >
       <Image src="/images/awardRibbon.svg" alt="Award banner - top rated home services" width={200} height={200} />

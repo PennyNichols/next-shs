@@ -13,7 +13,7 @@ import ContentBox from '@/components/common/ContentBox/ContentBox';
 
 const CareersPage = () => {
   const { position, basicInfo, jobDetails, about, responsibilities, qualifications, benefits } = CAREERS[0];
-  const { isXs } = useMedia();
+  const { isXxs, isXs } = useMedia();
   return (
     <Container className="page-wrapper" maxWidth="md" sx={{ paddingTop: 2, paddingBottom: 2 }}>
       <Section>
@@ -25,7 +25,7 @@ const CareersPage = () => {
           sx={{
             width: '100%',
             display: 'flex',
-            flexDirection: { xs: 'column', sm: 'row' },
+            flexDirection: { xxs: 'column', sm: 'row' },
             justifyContent: 'center',
             alignItems: 'center',
             marginTop: 4,
@@ -59,7 +59,7 @@ const CareersPage = () => {
             {Array.isArray(jobDetails)
               ? jobDetails.map((detail, idx) =>
                   detail.bold ? (
-                    <b style={{ whiteSpace: isXs ? 'wrap' : 'nowrap' }} key={idx}>
+                    <b style={{ whiteSpace: isXxs || isXs ? 'wrap' : 'nowrap' }} key={idx}>
                       {detail.text}
                     </b>
                   ) : (
@@ -149,9 +149,6 @@ const CareersPage = () => {
           )}
         </ContentBox>
       </Section>
-      {/* <Divider sx={{ mb: 5, width: '110%' }} /> */}
-
-      {/* Make JobApplication full width on xs by wrapping in a Box with negative margin */}
       <Section>
         <JobApplication />
       </Section>

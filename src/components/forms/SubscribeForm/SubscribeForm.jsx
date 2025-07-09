@@ -26,11 +26,11 @@ const SubscribeForm = () => {
       spacing={2}
       sx={{
         display: 'flex',
-        flexDirection: { xs: 'column', sm: 'row' },
-        alignItems: { xs: 'stretch', md: 'center' },
+        flexDirection: { xxs: 'column', sm: 'row' },
+        alignItems: { xxs: 'stretch', md: 'center' },
       }}
     >
-      <Grid item xs={12} sm={6} md={8} sx={{ display: 'flex' }}>
+      <Grid item xxs={12} sm={6} md={8} sx={{ display: 'flex' }}>
         <CustomTextField
           type="email"
           value={email}
@@ -40,7 +40,7 @@ const SubscribeForm = () => {
           color="secondary"
         />
       </Grid>
-      <Grid item xs={12} sm={6} md={4} sx={{ display: 'flex' }}>
+      <Grid item xxs={12} sm={6} md={4} sx={{ display: 'flex' }}>
         <ActionButton type="submit" variant="contained" color="secondary" text="Subscribe" />
         {message && <Typography variant="body1">{message}</Typography>}
       </Grid>

@@ -38,10 +38,13 @@ interface CustomModalProps {
   actions?: React.ReactNode;
   /**
    * Optional: Maximum width for the modal content area (e.g., '500px', 'md').
-   * Uses MUI breakpoints (xs, sm, md, lg, xl) or custom values.
-   * @default { xs: '90%', sm: 500 }
+   * Uses MUI breakpoints (xxs, xs, sm, md, lg, xl) or custom values.
+   * @default { xxs: '90%', sm: 500 }
    */
-  maxWidth?: string | number | { xs?: string | number, sm?: string | number, md?: string | number, lg?: string | number, xl?: string | number };
+  maxWidth?:
+    | string
+    | number
+    | { xs?: string | number; sm?: string | number; md?: string | number; lg?: string | number; xl?: string | number };
   /**
    * If `true`, hitting escape will not fire the `onClose` callback.
    * @default false

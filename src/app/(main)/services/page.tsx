@@ -72,15 +72,17 @@ const sliderSettings = {
 };
 
 const ServicesPage = () => {
-  const { isXs: initialIsXs } = useMedia();
+  const { isXxs: initialIsXxs, isXs: initialIsXs } = useMedia();
   const [showClientContent, setShowClientContent] = useState(false);
+  const [isXxs, setIsXxs] = useState(false);
   const [isXs, setIsXs] = useState(false);
 
   useEffect(() => {
     setShowClientContent(true);
+    setIsXxs(initialIsXxs);
     setIsXs(initialIsXs);
-  }, [initialIsXs]);
-  const imageDisplayHeight = isXs ? '300px' : '200px';
+  }, [initialIsXxs, initialIsXs]);
+  const imageDisplayHeight = isXxs || isXs ? '300px' : '200px';
   return (
     <Container className="page-wrapper">
       <Box
@@ -99,7 +101,7 @@ const ServicesPage = () => {
             height: 2,
             backgroundColor: 'secondary.dark',
             flex: 1,
-            mx: { xs: 2, sm: 3, md: 4, lg: 5 },
+            mx: { xxs: 2, sm: 3, md: 4, lg: 5 },
             '@media (max-width: 400px)': {
               display: 'none',
             },
@@ -114,7 +116,7 @@ const ServicesPage = () => {
             height: 2,
             backgroundColor: 'secondary.dark',
             flex: 1,
-            mx: { xs: 2, sm: 3, md: 4, lg: 5 },
+            mx: { xxs: 2, sm: 3, md: 4, lg: 5 },
             '@media (max-width: 400px)': {
               display: 'none',
             },
@@ -164,10 +166,10 @@ const ServicesPage = () => {
                 key={idx}
                 variant="rectangular"
                 sx={{
-                  flex: isXs ? '1' : '0 0 calc(20% - 16px)',
+                  flex: isXxs || isXs ? '1' : '0 0 calc(20% - 16px)',
                   height: imageDisplayHeight,
                   borderRadius: customBorderRadius.medium,
-                  minWidth: isXs ? '100%' : 'auto',
+                  minWidth: isXxs || isXs ? '100%' : 'auto',
                 }}
               />
             ))}

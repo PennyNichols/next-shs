@@ -8,21 +8,23 @@ import useMedia from '../../../hooks/useMedia';
 import { customTransitions } from '@/styles/theme/otherThemeConstants';
 
 const MinFooter = () => {
-  const { isXs: initialIsXs, isSm: initialIsSm } = useMedia();
+  const { isXxs: initialIsXxs, isXs: initialIsXs, isSm: initialIsSm } = useMedia();
   const [showClientContent, setShowClientContent] = useState(false);
+  const [isXxs, setIsXxs] = useState(false);
   const [isXs, setIsXs] = useState(false);
   const [isSm, setIsSm] = useState(false);
   const [isFullWidth, setIsFullWidth] = useState(false);
 
   useEffect(() => {
     setShowClientContent(true);
+    setIsXxs(initialIsXxs);
     setIsXs(initialIsXs);
     setIsSm(initialIsSm);
-    setIsFullWidth(initialIsXs || initialIsSm);
-  }, [initialIsXs, initialIsSm]);
+    setIsFullWidth(initialIsXxs || initialIsXs || initialIsSm);
+  }, [initialIsXxs, initialIsXs, initialIsSm]);
 
   const contentWrapperSx = {
-    maxWidth: { xs: '100%', sm: 600, md: 1200 },
+    maxWidth: { xxs: '100%', sm: 600, md: 1200 },
     mx: 'auto',
   };
 
@@ -32,9 +34,9 @@ const MinFooter = () => {
       sx={{
         bgcolor: 'primary.main',
         color: 'secondary.light',
-        pt: { xs: 2, md: 3 },
+        pt: { xxs: 2, md: 3 },
         pb: 1,
-        px: { xs: 4, sm: 5 },
+        px: { xxs: 4, sm: 5 },
       }}
     >
       {/* Wrapper for the Top Section Grid */}
@@ -43,12 +45,12 @@ const MinFooter = () => {
           container
           spacing={2}
           sx={{
-            alignItems: { xs: 'center', sm: 'flex-start' },
-            justifyContent: { xs: 'center', sm: 'space-around', md: 'space-between' },
-            textAlign: { xs: 'center', sm: 'left' },
+            alignItems: { xxs: 'center', sm: 'flex-start' },
+            justifyContent: { xxs: 'center', sm: 'space-around', md: 'space-between' },
+            textAlign: { xxs: 'center', sm: 'left' },
           }}
         >
-          <Grid item xs={12} sm={6} md={4} lg={3}>
+          <Grid item xxs={12} sm={6} md={4} lg={3}>
             <Box
               sx={{
                 display: 'flex',
@@ -76,7 +78,7 @@ const MinFooter = () => {
             </Box>
           </Grid>{' '}
           {showClientContent && !isFullWidth ? (
-            <Grid item xs={0} md={5} lg={6} sx={{ display: { xs: 'none', md: 'flex' } }}>
+            <Grid item xxs={0} md={5} lg={6} sx={{ display: { xxs: 'none', md: 'flex' } }}>
               <Box sx={{ textAlign: 'left', width: 'fit-content', mx: 'auto' }}>
                 <Typography variant="h5" color="inherit">
                   Contact Information
@@ -129,7 +131,7 @@ const MinFooter = () => {
               </Box>
             </Grid>
           ) : !showClientContent && !isFullWidth ? (
-            <Grid item xs={0} md={5} lg={6} sx={{ display: { xs: 'none', md: 'block' } }}>
+            <Grid item xxs={0} md={5} lg={6} sx={{ display: { xxs: 'none', md: 'block' } }}>
               <Box sx={{ textAlign: 'left', width: 'fit-content', mx: 'auto' }}>
                 <Skeleton variant="text" width={248} height={32} />
                 <Skeleton variant="text" width={248} height={24} />
@@ -140,10 +142,10 @@ const MinFooter = () => {
           ) : null}{' '}
           <Grid
             item
-            xs={0}
+            xxs={0}
             sm={6}
             md={3}
-            sx={{ display: { xs: 'none', sm: 'flex' }, justifyContent: { sm: 'flex-end', md: 'center' } }}
+            sx={{ display: { xxs: 'none', sm: 'flex' }, justifyContent: { sm: 'flex-end', md: 'center' } }}
           >
             {showClientContent ? (
               <Box
@@ -152,7 +154,7 @@ const MinFooter = () => {
                   flexDirection: 'column',
                 }}
               >
-                <Typography variant="h5" color="inherit" sx={{ display: { xs: 'none', sm: 'block' } }}>
+                <Typography variant="h5" color="inherit" sx={{ display: { xxs: 'none', sm: 'block' } }}>
                   Quick Links
                 </Typography>
                 <Link
@@ -210,17 +212,17 @@ const MinFooter = () => {
             justifyContent: 'space-between',
           }}
         >
-          <Grid item xs={12} sm={6} order={{ xs: 3, sm: 1 }} sx={{ textAlign: { xs: 'center', sm: 'left' } }}>
+          <Grid item xxs={12} sm={6} order={{ xxs: 3, sm: 1 }} sx={{ textAlign: { xxs: 'center', sm: 'left' } }}>
             <Typography variant="body2" color="inherit" noWrap>
               &copy; 2025 SHS. All rights reserved.
             </Typography>
           </Grid>{' '}
           <Grid
             item
-            xs={12}
+            xxs={12}
             order={2}
             sx={{
-              display: { xs: 'flex', sm: 'none' },
+              display: { xxs: 'flex', sm: 'none' },
             }}
           >
             {showClientContent ? (
@@ -279,14 +281,14 @@ const MinFooter = () => {
               </Box>
             )}
           </Grid>
-          <Grid item xs={12} sm={6} order={{ xs: 1, sm: 2 }}>
-            <Box sx={{ display: 'flex', justifyContent: { xs: 'center', sm: 'end' }, alignItems: 'center', gap: 1 }}>
+          <Grid item xxs={12} sm={6} order={{ xxs: 1, sm: 2 }}>
+            <Box sx={{ display: 'flex', justifyContent: { xxs: 'center', sm: 'end' }, alignItems: 'center', gap: 1 }}>
               <Link href={FACEBOOK_URL} color="inherit" aria-label="Facebook">
                 <Facebook
                   sx={{
                     color: 'accent.primary',
                     transition: customTransitions.standard,
-                    fontSize: { xs: '3.125rem', sm: '1.75rem' },
+                    fontSize: { xxs: '3.125rem', sm: '1.75rem' },
                     '&:hover': {
                       transform: 'scale(1.2)',
                     },
@@ -298,7 +300,7 @@ const MinFooter = () => {
                   sx={{
                     color: 'accent.primary',
                     transition: customTransitions.standard,
-                    fontSize: { xs: '3.125rem', sm: '1.75rem' },
+                    fontSize: { xxs: '3.125rem', sm: '1.75rem' },
                     '&:hover': {
                       transform: 'scale(1.2)',
                     },
@@ -310,7 +312,7 @@ const MinFooter = () => {
                   sx={{
                     color: 'accent.primary',
                     transition: customTransitions.standard,
-                    fontSize: { xs: '3.125rem', sm: '1.75rem' },
+                    fontSize: { xxs: '3.125rem', sm: '1.75rem' },
                     '&:hover': {
                       transform: 'scale(1.2)',
                     },

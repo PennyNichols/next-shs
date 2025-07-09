@@ -11,7 +11,7 @@ const ServicesAccordion = () => {
     <Box
       sx={{
         mt: 3,
-        maxWidth: { xs: '90vw', sm: '70vw' },
+        maxWidth: { xxs: '90vw', sm: '70vw' },
       }}
     >
       {SERVICE_CATEGORIES.map((section, idx) => (
@@ -19,7 +19,7 @@ const ServicesAccordion = () => {
           key={idx}
           sx={{
             mb: 3,
-            p: { xs: 1, md: 2 },
+            p: { xxs: 1, md: 2 },
             borderRadius: customBorderRadius.small,
             border: `3px solid ${theme.palette.accent.primary}`,
             '&:before': { display: 'none' },
@@ -38,7 +38,7 @@ const ServicesAccordion = () => {
               '& .MuiTypography-root': {
                 color: 'primary.dark',
                 fontWeight: 600,
-                fontSize: { xs: '1rem', sm: '1.25rem' },
+                fontSize: { xxs: '1rem', sm: '1.25rem' },
               },
             }}
             expandIcon={
@@ -77,7 +77,7 @@ const ServicesAccordion = () => {
                   variant="body1"
                   sx={{
                     color: 'primary.main',
-                    fontSize: { xs: '1rem', sm: '1.125rem' },
+                    fontSize: { xxs: '1rem', sm: '1.125rem' },
                     fontWeight: 500,
                     pl: 2,
                     mb: 1,

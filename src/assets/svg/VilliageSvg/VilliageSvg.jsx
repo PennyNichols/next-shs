@@ -9,23 +9,25 @@ import React, { useEffect, useState } from 'react';
 const VilliageSvg = (props) => {
   const { style, ...rest } = props;
 
-  const { isXs: initialIsXs, isSm: initialIsSm } = useMedia();
+  const { isXxs: initialIsXxs, isXs: initialIsXs, isSm: initialIsSm } = useMedia();
   const [showClientContent, setShowClientContent] = useState(false);
+  const [isXxs, setIsXxs] = useState(false);
   const [isXs, setIsXs] = useState(false);
   const [isSm, setIsSm] = useState(false);
 
   useEffect(() => {
     setShowClientContent(true);
+    setIsXxs(initialIsXxs);
     setIsXs(initialIsXs);
     setIsSm(initialIsSm);
-  }, [initialIsXs, initialIsSm]);
+  }, [initialIsXxs, initialIsXs, initialIsSm]);
   return (
     <React.Fragment>
       {!showClientContent && (
         <Skeleton
           variant="rectangular"
           width="80%"
-          height={isSm || isXs ? 400 : 500}
+          height={isXxs || isXs || isSm ? 400 : 500}
           sx={{
             minWidth: 300,
             bgcolor: alpha(theme.palette.primary.main, 0.1),
@@ -46,7 +48,7 @@ const VilliageSvg = (props) => {
           style={{
             width: '80%',
             minWidth: 300,
-            height: isSm || isXs ? 400 : 500,
+            height: isXxs || isXs || isSm ? 400 : 500,
             enableBackground: 'new 0 0 122.88 94.97',
             overflow: 'visible',
             ...style,

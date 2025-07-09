@@ -19,17 +19,17 @@ import useMedia from '../../../hooks/useMedia';
 import { customTransitions } from '@/styles/theme/otherThemeConstants';
 
 const Footer = () => {
-  const { isXs: initialIsXs, isSm: initialIsSm } = useMedia();
+  const { isXxs: initialIsXxs, isXs: initialIsXs, isSm: initialIsSm } = useMedia();
   const [showClientContent, setShowClientContent] = useState(false);
   const [isFullWidth, setIsFullWidth] = useState(false);
 
   useEffect(() => {
     setShowClientContent(true);
-    setIsFullWidth(initialIsXs || initialIsSm);
-  }, [initialIsXs, initialIsSm]);
+    setIsFullWidth(initialIsXxs || initialIsXs || initialIsSm);
+  }, [initialIsXxs, initialIsXs, initialIsSm]);
 
   const contentWrapperSx = {
-    maxWidth: { xs: '100%', sm: 600, md: 1200 },
+    maxWidth: { xxs: '100%', sm: 600, md: 1200 },
     mx: 'auto',
   };
 
@@ -39,13 +39,13 @@ const Footer = () => {
       sx={{
         bgcolor: 'primary.main',
         color: 'secondary.light',
-        pt: { xs: 4, md: 3 },
+        pt: { xxs: 4, md: 3 },
         pb: 1,
-        px: { xs: 4, sm: 5 },
+        px: { xxs: 4, sm: 5 },
       }}
     >
       {/* Wrapper for the Top Section Grid */}
-      <Box sx={{ ...contentWrapperSx, mb: { xs: 3, sm: 5 } }}>
+      <Box sx={{ ...contentWrapperSx, mb: { xxs: 3, sm: 5 } }}>
         <Grid
           container
           spacing={2}
@@ -54,28 +54,28 @@ const Footer = () => {
             justifyContent: 'center',
           }}
         >
-          <Grid item xs={12} md={5}>
+          <Grid item xxs={12} md={5}>
             <SubscribeForm />
           </Grid>{' '}
           {showClientContent ? (
-            <Grid item xs={12} md={7}>
-              <Grid container spacing={2} sx={{ justifyContent: { xs: 'center', md: 'flex-end' } }}>
-                <Grid item xs={12} sm={6} md="auto">
+            <Grid item xxs={12} md={7}>
+              <Grid container spacing={2} sx={{ justifyContent: { xxs: 'center', md: 'flex-end' } }}>
+                <Grid item xxs={12} sm={6} md="auto">
                   <ReviewButton fullWidth={isFullWidth} />
                 </Grid>
-                <Grid item xs={12} sm={6} md="auto">
+                <Grid item xxs={12} sm={6} md="auto">
                   <EstimateRequestButton color="secondary" fullWidth={isFullWidth} />
                 </Grid>
               </Grid>
             </Grid>
           ) : (
-            <Grid item xs={12} md={7}>
-              <Grid container spacing={2} sx={{ justifyContent: { xs: 'center', md: 'flex-end' } }}>
-                <Grid item xs={12} sm={6} md="auto">
-                  <Skeleton variant="rounded" sx={{ width: { xs: '100%', md: 163 } }} height={40.5} />
+            <Grid item xxs={12} md={7}>
+              <Grid container spacing={2} sx={{ justifyContent: { xxs: 'center', md: 'flex-end' } }}>
+                <Grid item xxs={12} sm={6} md="auto">
+                  <Skeleton variant="rounded" sx={{ width: { xxs: '100%', md: 163 } }} height={40.5} />
                 </Grid>
-                <Grid item xs={12} sm={6} md="auto">
-                  <Skeleton variant="rounded" sx={{ width: { xs: '100%', md: 194 } }} height={40.5} />
+                <Grid item xxs={12} sm={6} md="auto">
+                  <Skeleton variant="rounded" sx={{ width: { xxs: '100%', md: 194 } }} height={40.5} />
                 </Grid>
               </Grid>
             </Grid>
@@ -89,18 +89,18 @@ const Footer = () => {
           container
           spacing={2}
           sx={{
-            alignItems: { xs: 'center', sm: 'flex-start' },
-            justifyContent: { xs: 'center', sm: 'space-around', md: 'space-between' },
-            textAlign: { xs: 'center', sm: 'left' },
+            alignItems: { xxs: 'center', sm: 'flex-start' },
+            justifyContent: { xxs: 'center', sm: 'space-around', md: 'space-between' },
+            textAlign: { xxs: 'center', sm: 'left' },
           }}
         >
-          <Grid item xs={12} sm={8} md={5} lg={3}>
+          <Grid item xxs={12} sm={8} md={5} lg={3}>
             <Box
               sx={{
                 display: 'flex',
                 flexDirection: 'row',
-                justifyContent: { xs: 'center', sm: 'flex-start', md: 'center' },
-                alignItems: { xs: 'flex-start', md: 'center' },
+                justifyContent: { xxs: 'center', sm: 'flex-start', md: 'center' },
+                alignItems: { xxs: 'flex-start', md: 'center' },
                 textAlign: 'center',
                 gap: 1,
                 '@media (max-width: 350px)': {
@@ -108,7 +108,7 @@ const Footer = () => {
                 },
               }}
             >
-              <Box sx={{ width: 120, height: 110, flexShrink: 0 }}>
+              <Box sx={{ width: 120, height: 110, flexxshrink: 0 }}>
                 <LogoSvg width={120} height={110} />
               </Box>
               <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
@@ -122,7 +122,7 @@ const Footer = () => {
             </Box>
           </Grid>{' '}
           {showClientContent && !isFullWidth ? (
-            <Grid item xs={0} md={5} lg={6} sx={{ display: { xs: 'none', md: 'flex' } }}>
+            <Grid item xxs={0} md={5} lg={6} sx={{ display: { xxs: 'none', md: 'flex' } }}>
               <Box sx={{ textAlign: 'left', width: 'fit-content', mx: 'auto' }}>
                 <Typography variant="h5" color="inherit">
                   Contact Information
@@ -175,7 +175,7 @@ const Footer = () => {
               </Box>
             </Grid>
           ) : !showClientContent && !isFullWidth ? (
-            <Grid item xs={0} md={5} lg={6} sx={{ display: { xs: 'none', md: 'block' } }}>
+            <Grid item xxs={0} md={5} lg={6} sx={{ display: { xxs: 'none', md: 'block' } }}>
               <Box sx={{ textAlign: 'left', width: 'fit-content', mx: 'auto' }}>
                 <Skeleton variant="text" width={248} height={32} />
                 <Skeleton variant="text" width={248} height={24} />
@@ -186,13 +186,13 @@ const Footer = () => {
           ) : null}{' '}
           <Grid
             item
-            xs={0}
+            xxs={0}
             sm={4}
             md={2}
             sx={{
-              display: { xs: 'none', sm: 'flex' },
+              display: { xxs: 'none', sm: 'flex' },
               justifyContent: { sm: 'flex-end', md: 'center' },
-              flexShrink: 1,
+              flexxshrink: 1,
             }}
           >
             {showClientContent ? (
@@ -202,7 +202,7 @@ const Footer = () => {
                   flexDirection: 'column',
                 }}
               >
-                <Typography variant="h5" color="inherit" sx={{ display: { xs: 'none', sm: 'block' } }}>
+                <Typography variant="h5" color="inherit" sx={{ display: { xxs: 'none', sm: 'block' } }}>
                   Quick Links
                 </Typography>
                 <Link
@@ -260,17 +260,17 @@ const Footer = () => {
             justifyContent: 'space-between',
           }}
         >
-          <Grid item xs={12} sm={6} order={{ xs: 3, sm: 1 }} sx={{ textAlign: { xs: 'center', sm: 'left' } }}>
+          <Grid item xxs={12} sm={6} order={{ xxs: 3, sm: 1 }} sx={{ textAlign: { xxs: 'center', sm: 'left' } }}>
             <Typography variant="body2" color="inherit" noWrap>
               &copy; 2025 SHS. All rights reserved.
             </Typography>
           </Grid>{' '}
           <Grid
             item
-            xs={12}
+            xxs={12}
             order={2}
             sx={{
-              display: { xs: 'flex', sm: 'none' },
+              display: { xxs: 'flex', sm: 'none' },
             }}
           >
             {showClientContent ? (
@@ -329,14 +329,14 @@ const Footer = () => {
               </Box>
             )}
           </Grid>
-          <Grid item xs={12} sm={6} order={{ xs: 1, sm: 2 }}>
-            <Box sx={{ display: 'flex', justifyContent: { xs: 'center', sm: 'end' }, alignItems: 'center', gap: 1 }}>
+          <Grid item xxs={12} sm={6} order={{ xxs: 1, sm: 2 }}>
+            <Box sx={{ display: 'flex', justifyContent: { xxs: 'center', sm: 'end' }, alignItems: 'center', gap: 1 }}>
               <Link href={FACEBOOK_URL} color="inherit" aria-label="Facebook">
                 <Facebook
                   sx={{
                     color: 'accent.primary',
                     transition: customTransitions.standard,
-                    fontSize: { xs: '3.125rem', sm: '1.75rem' },
+                    fontSize: { xxs: '3.125rem', sm: '1.75rem' },
                     '&:hover': {
                       transform: 'scale(1.2)',
                     },
@@ -348,7 +348,7 @@ const Footer = () => {
                   sx={{
                     color: 'accent.primary',
                     transition: customTransitions.standard,
-                    fontSize: { xs: '3.125rem', sm: '1.75rem' },
+                    fontSize: { xxs: '3.125rem', sm: '1.75rem' },
                     '&:hover': {
                       transform: 'scale(1.2)',
                     },
@@ -360,7 +360,7 @@ const Footer = () => {
                   sx={{
                     color: 'accent.primary',
                     transition: customTransitions.standard,
-                    fontSize: { xs: '3.125rem', sm: '1.75rem' },
+                    fontSize: { xxs: '3.125rem', sm: '1.75rem' },
                     '&:hover': {
                       transform: 'scale(1.2)',
                     },

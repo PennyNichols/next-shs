@@ -27,7 +27,7 @@ const ComingSoon = () => {
         backgroundColor: theme.palette.background.default, // Example: use your theme
       }}
     >
-      <Box flexGrow={1} sx={{ maxWidth: '90vw', justifyContent: 'center', py: { xs: 5, md: 8, xl: 10 } }}>
+      <Box flexGrow={1} sx={{ maxWidth: '90vw', justifyContent: 'center', py: { xxs: 5, md: 8, xl: 10 } }}>
         <Box
           sx={{
             width: '100%',

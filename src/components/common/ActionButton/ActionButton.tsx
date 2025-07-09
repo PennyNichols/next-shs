@@ -69,7 +69,7 @@ const ActionButton: React.FC<ActionButtonProps> = ({
       sx={{
         display: 'flex',
         gap: 1,
-        boxShadow: { xs: customShadows[5], lg: customShadows[10] },
+        boxShadow: { xxs: customShadows[5], lg: customShadows[10] },
         transform: `scale(${scale})`,
         transition: 'all 0.5s ease-in-out, transform 0.1s ease-in-out',
         '& .MuiSvgIcon-root': {

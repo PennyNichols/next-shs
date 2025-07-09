@@ -52,7 +52,7 @@ const PrivacyPolicy = () => {
             Privacy Policy
           </Typography>
         </Box>
-        <Typography variant="h5" align="center" id="privacy-policy-updated" sx={{ mb: { xs: 0, sm: 1 } }}>
+        <Typography variant="h5" align="center" id="privacy-policy-updated" sx={{ mb: { xxs: 0, sm: 1 } }}>
           Last updated: {lastUpdated}
         </Typography>
         <Divider className="title-divider" />
@@ -95,7 +95,7 @@ const PrivacyPolicy = () => {
               justifyContent: 'center',
               alignItems: 'center',
               width: '100%',
-              gap: { xs: 2, sm: 4, md: 8 },
+              gap: { xxs: 2, sm: 4, md: 8 },
               mx: 2,
               [theme.breakpoints.down(520)]: { flexDirection: 'column', mx: 0 },
             }}

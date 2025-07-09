@@ -123,10 +123,10 @@ const JobApplication = () => {
         p: 4,
         mb: 4,
         mt: 1,
-        borderRadius: { xs: customBorderRadius.none, sm: customBorderRadius.small },
+        borderRadius: { xxs: customBorderRadius.none, sm: customBorderRadius.small },
         margin: '0 auto',
-        width: { xs: '100%', sm: 'auto' },
-        maxWidth: { xs: '100%', sm: 700 },
+        width: { xxs: '100%', sm: 'auto' },
+        maxWidth: { xxs: '100%', sm: 700 },
       }}
     >
       <Section>
@@ -146,7 +146,7 @@ const JobApplication = () => {
       <Box component="form" onSubmit={handleSubmit(onSubmit)} noValidate>
         <Grid container spacing={3}>
           {/* Work Eligibility */}
-          <Grid item order={1} xs={12} sx={{ display: 'flex', justifyContent: 'flex-start' }}>
+          <Grid item order={1} xxs={12} sx={{ display: 'flex', justifyContent: 'flex-start' }}>
             <FormControl
               required
               error={!!errors.eligible}
@@ -196,7 +196,7 @@ const JobApplication = () => {
             </FormControl>
           </Grid>
           {/* Personal Info */}
-          <Grid item order={2} xs={12} sm={6}>
+          <Grid item order={2} xxs={12} sm={6}>
             <Controller
               name="firstName"
               control={control}
@@ -211,7 +211,7 @@ const JobApplication = () => {
               )}
             />
           </Grid>
-          <Grid item order={3} xs={12} sm={6}>
+          <Grid item order={3} xxs={12} sm={6}>
             <Controller
               name="lastName"
               control={control}
@@ -226,7 +226,7 @@ const JobApplication = () => {
               )}
             />
           </Grid>
-          <Grid item order={4} xs={12} sm={6}>
+          <Grid item order={4} xxs={12} sm={6}>
             <Controller
               name="email"
               control={control}
@@ -242,7 +242,7 @@ const JobApplication = () => {
               )}
             />
           </Grid>
-          <Grid item order={5} xs={12} sm={6}>
+          <Grid item order={5} xxs={12} sm={6}>
             <Controller
               name="phone"
               control={control}
@@ -258,7 +258,7 @@ const JobApplication = () => {
               )}
             />
           </Grid>
-          <Grid item order={6} xs={12}>
+          <Grid item order={6} xxs={12}>
             <Controller
               name="address"
               control={control}
@@ -273,7 +273,7 @@ const JobApplication = () => {
               )}
             />
           </Grid>
-          <Grid item order={7} xs={12} sm={4}>
+          <Grid item order={7} xxs={12} sm={4}>
             <Controller
               name="city"
               control={control}
@@ -288,7 +288,7 @@ const JobApplication = () => {
               )}
             />
           </Grid>
-          <Grid item order={8} xs={6} sm={4}>
+          <Grid item order={8} xxs={6} sm={4}>
             <Controller
               name="state"
               control={control}
@@ -303,7 +303,7 @@ const JobApplication = () => {
               )}
             />
           </Grid>
-          <Grid item order={9} xs={6} sm={4}>
+          <Grid item order={9} xxs={6} sm={4}>
             <Controller
               name="zip"
               control={control}
@@ -320,7 +320,7 @@ const JobApplication = () => {
           </Grid>
 
           {/* Experience */}
-          <Grid item order={10} xs={12} sm={4}>
+          <Grid item order={10} xxs={12} sm={4}>
             <Controller
               name="experience"
               control={control}
@@ -338,7 +338,7 @@ const JobApplication = () => {
             />
           </Grid>
           {/* Expected Pay */}
-          <Grid item order={11} xs={12} sm={4}>
+          <Grid item order={11} xxs={12} sm={4}>
             <Controller
               name="expectedPay"
               control={control}
@@ -357,7 +357,7 @@ const JobApplication = () => {
             />
           </Grid>
           {/* Expected Hours */}
-          <Grid item order={12} xs={12} sm={4}>
+          <Grid item order={12} xxs={12} sm={4}>
             <Controller
               name="expectedHours"
               control={control}
@@ -375,7 +375,7 @@ const JobApplication = () => {
             />
           </Grid>
           {/* Certifications */}
-          <Grid item order={13} xs={12}>
+          <Grid item order={13} xxs={12}>
             <Controller
               name="certifications"
               control={control}
@@ -428,7 +428,7 @@ const JobApplication = () => {
             />
           </Grid>
           {/* Skills */}
-          <Grid item order={14} xs={12}>
+          <Grid item order={14} xxs={12}>
             <Controller
               name="skills"
               control={control}
@@ -446,7 +446,7 @@ const JobApplication = () => {
             />
           </Grid>
           {/* References */}
-          <Grid item order={15} xs={12} mt={theme.spacing(1)}>
+          <Grid item order={15} xxs={12} mt={theme.spacing(1)}>
             <Controller
               name="references"
               control={control}
@@ -471,7 +471,7 @@ const JobApplication = () => {
             sx={{
               display: 'flex',
               flexDirection: 'column',
-              width: { xs: '100%', sm: 'fit-content' },
+              width: { xxs: '100%', sm: 'fit-content' },
               gap: theme.spacing(2),
               justifyContent: 'space-between',
               alignItems: 'flex-start',
@@ -485,7 +485,7 @@ const JobApplication = () => {
               control={control}
               render={({ field }) => (
                 <>
-                  <Button fullWidth component="label" sx={{ mb: { xs: 1, sm: 2 } }}>
+                  <Button fullWidth component="label" sx={{ mb: { xxs: 1, sm: 2 } }}>
                     <CloudUpload sx={{ mr: 1 }} />
                     Upload File
                     <input
@@ -512,7 +512,7 @@ const JobApplication = () => {
             />
           </Grid>
           {/* Cover Letter */}
-          <Grid item order={17} xs={12}>
+          <Grid item order={17} xxs={12}>
             <Controller
               name="coverLetter"
               control={control}
@@ -522,7 +522,7 @@ const JobApplication = () => {
                   helperText="Optional, but recommended"
                   multiline
                   minRows={3}
-                  sx={{ mt: { xs: 2, sm: 0 } }}
+                  sx={{ mt: { xxs: 2, sm: 0 } }}
                   placeholder="Tell us why you would be a great fit for SHS."
                   {...field}
                 />
@@ -530,14 +530,14 @@ const JobApplication = () => {
             />
           </Grid>
           {/* Submit */}
-          <Grid item order={18} xs={12} sx={{ mt: { xs: 1, sm: 2 } }}>
+          <Grid item order={18} xxs={12} sx={{ mt: { xxs: 1, sm: 2 } }}>
             <ActionButton
               type="submit"
               variant="contained"
               color="primary"
               size="large"
               fullWidth
-              text='Submit Application'
+              text="Submit Application"
               sx={{
                 py: 1.5,
                 fontSize: '1.1rem',

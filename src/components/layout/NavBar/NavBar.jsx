@@ -37,17 +37,19 @@ const NavBar = () => {
   const logoHoverColor = theme.palette.accent.primary;
   const [logoScale, setLogoScale] = useState(1);
 
-  const { isXs: initialIsXs, isSm: initialIsSm } = useMedia();
+  const { isXxs: initialIsXxs, isXs: initialIsXs, isSm: initialIsSm } = useMedia();
   const [showClientContent, setShowClientContent] = useState(false);
+  const [isXxs, setIsXxs] = useState(false);
   const [isXs, setIsXs] = useState(false);
   const [isSm, setIsSm] = useState(false);
 
   useEffect(() => {
     setShowClientContent(true);
+    setIsXxs(initialIsXxs);
     setIsXs(initialIsXs);
     setIsSm(initialIsSm);
-  }, [initialIsXs, initialIsSm]);
-  const isMobile = isXs || isSm;
+  }, [initialIsXxs, initialIsXs, initialIsSm]);
+  const isMobile = isXxs || isXs || isSm;
 
   const handleMenuToggle = () => setIsMenuOpen((prev) => !prev);
   const handleMenuClose = () => setIsMenuOpen(false);
@@ -85,7 +87,7 @@ const NavBar = () => {
                 sx={{
                   flexGrow: 1,
                   justifyContent: 'flex-end',
-                  display: { xs: 'none', md: 'flex' },
+                  display: { xxs: 'none', md: 'flex' },
                 }}
               >
                 {pages.map((page) => (
@@ -101,7 +103,7 @@ const NavBar = () => {
                 sx={{
                   flexGrow: 1,
                   justifyContent: 'flex-end',
-                  display: { xs: 'none', md: 'flex' },
+                  display: { xxs: 'none', md: 'flex' },
                   gap: 2,
                 }}
               >
@@ -187,7 +189,7 @@ const NavBar = () => {
                 left: 0,
                 right: 0,
                 boxShadow: '0px 10px 15px -3px rgba(0, 0, 0, 0.3)',
-                width: { xs: '100%', sm: 'auto' },
+                width: { xxs: '100%', sm: 'auto' },
               }}
             >
               {pages.map((page) => (
@@ -212,7 +214,7 @@ const NavBar = () => {
         {!showClientContent && (
           <Box
             sx={{
-              display: { xs: 'flex', md: 'none' },
+              display: { xxs: 'flex', md: 'none' },
               justifyContent: 'flex-end',
               marginLeft: 'auto',
             }}

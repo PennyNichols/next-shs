@@ -17,16 +17,18 @@ const AuthForm = () => {
   const [localError, setLocalError] = useState('');
   const [isSignUp, setIsSignUp] = useState(false);
 
-  const { isXs: initialIsXs, isSm: initialIsSm } = useMedia();
+  const { isXxs: initialIsXxs, isXs: initialIsXs, isSm: initialIsSm } = useMedia();
   const [showClientContent, setShowClientContent] = useState(false);
+  const [isXxs, setIsXxs] = useState(false);
   const [isXs, setIsXs] = useState(false);
   const [isSm, setIsSm] = useState(false);
 
   useEffect(() => {
     setShowClientContent(true);
+    setIsXxs(initialIsXxs);
     setIsXs(initialIsXs);
     setIsSm(initialIsSm);
-  }, [initialIsXs, initialIsSm]);
+  }, [initialIsXxs, initialIsXs, initialIsSm]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -89,7 +91,7 @@ const AuthForm = () => {
       ) : (
         <Box
           sx={{
-            maxWidth: isXs || isSm ? 600 : 400,
+            maxWidth: isXxs || isXs || isSm ? 600 : 400,
             padding: 3,
             borderRadius: customBorderRadius.small,
             boxShadow: 3,

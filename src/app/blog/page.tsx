@@ -37,7 +37,7 @@ const BlogHome = () => {
       <CreateBlogButton />
       <Box display="flex" flexWrap="wrap" justifyContent="space-around">
         {posts.map((post) => (
-          <Box key={post.id} width={{ xs: '100%', sm: '45%', md: '30%' }} mb={4}>
+          <Box key={post.id} width={{ xxs: '100%', sm: '45%', md: '30%' }} mb={4}>
             <Card>
               <CardActionArea>
                 <Link href={`/blog/${post.id}`} passHref>
