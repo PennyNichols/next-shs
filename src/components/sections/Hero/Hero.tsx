@@ -29,23 +29,25 @@ const Hero = () => {
         position: 'relative',
         minWidth: '100%',
         minHeight: '35rem',
-        maxHeight: '100%',
+        height: '100%',
+        maxHeight: '1000px !important',
         overflow: 'hidden',
         zIndex: 1200,
         [theme.breakpoints.up('xxs')]: {
           height: '100dvh',
         },
         [theme.breakpoints.up('sm')]: {
-          height: '55dvh',
+          height: '35dvh',
         },
         [theme.breakpoints.up('md')]: {
-          height: '50dvh',
+          height: '40dvh',
         },
         [theme.breakpoints.up('lg')]: {
-          height: '45dvh',
+          height: '50dvh',
         },
         [theme.breakpoints.up('xl')]: {
           height: '65dvh',
+          minHeight: '45rem',
         },
       }}
     >
@@ -53,8 +55,8 @@ const Hero = () => {
       <HeroContainer>
         <CompanyNameHeader />
         <Box
+          maxWidth="xl"
           sx={{
-            maxWidth: 'xl',
             width: '100%',
             height: '100%',
             display: 'flex',

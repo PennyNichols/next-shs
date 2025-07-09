@@ -101,4 +101,36 @@ const useMedia = () => {
   return { ...breakpointFlags, screenSize };
 };
 
+// !!!FOR TESTING RESPONSIVENESS WITH DEVTOOLS!!!
+// Common resolutions
+// cellphone: 
+  // 360 x 640px
+  // 375 x 667px 
+  // 375 x 812px 
+  // 390 x 844px 
+  // 412 x 915px 
+  // 414 x 896px
+  // 430 x 932px 
+// tablet:
+  // 601 x 962px 
+  // 768 x 1024px
+  // 800 x 1280px 
+  // 810 x 1080px 
+  // 834 x 1194px 
+  // 1024 x 1366px 
+// Laptop: 
+  // 1366 x 768px 
+  // 1440 x 900px
+  // 1920 x 1080px
+  // 2560 x 1440px
+  // 3840 x 2160px 
+
+// Desktop: (resolutions)
+  // 1280 x 720px 
+  // 1366 x 768px 
+  // 1536 x 864px 
+  // 1920 x 1080px 
+  // 2560 x 1440px 
+  // 3840 x 2160px 
+
 export default useMedia;

@@ -28,7 +28,7 @@ const HeroActionArea = () => {
       container
       spacing={{ xxs: 2, xl: 6 }}
       sx={{
-        maxWidth: { xxs: '100%', md: '90%' },
+        maxWidth: { xxs: '100%', md: '90%', xl: '100%' },
         alignSelf: 'flex-end',
       }}
       justifyContent={{ xxs: 'center', xl: 'space-between' }}

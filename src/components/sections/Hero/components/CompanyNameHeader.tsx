@@ -7,6 +7,7 @@ const CompanyNameHeader = () => {
       variant="h1"
       component="h1"
       sx={{
+        maxWidth: '1535px',
         display: 'grid',
         gridTemplateColumns: 'repeat(auto-fit, minmax(0, 1fr))',
         gap: 0,
