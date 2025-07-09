@@ -41,6 +41,7 @@
   "exclude": [
     "node_modules", // Exclude node_modules
     ".next", // Exclude Next.js build output
-    "out" // Exclude Next.js export output
+    "out", // Exclude Next.js export output
+    "src/components/action-buttons/CallButton/CallButton.jsx" // Exclude missing file to prevent error
   ]
 }

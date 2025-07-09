@@ -1,4 +1,3 @@
-// src/theme/components/index.ts
 import type { Components, Theme } from '@mui/material/styles';
 
 import baseComponents from './_base';
@@ -8,7 +7,6 @@ import contentComponents from './_content';
 import dialogComponents from './_dialogs';
 import buttonComponents from './_buttons';
 
-// Combine all component overrides into a single object
 const components: Components<Theme> = {
   ...baseComponents,
   ...formComponents,

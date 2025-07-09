@@ -3,6 +3,8 @@
 import React, { useState } from 'react';
 import Button, { ButtonProps } from '@mui/material/Button';
 import { customShadows } from '@/styles/theme/otherThemeConstants';
+import theme from '@/styles/theme';
+import { useMedia } from '@/hooks';
 
 interface ActionButtonProps
   extends Omit<ButtonProps, 'variant' | 'type' | 'onClick' | 'fullWidth' | 'startIcon' | 'sx' | 'color'> {
@@ -22,6 +24,7 @@ interface ActionButtonProps
 
 const ActionButton: React.FC<ActionButtonProps> = ({
   text,
+  size = null,
   type = 'button',
   variant = 'contained',
   color = 'primary',
@@ -36,20 +39,38 @@ const ActionButton: React.FC<ActionButtonProps> = ({
   ...props
 }) => {
   const [scale, setScale] = useState(1);
+
+  const { isXs, isSm, isMd, isLg, isXl } = useMedia();
+
+  let buttonSize;
+
+  if (size) {
+    buttonSize = size;
+  } else if (isXs) {
+    buttonSize = 'small';
+  } else if (isSm) {
+    buttonSize = 'small';
+  } else if (isMd) {
+    buttonSize = 'medium';
+  } else if (isLg) {
+    buttonSize = 'medium';
+  } else if (isXl) {
+    buttonSize = 'large';
+  }
+
   return (
     <Button
       type={type}
       variant={variant}
       color={color}
+      size={buttonSize}
       sx={{
         display: 'flex',
         gap: 1,
-        boxShadow: { xs: customShadows[10], xl: customShadows[10] },
-        fontSize: { xs: '1.2rem', xl: '2rem' },
+        boxShadow: { xs: customShadows[5], lg: customShadows[10] },
         transform: `scale(${scale})`,
         transition: 'all 0.5s ease-in-out, transform 0.1s ease-in-out',
         '& .MuiSvgIcon-root': {
-          fontSize: { xs: '1.5rem', xl: '2.5rem' },
           color: iconColor || 'secondary.light',
           transition: 'all 0.5s ease-in-out',
         },

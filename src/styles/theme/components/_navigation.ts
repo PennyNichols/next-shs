@@ -72,7 +72,7 @@ const navComponents: Components<Theme> = {
       }),
     },
   },
-    MuiMenu: {
+  MuiMenu: {
     defaultProps: {
       disableScrollLock: true,
     },
@@ -294,7 +294,6 @@ const navComponents: Components<Theme> = {
       }),
     },
   },
-
-}
+};
 
 export default navComponents;

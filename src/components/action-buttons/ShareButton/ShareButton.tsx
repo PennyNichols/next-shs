@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Menu, MenuItem, IconButton, Box } from '@mui/material';
 import ShareIcon from '@mui/icons-material/Share';
 import FacebookIcon from '@mui/icons-material/Facebook';
@@ -14,10 +14,15 @@ import theme from '@/styles/theme';
 // Change to use MUI Speed Dial instead
 
 const ShareButton = () => {
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const [mounted, setMounted] = useState(false);
   const open = Boolean(anchorEl);
 
-  const handleClick = (event) => {
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
 
@@ -25,7 +30,7 @@ const ShareButton = () => {
     setAnchorEl(null);
   };
 
-  const handleShare = (platform) => {
+  const handleShare = (platform: string) => {
     let shareUrl = '';
     switch (platform) {
       case 'facebook':
@@ -43,9 +48,16 @@ const ShareButton = () => {
       default:
         break;
     }
-    window.open(shareUrl, '_blank');
+    if (typeof window !== 'undefined') {
+      window.open(shareUrl, '_blank');
+    }
     handleClose();
   };
+
+  // Don't render until mounted to prevent hydration mismatch
+  if (!mounted) {
+    return null;
+  }
 
   return (
     <Box

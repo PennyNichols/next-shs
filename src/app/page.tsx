@@ -3,11 +3,9 @@ import React from 'react';
 import { Box, Typography } from '@mui/material';
 import ReviewCard from '../components/sections/ReviewCard/ReviewCard';
 import { customBorderRadius } from '@/styles/theme/otherThemeConstants';
-import theme from '@/styles/theme';
 import PageContainer from '@/components/common/PageContainer/PageContainer';
-import { Hero, ServicesAccordion } from '@/components/sections';
+import { ServicesAccordion } from '@/components/sections';
 import VilliageSvg from '@/assets/svg/VilliageSvg/VilliageSvg';
-import NavBar from '@/components/layout/NavBar/NavBar';
 
 // Example review data (replace with Google review data as needed)
 const rawReviews = [
@@ -287,7 +285,7 @@ const Home = () => {
               >
                 {reviews.map((r, idx) => (
                   <Box
-                    key={r.id}
+                    key={idx.toString()}
                     sx={{
                       mx: { xs: 2, sm: 5 },
                       transform: `translateY(${idx % 2 === 0 ? -48 : 32}px)`,

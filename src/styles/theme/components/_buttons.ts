@@ -1,3 +1,4 @@
+'use client';
 import { alpha } from '@mui/material/styles';
 import type { Components, Theme } from '@mui/material/styles';
 import type { CSSObject } from '@emotion/react';
@@ -24,6 +25,10 @@ const buttonComponents: Components<Theme> = {
         transition: customTransitions.standard,
         cursor: 'pointer',
         whiteSpace: 'nowrap',
+        padding: theme.spacing(1, 2),
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
         flexGrow: 1,
         '&:hover': {
           boxShadow: customShadows[2],
@@ -63,6 +68,28 @@ const buttonComponents: Components<Theme> = {
         color: theme.palette.text.secondary,
         '&:hover': {
           backgroundColor: alpha(theme.palette.secondary.main, 0.04),
+        },
+      }),
+      // Style overrides based on 'size' prop
+      sizeSmall: ({ theme }: { theme: Theme }): CSSObject => ({
+        padding: theme.spacing(0.5, 1), // Smaller padding for small size
+        fontSize: '1rem', // Smaller font size for small buttons
+        '& .MuiSvgIcon-root': {
+          fontSize: '1.2rem', // Smaller icon size for small buttons
+        },
+      }),
+      sizeMedium: ({ theme }: { theme: Theme }): CSSObject => ({
+        padding: theme.spacing(1, 2), // Default padding for medium size
+        fontSize: '1.2rem', // Default font size for medium buttons
+        '& .MuiSvgIcon-root': {
+          fontSize: '1.4rem', // Default icon size for medium buttons
+        },
+      }),
+      sizeLarge: ({ theme }: { theme: Theme }): CSSObject => ({
+        padding: theme.spacing(1.5, 3), // Larger padding for large size
+        fontSize: '1.3rem', // Larger font size for large buttons
+        '& .MuiSvgIcon-root': {
+          fontSize: '1.5rem', // Larger icon size for large buttons
         },
       }),
     },
@@ -145,8 +172,6 @@ const buttonComponents: Components<Theme> = {
       }),
     },
   },
-
-}
+};
 
 export default buttonComponents;
-

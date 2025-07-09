@@ -16,6 +16,9 @@ const baseComponents: Components<Theme> = {
       },
       // For Webkit-based browsers (Chrome, Safari, Edge, etc.)
       body: {
+        '& .firebase-emulator-warning': {
+          display: 'none !important',
+        },
         '&::-webkit-scrollbar': {
           width: 13,
           height: 13,
@@ -118,63 +121,28 @@ const baseComponents: Components<Theme> = {
       form: {},
     }),
   },
-    // ---------------------------------------------------
+  // ---------------------------------------------------
   // MuiContainer Component Customizations
   // ---------------------------------------------------
   MuiContainer: {
-    defaultProps: {
-      maxWidth: 'xl',
-    },
+    defaultProps: {},
     styleOverrides: {
       root: ({ theme }: { theme: Theme }): CSSObject => ({
+        width: '100%',
         '&.page-wrapper': {
           minHeight: '100dvh',
-          maxWidth: '100dvw',
+          maxWidth: '100%',
+          minWidth: '100%',
           display: 'flex',
           flexDirection: 'column',
           gap: theme.spacing(4),
           paddingTop: theme.spacing(4),
           backgroundColor: theme.palette.background.default,
         },
-        '&.hero-container': {
-          position: 'relative',
-          maxWidth: '100dvw',
-          height: '65vh',
-          '& .hero-header': {
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center',
-            lineHeight: 1.1,
-            fontSize: '2.3rem',
-            letterSpacing: '0.3rem',
-            textTransform: 'uppercase',
-            fontWeight: 800,
-            '&.company-name': {
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(0, 1fr))',
-              gap: 0,
-              width: '95%',
-              fontSize: '4rem',
-              textAlign: 'center',
-              justifyContent: 'center',
-              margin: theme.spacing(0, 'auto', 2),
-              [theme.breakpoints.up('lg')]: {
-                fontSize: '8rem',
-              },
-            },
-          },
-          '& .hero-description': {
-            marginBottom: theme.spacing(3),
-            fontSize: '1.4rem !important',
-            letterSpacing: '0.1rem',
-            color: theme.palette.secondary.dark,
-          },
-        },
       }),
     },
   },
-    // ---------------------------------------------------
+  // ---------------------------------------------------
   // MuiDivider Component Customizations
   // ---------------------------------------------------
   MuiDivider: {
@@ -208,7 +176,7 @@ const baseComponents: Components<Theme> = {
       }),
     },
   },
-    // ---------------------------------------------------
+  // ---------------------------------------------------
   // MuiPaper Component Customizations
   // ---------------------------------------------------
   MuiPaper: {
@@ -222,7 +190,7 @@ const baseComponents: Components<Theme> = {
       }),
     },
   },
-    // ---------------------------------------------------
+  // ---------------------------------------------------
   // MuiGrid Component Customizations (for the main question label)
   // ---------------------------------------------------
   MuiGrid: {
@@ -241,6 +209,6 @@ const baseComponents: Components<Theme> = {
       }),
     },
   },
-}
+};
 
 export default baseComponents;

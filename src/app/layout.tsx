@@ -42,7 +42,7 @@ export default function RootLayout({
   return (
     // Html and Body structure (from _document.js)
     <html lang="en">
-      <body>
+      <body suppressHydrationWarning={true}>
         {/*
           AppProviders will wrap your entire application content.
           It handles Emotion/MUI Theme, AuthContext, and FirebaseCollectionContext.
@@ -52,10 +52,12 @@ export default function RootLayout({
             Global UI components that appear on every page,
             like your NavBar and Footer, are placed here.
             */}
-        <div style={{ flexGrow: 1 }}>
-          <AppProviders>{children}</AppProviders>
+        <div style={{ flexGrow: 1, minWidth: '100%', overflowX: 'hidden' }}>
+          <AppProviders>
+            {children}
+            <ShareButton />
+          </AppProviders>
         </div>
-        <ShareButton />
       </body>
     </html>
   );

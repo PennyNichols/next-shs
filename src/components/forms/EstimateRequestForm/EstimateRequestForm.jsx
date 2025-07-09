@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Typography from '@mui/material/Typography';
-import TextField from '@mui/material/TextField';
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import FormGroup from '@mui/material/FormGroup'; // Still good for general checkbox groups, but not needed for the new select
 import Box from '@mui/material/Box';
 import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import useRecaptcha from '../../../hooks/useRecaptcha';
@@ -20,16 +18,13 @@ import {
   DialogTitle,
   DialogContent,
   Grid,
-  Chip,
-  ListSubheader,
   FormHelperText,
 } from '@mui/material';
-import { Close, ExpandMore, AttachMoney, CloudUpload, ArrowBack, Check } from '@mui/icons-material';
+import { Close, CloudUpload } from '@mui/icons-material';
 import { useFirebaseCollections } from '../../../contexts/FirebaseCollectionContext/FirebaseCollectionContext';
 import useUser from '../../../hooks/auth/useUser';
 import { SERVICE_CATEGORIES } from '../../../constants/services';
-import theme from '@/styles/theme';
-import { customBorderRadius, customTransitions } from '@/styles/theme/otherThemeConstants';
+import { customBorderRadius } from '@/styles/theme/otherThemeConstants';
 import CustomTextField from '@/components/common/CustomTextField';
 import CustomCheckbox from '@/components/common/CustomCheckbox/CustomCheckbox';
 import { Controller, useForm } from 'react-hook-form';

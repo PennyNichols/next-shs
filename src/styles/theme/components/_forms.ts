@@ -1,7 +1,7 @@
 import { alpha } from '@mui/material/styles';
 import type { Components, Theme } from '@mui/material/styles';
 import type { CSSObject } from '@emotion/react';
-import { customShadows, customBorderRadius, customTransitions } from '../otherThemeConstants'; // Assuming these are correctly typed as discussed
+import { customBorderRadius, customTransitions } from '../otherThemeConstants'; // Assuming these are correctly typed as discussed
 
 const formComponents: Components<Theme> = {
   // ---------------------------------------------------
@@ -263,7 +263,7 @@ const formComponents: Components<Theme> = {
       }),
     },
   },
-    // ---------------------------------------------------
+  // ---------------------------------------------------
   // MuiRadioGroup Component Customizations
   // ---------------------------------------------------
   MuiRadioGroup: {
@@ -332,7 +332,7 @@ const formComponents: Components<Theme> = {
       }),
     },
   },
-    // ---------------------------------------------------
+  // ---------------------------------------------------
   // MuiCheckbox Component Customizations
   // ---------------------------------------------------
   MuiCheckbox: {
@@ -421,7 +421,7 @@ const formComponents: Components<Theme> = {
       }),
     },
   },
-    // ---------------------------------------------------
+  // ---------------------------------------------------
   // MuiFormControl Component Customizations
   // ---------------------------------------------------
   MuiFormControl: {
@@ -464,7 +464,7 @@ const formComponents: Components<Theme> = {
       }),
     },
   },
-    // ---------------------------------------------------
+  // ---------------------------------------------------
   // MuiFormLabel Component Customizations (for the main question label)
   // --------------------------------------------------
   MuiFormLabel: {
@@ -502,6 +502,6 @@ const formComponents: Components<Theme> = {
       }),
     },
   },
-}
+};
 
 export default formComponents;

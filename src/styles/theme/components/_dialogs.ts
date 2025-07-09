@@ -1,12 +1,8 @@
-
-
-import { alpha } from '@mui/material/styles';
 import type { Components, Theme } from '@mui/material/styles';
 import type { CSSObject } from '@emotion/react';
-import { customShadows, customBorderRadius, customTransitions } from '../otherThemeConstants'; // Assuming these are correctly typed as discussed
+import { customShadows, customBorderRadius } from '../otherThemeConstants'; // Assuming these are correctly typed as discussed
 
 const dialogComponents: Components<Theme> = {
-
   // ---------------------------------------------------
   // MuiDialog Component Customizations
   // ---------------------------------------------------
@@ -63,6 +59,6 @@ const dialogComponents: Components<Theme> = {
       }),
     },
   },
-}
+};
 
 export default dialogComponents;

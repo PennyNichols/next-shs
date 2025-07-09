@@ -154,7 +154,7 @@ const contentComponents: Components<Theme> = {
       }),
     },
   },
-    // ---------------------------------------------------
+  // ---------------------------------------------------
   // MuiIcon Component Customizations
   // ---------------------------------------------------
   MuiChip: {
@@ -204,7 +204,7 @@ const contentComponents: Components<Theme> = {
       }),
     },
   },
-    // ---------------------------------------------------
+  // ---------------------------------------------------
   // MuiIcon Component Customizations
   // ---------------------------------------------------
   MuiIcon: {
@@ -213,7 +213,7 @@ const contentComponents: Components<Theme> = {
       root: ({ theme }: { theme: Theme }): CSSObject => ({}),
     },
   },
-    // ---------------------------------------------------
+  // ---------------------------------------------------
   // MuiCard Component Customizations (for the main question label)
   // --------------------------------------------------
   MuiCard: {
@@ -247,6 +247,5 @@ const contentComponents: Components<Theme> = {
       }),
     },
   },
-
-}
+};
 export default contentComponents;

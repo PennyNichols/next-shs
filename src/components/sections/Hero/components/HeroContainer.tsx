@@ -10,6 +10,7 @@ const HeroContainer = ({ children }) => {
         left: 0,
         width: '100%',
         height: '100%',
+        overflow: 'hidden',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'flex-end',
@@ -17,9 +18,9 @@ const HeroContainer = ({ children }) => {
         color: theme.palette.background.paper,
         textAlign: 'center',
         background: `linear-gradient(to bottom, ${alpha(theme.palette.primary.light, 0.8)}, ${alpha(theme.palette.background.paper, 0.8)})`,
-        alignContent: 'bottom',
-        px: 5,
-        py: { xs: 2, sm: 5 },
+        px: {xs: 3, md:5},
+        py: { xs: 2, sm: 3, md: 4, xl: 5 },
+        paddingTop: {xs: 6,sm:3, md: 4, xl: 5},
       }}
     >
       {children}
