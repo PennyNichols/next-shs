@@ -353,7 +353,6 @@ const formComponents: Components<Theme> = {
             width: 22,
             height: 22,
           },
-          '& .MuiButtonBase-root': {},
           '& .MuiTouchRipple-root': {
             overflow: 'visible',
             position: 'absolute',

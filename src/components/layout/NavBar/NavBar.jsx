@@ -21,6 +21,7 @@ import { customTransitions } from '@/styles/theme/otherThemeConstants';
 import theme from '@/styles/theme';
 import { ClickAwayListener, Collapse } from '@mui/material';
 import ActionButton from '@/components/common/ActionButton/ActionButton';
+import NavButton from '@/components/common/NavButton/NavButton';
 
 const pages = [
   { name: 'Home', href: '/' },
@@ -37,7 +38,7 @@ const NavBar = () => {
   const logoHoverColor = theme.palette.accent.primary;
   const [logoScale, setLogoScale] = useState(1);
 
-  const { isXxs: initialIsXxs, isXs: initialIsXs, isSm: initialIsSm } = useMedia();
+  const { isXxs: initialIsXxs, isXs: initialIsXs, isSm: initialIsSm, isMd, isLg, isXl } = useMedia();
   const [showClientContent, setShowClientContent] = useState(false);
   const [isXxs, setIsXxs] = useState(false);
   const [isXs, setIsXs] = useState(false);
@@ -54,11 +55,49 @@ const NavBar = () => {
   const handleMenuToggle = () => setIsMenuOpen((prev) => !prev);
   const handleMenuClose = () => setIsMenuOpen(false);
 
-  const iconSize = '2.5rem';
+  let logoWidth;
+  let iconSize;
+
+  if (isXxs) {
+    logoWidth = 80;
+    iconSize = 50;
+  } else if (isXs) {
+    logoWidth = 80;
+    iconSize = 55;
+  } else if (isSm) {
+    logoWidth = 100;
+    iconSize = 65;
+  } else if (isMd) {
+    logoWidth = 100;
+  } else if (isLg) {
+    logoWidth = 110;
+  } else if (isXl) {
+    logoWidth = 120;
+  } else {
+    logoWidth = 50;
+  }
+
+  let logoHeight;
+
+  if (isXxs) {
+    logoHeight = 80;
+  } else if (isXs) {
+    logoHeight = 80;
+  } else if (isSm) {
+    logoHeight = 100;
+  } else if (isMd) {
+    logoHeight = 100;
+  } else if (isLg) {
+    logoHeight = 110;
+  } else if (isXl) {
+    logoHeight = 120;
+  } else {
+    logoHeight = 50;
+  }
 
   return (
     <ClickAwayListener onClickAway={handleMenuClose}>
-      <AppBar position="sticky" sx={{ py: 1 }}>
+      <AppBar position="sticky" sx={{ py: 0 }}>
         <Container>
           <Toolbar disableGutters>
             <Box mr={1}>
@@ -66,8 +105,12 @@ const NavBar = () => {
                 <Box
                   component="span"
                   sx={{
-                    display: 'inline-block',
-                    pt: 0.5,
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    p: 0,
                     cursor: 'pointer',
                     transition: 'all .1s ease-in-out',
                     transform: `scale(${logoScale})`,
@@ -76,8 +119,10 @@ const NavBar = () => {
                   onMouseLeave={() => setLogoColor(theme.palette.background.paper)}
                   onMouseDown={() => setLogoScale(0.9)}
                   onMouseUp={() => setLogoScale(1)}
+                  onTouchStart={() => setLogoScale(0.9)}
+                  onTouchEnd={() => setLogoScale(1)}
                 >
-                  <LogoSvg color={logoColor} width={70} height={50} />
+                  <LogoSvg color={logoColor} width={logoWidth} height={logoHeight} />
                 </Box>
               </Link>
             </Box>{' '}
@@ -92,7 +137,7 @@ const NavBar = () => {
               >
                 {pages.map((page) => (
                   <Link className="nav-menu-item" key={page.name} href={page.href} passHref>
-                    <ActionButton text={page.name} />
+                    <NavButton text={page.name} />
                   </Link>
                 ))}
               </Box>
@@ -163,7 +208,7 @@ const NavBar = () => {
                         height: '100%',
                         color: 'background.paper',
                         transition: `${customTransitions.slow}, transform 0.3s ease-out, opacity 0.3s ease-out`,
-                        fontSize: iconSize,
+                        fontSize: iconSize - 3,
                         '&:hover': { color: 'accent.primary' },
                         opacity: isMenuOpen ? 0 : 1,
                         transform: isMenuOpen ? 'rotate(180deg)' : 'rotate(0deg)',
@@ -185,7 +230,7 @@ const NavBar = () => {
                 py: 2,
                 backgroundColor: 'primary.main',
                 position: 'absolute',
-                top: '100%',
+                top: 'calc(100% - 4px)',
                 left: 0,
                 right: 0,
                 boxShadow: '0px 10px 15px -3px rgba(0, 0, 0, 0.3)',
@@ -193,16 +238,9 @@ const NavBar = () => {
               }}
             >
               {pages.map((page) => (
-                <MenuItem
-                  key={page.name}
-                  className="nav-menu-item"
-                  sx={{ justifyContent: 'center' }}
-                  onClick={handleMenuClose}
-                >
-                  <Link href={page.href} passHref>
-                    <Typography variant="button" className="nav-link">
-                      {page.name}
-                    </Typography>
+                <MenuItem key={page.name} sx={{ justifyContent: 'center' }} onClick={handleMenuClose}>
+                  <Link className="nav-menu-item" key={page.name} href={page.href} passHref>
+                    <NavButton text={page.name} />
                   </Link>
                 </MenuItem>
               ))}

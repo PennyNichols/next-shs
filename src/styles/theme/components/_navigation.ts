@@ -11,6 +11,7 @@ const navComponents: Components<Theme> = {
     defaultProps: {},
     styleOverrides: {
       root: ({ theme }: { theme: Theme }): CSSObject => ({
+        WebkitTapHighlightColor: 'transparent', // Prevents the default tap highlight color on links
         color: theme.palette.primary.light,
         textDecoration: 'none',
         transition: customTransitions.standard,
@@ -34,41 +35,6 @@ const navComponents: Components<Theme> = {
       root: ({ theme }: { theme: Theme }): CSSObject => ({
         boxShadow: customShadows[3],
         transition: customTransitions.slow,
-        '& .nav-menu-item': {
-          '& .MuiTypography-root': {
-            color: theme.palette.secondary.light,
-            margin: 1,
-            textAlign: 'center',
-            fontSize: '1rem',
-            transition: customTransitions.standard,
-            letterSpacing: 1,
-            textShadow: 'none',
-          },
-          '& .MuiButtonBase-root': {
-            color: theme.palette.secondary.light,
-            margin: 1,
-            textAlign: 'center',
-            fontSize: '1.2rem',
-            transition: customTransitions.standard,
-            letterSpacing: 1,
-            textShadow: 'none',
-            boxShadow: 'none',
-          },
-          '&:hover': {
-            '& .MuiTypography-root': {
-              color: theme.palette.accent.primary,
-              letterSpacing: 2.5,
-              textShadow: `0px 4px 14px ${theme.palette.accent.primary}, 0px 4px 14px ${theme.palette.accent.primary}`,
-            },
-            '& .MuiButtonBase-root': {
-              borderColor: 'transparent',
-              color: theme.palette.accent.primary,
-              letterSpacing: 2.5,
-              textShadow: `0px 4px 14px ${theme.palette.accent.primary}, 0px 4px 14px ${theme.palette.accent.primary}`,
-            },
-            backgroundColor: 'transparent',
-          },
-        },
       }),
     },
   },

@@ -30,6 +30,10 @@ body {
     overflow-x: hidden;
 }
 
+a, button, input, [tabindex] {
+  -webkit-tap-highlight-color: transparent; /* Prevents the default tap highlight color on links and buttons */
+}
+
 h1,
 h2,
 h3,

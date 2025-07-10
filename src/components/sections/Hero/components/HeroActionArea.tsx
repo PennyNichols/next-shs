@@ -5,43 +5,26 @@ import { Grid } from '@mui/material';
 
 const HeroActionArea = () => {
 
-  const { isXxs, isXs, isSm, isMd, isLg, isXl } = useMedia();
-
-  let size;
-
-  if (isXxs) {
-    size = 'small';
-  } else if (isXs) {
-    size = 'small';
-  } else if (isSm) {
-    size = 'medium';
-  } else if (isMd) {
-    size = 'medium';
-  } else if (isLg) {
-    size = 'large';
-  } else if (isXl) {
-    size = 'large';
-  }
-
   return (
     <Grid
       container
-      spacing={{ xxs: 2, xl: 6 }}
+      spacing={{ xxs: 2, sm: 3, lg: 4, xl: 6 }}
       sx={{
         maxWidth: { xxs: '100%', md: '90%', xl: '100%' },
         alignSelf: 'flex-end',
+        mb: { xxs: 0, sm: 1.8, md: 1, lg: 6 },
       }}
       justifyContent={{ xxs: 'center', xl: 'space-between' }}
       alignItems="center"
     >
-      <Grid item xxs={12} sm={6} lg={4}>
-        <CallButton size={size} />
+      <Grid item xxs={12} sm={6} xl={4}>
+        <CallButton />
       </Grid>
-      <Grid item xxs={12} sm={6} lg={4}>
-        <SmsButton size={size} />
+      <Grid item xxs={12} sm={6} xl={4}>
+        <SmsButton />
       </Grid>
-      <Grid item xxs={12} sm={12} lg={4}>
-        <EstimateRequestButton size={size} fullWidth={true} />
+      <Grid item xxs={12} sm={12} xl={4}>
+        <EstimateRequestButton fullWidth={true} />
       </Grid>
     </Grid>
   );

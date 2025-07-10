@@ -10,6 +10,8 @@ const buttonComponents: Components<Theme> = {
   // ---------------------------------------------------
   MuiButton: {
     defaultProps: {
+      disableFocusRipple: true,
+      disableTouchRipple: true,
       disableRipple: true,
       variant: 'contained',
       color: 'primary',
@@ -30,6 +32,10 @@ const buttonComponents: Components<Theme> = {
         justifyContent: 'center',
         alignItems: 'center',
         flexGrow: 1,
+        '& .MuiSvgIcon-root': {
+          fontSize: 'inherit',
+          marginRight: theme.spacing(1),
+        },
         '&:hover': {
           boxShadow: customShadows[2],
           letterSpacing: '0.1rem',
@@ -75,20 +81,20 @@ const buttonComponents: Components<Theme> = {
       sizeSmall: ({ theme }: { theme: Theme }): CSSObject => ({
         fontSize: '1rem',
         '& .MuiSvgIcon-root': {
-          fontSize: '1.2rem',
+          fontSize: '1.5rem',
         },
       }),
       sizeMedium: ({ theme }: { theme: Theme }): CSSObject => ({
-        fontSize: '1.2rem',
+        fontSize: '1.4rem',
         '& .MuiSvgIcon-root': {
-          fontSize: '1.4rem',
+          fontSize: '2rem',
         },
       }),
       sizeLarge: ({ theme }: { theme: Theme }): CSSObject => ({
         padding: theme.spacing(1.5, 3),
-        fontSize: '1.5rem',
+        fontSize: '1.9rem',
         '& .MuiSvgIcon-root': {
-          fontSize: '1.8rem',
+          fontSize: '2.6rem',
         },
       }),
     },
@@ -100,6 +106,9 @@ const buttonComponents: Components<Theme> = {
     defaultProps: {
       color: 'inherit',
       size: 'medium',
+      disableFocusRipple: true,
+      disableTouchRipple: true,
+      disableRipple: true,
     },
     styleOverrides: {
       root: ({ theme }: { theme: Theme }): CSSObject => ({
@@ -108,6 +117,14 @@ const buttonComponents: Components<Theme> = {
         padding: theme.spacing(1),
         '&:hover': {
           transform: 'scale(1.2)',
+        },
+        '&:focus': {
+          outline: 'none',
+          background: 'transparent',
+        },
+        '&:focus-visible': {
+          background: 'transparent',
+          outline: 'none',
         },
         '&.Mui-disabled': {
           color: theme.palette.action.disabled,
@@ -162,7 +179,7 @@ const buttonComponents: Components<Theme> = {
       }),
       sizeLarge: ({ theme }: { theme: Theme }): CSSObject => ({
         padding: theme.spacing(1.5),
-        fontSize: '2rem',
+        fontSize: '2.6rem',
       }),
     },
   },

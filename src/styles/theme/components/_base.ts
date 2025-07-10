@@ -13,9 +13,11 @@ const baseComponents: Components<Theme> = {
     styleOverrides: (theme: Theme) => ({
       html: {
         scrollbarGutter: 'stable',
+        WebkitTapHighlightColor: 'transparent',
       },
       // For Webkit-based browsers (Chrome, Safari, Edge, etc.)
       body: {
+        WebkitTapHighlightColor: 'transparent',
         '& .firebase-emulator-warning': {
           display: 'none !important',
         },
@@ -102,6 +104,9 @@ const baseComponents: Components<Theme> = {
           height: 0,
           width: 0,
         },
+      },
+      'a, button, input, [tabindex]': {
+        WebkitTapHighlightColor: 'transparent',
       },
 
       // Autofill styles for input elements

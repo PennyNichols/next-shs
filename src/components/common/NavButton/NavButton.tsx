@@ -6,7 +6,7 @@ import { customShadows } from '@/styles/theme/otherThemeConstants';
 import theme from '@/styles/theme';
 import { useMedia } from '@/hooks';
 
-interface ActionButtonProps
+interface NavButtonProps
   extends Omit<ButtonProps, 'variant' | 'type' | 'onClick' | 'fullWidth' | 'startIcon' | 'sx' | 'color'> {
   text: string;
   type?: 'button' | 'submit' | 'reset';
@@ -22,8 +22,9 @@ interface ActionButtonProps
   onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
-const ActionButton: React.FC<ActionButtonProps> = ({
+const NavButton: React.FC<NavButtonProps> = ({
   text,
+  size = null,
   type = 'button',
   variant = 'contained',
   color = 'primary',
@@ -44,12 +45,14 @@ const ActionButton: React.FC<ActionButtonProps> = ({
 
   let buttonSize;
 
-  if (isXxs) {
-    buttonSize = 'small';
-  } else if (isXs) {
-    buttonSize = 'small';
-  } else if (isSm) {
+  if (size) {
+    buttonSize = size;
+  } else if (isXxs) {
     buttonSize = 'medium';
+  } else if (isXs) {
+    buttonSize = 'large';
+  } else if (isSm) {
+    buttonSize = 'large';
   } else if (isMd) {
     buttonSize = 'medium';
   } else if (isLg) {
@@ -68,17 +71,20 @@ const ActionButton: React.FC<ActionButtonProps> = ({
       sx={{
         display: 'flex',
         gap: 1,
-        boxShadow: { xxs: customShadows[5], lg: customShadows[10] },
+        border: 'none',
+        boxShadow: 'none',
         transform: `scale(${scale})`,
         transition: 'all 0.5s ease-in-out, transform 0.1s ease-in-out',
-        '& .MuiButton-startIcon': {
-          color: iconColor || 'secondary.light',
-          transition: 'all 0.5s ease-in-out',
-        },
         '&:hover': {
-          '& .MuiButton-startIcon': {
-            color: iconHoverColor || 'accent.primary',
-          },
+          boxShadow: 'none',
+          backgroundColor: 'transparent',
+          border: 'none',
+          letterSpacing: '0.2rem',
+          color: theme.palette.accent.primary,
+          textShadow: `0px 5px 14px ${theme.palette.accent.primary}, 0px 5px 20px ${theme.palette.accent.primary}`,
+        },
+        '&:focus': {
+          outline: 'none',
         },
         ...sx,
       }}
@@ -101,4 +107,4 @@ const ActionButton: React.FC<ActionButtonProps> = ({
   );
 };
 
-export default ActionButton;
+export default NavButton;

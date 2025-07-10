@@ -59,9 +59,9 @@ export const initialShinyEffect = {
 export const interactionShinyEffect = {
   position: 'relative',
   color: 'transparent',
-  width: { xxs: '51.5rem', xl: '71.5rem' },
+  width: { xxs: '51.5rem', xl: '75.5rem' },
   background: silverGradient,
-  backgroundSize: { xxs: '120rem 30rem', xl: '140rem 30rem' },
+  backgroundSize: { xxs: '120rem 30rem', xl: '155rem 30rem' },
   backgroundClip: 'text',
   WebkitBackgroundClip: 'text',
   textShadow: `
@@ -90,7 +90,7 @@ export const shineTypography = {
   fontSize: {
     xxs: '1.5rem',
     xs: '2rem',
-    sm: '2rem',
+    sm: '1.9rem',
     md: '2.2rem',
     lg: '3.3rem',
     xl: '5rem',

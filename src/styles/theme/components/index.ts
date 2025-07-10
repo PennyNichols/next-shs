@@ -10,10 +10,10 @@ import buttonComponents from './_buttons';
 const components: Components<Theme> = {
   ...baseComponents,
   ...formComponents,
-  ...navigationComponents,
   ...contentComponents,
   ...dialogComponents,
   ...buttonComponents,
+  ...navigationComponents,
 };
 
 export default components;

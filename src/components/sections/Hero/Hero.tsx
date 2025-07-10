@@ -30,20 +30,22 @@ const Hero = () => {
         minWidth: '100%',
         minHeight: '35rem',
         height: '100%',
-        maxHeight: '1000px !important',
+        maxHeight: '70rem !important',
         overflow: 'hidden',
         zIndex: 1200,
         [theme.breakpoints.up('xxs')]: {
           height: '100dvh',
+          minHeight: '100dvh',
         },
         [theme.breakpoints.up('sm')]: {
+          minHeight: '35rem',
           height: '35dvh',
         },
         [theme.breakpoints.up('md')]: {
           height: '40dvh',
         },
         [theme.breakpoints.up('lg')]: {
-          height: '50dvh',
+          height: '60dvh',
         },
         [theme.breakpoints.up('xl')]: {
           height: '65dvh',
