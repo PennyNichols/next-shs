@@ -394,7 +394,7 @@ service cloud.firestore {
       feat/<descriptive-name>
     ```
       Example:
-        ```sh
+        ```
         feat/user-profile-page
         ```
   - Bugfix Branches: Used for fixing bugs in existing code
@@ -402,7 +402,7 @@ service cloud.firestore {
     bugfix/<descriptive-name>
     ```
       Example:
-        ```sh
+        ```
         bugfix/login-form-validation
         ```
   - Hotfix Branches: Used for urgent fixes to production
@@ -410,7 +410,7 @@ service cloud.firestore {
     hotfix/<descriptive-name>
     ```
       Example:
-        ```sh
+        ```
         hotfix/critical-auth-issue
         ```
   - Release Branches: Branched from main. Used to deploy for testing in preparation for new releases.
@@ -418,7 +418,7 @@ service cloud.firestore {
     release/<version-number>
     ```
       Example:
-        ```sh
+        ```
         release/1.0.0
         ```
   - Development/Integration Branches: Central branches where features are integrated and tested before being released.
@@ -426,7 +426,7 @@ service cloud.firestore {
     staging/<2-digit-year>.<2-digit-month>.<2-digit-day>
     ```
       Example:
-        ```sh
+        ```
         staging/25.07.25
         ```
   - Chore/Refactor Branches: For non-feature, non-bug changes like build process updates, refactoring, dependency upgrades, etc.
@@ -434,7 +434,7 @@ service cloud.firestore {
     chore/<descriptive-name>
     ```
       Example:
-        ```sh
+        ```
         chore/user-profile-page
         ```
 
