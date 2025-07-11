@@ -11,7 +11,7 @@ import {
   // If you later decide to render a chip for a single selected value, it's there.
   Chip,
 } from '@mui/material';
-import CustomCheckbox from '../../common/CustomCheckbox/CustomCheckbox'; // Assuming the path to your CustomCheckbox is correct
+import CustomCheckbox from '../CustomCheckbox/CustomCheckbox'; // Assuming the path to your CustomCheckbox is correct
 import TruncatedChip from '../TruncatedChip/TruncatedChip';
 
 /**

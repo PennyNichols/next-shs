@@ -25,40 +25,34 @@ export function AppProviders({ children }: { children: React.ReactNode }) {
   const isHomePage = pathname === '/';
 
   return (
-    <CacheProvider value={clientSideEmotionCache}>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <GlobalStyles styles={globalSlickStyles(theme)} />
-        <EmotionRegistry>
-          <AuthProvider>
-            <FirebaseCollectionProvider>
-              <Box
-                display="flex"
-                flexDirection="column"
-                minHeight="100vh"
-                width="100%"
-                sx={{ backgroundColor: theme.palette.secondary.light }}
-              >
-                {isHomePage && <Hero />}
+    <EmotionRegistry>
+      <AuthProvider>
+        <FirebaseCollectionProvider>
+          <Box
+            display="flex"
+            flexDirection="column"
+            minHeight="100vh"
+            width="100%"
+            sx={{ backgroundColor: theme.palette.secondary.light }}
+          >
+            {isHomePage && <Hero />}
 
-                <NavBar />
+            <NavBar />
 
-                <Box
-                  flexGrow={1}
-                  sx={{
-                    paddingTop: 0,
-                    paddingBottom: 8,
-                  }}
-                >
-                  {children}
-                </Box>
+            <Box
+              flexGrow={1}
+              sx={{
+                paddingTop: 0,
+                paddingBottom: 8,
+              }}
+            >
+              {children}
+            </Box>
 
-                <Footer />
-              </Box>
-            </FirebaseCollectionProvider>
-          </AuthProvider>
-        </EmotionRegistry>
-      </ThemeProvider>
-    </CacheProvider>
+            <Footer />
+          </Box>
+        </FirebaseCollectionProvider>
+      </AuthProvider>
+    </EmotionRegistry>
   );
 }

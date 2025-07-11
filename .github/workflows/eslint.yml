@@ -1,21 +1,20 @@
-name: ESLint
+name: ESLint Checks
 
 on:
-  push:
-    branches:
-      - '*'
+  # push:
+  #   branches:
+  #     - '*'
   pull_request:
     branches:
-      - main # Or your default branch
+      - main 
 
 jobs:
   eslint:
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
 
     strategy:
       matrix:
-        os: [windows-latest]
-        node-version: [18.x] # Or your desired Node.js version(s)
+        node-version: [22.x] # Or your desired Node.js version(s)
 
     steps:
       - name: Checkout code
@@ -26,6 +25,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm' # Or 'yarn' or 'pnpm'
+          cache-dependency-path: '**/package-lock.json'
 
       - name: Install dependencies
         run: npm ci # Or yarn install or pnpm install

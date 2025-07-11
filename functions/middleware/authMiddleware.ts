@@ -1,13 +1,9 @@
 /* eslint-disable no-console */
 
-const admin = require('firebase-admin');
+import * as admin from 'firebase-admin';
 
-// Initialize Firebase Admin SDK if not already done
-// Make sure this is only called once in your application
-// const serviceAccount = require('./path/to/your/serviceAccountKey.json');
-// admin.initializeApp({
-//   credential: admin.credential.cert(serviceAccount)
-// });
+// Do not use const admin = require('firebase-admin');
+// Already used in index.ts, can't be used again in the same module.
 
 async function authenticate(req, res, next) {
   if (req.headers.authorization && req.headers.authorization.startsWith('Bearer ')) {
@@ -15,7 +11,7 @@ async function authenticate(req, res, next) {
 
     try {
       const decodedToken = await admin.auth().verifyIdToken(idToken);
-      req.user = decodedToken; // Attach the decoded user object to the request
+      req.user = decodedToken; 
       next();
     } catch (error) {
       console.error('Error while verifying Firebase ID token:', error);

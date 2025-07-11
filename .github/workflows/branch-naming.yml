@@ -1,0 +1,72 @@
+name: Enforce Branch Naming Conventions
+
+on:
+  push:
+    # This workflow runs when a branch is pushed, but ignores the 'main' branch
+    # as these are typically not created using feature/bugfix naming conventions.
+    branches-ignore:
+      - main
+  pull_request:
+    # This workflow runs when a pull request is opened, reopened, or synchronized
+    types: [opened, reopened, synchronize]
+
+jobs:
+  validate_branch_name:
+    runs-on: ubuntu-latest 
+
+    steps:
+      - name: Get Branch Name
+        id: get_branch_name
+        run: |
+          # Determine the branch name based on the event type
+          if [[ "${{ github.event_name }}" == "pull_request" ]]; then
+            BRANCH_NAME="${{ github.head_ref }}"
+          else
+            BRANCH_NAME="${{ github.ref_name }}"
+          fi
+          echo "Branch Name being validated: $BRANCH_NAME"
+          # Store the branch name as a step output for later use
+          echo "branch_name=$BRANCH_NAME" >> $GITHUB_OUTPUT
+
+      - name: Validate Branch Name against Patterns
+        run: |
+          BRANCH_NAME="${{ steps.get_branch_name.outputs.branch_name }}"
+
+          # Define regex patterns for allowed branch names
+          # Note: The descriptive-name patterns use [a-z0-9-]+ for slug-casing (lowercase letters, numbers, hyphens).
+          # If you need uppercase letters or underscores, change it to [a-zA-Z0-9_-]+
+          FEAT_PATTERN="^feat\/[a-z0-9-]+$"
+          BUGFIX_PATTERN="^bugfix\/[a-z0-9-]+$"
+          HOTFIX_PATTERN="^hotfix\/[a-z0-9-]+$"
+          # Semver pattern for release (e.g., 1.0.0)
+          RELEASE_PATTERN="^release\/[0-9]+\.[0-9]+\.[0-9]+$"
+          # YY.MM.DD pattern for staging (e.g., 25.07.25)
+          STAGING_PATTERN="^staging\/\d{2}\.\d{2}\.\d{2}$"
+          CHORE_PATTERN="^chore\/[a-z0-9-]+$"
+          # Added explicit refactor pattern as commonly used with chore
+          REFACTOR_PATTERN="^refactor\/[a-z0-9-]+$"
+
+
+          # Check if the branch name matches any of the allowed patterns
+          if [[ "$BRANCH_NAME" =~ $FEAT_PATTERN ]] || \
+             [[ "$BRANCH_NAME" =~ $BUGFIX_PATTERN ]] || \
+             [[ "$BRANCH_NAME" =~ $HOTFIX_PATTERN ]] || \
+             [[ "$BRANCH_NAME" =~ $RELEASE_PATTERN ]] || \
+             [[ "$BRANCH_NAME" =~ $STAGING_PATTERN ]] || \
+             [[ "$BRANCH_NAME" =~ $CHORE_PATTERN ]] || \
+             [[ "$BRANCH_NAME" =~ $REFACTOR_PATTERN ]]; then
+            echo "✅ Branch name '$BRANCH_NAME' follows a valid naming convention."
+          else
+            # If no pattern matches, fail the workflow and provide instructions
+            echo "::error::Branch name '$BRANCH_NAME' does not follow any of the defined naming conventions."
+            echo "::error::Please rename your branch to match one of the following patterns:"
+            echo "::error::"
+            echo "::error::  - Feature:    feat/<descriptive-name> (e.g., feat/user-profile-page)"
+            echo "::error::  - Bugfix:     bugfix/<descriptive-name> (e.g., bugfix/login-form-validation)"
+            echo "::error::  - Hotfix:     hotfix/<descriptive-name> (e.g., hotfix/critical-auth-issue)"
+            echo "::error::  - Release:    release/<version-number> (e.g., release/1.0.0)"
+            echo "::error::  - Staging:    staging/<YY.MM.DD> (e.g., staging/25.07.25)"
+            echo "::error::  - Chore:      chore/<descriptive-name> (e.g., chore/update-dependencies)"
+            echo "::error::  - Refactor:   refactor/<descriptive-name> (e.g., refactor/auth-module)"
+            exit 1 # Fail the job
+          fi

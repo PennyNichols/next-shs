@@ -6,8 +6,9 @@ const express = require('express');
 const cors = require('cors');
 const admin = require('firebase-admin');
 
-// If running locally with `firebase emulators:start`, Firebase CLI automatically
-// provides credentials. When deployed, it uses the default service account.
+// If running locally with `firebase emulators:start`
+// Firebase CLI automatically provides credentials. 
+// When deployed, it uses the default service account.
 admin.initializeApp();
 
 // Get a reference to the Firestore database

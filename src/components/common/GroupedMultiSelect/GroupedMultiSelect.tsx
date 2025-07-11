@@ -11,7 +11,7 @@ import {
   FormHelperText, 
   Checkbox as MuiCheckbox, 
 } from '@mui/material';
-import CustomCheckbox from '../../common/CustomCheckbox/CustomCheckbox'; 
+import CustomCheckbox from '../CustomCheckbox/CustomCheckbox'; 
 import TruncatedChip from '../TruncatedChip/TruncatedChip';
 
 /**

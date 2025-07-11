@@ -108,8 +108,6 @@ const NavBar = () => {
                     display: 'flex',
                     justifyContent: 'center',
                     alignItems: 'center',
-                    justifyContent: 'center',
-                    alignItems: 'center',
                     p: 0,
                     cursor: 'pointer',
                     transition: 'all .1s ease-in-out',

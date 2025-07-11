@@ -94,7 +94,7 @@ const buttonComponents: Components<Theme> = {
         padding: theme.spacing(1.5, 3),
         fontSize: '1.9rem',
         '& .MuiSvgIcon-root': {
-          fontSize: '2.6rem',
+          fontSize: '2.5rem',
         },
       }),
     },
