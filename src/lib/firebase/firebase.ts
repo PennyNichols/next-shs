@@ -8,12 +8,12 @@
  * for testing to all developers. View the README for more information.
  */
 
-import { initializeApp, getApps } from 'firebase/app';
-import { getAuth, connectAuthEmulator } from 'firebase/auth'; 
-import { Firestore, getFirestore, connectFirestoreEmulator } from 'firebase/firestore'; 
-import { getStorage, connectStorageEmulator } from 'firebase/storage'; 
-import { getAnalytics } from 'firebase/analytics'; 
-import { getFunctions, connectFunctionsEmulator } from 'firebase/functions'; 
+import { initializeApp, getApps, FirebaseApp } from 'firebase/app';
+import { getAuth, connectAuthEmulator, Auth } from 'firebase/auth';
+import { Firestore, getFirestore, connectFirestoreEmulator } from 'firebase/firestore';
+import { getStorage, connectStorageEmulator, FirebaseStorage } from 'firebase/storage';
+import { Analytics, getAnalytics } from 'firebase/analytics';
+import { getFunctions, connectFunctionsEmulator, Functions } from 'firebase/functions';
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -26,25 +26,24 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const app = getApps().length ? getApps()[0] : initializeApp(firebaseConfig);
-const auth = getAuth(app);
+const app: FirebaseApp = getApps().length ? getApps()[0] : initializeApp(firebaseConfig);
+
+// Initialize Firebase services and type them
+const auth: Auth = getAuth(app);
 const db: Firestore = getFirestore(app);
-const storage = getStorage(app);
-const analytics = typeof window !== 'undefined' ? getAnalytics(app) : null;
+const storage: FirebaseStorage = getStorage(app);
+const analytics: Analytics | null = typeof window !== 'undefined' ? getAnalytics(app) : null;
 // For Cloud Functions, the region is required if your functions are not in us-central1
 // Region must match the deployed functions' region
-const functions = getFunctions(app, 'us-east1');
+const functions: Functions = getFunctions(app, 'us-east1'); // Ensure this region matches your deployed functions
 
 // IMPORTANT: Connect to Firebase Emulators ONLY in development
 if (process.env.NODE_ENV === 'development') {
   console.log('Connecting to Firebase Emulators...');
 
   connectAuthEmulator(auth, 'http://localhost:9099');
-
   connectFirestoreEmulator(db, 'localhost', 8080);
-
   connectStorageEmulator(storage, 'localhost', 9199);
-
   connectFunctionsEmulator(functions, 'localhost', 5001);
 }
 

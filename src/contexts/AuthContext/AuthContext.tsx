@@ -54,12 +54,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         const user = userCredential.user;
         await setDoc(doc(db, 'users', user.uid), {
           email: email,
-          role: 'client', // Default role
-          firstName: firstName,
-          lastName: lastName,
-          phoneNumber: phoneNumber,
-          userId: user.uid,
+          type: 'client', // Changed from 'role' to 'type' to match new interface
+          first: firstName, // Changed from 'firstName' to 'first'
+          last: lastName, // Changed from 'lastName' to 'last'
+          phone: phoneNumber, // Changed from 'phoneNumber' to 'phone'
+          status: 'active', // Add status field
+          emailVerified: false, // Add emailVerified field
           createdOn: new Date().toISOString(),
+          updatedOn: new Date().toISOString(), // Add updatedOn field
         });
         // setCurrentUser will be updated by onAuthStateChanged listener
         return user;

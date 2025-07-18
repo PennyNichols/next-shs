@@ -1,3 +1,6 @@
+import { getApp } from 'firebase/app';
+import { getFunctions, httpsCallable } from 'firebase/functions';
+
 export const formatPhoneNumber = (phoneNumber) => {
   // Remove all non-digit characters
   let cleaned = phoneNumber.replace(/\D/g, '');
@@ -21,3 +24,21 @@ export const formatPhoneNumber = (phoneNumber) => {
   return `(${areaCode}) ${centralOfficeCode}-${stationCode}`;
 };
 
+export const serviceAreaCalculator = async (address: string) => {
+  const app = getApp();
+  const functions = getFunctions(app, 'us-east1');
+  const getDrivingDistance = httpsCallable(functions, 'getDrivingDistance');
+
+  try {
+    const result = await getDrivingDistance({ address });
+    const { travelSurchargeMessage, travelSurcharge } = result.data as {
+      travelSurchargeMessage: string;
+      travelSurcharge: number;
+    };
+
+    return { travelSurchargeMessage, travelSurcharge };
+  } catch (error) {
+    console.error('Service area cloud function error:', error);
+    return null;
+  }
+};

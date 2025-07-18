@@ -1,0 +1,9 @@
+const addNum = 21225
+const street = 'Bassett Ave';
+const city = 'Port Charlotte';
+const zip = '33952';
+export const COMPANY_ADDRESS = `${addNum} ${street}, ${city}, FL ${zip}`;
+export const TRAVEL_DISTANCE_CHARGE = 1.5; // $1.50 per mile
+export const TRAVEL_DISTANCE_THRESHOLD = 15; // 15 miles
+export const TRAVEL_DURATION_CHARGE = 1; // $1.00 per minute
+export const TRAVEL_DURATION_THRESHOLD = 30; // 30 minutes

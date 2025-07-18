@@ -2,8 +2,32 @@ import { createContext, useCallback, useContext } from 'react';
 import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { db } from '../../lib/firebase/firebase';
 import { collection, addDoc, getDocs, doc, deleteDoc, updateDoc, getDoc } from 'firebase/firestore';
-import { useAuth } from '../AuthContext/AuthContext'; // Corrected import path for useAuth
-import apiService from '../../lib/services/apiService'; // Import the generic Axios client
+import { useAuth } from '../AuthContext/AuthContext';
+import apiService from '../../lib/services/apiService';
+
+interface SubscriberData {
+  email: string;
+  date_subscribed: string;
+}
+
+interface BlogPostData {
+  [key: string]: any;
+  title: string;
+  content: string;
+  authorId: string;
+  images?: string[];
+  date_created?: string;
+  date_updated?: string;
+}
+
+interface EstimateRequestData {
+  userId?: string | null;
+  scopeOfWork: { [key: string]: boolean };
+  images?: string[];
+  status?: string;
+  date_created?: string;
+  date_updated?: string;
+}
 
 interface FirebaseCollectionContextType {
   createSubscriber: (email: string) => Promise<string>;
@@ -12,11 +36,23 @@ interface FirebaseCollectionContextType {
   createBlogPost: (postData: any, imageFiles?: File[]) => Promise<{ success: boolean; docId?: string; error?: string }>;
   getBlogPosts: () => Promise<any[]>;
   deleteBlogPost: (blogPostId: string) => Promise<{ success: boolean; error?: string }>;
-  updateBlogPost: (blogPostId: string, postData: any, imageFiles?: File[]) => Promise<{ success: boolean; error?: string }>;
-  createEstimateRequest: (estimateData: any, imageFiles?: File[], userId?: string | null) => Promise<{ success: boolean; docId?: string; error?: string }>;
+  updateBlogPost: (
+    blogPostId: string,
+    postData: BlogPostData,
+    imageFiles?: File[],
+  ) => Promise<{ success: boolean; error?: string }>;
+  createEstimateRequest: (
+    estimateData: EstimateRequestData,
+    imageFiles?: File[],
+    userId?: string | null,
+  ) => Promise<{ success: boolean; docId?: string; error?: string }>;
   getEstimateRequests: (queryParams?: any) => Promise<{ success: boolean; data?: any[]; error?: string }>;
   deleteEstimateRequest: (estimateRequestId: string) => Promise<{ success: boolean; error?: string }>;
-  updateEstimateRequest: (estimateRequestId: string, estimateData: any, imageFiles?: File[]) => Promise<{ success: boolean; error?: string }>;
+  updateEstimateRequest: (
+    estimateRequestId: string,
+    estimateData: EstimateRequestData,
+    imageFiles?: File[],
+  ) => Promise<{ success: boolean; error?: string }>;
 }
 
 const FirebaseCollectionContext = createContext<FirebaseCollectionContextType | undefined>(undefined);
@@ -38,33 +74,51 @@ export function FirebaseCollectionProvider({ children }: { children: React.React
     }
   }, []);
 
-  const createEstimateRequest = useCallback(async (estimateData, imageFiles, userId = null) => {
-    try {
-      const uploadedImageUrls = await Promise.all(
-        (imageFiles || []).map(async (file) => { // Ensure imageFiles is treated as array
-          const storageRef = ref(getStorage(), `images/${file.name}`);
-          const snapshot = await uploadBytes(storageRef, file);
-          return getDownloadURL(snapshot.ref);
-        }),
-      );
+  const createEstimateRequest = useCallback(
+    async (
+      estimateData: EstimateRequestData,
+      imageFiles?: File[],
+      userId: string | null = null,
+    ): Promise<{ success: boolean; docId?: string; error?: string }> => {
+      try {
+        let uploadedImageUrls: string[] = [];
+        if (imageFiles && imageFiles.length > 0) {
+          try {
+            uploadedImageUrls = await Promise.all(
+              imageFiles.map(async (file) => {
+                const storageRef = ref(getStorage(), `images/${file.name}`);
+                const snapshot = await uploadBytes(storageRef, file);
+                return getDownloadURL(snapshot.ref);
+              }),
+            );
+          } catch (uploadError) {
+            console.error('Error uploading images:', uploadError);
+            // Continue with submission even if image upload fails
+            uploadedImageUrls = [];
+          }
+        }
 
-      const requestBody = {
-        ...estimateData,
-        scopeOfWork: Object.keys(estimateData.scopeOfWork).filter((key) => estimateData.scopeOfWork[key]),
-        images: uploadedImageUrls,
-        userId: userId || currentUser?.uid || null, // Use provided userId or current authenticated user's UID
-        status: 'pending',
-        date_created: new Date().toISOString(), // Add creation timestamp
-      };
+        const requestBody = {
+          ...estimateData,
+          // Ensure scopeOfWork is an array of selected keys
+          scopeOfWork: Object.keys(estimateData.scopeOfWork).filter((key) => estimateData.scopeOfWork[key]),
+          images: uploadedImageUrls,
+          // Use provided userId, or current authenticated user's UID, or null
+          userId: userId || currentUser?.uid || null,
+          status: 'pending',
+          date_created: new Date().toISOString(),
+        };
 
-      // Directly add to Firestore for unauthenticated users, or for initial requests
-      const docRef = await addDoc(collection(db, 'estimate_requests'), requestBody);
-      return { success: true, docId: docRef.id };
-    } catch (error: any) {
-      console.error('Error creating estimate request client-side:', error);
-      return { success: false, error: error.message };
-    }
-  }, [currentUser]); // Dependency: currentUser
+        // Send the request through your backend API (Cloud Function)
+        const response = await apiService.post('/estimate-requests', requestBody);
+        return { success: true, docId: response.data.id };
+      } catch (error: any) {
+        console.error('Error creating estimate request via backend:', error.response?.data || error.message);
+        return { success: false, error: error.response?.data?.error || error.message };
+      }
+    },
+    [currentUser],
+  ); // Dependency: currentUser
 
   const getBlogPosts = useCallback(async () => {
     try {
@@ -99,32 +153,35 @@ export function FirebaseCollectionProvider({ children }: { children: React.React
     }
   }, []);
 
-  const createBlogPost = useCallback(async (blogData, imageFiles) => {
-    try {
-      let uploadedImageUrls: string[] = [];
-      if (imageFiles && imageFiles.length > 0) {
-        uploadedImageUrls = await Promise.all(
-          imageFiles.map(async (file) => {
-            const storageRef = ref(getStorage(), `images/${file.name}`);
-            const snapshot = await uploadBytes(storageRef, file);
-            return getDownloadURL(snapshot.ref);
-          }),
-        );
+  const createBlogPost = useCallback(
+    async (blogData, imageFiles) => {
+      try {
+        let uploadedImageUrls: string[] = [];
+        if (imageFiles && imageFiles.length > 0) {
+          uploadedImageUrls = await Promise.all(
+            imageFiles.map(async (file) => {
+              const storageRef = ref(getStorage(), `images/${file.name}`);
+              const snapshot = await uploadBytes(storageRef, file);
+              return getDownloadURL(snapshot.ref);
+            }),
+          );
+        }
+
+        const requestBody = {
+          ...blogData,
+          images: uploadedImageUrls,
+          authorId: currentUser?.uid, // Send author ID from authenticated user
+        };
+
+        const response = await apiService.post('/blog-posts', requestBody);
+        return { success: true, docId: response.data.id };
+      } catch (error: any) {
+        console.error('Error creating blog post via backend:', error.response?.data || error.message);
+        return { success: false, error: error.response?.data?.error || error.message };
       }
-
-      const requestBody = {
-        ...blogData,
-        images: uploadedImageUrls,
-        authorId: currentUser?.uid, // Send author ID from authenticated user
-      };
-
-      const response = await apiService.post('/blog-posts', requestBody);
-      return { success: true, docId: response.data.id };
-    } catch (error: any) {
-      console.error('Error creating blog post via backend:', error.response?.data || error.message);
-      return { success: false, error: error.response?.data?.error || error.message };
-    }
-  }, [currentUser]); // Dependency: currentUser
+    },
+    [currentUser],
+  ); // Dependency: currentUser
 
   const deleteBlogPost = useCallback(async (blogPostId) => {
     try {

@@ -8,9 +8,12 @@ export const estimateRequestSchema = yup.object().shape({
     .trim()
     .matches(/^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/, 'Invalid phone number.') // Basic phone number regex
     .required('Phone number is required.'),
-  address: yup.string().trim().required('Service address is required.'),
+  street1: yup.string().trim().required('Service address is required.'),
+  street2: yup.string().trim(),
+  city: yup.string().trim().required('City is required.'),
+  zip: yup.string().trim().required('Zip code is required.'),
   propertyType: yup.string().required('Property type is required.'),
-  animalsOnPremises: yup.boolean(),
+  hasPets: yup.boolean(),
   ownerOccupied: yup.boolean(),
   scopeOfWork: yup
     .array()

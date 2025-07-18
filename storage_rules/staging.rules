@@ -1,0 +1,19 @@
+rules_version = '2';
+
+service firebase.storage {
+  match /b/{bucket}/o {
+    match /{allPaths=**} {
+      // Allow anyone to read files. This is common for public assets
+      // like blog post images or user profile pictures.
+      allow read: if true;
+
+      // Only allow authenticated users to upload, update, or delete files.
+      // For even greater security, you can restrict writes to user-specific
+      // folders, like this:
+      // match /users/{userId}/{fileName} {
+      //   allow write: if request.auth.uid == userId;
+      // }
+      allow write: if request.auth != null;
+    }
+  }
+}
