@@ -70,14 +70,13 @@ This project is the foundational web application for SHS Site 2025, designed to 
 
 Before you begin, ensure you have met the following **requirements**:
 
-  - `Node.js v22.x` (LTS version required for Firebase) 
-  - `npm v11.x` or higher. We recommend using a Node Version Manager (like `nvm`) to easily switch between versions.
-  - `Java Development Kit (JDK) v21.0.7` or higher is required for running the Firebase Emulators.
-  - Firebase Tools CLI: Install globally via `npm`: 
+  1. `Node.js v22.x` (LTS version required for Firebase) 
+  2. `npm v11.x` or higher. We recommend using a Node Version Manager (like `nvm`) to easily switch between versions.
+  3. `Java Development Kit (JDK) v21.0.7` or higher is required for running the Firebase Emulators.
+  4. Firebase Tools CLI: Install globally via `npm`: 
 
-    `
     npm install -g firebase-tools
-    `
+    
 ## Installation
 
 ### Configure GitHub SSH keys
