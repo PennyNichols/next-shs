@@ -74,9 +74,8 @@ Before you begin, ensure you have met the following **requirements**:
   - `npm v11.x` or higher. We recommend using a Node Version Manager (like `nvm`) to easily switch between versions.
   - `Java Development Kit (JDK) v21.0.7` or higher is required for running the Firebase Emulators.
   - Firebase Tools CLI: Install globally via `npm`: 
-    ```
+
     npm install -g firebase-tools
-    ```
 
 ## Installation
 
