@@ -115,7 +115,7 @@ Before you begin, ensure you have met the following **requirements**:
 
     eval "$(ssh-agent -s)"
 
-    This will return something like this:
+  This will return something like this:
 
     ![Agent pid](./public/images/image-9.png)
 
