@@ -93,8 +93,10 @@ Before you begin, ensure you have met the following **requirements**:
 2. ### Generate a new SSH key (if needed)
 
   If you don't have an existing key or prefer a new one, generate it like this:
-    Replace your_email@example.com with **your GitHub registered email**:
-    ```
+
+    Replace your_email@example.com with **your GitHub registered email**
+
+    ```bash
     ssh-keygen -t ed25519 -C "your_email@example.com"
     ```
 
