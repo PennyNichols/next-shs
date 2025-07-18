@@ -96,9 +96,7 @@ Before you begin, ensure you have met the following **requirements**:
 
   Replace your_email@example.com with **your GitHub registered email**
 
-    ```bash
     ssh-keygen -t ed25519 -C "your_email@example.com"
-    ```
 
   Press Enter to **accept the default file location** (~/.ssh/id_ed25519 or ~/.ssh/id_rsa).
 
