@@ -131,14 +131,15 @@ Before you begin, ensure you have met the following **requirements**:
 
 ### Add your public SSH key to GitHub
 
-  - Copy your public key:
+1. Copy your public key:
+  macOS/Linux: 
+    pbcopy < ~/.ssh/id_ed25519.pub
+  Windows (Git Bash): 
+    cat ~/.ssh/id_ed25519.pub | clip
 
-    macOS/Linux: `pbcopy < ~/.ssh/id_ed25519.pub`
-    Windows (Git Bash): `cat ~/.ssh/id_ed25519.pub | clip`
+  If successful, the terminal will show no response. Even though there is no response, the text is in your clipboard.
 
-    If successful, the terminal will show no response. Even though there is no response, the text is in your clipboard.
-
-  - Link SSH Key to GitHub:
+2. Link SSH Key to GitHub:
     1. Log in to your GitHub account.
     2. Go to Settings (your profile picture in the top right):
 
