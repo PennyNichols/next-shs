@@ -80,7 +80,7 @@ Before you begin, ensure you have met the following **requirements**:
 
 ## Installation
 
-1. ### Configure GitHub SSH keys
+### Configure GitHub SSH keys
 
   - Check for existing SSH keys in your terminal (Git Bash on Windows, Terminal on macOS/Linux):
 
@@ -90,7 +90,7 @@ Before you begin, ensure you have met the following **requirements**:
 
     - Look for files named `id_rsa.pub`, `id_ed25519.pub`, or similar. If you find one, **do not** generate a new one. Doing so will effect your other project(s). If you already have an SSH key and it is configured with your GitHub account, continue to step 6 (**Clone the Repository**).
 
-2. ### Generate a new SSH key (if needed)
+### Generate a new SSH key (if needed)
 
   If you don't have an existing key or prefer a new one, generate one.
 
@@ -113,7 +113,7 @@ Before you begin, ensure you have met the following **requirements**:
 
     ![Changing CLIs in VSCode](./public/images/image-3.png)
 
-3. ### Add your SSH key to the SSH agent
+### Add your SSH key to the SSH agent
 
   - Start the SSH agent in the background:
 
@@ -125,7 +125,7 @@ Before you begin, ensure you have met the following **requirements**:
 
     ![Agent pid](./public/images/image-9.png)
 
-4. ### Add your private SSH key to the agent
+### Add your private SSH key to the agent
 
   - Replace id_ed25519 with your key file name if different. Use `id_rsa` if you have an older key:
 
@@ -137,7 +137,7 @@ Before you begin, ensure you have met the following **requirements**:
 
   ![Identity added](./public/images/image-10.png)
 
-5. ### Add your public SSH key to GitHub
+### Add your public SSH key to GitHub
 
   - Copy your public key:
 
@@ -168,7 +168,7 @@ Before you begin, ensure you have met the following **requirements**:
 
     ![Active key](./public/images/image-7.png)
 
-6. ### Clone the repository
+### Clone the repository
 
   - Ensure your SSH key is **password protected** and follow these steps to clone the repository:
     1. Obtain the SSH cloning URL from the SSH tab of the "Code" dropdown on the repository [homepage](https://github.com/PennyNichols/next-shs#):
@@ -193,7 +193,7 @@ Before you begin, ensure you have met the following **requirements**:
         git clone git@github.com:PennyNichols/next-shs.git
       ```
 
-7. ### Install project dependencies
+### Install project dependencies
 
   - Dependencies must be installed both in the root directory (`next-shs/`) of the project and in the functions directory (`next-shs/functions/`) within the project following these steps:
     1. In the same terminal you just cloned the repo in, run these commands to enter the project root directory and install the root dependencies:
@@ -223,7 +223,7 @@ Before you begin, ensure you have met the following **requirements**:
     2. At least 2 Vercel projects set up - `staging` and `prod`.
       - Optionally, add a 3rd Vercel project for `dev`.
 
-  1. ### Create `.env` files in the root directory:
+### Create `.env` files in the root directory:
     - Depending on your role and permissions, you may need up to three `.env` files - `.env.local`, `.env.staging`, `.env.prod`.
     - **External devs**
       - add this configuration to whichever environments you intend to execute and obtain the values following the instructions in **[Obtain Environment Variables](#obtain-environment-variables)** below.
@@ -241,7 +241,7 @@ Before you begin, ensure you have met the following **requirements**:
     NEXT_PUBLIC_USE_FIREBASE_EMULATORS=true
     ```
 
-  2. ### Create `.env` file in the `functions` directory:
+### Create `.env` file in the `functions` directory:
     - The `functions` directory needs a single .env.local file.
     - This file is to provide Firebase emulators with the `dev` environment to run on your local machine.
     - These environment variables are set directly in Vercel for our `staging` and `prod` environments.
@@ -256,7 +256,7 @@ Before you begin, ensure you have met the following **requirements**:
     FIREBASE_PROJECT_ID=your_firebase_project_id
     ```
 
-  3. ### Obtain environment variables
+### Obtain environment variables
 
     - **Create your Firebase and Google Cloud projects:**
       1. **Go to the Firebase Console:** Navigate to console.firebase.google.com.
@@ -357,7 +357,7 @@ Before you begin, ensure you have met the following **requirements**:
       4. **You must verify reCAPTCHA v3 on the server**
         - The verification function can be viewed in `next-shs/src/app/api/recaptcha/route.ts`
 
-  4. ### Generate a `.firebaserc` file
+### Generate a `.firebaserc` file
 
     - In the root directory, create a file named `.firebaserc` with these contents:
 
@@ -374,14 +374,14 @@ Before you begin, ensure you have met the following **requirements**:
 
 ## Firebase Emulator Configuration:
 
-  1. ### Log in to Firebase
+### Log in to Firebase
     - Authenticating the Firebase CLI with your Google account is required by Firebase.
 
     ```bash
     firebase login
     ```
 
-  2. ### Compile Cloud Functions
+### Compile Cloud Functions
     - Cloud functions must be compiled before starting the emulators for the first time and after changing backend code.
 
     From the root `next-shs` directory:
@@ -392,7 +392,7 @@ Before you begin, ensure you have met the following **requirements**:
     cd ..
     ```
 
-  3. ### Initialize Firebase emulators
+### Initialize Firebase emulators
 
     **Members of the team**, skip this and proceed to [Firebase Emulator Commands](#firebase-emulator-commands).
     
@@ -402,7 +402,7 @@ Before you begin, ensure you have met the following **requirements**:
 
 ## Firebase Emulator Commands
 
-  1. ### Tell Firebase which environment
+### Tell Firebase which environment
     - The environment options for this project are `dev`, `staging`, and `prod`.
 
     ```bash
@@ -415,19 +415,19 @@ Before you begin, ensure you have met the following **requirements**:
     Now using alias dev (next-shs)
     ```
 
-  2. ### Start the emulators
+### Start the emulators
 
   ```bash
   firebase emulators:start
   ```
 
-  3. ### Start only a subset of emulators
+### Start only a subset of emulators
 
   ```bash
     firebase emulators:start --only functions,firestore,auth,storage
   ```
 
-  4. ### Save the current state of your emulated data 
+### Save the current state of your emulated data 
     - Firebase emulators do not store state between sessions. 
     - Once you shut down the emulator, all entries made will be lost. 
     - You can save inserted data for Firestore, RTDB, Storage, and Auth to a local directory when the emulators shut down:
@@ -438,7 +438,7 @@ Before you begin, ensure you have met the following **requirements**:
     firebase emulators:start --export-on-exit=./firebase-data
     ```
 
-  5. ### Load previously saved emulator 
+### Load previously saved emulator 
     - To load previously exported emulator data from a specified path:
 
     ```bash
@@ -447,13 +447,13 @@ Before you begin, ensure you have met the following **requirements**:
       firebase emulators:start --import=./firebase-data
     ```
 
-  6. ### Load previously saved data and save on exit
+### Load previously saved data and save on exit
 
   ```bash
   firebase emulators:start --import=./firebase-data --export-on-exit
   ```
 
-  7. ### Start specified emulators and run a shell command
+### Start specified emulators and run a shell command
     - Firebase emulators can execute test scripts by running an indicated shell command (e.g., `npm test`), and then shuting down the emulators. 
     - This is most useful for CI/CD pipelines and automated testing.
 
@@ -465,14 +465,14 @@ Before you begin, ensure you have met the following **requirements**:
 
 ## Running the Application
 
-  1. ### Start the emulators
+### Start the emulators
     - It is crucial to make sure the **emulators are running BEFORE the development server**.
       
       1. Open a new terminal
       2. Choose your desired start up method from [Firebase Emulator Commands](#firebase-emulator-commands)
      
 
-  2. ### Start the development server
+### Start the development server
     - After making absolutely sure your emulators **are already running**: 
     
       1. Open another new terminal
@@ -497,11 +497,11 @@ Before you begin, ensure you have met the following **requirements**:
 
     **ONLY AUTHORIZED DEVS WILL HAVE ACCESS TO PROD CREDENTIALS**
 
-  3. ### Open your browser and navigate to [localhost:3000](localhost:3000).
+### Open your browser and navigate to [localhost:3000](localhost:3000).
 
 ## Local Firebase Setup
 
-  1. ### Initial user setup for emulators:
+### Initial user setup for emulators:
     - You'll need to create a test user and assign them a "super" or "admin" role in the emulated Firestore "users" collection in order to test role-based access control:
 
       1. Sign up a new user through the application's sign-up page while the **emulators are running**.
@@ -514,7 +514,7 @@ Before you begin, ensure you have met the following **requirements**:
       3. Navigate to the Firestore tab
         - Manually add a `role` field to the `users` document corresponding with the newly registered UID (e.g., `role: 'super'`).
 
-  2. ### Cloud Firestore collections:
+### Cloud Firestore collections:
 
     - `users`: Stores user profiles, including role (`super`, `admin`, `employee`, `contractor`, `client`), contact information, service addresses, etc.
     - `estimate_requests`: Stores all incoming estimate requests
@@ -523,7 +523,7 @@ Before you begin, ensure you have met the following **requirements**:
     - `contact_request`: Stores all incoming contact requests
     - `employee_applications`: Stores all employee applications submitted through the platform.
 
-  3. ### Firebase Storage
+### Firebase Storage
     - Stores user-uploaded content and platform images (e.g., profile pictures, blog post images, estimate request images.)
 
 ## Firestore Security Rules:
@@ -545,18 +545,18 @@ Before you begin, ensure you have met the following **requirements**:
   - `staging.rules` and `prod.rules` should be identical, as staging is a test environment for prod.
   - Permissions for `dev.rules` are less restrictive than `staging.rules` and `prod.rules`.
 
-  1. ### Important concepts
+### Important concepts
     - `get()` : Used to fetch data 
       `get(/databses/$(database)/documents/users/$(userId)).data.role` securely fetches the role field from a user's document in the users collection.
     - `resource.data` : Used to post data
       - `request.resource.data` refers to the data that is being written (new data for `create` or altered existing data for `update`)
       - `resource.data` refers to the existing data of the document being modified (`update` or `delete`)
 
-  2. ### Update security rules in the project 
+### Update security rules in the project 
     - When **updating** any Firestore security rules, ensure you are editing the rules for the correct environment and role restrictions are set appropriately.
     - When **creating** new security rules, the rule must be added to the rules file for each environment, separately, with sufficient permissions restrictions
 
-  3. ### Update security rules in the Firebase Console
+### Update security rules in the Firebase Console
 
     **TEAM MEMBERS**: Skip this section and [Update from the CLI](#update-your-firestore-rules-in-the-cli).
 
@@ -601,7 +601,7 @@ Before you begin, ensure you have met the following **requirements**:
 
       **Repeat the process for storage.rules**
     
-  4. ### Update security rules in the CLI 
+### Update security rules in the CLI 
       - When deploying the rules in a multi-environment project, do **not** use the Firebase Console directly. 
       - Deploy different rules for each environment separately from the CLI using these commands:
 
@@ -625,12 +625,12 @@ Before you begin, ensure you have met the following **requirements**:
 
 ## Version Control and Merging
 
-  1. ### Core principles
+### Core principles
     - All code changes must be submitted through a Pull Request.
     - Direct commits to the `staging` and `prod` branches are **prohibited**.
     - The `prod` branch must **always** be stable and reflect the **current** state of the production environment.
 
-  2. ### Branching strategy
+### Branching strategy
     - GitHub workflows for this project enforce strict [branch naming conventions](#branch-naming-conventions)
 
     **If you are unsure of how to name a branch, copy the task details and the [branch naming conventions](#branch-naming-conventions) and ask Copilot what would be the best fit.**
@@ -713,7 +713,7 @@ Before you begin, ensure you have met the following **requirements**:
         ```
       - **NEVER** push commits or merge branches other than `staging/release` or `prod/hotfix` branches into `prod`.
 
-  3. ### Pull Request (PR) process
+### Pull Request (PR) process
     - **When to create a PR**
 
       - `dev/task` PRs should be created by the branch owner after code changes are tested against task requirements, and are ready for review.
@@ -783,7 +783,7 @@ Before you begin, ensure you have met the following **requirements**:
         - GitHub will automatically request a review from all code owners for the edited files.
         - You can manually request a review from any other team member on the project, even if they are not a codeowner of the edited files.
 
-  4.  ### Merging practices
+### Merging practices
       
     - **When to merge**
       1. `dev`
@@ -824,7 +824,7 @@ Before you begin, ensure you have met the following **requirements**:
       - **All branches** stem from `staging` **except** `prod` and `prod/hotfix` branches.
       - `staging` and `prod/hotfix` branches are created from `prod`.
 
-  5. ### Creating branches
+### Creating branches
     - Creating branches is simple and generally follows the same pattern - make sure everything is up to date, checkout to the origin branch, create the new branch from origin branch.
     - The newly created branch will contain all of the code from the it was created from, be sure you are starting from the **correct origin**.
 
@@ -943,7 +943,7 @@ Before you begin, ensure you have met the following **requirements**:
 
 ## Deployment
 
-  1. ### General deployment information
+### General deployment information
 
     **Only team members can deploy to our environments, external developers need their own environments**
 
@@ -953,7 +953,7 @@ Before you begin, ensure you have met the following **requirements**:
 
     **Always** make sure your branch is up to date with the remote `staging` branch before deploying to the `dev` or `staging` environments.
 
-  2. ### Deploy to `dev`
+### Deploy to `dev`
     - Complete the **Dev Deployment Log** in the repository wiki
       1. **Before** deployment
       2. **After** testing is complete
@@ -978,7 +978,7 @@ Before you begin, ensure you have met the following **requirements**:
     npm run deploy:dev
     ```
 
-  3. ### Deploy to `staging`
+### Deploy to `staging`
     - Deployment to `staging` is for testing code changes before sending to production.
 
     - Complete the **Staging Deployment Log** in the repository wiki
@@ -999,7 +999,7 @@ Before you begin, ensure you have met the following **requirements**:
     npm run deploy:staging
     ```
 
-  4. ### Deploy to `prod`
+### Deploy to `prod`
     - **When to deploy**
       - Before deploying to `prod`, the `staging/release` or `prod/hotfix` PR must thoroughly reviewed and tested by **ALL** parties.
       - We **only** deploy to `prod` after rigorous testing and explicit approval by QA, stakeholders, team lead, and every developer who contributed to the feature.
@@ -1022,7 +1022,7 @@ Before you begin, ensure you have met the following **requirements**:
 
 ## Contributing
 
-1. ### Coding standards
+### Coding standards
   - This project enforces code style and quality using `ESLint` and `Prettier`. 
   - Pull requests with **errors will not be committed**.
   - All pull requests are **required** to be reviewed by Copilot and at least one code owner and pass all checks before the commit option will become available.
@@ -1033,10 +1033,10 @@ Before you begin, ensure you have met the following **requirements**:
   npm run format
   ```
 
-3. ### Running tests
+### Running tests
   - Run unit/integration tests with `npm test`.
 
-4. ### Branch naming conventions
+### Branch naming conventions
 
   **All branches** enforce "slug-case" style (lowercase letters, numbers, and hyphens)
 
@@ -1110,7 +1110,7 @@ Before you begin, ensure you have met the following **requirements**:
 
 ## Project Structure
 
-1. ### Top-level directories
+### Top-level directories
 
   -  **`.github/`**: Contains GitHub-specific configurations, including CI/CD workflows (like ESLint checks) and the `CODEOWNERS` file for pull request reviews.
   - **`firestore_rules/`**: Holds the security rules for the Firestore database, with separate files for each environment (`dev`, `staging`, `prod`).
@@ -1119,7 +1119,7 @@ Before you begin, ensure you have met the following **requirements**:
   - **`src/`**: The main source code directory for the Next.js frontend application. All pages, components, contexts, hooks, and styles are located here.
   - **`storage_rules/`**: Holds the security rules for Cloud Storage, with separate files for each environment.
 
-2. ### Project File Tree
+### Project File Tree
 
   ```plaintext
   ┣ 📂.firebase
@@ -1306,7 +1306,7 @@ Before you begin, ensure you have met the following **requirements**:
 
 ## Troubleshooting
 
-  ### npm install (on project start up)
+### npm install (on project start up)
 
   1. Read the error message. Look closely for `Err!` lines in the console output.
 
@@ -1363,7 +1363,7 @@ Before you begin, ensure you have met the following **requirements**:
 
   6. If you still can't figure it out, copy your `ERR!` lines from your terminal and paste them into a search engine or AI model (Gemini, Copilot, ChatGPT, your choice). Many common errors have well-known solutions.
 
-  ### npm install (after successful initial project setup)
+### npm install (after successful initial project setup)
 
   1. Read the error message. Look closely for `Err!` lines in the console output.
 
@@ -1509,7 +1509,7 @@ Before you begin, ensure you have met the following **requirements**:
 
   11. If you still can't figure it out, copy your `ERR!` lines from your terminal and paste them into a search engine or AI model (Gemini, Copilot, ChatGPT, your choice). Many common errors have well-known solutions.
 
-  ### Failing Branch Name Check
+### Failing Branch Name Check
   - All branches must follow the naming conventions mentioned in the [Contributing](#contributing) section above. 
   - If you accidentally created and worked on a branch with an incorrect naming pattern, your PR will not pass necessary checks. To rename your branch, follow these steps:
 
