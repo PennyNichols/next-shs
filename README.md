@@ -131,7 +131,7 @@ Before you begin, ensure you have met the following **requirements**:
 
 ### Add your public SSH key to GitHub
 
-**1. Copy your public key:**
+**Copy your public key:**
   
   - macOS/Linux: 
     ```
@@ -143,23 +143,23 @@ Before you begin, ensure you have met the following **requirements**:
     ```
   If successful, the terminal will show no response. Even though there is no response, the text is in your clipboard.
 
-2. Link SSH Key to GitHub:
-    1. Log in to your GitHub account.
-    2. Go to Settings (your profile picture in the top right):
+**Link SSH Key to GitHub:**
+  - Log in to your GitHub account.
+  - Go to Settings (your profile picture in the top right):
 
-    ![GitHub account settings](./public/images/image-4.png)
+  ![GitHub account settings](./public/images/image-4.png)
 
-    3. Click the option "SSH and GPG keys":
+  - Click the option "SSH and GPG keys":
 
-    ![SSH and GPG key setting](./public/images/image-5.png)
+  ![SSH and GPG key setting](./public/images/image-5.png)
 
-    4. Click New SSH key or Add SSH key:
+  - Click New SSH key or Add SSH key:
 
-    ![Add new SSH key](./public/images/image-6.png)
+  ![Add new SSH key](./public/images/image-6.png)
 
-      - Give it a descriptive Title (e.g., "My Work Laptop").
-      - Paste your copied public key into the Key field
-      - Click Add SSH key and enter your passcode.
+  - Give it a descriptive Title (e.g., "My Work Laptop").
+  - Paste your copied public key into the Key field
+  - Click Add SSH key and enter your passcode.
 
     5. Confirm your key is in your GitHub SSH keys:
 
