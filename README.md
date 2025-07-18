@@ -117,7 +117,7 @@ Before you begin, ensure you have met the following **requirements**:
 
   This will return something like this:
 
-    ![Agent pid](./public/images/image-9.png)
+  ![Agent pid](./public/images/image-9.png)
 
 ### Add your private SSH key to the agent
 
