@@ -81,11 +81,11 @@ Before you begin, ensure you have met the following **requirements**:
 
 ### Configure GitHub SSH keys
 
-Check for existing SSH keys in your terminal (Git Bash on Windows, Terminal on macOS/Linux)
+  Check for existing SSH keys in your terminal (Git Bash on Windows, Terminal on macOS/Linux)
 
-  ls -al ~/.ssh
+    ls -al ~/.ssh
 
-Look for files named `id_rsa.pub`, `id_ed25519.pub`, or similar. If you find one, **do not** generate a new one. Doing so will effect your other project(s). If you already have an SSH key and it is configured with your GitHub account, continue to [clone the repository](#clone-the-repository).
+  Look for files named `id_rsa.pub`, `id_ed25519.pub`, or similar. If you find one, **do not** generate a new one. Doing so will effect your other project(s). If you already have an SSH key and it is configured with your GitHub account, continue to [clone the repository](#clone-the-repository).
 
 ### Generate a new SSH key (if needed)
 
