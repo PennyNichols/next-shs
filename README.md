@@ -133,13 +133,13 @@ Before you begin, ensure you have met the following **requirements**:
 
 **1. Copy your public key:**
   
-    macOS/Linux: 
+  - macOS/Linux: 
 
-      pbcopy < ~/.ssh/id_ed25519.pub
+    pbcopy < ~/.ssh/id_ed25519.pub
 
-    Windows (Git Bash): 
+  - Windows (Git Bash): 
 
-      cat ~/.ssh/id_ed25519.pub | clip
+    cat ~/.ssh/id_ed25519.pub | clip
 
   If successful, the terminal will show no response. Even though there is no response, the text is in your clipboard.
 
