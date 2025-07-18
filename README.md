@@ -131,7 +131,7 @@ Before you begin, ensure you have met the following **requirements**:
 
 ### Add your public SSH key to GitHub
 
-1. Copy your public key:
+**Copy your public key:**
   
   macOS/Linux: 
 
