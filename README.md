@@ -101,7 +101,7 @@ Before you begin, ensure you have met the following **requirements**:
 
     ![SSH successful keygen](./public/images/image-8.png)
 
-    - If you encounter this error, you are using the wrong CLI:
+    If you encounter this error, you are using the wrong CLI, it is recommended to switch to Git Bash.
 
     ![SSH generation error](./public/images/image-2.png)
 
