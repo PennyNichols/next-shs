@@ -70,28 +70,28 @@ This project is the foundational web application for SHS Site 2025, designed to 
 
 Before you begin, ensure you have met the following **requirements**:
 
-  1. `Node.js v22.x` (LTS version required for Firebase) 
-  2. `npm v11.x` or higher. We recommend using a Node Version Manager (like `nvm`) to easily switch between versions.
-  3. `Java Development Kit (JDK) v21.0.7` or higher is required for running the Firebase Emulators.
-  4. Firebase Tools CLI: Install globally via `npm`: 
+1. `Node.js v22.x` (LTS version required for Firebase) 
+2. `npm v11.x` or higher. We recommend using a Node Version Manager (like `nvm`) to easily switch between versions.
+3. `Java Development Kit (JDK) v21.0.7` or higher is required for running the Firebase Emulators.
+4. Firebase Tools CLI: Install globally via `npm`: 
 
-    npm install -g firebase-tools
+  npm install -g firebase-tools
     
 ## Installation
 
 ### Configure GitHub SSH keys
 
-  Check for existing SSH keys in your terminal (Git Bash on Windows, Terminal on macOS/Linux)
+Check for existing SSH keys in your terminal (Git Bash on Windows, Terminal on macOS/Linux)
 
-    ls -al ~/.ssh
+  ls -al ~/.ssh
 
-  Look for files named `id_rsa.pub`, `id_ed25519.pub`, or similar. If you find one, **do not** generate a new one. Doing so will effect your other project(s). If you already have an SSH key and it is configured with your GitHub account, continue to step 6 (**Clone the Repository**).
+Look for files named `id_rsa.pub`, `id_ed25519.pub`, or similar. If you find one, **do not** generate a new one. Doing so will effect your other project(s). If you already have an SSH key and it is configured with your GitHub account, continue to [clone the repository](#clone-the-repository).
 
 ### Generate a new SSH key (if needed)
 
   If you don't have an existing key or prefer a new one, generate one.
 
-  Replace 'your_email@example.com' with **your GitHub registered email**
+  Replace 'your_email@example.com' with **your GitHub registered email**:
 
     ssh-keygen -t ed25519 -C "your_email@example.com"
 
