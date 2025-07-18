@@ -96,7 +96,6 @@ Before you begin, ensure you have met the following **requirements**:
     ssh-keygen -t ed25519 -C "your_email@example.com"
 
   Press Enter to **accept the default file location** (~/.ssh/id_ed25519 or ~/.ssh/id_rsa).
-
   - You'll be prompted to enter a passphrase. **Remember this** passphrase, it is important! Please, do not leave it blank.
   - If the SSH key generation was successful, you should see something like this:
 
