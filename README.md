@@ -99,15 +99,15 @@ Before you begin, ensure you have met the following **requirements**:
   - You'll be prompted to enter a passphrase. **Remember this** passphrase, it is important! Please, do not leave it blank.
   - If the SSH key generation was successful, you should see something like this:
 
-    ![SSH successful keygen](./public/images/image-8.png)
+    ![SSH successful keygen](./public/images/readme-images/image-8.png)
 
     If you encounter this error, you are using the wrong CLI, it is recommended to switch to Git Bash.
 
-    ![SSH generation error](./public/images/image-2.png)
+    ![SSH generation error](./public/images/readme-images/image-2.png)
 
     If you are using VSCode, you can easily use Git Bash by selecting the option from the "+" dropdown:
 
-    ![Changing CLIs in VSCode](./public/images/image-3.png)
+    ![Changing CLIs in VSCode](./public/images/readme-images/image-3.png)
 
 ### Add your SSH key to the SSH agent
 
@@ -117,7 +117,7 @@ Before you begin, ensure you have met the following **requirements**:
 
   This will return something like this:
 
-  ![Agent pid](./public/images/image-9.png)
+  ![Agent pid](./public/images/readme-images/image-9.png)
 
 ### Add your private SSH key to the agent
 
@@ -127,7 +127,7 @@ Before you begin, ensure you have met the following **requirements**:
   
   If successful, you should see something like this:
 
-  ![Identity added](./public/images/image-10.png)
+  ![Identity added](./public/images/readme-images/image-10.png)
 
 ### Add your public SSH key to GitHub
 
@@ -147,15 +147,15 @@ Before you begin, ensure you have met the following **requirements**:
   - Log in to your GitHub account.
   - Go to Settings (your profile picture in the top right):
 
-  ![GitHub account settings](./public/images/image-4.png)
+  ![GitHub account settings](./public/images/readme-images/image-4.png)
 
   - Click the option "SSH and GPG keys":
 
-  ![SSH and GPG key setting](./public/images/image-5.png)
+  ![SSH and GPG key setting](./public/images/readme-images/image-5.png)
 
   - Click New SSH key or Add SSH key:
 
-  ![Add new SSH key](./public/images/image-6.png)
+  ![Add new SSH key](./public/images/readme-images/image-6.png)
 
   - Give it a descriptive Title (e.g., "My Work Laptop").
   - Paste your copied public key into the Key field
@@ -163,7 +163,7 @@ Before you begin, ensure you have met the following **requirements**:
 
     5. Confirm your key is in your GitHub SSH keys:
 
-    ![Active key](./public/images/image-7.png)
+    ![Active key](./public/images/readme-images/image-7.png)
 
 ### Clone the repository
 
@@ -172,19 +172,19 @@ Before you begin, ensure you have met the following **requirements**:
 
       You should see the dropdown here:
 
-      ![Repository Code dropdown](./public/images/image-11.png)
+      ![Repository Code dropdown](./public/images/readme-images/image-11.png)
 
       Under the "SSH" tab you will see this:
 
-      ![SSH clone tab](./public/images/image-12.png)
+      ![SSH clone tab](./public/images/readme-images/image-12.png)
 
       If you do not see the previous image on your screen, it is most likely the SSH key was set up incorrectly and will need to be done, again. If your keys are incorrect, the SSH tab will look like this and **you must return to step 2**:
 
-      ![Incorrect SSH key](./public/images/image-1.png)
+      ![Incorrect SSH key](./public/images/readme-images/image-1.png)
     
     2. Clone the repository from your command line:
 
-      ![SSH url](./public/images/image-13.png)
+      ![SSH url](./public/images/readme-images/image-13.png)
 
       ```bash
         git clone git@github.com:PennyNichols/next-shs.git
@@ -506,7 +506,7 @@ Before you begin, ensure you have met the following **requirements**:
       2. Access the Firebase Emulator UI 
         - You can use [localhost:/4000](localhost:4000) or any of these more specific local addresses:
 
-        ![Firebase emulator URLs](./public/images/image.png)
+        ![Firebase emulator URLs](./public/images/readme-images/image.png)
 
       3. Navigate to the Firestore tab
         - Manually add a `role` field to the `users` document corresponding with the newly registered UID (e.g., `role: 'super'`).
@@ -564,37 +564,37 @@ Before you begin, ensure you have met the following **requirements**:
       1. Go to your Firebase Console
         - Open your browser and navigate to `console.firebase.google.com` [here](console.firebase.google.com). You should see a screen like this:
 
-        ![Firebase console homepage](./public/images/image-14.png)
+        ![Firebase console homepage](./public/images/readme-images/image-14.png)
 
       2. Select your project 
         - You should see the project you want to update from your Firebase homepage. Click on the project you designated for this application. You should see a screen like this:
 
-        ![Firebase project homepage](./public/images/image-15.png)
+        ![Firebase project homepage](./public/images/readme-images/image-15.png)
 
       3. Navigate to the Firestore
         - In the left navigation menu, there is an option called "Firestore Database". It is also located in the "Build" accordion component. You should see the option here:
 
-        ![Firebase side navigation](./public/images/image-16.png)
+        ![Firebase side navigation](./public/images/readme-images/image-16.png)
 
       4. Open "Rules" tab
         - Click on the "Rules" tab at the top of your Firestore page. It should look like this:
 
-        ![Firestore Rules tab](./public/images/image-17.png)
+        ![Firestore Rules tab](./public/images/readme-images/image-17.png)
 
       5. Insert Firestore rules
         - Under the section matching the previous image, you will see a text editor. It should look like this (with different content):
 
-        ![Firestore Rules text editor](./public/images/image-18.png)
+        ![Firestore Rules text editor](./public/images/readme-images/image-18.png)
 
         - **Delete** the existing content from the text editor.
         - **Copy & Paste** the new content from your `dev.rules` file.
         - After editing the rules, you should see a banner at the top of the text editor that looks like this:
 
-        ![Unpublished changes banner](./public/images/image-19.png)
+        ![Unpublished changes banner](./public/images/readme-images/image-19.png)
 
         - After you have finished inserting all of the content, exactly matching your `firestore.rules` file, click the "Publish" button. If the process was successful, you should see this toast:
 
-        ![Success toast](./public/images/image-20.png)
+        ![Success toast](./public/images/readme-images/image-20.png)
 
       **Repeat the process for storage.rules**
     
