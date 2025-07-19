@@ -172,7 +172,6 @@ Ensure your SSH key is **password protected** and follow these steps to clone th
 
 > [!WARNING]
 > If you do not see the previous image on your screen, it is most likely the SSH key was set up incorrectly and will need to be done, again. If your keys are incorrect, the SSH tab will look like this and **you must restart at [SSH key generation](#generate-a-new-ssh-key-if-needed)**:
-
 ![Incorrect SSH key](./public/images/readme-images/image-1.png)
     
   - Clone the repository from your command line:
