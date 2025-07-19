@@ -154,16 +154,14 @@ Before you begin, ensure you have met the following **requirements**:
   ![SSH and GPG key setting](./public/images/readme-images/image-5.png)
 
   - Click New SSH key or Add SSH key:
-
-  ![Add new SSH key](./public/images/readme-images/image-6.png)
-
   > Give it a descriptive Title (e.g., "My Work Laptop").
   > Paste your copied public key into the Key field
   > Click Add SSH key and enter your passcode.
+  ![Add new SSH key](./public/images/readme-images/image-6.png)
 
   - Confirm your key is in your GitHub SSH keys:
 
-    ![Active key](./public/images/readme-images/image-7.png)
+  ![Active key](./public/images/readme-images/image-7.png)
 
 ### Clone the repository
 
