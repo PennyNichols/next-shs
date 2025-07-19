@@ -154,9 +154,10 @@ Before you begin, ensure you have met the following **requirements**:
     ![SSH and GPG key setting](./public/images/readme-images/image-5.png)
 
     4. Click New SSH key or Add SSH key:
-      - Give it a descriptive Title (e.g., "My Work Laptop").
-      - Paste your copied public key into the Key field
-      - Click Add SSH key and enter your passcode.
+
+        - Give it a descriptive Title (e.g., "My Work Laptop").
+        - Paste your copied public key into the Key field
+        - Click Add SSH key and enter your passcode.
     
     ![Add new SSH key](./public/images/readme-images/image-6.png)
 
