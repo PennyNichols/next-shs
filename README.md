@@ -143,26 +143,26 @@ Before you begin, ensure you have met the following **requirements**:
       ```
       If successful, the terminal will show no response. Even though there is no response, the text is in your clipboard.
 
-**Link SSH Key to GitHub:**
-  1. Log in to your GitHub account.
-  2. Go to Settings (your profile picture in the top right):
+  - Link SSH Key to GitHub:
+    1. Log in to your GitHub account.
+    2. Go to Settings (your profile picture in the top right):
 
-  ![GitHub account settings](./public/images/readme-images/image-4.png)
+    ![GitHub account settings](./public/images/readme-images/image-4.png)
 
-  3. Click the option "SSH and GPG keys":
+    3. Click the option "SSH and GPG keys":
 
-  ![SSH and GPG key setting](./public/images/readme-images/image-5.png)
+    ![SSH and GPG key setting](./public/images/readme-images/image-5.png)
 
-  4. Click New SSH key or Add SSH key:
-    - Give it a descriptive Title (e.g., "My Work Laptop").
-    - Paste your copied public key into the Key field
-    - Click Add SSH key and enter your passcode.
-  
-  ![Add new SSH key](./public/images/readme-images/image-6.png)
+    4. Click New SSH key or Add SSH key:
+      - Give it a descriptive Title (e.g., "My Work Laptop").
+      - Paste your copied public key into the Key field
+      - Click Add SSH key and enter your passcode.
+    
+    ![Add new SSH key](./public/images/readme-images/image-6.png)
 
-  5. Confirm your key is in your GitHub SSH keys:
+    5. Confirm your key is in your GitHub SSH keys:
 
-  ![Active key](./public/images/readme-images/image-7.png)
+    ![Active key](./public/images/readme-images/image-7.png)
 
 ### Clone the repository
 
