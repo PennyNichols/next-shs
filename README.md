@@ -92,10 +92,10 @@ Before you begin, ensure you have met the following **requirements**:
   If you don't have an existing key or prefer a new one, generate one.
 
   Replace 'your_email@example.com' with **your GitHub registered email**
+  Press Enter to **accept the default file location** (`~/.ssh/id_ed25519` or `~/.ssh/id_rsa`).
 
     ssh-keygen -t ed25519 -C "your_email@example.com"
 
-  Press Enter to **accept the default file location** (~/.ssh/id_ed25519 or ~/.ssh/id_rsa).
   - You'll be prompted to enter a passphrase. **Remember this** passphrase, it is important! Please, do not leave it blank.
   - If the SSH key generation was successful, you should see something like this:
 
@@ -111,13 +111,13 @@ Before you begin, ensure you have met the following **requirements**:
 
 ### Add your SSH key to the SSH agent
 
-  Start the SSH agent in the background:
+  - Start the SSH agent in the background:
 
-    eval "$(ssh-agent -s)"
+      eval "$(ssh-agent -s)"
 
-  This will return something like this:
+    This will return something like this:
 
-  ![Agent pid](./public/images/readme-images/image-9.png)
+    ![Agent pid](./public/images/readme-images/image-9.png)
 
 ### Add your private SSH key to the agent
 
