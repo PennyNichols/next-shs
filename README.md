@@ -362,7 +362,6 @@ The Firebase Emulators env variable is a self-set value to indicate whether the 
     - The verification function can be viewed in `next-shs/src/app/api/recaptcha/route.ts`
 
 ### Generate a `.firebaserc` file
-
 In the root directory, create a file named `.firebaserc` with these contents:
 
   ```
@@ -379,31 +378,29 @@ In the root directory, create a file named `.firebaserc` with these contents:
 ## Firebase Emulator Configuration:
 
 ### Log in to Firebase
-
 Authenticating the Firebase CLI with your Google account is required by Firebase.
 
-    ```bash
+    ```
     firebase login
     ```
 
 ### Compile Cloud Functions
-    - Cloud functions must be compiled before starting the emulators for the first time and after changing backend code.
+Cloud functions must be compiled before starting the emulators for the first time and after changing backend code.
+  - From the root `next-shs` directory:
 
-    From the root `next-shs` directory:
-
-    ```bash
-    cd functions
-    npm run build
-    cd ..
-    ```
+  ```
+  cd functions
+  npm run build
+  cd ..
+  ```
 
 ### Initialize Firebase emulators
+**Members of the team**, skip this and proceed to [Firebase Emulator Commands](#firebase-emulator-commands).
 
-    **Members of the team**, skip this and proceed to [Firebase Emulator Commands](#firebase-emulator-commands).
-    
-    **This project is already initialized**: Do **not** run `firebase init emulators`, it will not give you any options to select. 
+> [!WARNING]  
+> **This project is already initialized**: Do **not** run `firebase init emulators`, it will not give you any options to select. 
 
-    - If you would like a custom emulator configuration, edit the `firebase.json` details directly and execute the `npm run build` command again.
+If you would like a custom emulator configuration, edit the `firebase.json` details directly and execute the `npm run build` command again.
 
 ## Firebase Emulator Commands
 
