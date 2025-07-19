@@ -637,7 +637,7 @@ Before you begin, ensure you have met the following **requirements**:
       - `dev` branches are **NEVER** merged back into `staging`
       - **Before commiting** any changes to `dev` branches, request a preliminary review from Copilot in the Source Control tab in VSCode:
 
-      ![Requesting a review from Copilot before committing changes](image.png)
+      ![Requesting a review from Copilot before committing changes](./public/images/readme-images/image-21.png)
 
       - There are two types of `dev` branches:
 
