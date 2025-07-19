@@ -167,8 +167,8 @@ Ensure your SSH key is **password protected** and follow these steps to clone th
     - Under the "SSH" tab you will see this:
 
     ![SSH clone tab](./public/images/readme-images/image-12.png)
-      > [!WARNING]
-      > If you do not see the previous image on your screen, it is most likely the SSH key was set up incorrectly and will need to be done, again. If your keys are incorrect, the SSH tab will look like this and **you must return to step 2**:
+> [!WARNING]
+> If you do not see the previous image on your screen, it is most likely the SSH key was set up incorrectly and will need to be done, again. If your keys are incorrect, the SSH tab will look like this and **you must return to step 2**:
 
       ![Incorrect SSH key](./public/images/readme-images/image-1.png)
     
