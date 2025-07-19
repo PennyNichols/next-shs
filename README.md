@@ -3,7 +3,6 @@
 This project is the foundational web application for SHS Site 2025, designed to evolve into a comprehensive construction business and operations management platform. The current Minimum Viable Product (MVP) focuses on core functionalities such as client estimate requests, subscription management, and establishing role-based access control (RBAC) for super, admin, employee, contractor, and client users. It leverages Next.js for a performant front-end and a Google Cloud/Firebase backend for scalability and security.
 
 ## Table of Contents
-
 - [Prerequisites](#prerequisites)
 - [Installation](#installation)
   1. [Configure GitHub SSH keys](#configure-github-ssh-keys)
@@ -67,7 +66,6 @@ This project is the foundational web application for SHS Site 2025, designed to 
 - [License](#license)
 
 ## Prerequisites
-
 Before you begin, ensure you have met the following **requirements**:
 
   1. `Node.js v22.x` (LTS version required for Firebase) 
@@ -80,7 +78,6 @@ Before you begin, ensure you have met the following **requirements**:
 ## Installation
 
 ### Configure GitHub SSH keys
-
   Check for existing SSH keys in your terminal (Git Bash on Windows, Terminal on macOS/Linux)
 
     ls -al ~/.ssh
@@ -88,7 +85,6 @@ Before you begin, ensure you have met the following **requirements**:
   Look for files named `id_rsa.pub`, `id_ed25519.pub`, or similar. If you find one, **do not** generate a new one. Doing so will effect your other project(s). If you already have an SSH key and it is configured with your GitHub account, continue to [clone the repository](#clone-the-repository).
 
 ### Generate a new SSH key (if needed)
-
   If you don't have an existing key or prefer a new one, generate one.
 
   Replace 'your_email@example.com' with **your GitHub registered email**
@@ -110,7 +106,6 @@ Before you begin, ensure you have met the following **requirements**:
     ![Changing CLIs in VSCode](./public/images/readme-images/image-3.png)
 
 ### Start the SSH agent
-
   - Start the SSH agent in the background:
     ```
     eval "$(ssh-agent -s)"
@@ -120,7 +115,6 @@ Before you begin, ensure you have met the following **requirements**:
     ![Agent pid](./public/images/readme-images/image-9.png)
 
 ### Add your private SSH key to the agent
-
   - Replace id_ed25519 with your key file name if different. Use `id_rsa` if you have an older key:
     ```
     ssh-add ~/.ssh/id_ed25519
@@ -130,7 +124,6 @@ Before you begin, ensure you have met the following **requirements**:
     ![Identity added](./public/images/readme-images/image-10.png)
 
 ### Add your public SSH key to GitHub
-
   - Copy your public key:
   
     - macOS/Linux: 
@@ -166,8 +159,7 @@ Before you begin, ensure you have met the following **requirements**:
     ![Active key](./public/images/readme-images/image-7.png)
 
 ### Clone the repository
-
-  - Ensure your SSH key is **password protected** and follow these steps to clone the repository:
+Ensure your SSH key is **password protected** and follow these steps to clone the repository:
     1. Obtain the SSH cloning URL from the SSH tab of the "Code" dropdown on the repository [homepage](https://github.com/PennyNichols/next-shs#):
 
       You should see the dropdown here:
