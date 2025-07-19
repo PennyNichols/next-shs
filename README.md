@@ -245,102 +245,121 @@ For this multi-environment system to be viable in your project, you must have:
   - Set a project name. This is the user-facing name you'll see in the console. 
 > [!NOTE]
 > If you are running multiple environments, name them with either the prefix `dev-your-project-name` or the `suffix your-project-name-dev`.
-  - Adjust project ID (in necessary)
+  - Adjust project ID (if necessary)
 > [!WARNING]
 > Firebase will set a globally unique project ID based on the project name. You can edit it, but this ID is permanent and cannot be changed later. Make sure you're happy with it.
-  5. **Google Analytics (Optional):** Decide if you want to enable Google Analytics. It's recommended.
-  6. **Create: Click "Create project".** This could take a minute or two.
+  - Enable Google Analytics. It's optional, but recommended.
+  - Click "Create project". This could take a minute or two.
 
   You should now have a Firebase project and a linked Google Cloud project with the same name and ID.
 
-    - **Access Your Google Cloud Project directly from Firebase:**
-      1. In the Firebase console, go to your project.
-      2. Click the gear icon ⚙️ next to "Project Overview" and select "Project settings."
-      3. On the "General" tab, you'll see a link to your project in the Google Cloud console.
+**Access Your Google Cloud Project directly from Firebase:**
+  - In the Firebase console, go to your project.
+  - Click the gear icon ⚙️ next to "Project Overview" and select "Project settings."
+  - On the "General" tab, you'll see a link to your project in the Google Cloud console.
 
-      Alternatively, you can go directly to the Google Cloud console and select the project from the dropdown menu at the top of the page. It will have the same project ID you just created.
+  Alternatively, you can go directly to the Google Cloud console and select the project from the dropdown menu at the top of the page. It will have the same project ID you just created.
 
-    - **Enable the necessary Cloud APIs:**
-      1. In your Google Cloud console left-side menu, select **APIs and Services**
-      2. Navigate to the API library. Search for and ensure these APIs are enabled:
-        - **Cloud Resource Manager API** (cloudresourcemanager.googleapis.com): Manages your cloud project resources.
-        - **Firebase Management API** (firebase.googleapis.com): Allows for programmatic management of your Firebase project.
-        - **Firebase Rules API** (firebaserules.googleapis.com): Manages security rules for Firestore and Cloud Storage.
-        - **Cloud Storage** (storage.googleapis.com): This is the underlying service to store and serve user-generated content in Firebase Storage.
-        - **Cloud Firestore API** (firestore.googleapis.com): The main API for the Firestore database.
-        - **Cloud Functions API** (cloudfunctions.googleapis.com): To deploy and run your backend code.
-        - **Cloud Build API** (cloudbuild.googleapis.com): Builds the container images for your functions.
-        - **Artifact Registry API** (artifactregistry.googleapis.com): Stores and manages the container images created by Cloud Build.
-        - **Cloud Run Admin API** (run.googleapis.com): Manages and runs the deployed function containers.
-        - **Identity Toolkit API** (identitytoolkit.googleapis.com): The backend for Firebase Authentication, managing users and credentials.
-        - **Token Service API** (sts.googleapis.com): Issues security tokens for authentication.
-        - **Firebase Hosting API** (firebasehosting.googleapis.com): Manages your hosting sites. If you connect your hosting to a Cloud Run service, the Cloud Run Admin API will also be used.
-        - **Cloud Secret Manager API** (secretmanager.googleapis.com): Many extensions use this to handle secrets and API keys securely. 
-        - Other APIs may be required depending on the specific extension you install.
+**Enable the necessary Cloud APIs:**
+  - In your Google Cloud console left-side menu, select **APIs and Services**
+  - Navigate to the API library. Search for and ensure these APIs are enabled:
+    - **Cloud Resource Manager API** (cloudresourcemanager.googleapis.com): Manages your cloud project resources.
+    - **Firebase Management API** (firebase.googleapis.com): Allows for programmatic management of your Firebase project.
+    - **Firebase Rules API** (firebaserules.googleapis.com): Manages security rules for Firestore and Cloud Storage.
+    - **Cloud Storage** (storage.googleapis.com): This is the underlying service to store and serve user-generated content in Firebase Storage.
+    - **Cloud Firestore API** (firestore.googleapis.com): The main API for the Firestore database.
+    - **Cloud Functions API** (cloudfunctions.googleapis.com): To deploy and run your backend code.
+    - **Cloud Build API** (cloudbuild.googleapis.com): Builds the container images for your functions.
+    - **Artifact Registry API** (artifactregistry.googleapis.com): Stores and manages the container images created by Cloud Build.
+    - **Cloud Run Admin API** (run.googleapis.com): Manages and runs the deployed function containers.
+    - **Identity Toolkit API** (identitytoolkit.googleapis.com): The backend for Firebase Authentication, managing users and credentials.
+    - **Token Service API** (sts.googleapis.com): Issues security tokens for authentication.
+    - **Firebase Hosting API** (firebasehosting.googleapis.com): Manages your hosting sites. If you connect your hosting to a Cloud Run service, the Cloud Run Admin API will also be used.
+    - **Cloud Secret Manager API** (secretmanager.googleapis.com): Many extensions use this to handle secrets and API keys securely. 
+    - Other APIs may be required depending on the specific extension you install.
+    - **Directions API** (directions.googleapis.com): Enforces service area boundaries.
+    - **Geocoding API** (geocoding.googleapis.com): Enforces service area boundaries.
 
-    - **Configure public Firebase env variables:**
-      1. Go to the Firebase [console](https://console.firebase.google.com/).
-      2. Select your project.
-      3. In the project overview, click the icon (the web icon) to view your project configuration object and use the values to set these env variables:
-        - `NEXT_PUBLIC_FIREBASE_API_KEY` (`apiKey`) 
-          - If this does not auto-generate, create it in the Google Cloud console on the next step.
-        - `NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN` (`authDomain`)
-        - `NEXT_PUBLIC_FIREBASE_PROJECT_ID` (`projectId`)
-        - `NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET` (`storageBucket`)
-        - `NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID` (`messagingSenderId`)
-        - `NEXT_PUBLIC_FIREBASE_APP_ID` (`appId`)
-        - `NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID` (`measurementId`)  
+**Configure public Firebase env variables:**
+  - Go to the Firebase [console](https://console.firebase.google.com/).
+  - Select your project.
+  - In the project overview, click the icon (the web icon) to view your project configuration object and use the values to set these env variables:
+    - `NEXT_PUBLIC_FIREBASE_API_KEY` (`apiKey`) 
+    If this does not auto-generate, create it in the Google Cloud console on the next step.
+    - `NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN` (`authDomain`)
+    - `NEXT_PUBLIC_FIREBASE_PROJECT_ID` (`projectId`)
+    - `NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET` (`storageBucket`)
+    - `NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID` (`messagingSenderId`)
+    - `NEXT_PUBLIC_FIREBASE_APP_ID` (`appId`)
+    - `NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID` (`measurementId`)  
 
-    - **Configure `NEXT_PUBLIC_FIREBASE_API_KEY`** 
-      1. Go to your Google Cloud console. 
-      2. In the left menu, select **APIs and Services > Credentials**. Here you should see the API key created by your Firebase project. 
-        - If you **do not** see an API key there, click **Create credentials > API key**.
-        - The Firebase API key will be auto-generated. 
-      3. Click the corresponding **Show key** button and copy the value :
-        - `NEXT_PUBLIC_FIREBASE_API_KEY` (paste API key)
-      3. Click on the API key to view the details.
-      4. Under **Application restrictions**, select **Websites**
-      5. Ensure you have these website referrers, at minimum. If you do not, add them.
-        - `127.0.0.1:5000`
-        - `localhost:3000`
-        - `<YOUR_CLOUD_PROJECT_ID>.web.app`
-        - `<YOUR_CLOUD_PROJECT_ID>.firebaseapp.com`
-      6. Click **save**. Your API key is now properly configured for this application.
+**Configure `NEXT_PUBLIC_FIREBASE_API_KEY`** 
+  - Go to your Google Cloud console. 
+  - In the left menu, select **APIs and Services > Credentials**. Here you should see the API key created by your Firebase project. 
+    - If you **do not** see an API key there, click **Create credentials > API key**.
+    - The Firebase API key will be auto-generated. 
+  - Click the corresponding **Show key** button and copy the value :
+    - `NEXT_PUBLIC_FIREBASE_API_KEY` (paste API key)
+  - Click on the API key to view the details.
+  - Under **Application restrictions**, select **Websites**
+  - Ensure you have these website referrers, at minimum. If you do not, add them.
+    - `127.0.0.1:5000`
+    - `localhost:3000`
+    - `<YOUR_CLOUD_PROJECT_ID>.web.app`
+    - `<YOUR_CLOUD_PROJECT_ID>.firebaseapp.com`
+  - Click **save**. Your API key is now properly configured for this application.
 
-    - **Configure private Firebase env variables:**
-      These are for the backend. They should not be used in any client facing code. They do not need the prefix `NEXT_PUBLIC_` for our express app to use them. The private key and client email are part of a service account allowing the backend to interact with Firebase services with admin privileges.
-      1. In the Firebase console, go to **Project settings** (click the gear icon ⚙️).
-      2. Select the **Service accounts** tab.
-      3.	Click the **Generate new private key** button. A JSON file will be downloaded.
-        **Do not store this JSON file in your remote repository**
-      4.	From this downloaded JSON file, you can get these env variables:
-        - `FIREBASE_PRIVATE_KEY`: (`private_key`), including `-----BEGIN PRIVATE KEY-----` and `-----END PRIVATE KEY-----`. **wrap it in quotes**.
-        - `FIREBASE_CLIENT_EMAIL` (`client_email`)
-        - `FIREBASE_PROJECT_ID`: This is the same as `NEXT_PUBLIC_FIREBASE_PROJECT_ID`.
+**Configure `MAPS_API_KEY`** 
+  - Go to your Google Cloud console. 
+  - In the left menu, select **APIs and Services > Credentials**.
+  - Click **Create credentials > API key**.
+  - The API key will be auto-generated. 
+  - Click the **Show key** button and copy the value.
+  - Paste the value into `functions/.env.local` for the `MAPS_API_KEY`.
+  - Click on the API key to view the details.
+  - Under **Application restrictions**, select **None**
 
-    - **Configure Firebase Realtime Database env variable**
-      1. In the left-hand menu of the Firebase console, select **Build > Realtime Database**.
-      2. Create a new Realtime Database instance. 
-        - If you encounter an unknown error, ensure **all** of the required APIs have been enabled in your Google Cloud console.
-      3. The URL for your database will be displayed at the top of the data viewer:
-        - `FIREBASE_DATABASE_URL` (`https://<your-project-id>-default-rtdb.firebaseio.com`) 
+> [!CAUTION]
+> This grants API access to our backend, adding referrers is for frontend access and will block a backend request.
 
-    - **Configure Firebase Emulators env variable**
-      The Firebase Emulators env variable is a self-set value to indicate whether the application should connect to local emulators or live services.
-      - `NEXT_PUBLIC_USE_FIREBASE_EMULATORS`: `true` for local use or `false` for live services 
+  - Under **API restrictions**, select **Restrict key**
+  - In the dropdown, select **Directions API** and **Geocoding API**
+  - Click **save**. Your Maps API key is now properly configured.
 
-    - **Configure Google reCAPTCHA env variables**
-      1. Go to the Google Cloud reCAPTCHA [admin console](https://www.google.com/recaptcha/admin/create): 
-      2. Register your site:
-        - Provide a label for your site.
-        - Choose **reCAPTCHA v3**.
-        - Add your domain (e.g., localhost for local development).
-      3.	After submitting, you will be provided with a **Site Key** and a **Secret Key**:
-        - `NEXT_PUBLIC_RECAPTCHA_SITE_KEY` (Site Key)
-        - `RECAPTCHA_SECRET_KEY` (Secret Key)
-        - `RECAPTCHA_VERIFY_URL` (`https://www.google.com/recaptcha/api/siteverify`)
-      4. **You must verify reCAPTCHA v3 on the server**
-        - The verification function can be viewed in `next-shs/src/app/api/recaptcha/route.ts`
+**Configure private Firebase env variables:**
+  These are for the backend application only. They should not be used in any client facing code. They do not need the prefix `NEXT_PUBLIC_` for our express app to use them. The private key and client email are part of a service account allowing the backend to interact with Firebase services with admin privileges.
+  - In the Firebase console, go to **Project settings** (click the gear icon ⚙️).
+  - Select the **Service accounts** tab.
+  -	Click the **Generate new private key** button. A JSON file will be downloaded.
+    **Do not store this JSON file in your remote repository**
+  -	From this downloaded JSON file, you can get these env variables:
+    - `FIREBASE_PRIVATE_KEY`: (`private_key`), including `-----BEGIN PRIVATE KEY-----` and `-----END PRIVATE KEY-----`. **wrap it in quotes**.
+    - `FIREBASE_CLIENT_EMAIL` (`client_email`)
+    - `FIREBASE_PROJECT_ID`: This is the same as `NEXT_PUBLIC_FIREBASE_PROJECT_ID`.
+
+**Configure Firebase Realtime Database env variable**
+  - In the left-hand menu of the Firebase console, select **Build > Realtime Database**.
+  - Create a new Realtime Database instance. 
+    - If you encounter an unknown error, ensure **all** of the required APIs have been enabled in your Google Cloud console.
+  - The URL for your database will be displayed at the top of the data viewer:
+    - `FIREBASE_DATABASE_URL` (`https://<your-project-id>-default-rtdb.firebaseio.com`) 
+
+**Configure Firebase Emulators env variable**
+The Firebase Emulators env variable is a self-set value to indicate whether the application should connect to local emulators or live services.
+  - `NEXT_PUBLIC_USE_FIREBASE_EMULATORS`: `true` for local use or `false` for live services 
+
+**Configure Google reCAPTCHA env variables**
+  - Go to the Google Cloud reCAPTCHA [admin console](https://www.google.com/recaptcha/admin/create): 
+  - Register your site:
+    - Provide a label for your site.
+    - Choose **reCAPTCHA v3**.
+    - Add your domain (e.g., localhost for local development).
+  -	After submitting, you will be provided with a **Site Key** and a **Secret Key**:
+    - `NEXT_PUBLIC_RECAPTCHA_SITE_KEY` (Site Key)
+    - `RECAPTCHA_SECRET_KEY` (Secret Key)
+    - `RECAPTCHA_VERIFY_URL` (`https://www.google.com/recaptcha/api/siteverify`)
+  - **You must verify reCAPTCHA v3 on the server**
+    - The verification function can be viewed in `next-shs/src/app/api/recaptcha/route.ts`
 
 ### Generate a `.firebaserc` file
 
