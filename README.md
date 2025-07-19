@@ -177,11 +177,7 @@ Ensure your SSH key is **password protected** and follow these steps to clone th
     
   - Clone the repository from your command line:
 
-      ![SSH url](./public/images/readme-images/image-13.png)
-
-      ```bash
-        git clone git@github.com:PennyNichols/next-shs.git
-      ```
+      git clone git@github.com:PennyNichols/next-shs.git
 
 ### Install project dependencies
 
