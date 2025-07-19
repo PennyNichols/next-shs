@@ -121,13 +121,13 @@ Before you begin, ensure you have met the following **requirements**:
 
 ### Add your private SSH key to the agent
 
-  Replace id_ed25519 with your key file name if different. Use `id_rsa` if you have an older key:
-
+  - Replace id_ed25519 with your key file name if different. Use `id_rsa` if you have an older key:
+    ```
     ssh-add ~/.ssh/id_ed25519
-  
-  If successful, you should see something like this:
+    ```
+    If successful, you should see something like this:
 
-  ![Identity added](./public/images/readme-images/image-10.png)
+    ![Identity added](./public/images/readme-images/image-10.png)
 
 ### Add your public SSH key to GitHub
 
