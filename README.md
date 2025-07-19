@@ -208,9 +208,8 @@ For this multi-environment system to be viable in your project, you must have:
 
 ### Create `.env` files in the root directory:
   - Depending on your role and permissions, you may need up to three `.env` files - `.env.local`, `.env.staging`, `.env.prod`.
-  - **External devs**
-    - add this configuration to whichever environments you intend to execute and obtain the values following the instructions in **[Obtain Environment Variables](#obtain-environment-variables)** below.
-    - You will need to add these environment variables to their respective Vercel projects.
+  - add this configuration to whichever environments you intend to execute and obtain the values following the instructions in **[Obtain Environment Variables](#obtain-environment-variables)** below.
+  - You will need to add these environment variables to their respective Vercel projects.
 
     ```
     NEXT_PUBLIC_FIREBASE_API_KEY=your_firebase_api_key
@@ -228,7 +227,7 @@ For this multi-environment system to be viable in your project, you must have:
   - The `functions` directory needs a single .env.local file.
   - This file is to provide Firebase emulators with the `dev` environment to run on your local machine.
   - These environment variables are set directly in Vercel for our `staging` and `prod` environments.
-  - **External devs** add this configuration and obtain the values following the instructions in **[Obtain Environment Variables](#obtain-environment-variables)** below.
+
     ```
     MAPS_API_KEY=your_maps_api_key
     RECAPTCHA_SECRET_KEY=your_recaptcha_secret_key
