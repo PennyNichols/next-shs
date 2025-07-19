@@ -163,16 +163,13 @@ Ensure your SSH key is **password protected** and follow these steps to clone th
   - Obtain the SSH cloning URL from the SSH tab of the "Code" dropdown on the repository [homepage](https://github.com/PennyNichols/next-shs#):
     - You should see the dropdown here:
     ![Repository Code dropdown](./public/images/readme-images/image-11.png)
-
     - Under the "SSH" tab you will see this:
-
     ![SSH clone tab](./public/images/readme-images/image-12.png)
 > [!WARNING]
 > If you do not see the previous image on your screen, it is most likely the SSH key was set up incorrectly and will need to be done, again. If your keys are incorrect, the SSH tab will look like this and **you must return to step 2**:
-
-      ![Incorrect SSH key](./public/images/readme-images/image-1.png)
+![Incorrect SSH key](./public/images/readme-images/image-1.png)
     
-    2. Clone the repository from your command line:
+  - Clone the repository from your command line:
 
       ![SSH url](./public/images/readme-images/image-13.png)
 
