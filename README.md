@@ -157,9 +157,9 @@ Before you begin, ensure you have met the following **requirements**:
 
   ![Add new SSH key](./public/images/readme-images/image-6.png)
 
-  - Give it a descriptive Title (e.g., "My Work Laptop").
-  - Paste your copied public key into the Key field
-  - Click Add SSH key and enter your passcode.
+  * Give it a descriptive Title (e.g., "My Work Laptop").
+  * Paste your copied public key into the Key field
+  * Click Add SSH key and enter your passcode.
 
     5. Confirm your key is in your GitHub SSH keys:
 
