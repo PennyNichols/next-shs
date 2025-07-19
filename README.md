@@ -231,6 +231,7 @@ For this multi-environment system to be viable in your project, you must have:
   - These environment variables are set directly in Vercel for our `staging` and `prod` environments.
   - **External devs** add this configuration and obtain the values following the instructions in **[Obtain Environment Variables](#obtain-environment-variables)** below.
     ```
+    MAPS_API_KEY=your_maps_api_key
     RECAPTCHA_SECRET_KEY=your_recaptcha_secret_key
     RECAPTCHA_VERIFY_URL=recaptcha_verify_url
     FIREBASE_PRIVATE_KEY=your_firebase_private_key
@@ -240,16 +241,15 @@ For this multi-environment system to be viable in your project, you must have:
     ```
 
 ### Obtain environment variables
+**Create your Firebase and Google Cloud projects:**
+  1. **Go to the Firebase Console:** Navigate to console.firebase.google.com.
+  2. **Add a Project:** Click the "+ Add project" card.
+  3. **Enter a Project Name:** Type in your desired project name. This is the user-facing name you'll see in the console. If you are running multiple environments, name them with either the prefix `dev-your-project-name` or the `suffix your-project-name-dev`.
+  4. **Confirm the Project ID:** Firebase will suggest a globally unique project ID based on the name. You can edit it, but this ID is permanent and cannot be changed later. Make sure you're happy with it.
+  5. **Google Analytics (Optional):** Decide if you want to enable Google Analytics. It's recommended.
+  6. **Create: Click "Create project".** This could take a minute or two.
 
-    - **Create your Firebase and Google Cloud projects:**
-      1. **Go to the Firebase Console:** Navigate to console.firebase.google.com.
-      2. **Add a Project:** Click the "+ Add project" card.
-      3. **Enter a Project Name:** Type in your desired project name. This is the user-facing name you'll see in the console. If you are running multiple environments, name them with either the prefix dev-your-project-name or the suffix your-project-name-dev
-      4. **Confirm the Project ID:** Firebase will suggest a globally unique project ID based on the name. You can edit it, but this ID is permanent and cannot be changed later. Make sure you're happy with it.
-      5. **Google Analytics (Optional):** Decide if you want to enable Google Analytics. It's recommended for most apps.
-      6. **Create: Click "Create project".** This could take a minute or two.
-
-      You should now have a Firebase project and a linked Google Cloud project with the same name and ID.
+  You should now have a Firebase project and a linked Google Cloud project with the same name and ID.
 
     - **Access Your Google Cloud Project directly from Firebase:**
       1. In the Firebase console, go to your project.
