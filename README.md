@@ -8,7 +8,7 @@ This project is the foundational web application for SHS Site 2025, designed to 
 - [Installation](#installation)
   1. [Configure GitHub SSH keys](#configure-github-ssh-keys)
   2. [Generate a new SSH key](#generate-a-new-ssh-key-if-needed)
-  3. [Add your SSH key to the SSH Agent](#add-your-ssh-key-to-the-ssh-agent)
+  3. [Start the SSH Agent](#start-the-ssh-agent)
   4. [Add your private SSH key to the agent](#add-your-private-ssh-key-to-the-agent)
   5. [Add Your Public SSH key to GitHub](#add-your-public-ssh-key-to-github)
   6. [Clone the repository](#clone-the-repository)
@@ -109,7 +109,7 @@ Before you begin, ensure you have met the following **requirements**:
 
     ![Changing CLIs in VSCode](./public/images/readme-images/image-3.png)
 
-### Add your SSH key to the SSH agent
+### Start the SSH agent
 
   - Start the SSH agent in the background:
     ```
@@ -131,17 +131,17 @@ Before you begin, ensure you have met the following **requirements**:
 
 ### Add your public SSH key to GitHub
 
-**Copy your public key:**
+  - Copy your public key:
   
-  - macOS/Linux: 
-    ```
-    pbcopy < ~/.ssh/id_ed25519.pub
-    ```
-  - Windows (Git Bash): 
-    ```
-    cat ~/.ssh/id_ed25519.pub | clip
-    ```
-  If successful, the terminal will show no response. Even though there is no response, the text is in your clipboard.
+    - macOS/Linux: 
+      ```
+      pbcopy < ~/.ssh/id_ed25519.pub
+      ```
+    - Windows (Git Bash): 
+      ```
+      cat ~/.ssh/id_ed25519.pub | clip
+      ```
+      If successful, the terminal will show no response. Even though there is no response, the text is in your clipboard.
 
 **Link SSH Key to GitHub:**
   1. Log in to your GitHub account.
