@@ -112,9 +112,9 @@ Before you begin, ensure you have met the following **requirements**:
 ### Add your SSH key to the SSH agent
 
   - Start the SSH agent in the background:
-
-      eval "$(ssh-agent -s)"
-
+    ```
+    eval "$(ssh-agent -s)"
+    ```
     This will return something like this:
 
     ![Agent pid](./public/images/readme-images/image-9.png)
