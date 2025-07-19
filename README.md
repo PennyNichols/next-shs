@@ -241,10 +241,14 @@ For this multi-environment system to be viable in your project, you must have:
 
 ### Obtain environment variables
 **Create your Firebase and Google Cloud projects:**
-  1. **Go to the Firebase Console:** Navigate to console.firebase.google.com.
-  2. **Add a Project:** Click the "+ Add project" card.
-  3. **Enter a Project Name:** Type in your desired project name. This is the user-facing name you'll see in the console. If you are running multiple environments, name them with either the prefix `dev-your-project-name` or the `suffix your-project-name-dev`.
-  4. **Confirm the Project ID:** Firebase will suggest a globally unique project ID based on the name. You can edit it, but this ID is permanent and cannot be changed later. Make sure you're happy with it.
+  - Go to the [Firebase Console](console.firebase.google.com).
+  - Click the "+ Add project" card.
+  - Set a project name. This is the user-facing name you'll see in the console. 
+> [!NOTE]
+> If you are running multiple environments, name them with either the prefix `dev-your-project-name` or the `suffix your-project-name-dev`.
+  - Adjust project ID (in necessary)
+> [!WARNING]
+> Firebase will set a globally unique project ID based on the project name. You can edit it, but this ID is permanent and cannot be changed later. Make sure you're happy with it.
   5. **Google Analytics (Optional):** Decide if you want to enable Google Analytics. It's recommended.
   6. **Create: Click "Create project".** This could take a minute or two.
 
