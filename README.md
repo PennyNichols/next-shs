@@ -176,9 +176,9 @@ Ensure your SSH key is **password protected** and follow these steps to clone th
 ![Incorrect SSH key](./public/images/readme-images/image-1.png)
     
   - Clone the repository from your command line:
-    ```
+    
     git clone git@github.com:PennyNichols/next-shs.git
-    ```
+    
 
 ### Install project dependencies
 
