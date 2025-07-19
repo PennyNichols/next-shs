@@ -193,27 +193,27 @@ Dependencies must be installed both in the root directory (`next-shs/`) of the p
     cd functions
     npm install
     ```
-    
-  **For help with `npm install` on initial set up, view the [npm install on start up](#npm-install-on-project-start-up) troubleshooting steps in the [Troubleshooting](#troubleshooting) section of this document.**
+
+**For help with `npm install` on initial set up, view the [npm install on start up](#npm-install-on-project-start-up) troubleshooting steps in the [Troubleshooting](#troubleshooting) section of this document.**
   
-  **For help with `npm install` after initial setup, view the [npm install after start up](#npm-install-after-successful-initial-project-setup) troubleshooting steps in the [Troubleshooting](#troubleshooting) section of this document.**
+**For help with `npm install` after initial setup, view the [npm install after start up](#npm-install-after-successful-initial-project-setup) troubleshooting steps in the [Troubleshooting](#troubleshooting) section of this document.**
 
 ## Environment Configuration
   
-  **Developers on the team will be provided with the appropriate `.env` files. Proceed to [Firebase Emulators Configuration](#firebase-emulator-configuration)**
+**Developers on the team will be provided with the appropriate `.env` files. You may read on, if you're curious. Otherwise, proceed to [Firebase Emulators Configuration](#firebase-emulator-configuration)**
 
-  - For this multi-environment system to be viable in your project, you must have: 
-    1. Three Firebase projects set up - `dev`, `staging`, and `prod`. 
-    2. At least 2 Vercel projects set up - `staging` and `prod`.
-      - Optionally, add a 3rd Vercel project for `dev`.
+For this multi-environment system to be viable in your project, you must have: 
+  - Three Firebase projects set up - `dev`, `staging`, and `prod`. 
+  - At least 2 Vercel projects set up - `staging` and `prod`.
+  - Optionally, add a 3rd Vercel project for `dev`.
 
 ### Create `.env` files in the root directory:
-    - Depending on your role and permissions, you may need up to three `.env` files - `.env.local`, `.env.staging`, `.env.prod`.
-    - **External devs**
-      - add this configuration to whichever environments you intend to execute and obtain the values following the instructions in **[Obtain Environment Variables](#obtain-environment-variables)** below.
-      - You will need to add these environment variables to their respective Vercel projects.
+  - Depending on your role and permissions, you may need up to three `.env` files - `.env.local`, `.env.staging`, `.env.prod`.
+  - **External devs**
+    - add this configuration to whichever environments you intend to execute and obtain the values following the instructions in **[Obtain Environment Variables](#obtain-environment-variables)** below.
+    - You will need to add these environment variables to their respective Vercel projects.
 
-    ```plaintext
+    ```
     NEXT_PUBLIC_FIREBASE_API_KEY=your_firebase_api_key
     NEXT_PUBLIC_API_BASE_URL=next_public_api_base_url
     NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=your_firebase_auth_domain
@@ -226,12 +226,11 @@ Dependencies must be installed both in the root directory (`next-shs/`) of the p
     ```
 
 ### Create `.env` file in the `functions` directory:
-    - The `functions` directory needs a single .env.local file.
-    - This file is to provide Firebase emulators with the `dev` environment to run on your local machine.
-    - These environment variables are set directly in Vercel for our `staging` and `prod` environments.
-    - External devs, add this configuration and obtain the values following the instructions in **[Obtain Environment Variables](#obtain-environment-variables)** below.
-
-    ```plaintext
+  - The `functions` directory needs a single .env.local file.
+  - This file is to provide Firebase emulators with the `dev` environment to run on your local machine.
+  - These environment variables are set directly in Vercel for our `staging` and `prod` environments.
+  - **External devs** add this configuration and obtain the values following the instructions in **[Obtain Environment Variables](#obtain-environment-variables)** below.
+    ```
     RECAPTCHA_SECRET_KEY=your_recaptcha_secret_key
     RECAPTCHA_VERIFY_URL=recaptcha_verify_url
     FIREBASE_PRIVATE_KEY=your_firebase_private_key
