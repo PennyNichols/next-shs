@@ -176,25 +176,22 @@ Ensure your SSH key is **password protected** and follow these steps to clone th
 ![Incorrect SSH key](./public/images/readme-images/image-1.png)
     
   - Clone the repository from your command line:
-
-      git clone git@github.com:PennyNichols/next-shs.git
+    ```
+    git clone git@github.com:PennyNichols/next-shs.git
+    ```
 
 ### Install project dependencies
 
-  - Dependencies must be installed both in the root directory (`next-shs/`) of the project and in the functions directory (`next-shs/functions/`) within the project following these steps:
-    1. In the same terminal you just cloned the repo in, run these commands to enter the project root directory and install the root dependencies:
-
-    ```bash
+Dependencies must be installed both in the root directory (`next-shs/`) of the project and in the functions directory (`next-shs/functions/`) within the project following these steps:
+  - In the same terminal you just cloned the repo in, run these commands to enter the project root directory and install the root dependencies:
+    
     cd next-shs
     npm install
-    ```
+    
+  - Move to the functions directory and install the /function dependencies
 
-    2. Move to the functions directory and install the /function dependencies
-
-    ```bash
     cd functions
     npm install
-    ```
 
   **For help with `npm install` on initial set up, view the [npm install on start up](#npm-install-on-project-start-up) troubleshooting steps in the [Troubleshooting](#troubleshooting) section of this document.**
   
