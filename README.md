@@ -363,23 +363,24 @@ The Firebase Emulators env variable is a self-set value to indicate whether the 
 
 ### Generate a `.firebaserc` file
 
-    - In the root directory, create a file named `.firebaserc` with these contents:
+In the root directory, create a file named `.firebaserc` with these contents:
 
-      ```plaintext
-      {
-        "projects": {
-          "default": "<YOUR_FIREBASE_DEV_PROJECT_ID>",
-          "dev": "<YOUR_FIREBASE_DEV_PROJECT_ID>",
-          "staging": "<YOUR_FIREBASE_STAGING_PROJECT_ID>",
-          "prod": "<YOUR_FIREBASE_PROD_PROJECT_ID>"
-        }
-      }
-      ```
+  ```
+  {
+    "projects": {
+      "default": "<YOUR_FIREBASE_DEV_PROJECT_ID>",
+      "dev": "<YOUR_FIREBASE_DEV_PROJECT_ID>",
+      "staging": "<YOUR_FIREBASE_STAGING_PROJECT_ID>",
+      "prod": "<YOUR_FIREBASE_PROD_PROJECT_ID>"
+    }
+  }
+  ```
 
 ## Firebase Emulator Configuration:
 
 ### Log in to Firebase
-    - Authenticating the Firebase CLI with your Google account is required by Firebase.
+
+Authenticating the Firebase CLI with your Google account is required by Firebase.
 
     ```bash
     firebase login
