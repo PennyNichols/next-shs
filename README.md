@@ -385,11 +385,11 @@ Authenticating the Firebase CLI with your Google account is required by Firebase
 ### Compile Cloud Functions
 Cloud functions must be compiled before starting the emulators for the first time and after changing backend code.
   - From the root `next-shs` directory:
-
+    ```
     cd functions
     npm run build
     cd ..
-
+    ```
 ### Initialize Firebase emulators
 **Members of the team**, skip this and proceed to [Firebase Emulator Commands](#firebase-emulator-commands).
 
