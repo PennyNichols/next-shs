@@ -152,20 +152,16 @@ const JobApplication = () => {
               error={!!errors.eligible}
               className="MuiFormControl-radioGroup job-application"
               sx={{
-                '@media(max-width:450px)': {
-                  alignItems: 'flex-start',
-                },
+                alignItems: { xxs: 'flex-start', xs: 'center' },
                 '& .MuiFormGroup-root': {
-                  '@media(max-width:450px)': {
-                    flexDirection: 'column',
-                    alignItems: 'flex-start',
-                  },
+                  flexDirection: { xxs: 'column', xs: 'row' },
+                  alignItems: { xxs: 'flex-start', xs: 'center' },
                 },
               }}
             >
               <FormLabel
                 id="eligible-radio-buttons-group-label"
-                sx={{ whiteSpace: 'nowrap', '@media(max-width:450px)': { marginTop: 0.5, textAlign: 'center' } }}
+                sx={{ whiteSpace: 'nowrap', marginTop: { xxs: 0.5, xs: 0 }, textAlign: { xxs: 'center', xs: 'left' } }}
               >
                 Eligible to Work <wbr />
                 in US?

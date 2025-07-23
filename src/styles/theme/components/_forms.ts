@@ -304,7 +304,7 @@ const formComponents: Components<Theme> = {
             left: -3,
           },
           '& .MuiTouchRipple-child': {
-            borderRadius: customBorderRadius.round,
+            borderRadius: customBorderRadius.circle,
             // backgroundColor: 'red',
           },
         },
@@ -435,7 +435,7 @@ const formComponents: Components<Theme> = {
           alignItems: 'center',
           '&.job-application': {
             alignItems: 'center',
-            [theme.breakpoints.down(450)]: {
+            [theme.breakpoints.down('xxs')]: {
               alignItems: 'flex-start',
             },
           },

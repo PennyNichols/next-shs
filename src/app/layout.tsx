@@ -73,12 +73,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {/*
             Global UI components that appear on every page
         */}
-        <div style={{ flexGrow: 1, minWidth: '100%', overflowX: 'hidden' }}>
-          <AppProviders>
-            {children}
-            <ShareButton />
-          </AppProviders>
-        </div>
+        <AppProviders>
+          {children}
+          <ShareButton />
+        </AppProviders>
       </body>
     </html>
   );

@@ -1,18 +1,37 @@
 'use client';
 
-import React, { useState } from 'react';
-import { Card, CardContent, Typography, Box, Rating, Dialog, DialogContent, IconButton } from '@mui/material';
+import React, { useEffect, useRef, useState } from 'react';
+import {
+  Card,
+  CardContent,
+  Typography,
+  Box,
+  Rating,
+  Dialog,
+  DialogContent,
+  IconButton,
+  DialogTitle,
+} from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import StarIcon from '@mui/icons-material/Star';
 import { alpha } from '@mui/material/styles';
-import { customBorderRadius } from '@/styles/theme/otherThemeConstants';
 import theme from '@/styles/theme';
 
 function ReviewCard({ rating = 5, review, platform }) {
-  const words = review.split(' ');
-  const isTruncated = words.length > 10;
-
+  const [scale, setScale] = useState(1);
   const [open, setOpen] = useState(false);
+  const [showExpand, setShowExpand] = useState(false);
+  const reviewTextRef = useRef(null);
+
+  useEffect(() => {
+    if (reviewTextRef.current) {
+      const height = reviewTextRef.current.scrollHeight;
+      const maxHeightInRem = 7.2;
+      const maxHeightInPx = maxHeightInRem * parseFloat(getComputedStyle(document.documentElement).fontSize);
+      setShowExpand(height > maxHeightInPx);
+    }
+  }, [review]);
+
   const handleOpen = (e) => {
     e.stopPropagation();
     setOpen(true);
@@ -47,8 +66,23 @@ function ReviewCard({ rating = 5, review, platform }) {
           />
         </Box>
         <CardContent sx={{ p: 0 }}>
-          <Typography className="review-text">
-            “{review}” <br />
+          <Typography
+            ref={reviewTextRef}
+            className="review-text"
+            sx={{
+              lineHeight: '1.2rem',
+              display: '-webkit-box',
+              WebkitLineClamp: 6,
+              WebkitBoxOrient: 'vertical',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              fontSize: '1rem',
+            }}
+          >
+            “{review}”
+          </Typography>
+
+          {showExpand && (
             <Typography
               variant="body2"
               component="span"
@@ -66,7 +100,7 @@ function ReviewCard({ rating = 5, review, platform }) {
             >
               Expand
             </Typography>
-          </Typography>
+          )}
         </CardContent>
         {platform && (
           <Box
@@ -88,7 +122,7 @@ function ReviewCard({ rating = 5, review, platform }) {
             <Typography
               variant="subtitle2"
               sx={{
-                color: theme.palette.primary.light,
+                color: 'primary.light',
                 fontSize: '0.875rem',
                 textShadow: '0 1px 2px rgba(0,0,0,0.12)',
                 fontWeight: 500,
@@ -107,24 +141,34 @@ function ReviewCard({ rating = 5, review, platform }) {
         )}
       </Card>
       <Dialog open={open} onClose={handleClose}>
-        <IconButton
-          aria-label="close"
-          onClick={handleClose}
-          sx={{
-            position: 'absolute',
-            right: 3,
-            top: 3,
-            color: 'primary.light',
-          }}
-          size="large"
-        >
-          <CloseIcon />
-        </IconButton>
+        <DialogTitle>
+          <span style={{flexGrow: 1}}>{platform} Review</span>
+          <IconButton
+            aria-label="close"
+            onClick={handleClose}
+            sx={{ 
+              transform: `scale(${scale})`,
+              transition: 'transform 0.1s ease-out',
+              padding: 0,
+              '&:hover': {
+                transform: `scale(${scale * 1.2}) !important`, // Force override with !important
+              }
+            }}
+            onMouseDown={() => setScale(0.9)}
+            onMouseUp={() => setScale(1)}
+            onMouseLeave={() => setScale(1)} // Reset scale when mouse leaves
+            onTouchStart={() => setScale(0.9)}
+            onTouchEnd={() => setScale(1)}
+          >
+            <CloseIcon />
+          </IconButton>
+        </DialogTitle>
         <DialogContent>
           <Typography
             variant="body1"
             sx={{
               fontStyle: 'italic',
+              textAlign: 'center',
             }}
           >
             “{review}”

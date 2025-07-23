@@ -32,14 +32,65 @@ const buttonComponents: Components<Theme> = {
         justifyContent: 'center',
         alignItems: 'center',
         flexGrow: 1,
-        '& .MuiSvgIcon-root': {
-          fontSize: 'inherit',
-          marginRight: theme.spacing(1),
+        [theme.breakpoints.up('xxs')]: {
+          fontSize: '0.875rem',
         },
+        [theme.breakpoints.up('xs')]: {
+          fontSize: '1rem',
+        },
+        [theme.breakpoints.up('md')]: {
+          fontSize: '1.2rem',
+        },
+        [theme.breakpoints.up('lg')]: {
+          fontSize: '1.5rem',
+        },
+        [theme.breakpoints.up('xl')]: {
+          fontSize: '1.8rem',
+        },
+        '& .MuiButton-startIcon': {
+          marginRight: theme.spacing(1),
+          [theme.breakpoints.up('xxs')]: {
+            fontSize: '1.25rem',
+          },
+          [theme.breakpoints.up('xs')]: {
+            fontSize: '1.5rem',
+          },
+          [theme.breakpoints.up('md')]: {
+            fontSize: '1.75rem',
+          },
+          [theme.breakpoints.up('lg')]: {
+            fontSize: '1.9rem',
+          },
+          [theme.breakpoints.up('xl')]: {
+            fontSize: '2.1rem',
+          },
+          '& > *:nth-of-type(1)': {
+            marginRight: theme.spacing(1),
+            [theme.breakpoints.up('xxs')]: {
+              fontSize: '1.25rem',
+            },
+            [theme.breakpoints.up('xs')]: {
+              fontSize: '1.5rem',
+            },
+            [theme.breakpoints.up('md')]: {
+              fontSize: '1.75rem',
+            },
+            [theme.breakpoints.up('lg')]: {
+              fontSize: '1.9rem',
+            },
+            [theme.breakpoints.up('xl')]: {
+              fontSize: '2.1rem',
+            },
+          },
+        },
+        '& .MuiSvgIcon-root': {},
         '&:hover': {
           boxShadow: customShadows[2],
           letterSpacing: '0.1rem',
         },
+      }),
+      startIcon: ({ theme }: { theme: Theme }): CSSObject => ({
+        // SAVE THIS PLACE
       }),
       // Style overrides based on 'variant' prop
       containedPrimary: ({ theme }: { theme: Theme }): CSSObject => ({
@@ -80,22 +131,13 @@ const buttonComponents: Components<Theme> = {
       // Style overrides based on 'size' prop
       sizeSmall: ({ theme }: { theme: Theme }): CSSObject => ({
         fontSize: '1rem',
-        '& .MuiSvgIcon-root': {
-          fontSize: '1.5rem',
-        },
       }),
       sizeMedium: ({ theme }: { theme: Theme }): CSSObject => ({
         fontSize: '1.4rem',
-        '& .MuiSvgIcon-root': {
-          fontSize: '2rem',
-        },
       }),
       sizeLarge: ({ theme }: { theme: Theme }): CSSObject => ({
         padding: theme.spacing(1.5, 3),
         fontSize: '1.9rem',
-        '& .MuiSvgIcon-root': {
-          fontSize: '2.5rem',
-        },
       }),
     },
   },
@@ -105,7 +147,6 @@ const buttonComponents: Components<Theme> = {
   MuiIconButton: {
     defaultProps: {
       color: 'inherit',
-      size: 'medium',
       disableFocusRipple: true,
       disableTouchRipple: true,
       disableRipple: true,

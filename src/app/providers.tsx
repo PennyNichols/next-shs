@@ -29,21 +29,22 @@ export function AppProviders({ children }: { children: React.ReactNode }) {
       <AuthProvider>
         <FirebaseCollectionProvider>
           <Box
-            display="flex"
-            flexDirection="column"
-            minHeight="100vh"
-            width="100%"
-            sx={{ backgroundColor: theme.palette.secondary.light }}
+            minHeight="100dvh"
+            sx={{
+              backgroundColor: theme.palette.secondary.light,
+              // overflowX: 'hidden',
+              display: 'block',
+            }}
           >
             {isHomePage && <Hero />}
 
             <NavBar />
 
             <Box
-              flexGrow={1}
               sx={{
                 paddingTop: 0,
-                paddingBottom: 8,
+                paddingBottom: 0,
+                width: '100%',
               }}
             >
               {children}

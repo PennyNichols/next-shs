@@ -135,11 +135,9 @@ const baseComponents: Components<Theme> = {
     },
     styleOverrides: {
       root: ({ theme }: { theme: Theme }): CSSObject => ({
-        width: '100%',
         '&.page-wrapper': {
           minHeight: '100dvh',
-          maxWidth: '100%',
-          minWidth: '100%',
+          width: '100%',
           display: 'flex',
           flexDirection: 'column',
           gap: theme.spacing(4),

@@ -83,14 +83,6 @@ const navComponents: Components<Theme> = {
             [theme.breakpoints.down('sm')]: {
               fontSize: '0.9rem',
             },
-            '&.review-text': {
-              color: 'primary.dark',
-              fontSize: '0.8rem',
-              fontStyle: 'italic',
-              overflow: 'hidden',
-              textOverflow: 'ellipsis',
-              textShadow: '0 1px 4px rgba(0,0,0,0.18)',
-            },
           },
           '&.MuiSelect-dropdown-headers': {
             '& .MuiListSubheader-root': {

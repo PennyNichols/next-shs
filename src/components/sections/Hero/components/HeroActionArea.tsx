@@ -8,11 +8,11 @@ const HeroActionArea = () => {
   return (
     <Grid
       container
-      spacing={{ xxs: 2, sm: 3, lg: 4, xl: 6 }}
+      spacing={{ xxs: 2, lg: 3, xl: 6 }}
       sx={{
         maxWidth: { xxs: '100%', md: '90%', xl: '100%' },
         alignSelf: 'flex-end',
-        mb: { xxs: 0, sm: 1.8, md: 1, lg: 6 },
+        mb: { xxs: 0, sm: 3, lg: 4, xl: 6 },
       }}
       justifyContent={{ xxs: 'center', xl: 'space-between' }}
       alignItems="center"

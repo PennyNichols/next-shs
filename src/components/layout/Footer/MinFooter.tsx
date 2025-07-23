@@ -54,14 +54,11 @@ const MinFooter = () => {
             <Box
               sx={{
                 display: 'flex',
-                flexDirection: 'row',
+                flexDirection: { xxs: 'column', xs: 'row' },
                 justifyContent: 'center',
                 alignItems: 'center',
                 textAlign: 'center',
                 gap: 1,
-                '@media (max-width: 350px)': {
-                  flexDirection: 'column',
-                },
               }}
             >
               <Box sx={{ width: 120, height: 110, flexShrink: 0 }}>
@@ -229,14 +226,12 @@ const MinFooter = () => {
               <Box
                 sx={{
                   display: 'flex',
+                  flexDirection: { xxs: 'column', xs: 'row' },
+                  textAlign: { xxs: 'center', xs: 'left' },
+                  my: { xxs: 1, xs: 0 },
                   justifyContent: 'space-between',
                   width: '100%',
                   mx: 0,
-                  '@media (max-width: 350px)': {
-                    flexDirection: 'column',
-                    textAlign: 'center',
-                    my: 1,
-                  },
                 }}
               >
                 <Link
@@ -264,16 +259,12 @@ const MinFooter = () => {
               <Box
                 sx={{
                   display: 'flex',
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
+                  flexDirection: { xxs: 'column', xs: 'row' },
+                  justifyContent: { xxs: 'center', xs: 'space-between' },
+                  alignItems: { xxs: 'center', xs: 'flex-start' },
+                  my: { xxs: 1, xs: 0 },
                   width: '100%',
                   mx: 0,
-                  '@media (max-width: 350px)': {
-                    flexDirection: 'column',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    my: 1,
-                  },
                 }}
               >
                 <Skeleton variant="text" width={109} height={24} />
