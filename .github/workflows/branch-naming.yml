@@ -2,17 +2,23 @@ name: Enforce Branch Naming Conventions
 
 on:
   push:
-    # This workflow runs when a branch is pushed, but ignores the 'main' branch
-    # as these are typically not created using feature/bugfix naming conventions.
+    # This workflow runs when a branch is pushed.
+    # It ignores the 'prod' and 'staging' main shared branches,
+    # as these are typically target branches for merges, not branches created by developers
+    # for individual assignments using the specific naming conventions below.
     branches-ignore:
-      - main
+      - prod    # Your main production branch
+      - staging # Your main staging integration branch (if it exists and is a direct push target)
+      # Add other long-lived, protected branches here that are NOT subject to the dev/task, dev/pbi, etc. naming rules
+      # - main # If 'main' is another long-lived branch not subject to these rules
+
   pull_request:
     # This workflow runs when a pull request is opened, reopened, or synchronized
     types: [opened, reopened, synchronize]
 
 jobs:
   validate_branch_name:
-    runs-on: ubuntu-latest 
+    runs-on: ubuntu-latest
 
     steps:
       - name: Get Branch Name
@@ -20,53 +26,132 @@ jobs:
         run: |
           # Determine the branch name based on the event type
           if [[ "${{ github.event_name }}" == "pull_request" ]]; then
+            # For PRs, we check the head_ref (the branch being merged)
             BRANCH_NAME="${{ github.head_ref }}"
           else
+            # For direct pushes, we check the ref_name (the branch that was pushed)
             BRANCH_NAME="${{ github.ref_name }}"
           fi
           echo "Branch Name being validated: $BRANCH_NAME"
           # Store the branch name as a step output for later use
-          echo "branch_name=$BRANCH_NAME" >> $GITHUB_OUTPUT
+          echo "branch_name=$BRANCH_NAME" >> "$GITHUB_OUTPUT"
 
       - name: Validate Branch Name against Patterns
         run: |
           BRANCH_NAME="${{ steps.get_branch_name.outputs.branch_name }}"
 
-          # Define regex patterns for allowed branch names
-          # Note: The descriptive-name patterns use [a-z0-9-]+ for slug-casing (lowercase letters, numbers, hyphens).
-          # If you need uppercase letters or underscores, change it to [a-zA-Z0-9_-]+
-          FEAT_PATTERN="^feat\/[a-z0-9-]+$"
-          BUGFIX_PATTERN="^bugfix\/[a-z0-9-]+$"
-          HOTFIX_PATTERN="^hotfix\/[a-z0-9-]+$"
-          # Semver pattern for release (e.g., 1.0.0)
-          RELEASE_PATTERN="^release\/[0-9]+\.[0-9]+\.[0-9]+$"
-          # YY.MM.DD pattern for staging (e.g., 25.07.25)
-          STAGING_PATTERN="^staging\/\d{2}\.\d{2}\.\d{2}$"
-          CHORE_PATTERN="^chore\/[a-z0-9-]+$"
-          # Added explicit refactor pattern as commonly used with chore
-          REFACTOR_PATTERN="^refactor\/[a-z0-9-]+$"
+          # --- General Slug-Case Validation Function ---
+          # This function checks if a given string adheres to slug-case (lowercase letters, numbers, hyphens)
+          # and does not start/end with a hyphen, or have consecutive hyphens.
+          is_slug_case() {
+            local input_string="$1"
+            # Pattern for slug-case: starts and ends with alphanumeric, allows hyphens in between but not consecutive
+            if [[ "$input_string" =~ ^[a-z0-9]+(-[a-z0-9]+)*$ ]]; then
+              return 0 # True (is slug-case)
+            else
+              return 1 # False (not slug-case)
+            fi
+          }
+
+          # --- Define Regex Patterns for Branch Types ---
+          # All <description>, <task-type>, <feature-name>, <bug-description> must be slug-case.
+          # Number patterns allow digits only.
+
+          # Development Branches
+          # Capture groups for task-type, task-number, description
+          DEV_TASK_PATTERN="^dev\/task\/([a-z0-9-]+)\/([0-9]+)\/([a-z0-9-]+)$"
+          # Capture groups for pbi-number, description
+          DEV_PBI_PATTERN="^dev\/pbi\/([0-9]+)\/([a-z0-9-]+)$"
+
+          # Staging Branches
+          # Capture groups for pbi-number, description (matches dev/pbi structure)
+          STAGING_PBI_PATTERN="^staging\/pbi\/([0-9]+)\/([a-z0-9-]+)$"
+          # Capture group for feature-name
+          STAGING_FEAT_PATTERN="^staging\/feat\/([a-z0-9-]+)$"
+          # Semantic Versioning for staging/release: vMAJOR.MINOR.PATCH (optional -prerelease.X +build.Y)
+          STAGING_RELEASE_PATTERN="^staging\/release\/v(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$"
 
 
-          # Check if the branch name matches any of the allowed patterns
-          if [[ "$BRANCH_NAME" =~ $FEAT_PATTERN ]] || \
-             [[ "$BRANCH_NAME" =~ $BUGFIX_PATTERN ]] || \
-             [[ "$BRANCH_NAME" =~ $HOTFIX_PATTERN ]] || \
-             [[ "$BRANCH_NAME" =~ $RELEASE_PATTERN ]] || \
-             [[ "$BRANCH_NAME" =~ $STAGING_PATTERN ]] || \
-             [[ "$BRANCH_NAME" =~ $CHORE_PATTERN ]] || \
-             [[ "$BRANCH_NAME" =~ $REFACTOR_PATTERN ]]; then
+          # Production Branches
+          # Capture group for bug-description
+          PROD_HOTFIX_PATTERN="^prod\/hotfix\/([a-z0-9-]+)$"
+
+          # --- Check if the branch name matches any of the allowed patterns and components ---
+          VALID_BRANCH=false
+
+          # dev/task/<task-type>/<task-number>/<description>
+          if [[ "$BRANCH_NAME" =~ $DEV_TASK_PATTERN ]]; then
+            TASK_TYPE="${BASH_REMATCH[1]}"
+            TASK_NUMBER="${BASH_REMATCH[2]}" # No slug-case check, it's a number
+            DESCRIPTION="${BASH_REMATCH[3]}"
+            if is_slug_case "$TASK_TYPE" && is_slug_case "$DESCRIPTION"; then
+              VALID_BRANCH=true
+            fi
+          fi
+
+          # dev/pbi/<pbi-number>/<description>
+          if [[ "$BRANCH_NAME" =~ $DEV_PBI_PATTERN ]]; then
+            PBI_NUMBER="${BASH_REMATCH[1]}" # No slug-case check, it's a number
+            DESCRIPTION="${BASH_REMATCH[2]}"
+            if is_slug_case "$DESCRIPTION"; then
+              VALID_BRANCH=true
+            fi
+          fi
+
+          # staging/pbi/<pbi-number>/<description> (must match dev/pbi format)
+          if [[ "$BRANCH_NAME" =~ $STAGING_PBI_PATTERN ]]; then
+            PBI_NUMBER="${BASH_REMATCH[1]}" # No slug-case check, it's a number
+            DESCRIPTION="${BASH_REMATCH[2]}"
+            if is_slug_case "$DESCRIPTION"; then
+              VALID_BRANCH=true
+            fi
+          fi
+
+          # staging/feat/<feature-name>
+          if [[ "$BRANCH_NAME" =~ $STAGING_FEAT_PATTERN ]]; then
+            FEATURE_NAME="${BASH_REMATCH[1]}"
+            if is_slug_case "$FEATURE_NAME"; then
+              VALID_BRANCH=true
+            fi
+          fi
+
+          # staging/release/<version-number>
+          if [[ "$BRANCH_NAME" =~ $STAGING_RELEASE_PATTERN ]]; then
+            # Version number handled by specific regex, no slug-case check needed here
+            VALID_BRANCH=true
+          fi
+
+          # prod/hotfix/<bug-description>
+          if [[ "$BRANCH_NAME" =~ $PROD_HOTFIX_PATTERN ]]; then
+            BUG_DESCRIPTION="${BASH_REMATCH[1]}"
+            if is_slug_case "$BUG_DESCRIPTION"; then
+              VALID_BRANCH=true
+            fi
+          fi
+
+          # Final validation check
+          if $VALID_BRANCH; then
             echo "✅ Branch name '$BRANCH_NAME' follows a valid naming convention."
           else
-            # If no pattern matches, fail the workflow and provide instructions
             echo "::error::Branch name '$BRANCH_NAME' does not follow any of the defined naming conventions."
-            echo "::error::Please rename your branch to match one of the following patterns:"
+            echo "::error::Please rename your branch to match one of the following patterns, ensuring all descriptive parts are in 'slug-case' (lowercase letters, numbers, and hyphens, no consecutive hyphens, no leading/trailing hyphens):"
             echo "::error::"
-            echo "::error::  - Feature:    feat/<descriptive-name> (e.g., feat/user-profile-page)"
-            echo "::error::  - Bugfix:     bugfix/<descriptive-name> (e.g., bugfix/login-form-validation)"
-            echo "::error::  - Hotfix:     hotfix/<descriptive-name> (e.g., hotfix/critical-auth-issue)"
-            echo "::error::  - Release:    release/<version-number> (e.g., release/1.0.0)"
-            echo "::error::  - Staging:    staging/<YY.MM.DD> (e.g., staging/25.07.25)"
-            echo "::error::  - Chore:      chore/<descriptive-name> (e.g., chore/update-dependencies)"
-            echo "::error::  - Refactor:   refactor/<descriptive-name> (e.g., refactor/auth-module)"
+            echo "::error:: - Development Branches (individual developer branches):"
+            echo "::error::   - dev/task/<task-type>/<task-number>/<description>"
+            echo "::error::     Example: dev/task/chore/123/example-task"
+            echo "::error::   - dev/pbi/<pbi-number>/<description>"
+            echo "::error::     Example: dev/pbi/35/example-pbi"
+            echo "::error::"
+            echo "::error:: - Staging Branches (shared integration branches):"
+            echo "::error::   - staging/pbi/<pbi-number>/<description> (must match originating dev/pbi)"
+            echo "::error::     Example: staging/pbi/35/example-pbi"
+            echo "::error::   - staging/feat/<feature-name>"
+            echo "::error::     Example: staging/feat/user-authentication-flow"
+            echo "::error::   - staging/release/<version-number>"
+            echo "::error::     Example: staging/release/v1.0.0 (uses semantic versioning)"
+            echo "::error::"
+            echo "::error:: - Production Branches (hotfix only):"
+            echo "::error::   - prod/hotfix/<bug-description>"
+            echo "::error::     Example: prod/hotfix/job-application-form-submit-button-disabled"
             exit 1 # Fail the job
           fi

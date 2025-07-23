@@ -1039,9 +1039,11 @@ If you would like a custom emulator configuration, edit the `firebase.json` deta
 
   **All branches** enforce "slug-case" style (lowercase letters, numbers, and hyphens)
 
-  - **Development Branches:** Used for every day development work.
+  - **Development Branches:** Used for every day development work. The individual branches developers personally create for their assignments. They are short-lived and are deleted once their changes are successfully merged into production.
 
-    1. **`dev/task` branches**
+    1. **`dev/task` branches:**
+    For specific tasks, bugs, chores, refactors, or new components. The individual assignments in a PBI. 
+    There are 4 accepted task types: `chore`, `bug`, `refactor`, `feat`.
     ```bash
     dev/task/<task-type>/<task-number>/<description>
     ```
@@ -1050,7 +1052,8 @@ If you would like a custom emulator configuration, edit the `firebase.json` deta
     dev/task/chore/123/example-task
     ```
 
-    2. **`dev/pbi` branches**
+    2. **`dev/pbi` branches:** 
+    For combining individual `dev/task` branches for the tasks in a PBI for isolated integration testing.
     ```bash
     dev/pbi/<pbi-number>/<description>
     ```
@@ -1059,9 +1062,10 @@ If you would like a custom emulator configuration, edit the `firebase.json` deta
     dev/pbi/35/example-pbi
     ```
 
-  - **Staging Branches:** Used for preparing changes to be released in production.
+  - **Staging Branches:** These are shared branches used for preparing changes to be released in production.
 
-    1. **`staging/pbi` branches**
+    1. **`staging/pbi` branches:**
+    For transitioning an approved `dev/pbi` branch into our staging environment. These branches are identical to their corresponding `dev/pbi` branches. 
 
       **The name of a `staging/pbi` branch should match the name of the `dev/pbi` from which it was created**
 
@@ -1070,10 +1074,11 @@ If you would like a custom emulator configuration, edit the `firebase.json` deta
     ```
     Example:
     ```bash
-    dev/pbi/35/example-pbi
+    staging/pbi/35/example-pbi
     ```
 
-    2. **`staging/feat` branches**
+    2. **`staging/feat` branches:**
+    For combining all `staging/pbi` branches belonging to a single feature. This is used for more complete integration testing before deployment to production.
     ```bash
     staging/feat/<feature-name>
     ```
@@ -1082,7 +1087,8 @@ If you would like a custom emulator configuration, edit the `firebase.json` deta
     staging/feat/user-authentication-flow
     ```
 
-    3. **`staging/release` branches**
+    3. **`staging/release` branches:**
+    For combining all `staging/feat` branches to be included in a single, scheduled, production deployment. This is used for final integration testing before deploying to the live production environment.
     ```bash
     staging/release/<version-number>
     ```
@@ -1095,8 +1101,8 @@ If you would like a custom emulator configuration, edit the `firebase.json` deta
   
   **`prod/hotfix` branches are the only branches that are created from the main `prod` branch.**
 
-    1. **`prod/hotfix` branches**
-
+    1. **`prod/hotfix` branches:**
+    To deploy urgent bug fixes directly to the production environment, bypassing the typical development and staging cycles for critical issues.
     ```bash
     prod/hotfix/<bug-description>
     ```
