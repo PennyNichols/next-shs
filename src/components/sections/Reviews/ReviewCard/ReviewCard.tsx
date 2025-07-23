@@ -142,7 +142,7 @@ function ReviewCard({ rating = 5, review, platform }) {
       </Card>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>
-          <span style={{flexGrow: 1}}>{platform} Review</span>
+          <span sx={{ flexGrow: 1 }}>{platform} Review</span>
           <IconButton
             aria-label="close"
             onClick={handleClose}
