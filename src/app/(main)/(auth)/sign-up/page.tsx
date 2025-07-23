@@ -20,7 +20,7 @@ import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { doc, setDoc, serverTimestamp } from 'firebase/firestore';
 import { db, auth } from '@/lib/firebase/firebase';
 
-export default function SignUpPage() {
+const SignUpPage = () => {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -229,3 +229,5 @@ export default function SignUpPage() {
     </Box>
   );
 }
+
+export default SignUpPage;

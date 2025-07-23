@@ -17,7 +17,7 @@ import StarIcon from '@mui/icons-material/Star';
 import { alpha } from '@mui/material/styles';
 import theme from '@/styles/theme';
 
-function ReviewCard({ rating = 5, review, platform }) {
+const ReviewCard = ({ rating = 5, review, platform }) => {
   const [scale, setScale] = useState(1);
   const [open, setOpen] = useState(false);
   const [showExpand, setShowExpand] = useState(false);
@@ -142,17 +142,17 @@ function ReviewCard({ rating = 5, review, platform }) {
       </Card>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>
-          <span sx={{ flexGrow: 1 }}>{platform} Review</span>
+          <span style={{ flexGrow: 1 }}>{platform} Review</span>
           <IconButton
             aria-label="close"
             onClick={handleClose}
-            sx={{ 
+            sx={{
               transform: `scale(${scale})`,
               transition: 'transform 0.1s ease-out',
               padding: 0,
               '&:hover': {
                 transform: `scale(${scale * 1.2}) !important`, // Force override with !important
-              }
+              },
             }}
             onMouseDown={() => setScale(0.9)}
             onMouseUp={() => setScale(1)}
@@ -177,6 +177,6 @@ function ReviewCard({ rating = 5, review, platform }) {
       </Dialog>
     </>
   );
-}
+};
 
 export default ReviewCard;

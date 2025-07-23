@@ -4,7 +4,7 @@ import React from 'react';
 import { Box, Container, Paper, Typography } from '@mui/material';
 import { usePathname } from 'next/navigation';
 
-export default function AuthLayout({ children }: { children: React.ReactNode }) {
+const AuthLayout = ({ children }: { children: React.ReactNode }) => {
   const pathname = usePathname();
 
   // Extract the auth page type from the pathname
@@ -66,3 +66,5 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
     </Box>
   );
 }
+
+export default AuthLayout;

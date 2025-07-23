@@ -33,7 +33,7 @@ import { UserProfile } from '@/components/profile/UserProfile/UserProfile';
 import { AuthRoute } from '@/components/auth/RouteGuard/RouteGuard';
 import useUser from '@/hooks/auth/useUser';
 
-function ClientDashboardContent() {
+const ClientDashboardContent = () => {
   const { user, loading } = useUser();
   const [activeSection, setActiveSection] = useState<'dashboard' | 'profile' | 'requests' | 'appointments'>('dashboard');
 
@@ -338,10 +338,12 @@ const AppointmentsView = () => (
   </Box>
 );
 
-export default function ClientDashboard() {
+const ClientDashboard = () => {
   return (
     <AuthRoute>
       <ClientDashboardContent />
     </AuthRoute>
   );
 }
+
+export default ClientDashboard;

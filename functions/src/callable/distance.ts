@@ -31,9 +31,8 @@ export const getDrivingDistance = onCall({ region: 'us-east1', secrets: ["MAPS_A
     });
     const route = response.data.routes[0];
     if (!route) {
-      throw new Error("No route found between the specified addresses.");
+      throw new Error('No route found between the specified addresses.');
     }
-    const legs = route.legs;
     const leg = route.legs[0];
     const distanceInMeters = leg.distance.value * 2;
     const durationInSeconds = leg.duration.value * 2;

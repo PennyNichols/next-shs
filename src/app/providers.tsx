@@ -18,7 +18,7 @@ import Footer from '@/components/layout/Footer/Footer';
 import { Hero } from '@/components/sections';
 import { usePathname } from 'next/navigation';
 
-export function AppProviders({ children }: { children: React.ReactNode }) {
+export const AppProviders = ({ children }: { children: React.ReactNode }) => {
   const clientSideEmotionCache = React.useMemo(() => createEmotionCache(), []);
   const pathname = usePathname();
 

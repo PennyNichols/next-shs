@@ -5,7 +5,7 @@ import { Box, Container } from '@mui/material';
 import { ClientRoute } from '@/components/auth/RouteGuard/RouteGuard';
 import { DashboardNavigation } from '@/components/navigation/DashboardNavigation/DashboardNavigation';
 
-export default function ClientLayout({ children }: { children: React.ReactNode }) {
+const ClientLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <ClientRoute>
       <Box
@@ -32,3 +32,5 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
     </ClientRoute>
   );
 }
+
+export default ClientLayout;
