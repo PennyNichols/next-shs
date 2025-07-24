@@ -15,16 +15,16 @@ const baseComponents: Components<Theme> = {
         '& .grecaptcha-badge': {
           position: 'fixed !important',
           bottom: '100px !important',
+          right: '-157px !important',
           // marginRight: '-250px !important',
           zIndex: '10000 !important',
           opacity: '50% !important',
-          transition: 'opacity 0.3s ease',
-          transform: 'scale(0.8)',
-        },
-
-        '& .grecaptcha-badge:hover': {
-          opacity: 1,
-          /* Make fully opaque on hover */
+          transition: 'all 1s ease-in-out !important',
+          transform: 'scale(0.5)',
+          '&:hover': {
+            opacity: '80% !important',
+            transform: 'scale(0.5) translateX(-170px)',
+          },
         },
       },
 

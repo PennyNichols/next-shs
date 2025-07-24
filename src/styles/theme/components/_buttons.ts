@@ -18,8 +18,8 @@ const buttonComponents: Components<Theme> = {
     },
     styleOverrides: {
       root: ({ theme }: { theme: Theme }): CSSObject => ({
-        textTransform: 'none',
-        fontWeight: 500,
+        textTransform: 'uppercase',
+        fontWeight: 600,
         letterSpacing: '0.07rem',
         boxShadow: customShadows[2],
         borderRadius: customBorderRadius.small,
@@ -86,7 +86,6 @@ const buttonComponents: Components<Theme> = {
         '& .MuiSvgIcon-root': {},
         '&:hover': {
           boxShadow: customShadows[2],
-          letterSpacing: '0.1rem',
         },
       }),
       startIcon: ({ theme }: { theme: Theme }): CSSObject => ({
