@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { TextField, Button, Box, Typography, Alert, FormControlLabel, Checkbox, Skeleton } from '@mui/material';
+import { TextField, Button, Box, Typography, Alert, FormControlLabel, Skeleton } from '@mui/material';
 import { useAuth } from '../../../contexts/AuthContext/AuthContext';
 import useMedia from '../../../hooks/useMedia';
 import theme from '@/styles/theme';
 import { customBorderRadius } from '@/styles/theme/otherThemeConstants';
+import CustomCheckbox from '@/components/common/CustomCheckbox';
 
 const AuthForm = () => {
   const { signIn, signUp, signOutUser, deleteAccount, error } = useAuth();
@@ -191,10 +192,9 @@ const AuthForm = () => {
             {isSignUp && (
               <FormControlLabel
                 control={
-                  <Checkbox
+                  <CustomCheckbox
                     checked={subscribeToMarketing}
                     onChange={(e) => setSubscribeToMarketing(e.target.checked)}
-                    color="primary"
                   />
                 }
                 label="Yes, I would like to subscribe to email marketing from SHS Florida"

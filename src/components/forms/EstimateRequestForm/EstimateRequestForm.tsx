@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import Typography from '@mui/material/Typography';
-import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Box from '@mui/material/Box';
 import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
@@ -291,9 +290,7 @@ const EstimateRequestForm = ({ open, setOpen }) => {
         PaperProps={{ sx: {} }}
       >
         <DialogTitle id="estimate-request-dialog-title" sx={{}}>
-          <Typography variant="h6" component="h2" color="inherit">
-            Request an Estimate
-          </Typography>
+          <span style={{ flexGrow: 1 }}>Request an Estimate</span>
           <IconButton
             aria-label="close"
             onClick={() => setOpen(false)}
@@ -440,7 +437,7 @@ const EstimateRequestForm = ({ open, setOpen }) => {
                     control={control}
                     render={({ field }) => (
                       <FormControlLabel
-                        control={<Checkbox {...field} checked={field.value} size="small" />}
+                        control={<CustomCheckbox {...field} checked={field.value} />}
                         label={<Typography variant="body2">Save service address to my profile</Typography>}
                         sx={{ mt: 1 }}
                       />
@@ -456,12 +453,7 @@ const EstimateRequestForm = ({ open, setOpen }) => {
                   render={({ field, fieldState: { error } }) => (
                     <FormControl fullWidth required error={!!error}>
                       <InputLabel id="property-type-label">Property Type</InputLabel>
-                      <Select
-                        labelId="property-type-label"
-                        id="propertyType"
-                        label="Property Type"
-                        {...field} // Spreads value, onChange, onBlur, name
-                      >
+                      <Select labelId="property-type-label" id="propertyType" label="Property Type" {...field}>
                         {propertyTypeOptions.map((option) => (
                           <MenuItem key={option} value={option}>
                             {option.charAt(0).toUpperCase() + option.slice(1)}
@@ -523,48 +515,6 @@ const EstimateRequestForm = ({ open, setOpen }) => {
                   )}
                 />
               </Grid>
-              {/* --------------------------- */}
-              {/* 
-              <FormControl fullWidth required>
-                <InputLabel id="scope-of-work-label">What services do you need?</InputLabel>
-                <Select
-                  labelId="scope-of-work-label"
-                  multiple
-                  label="What services do you need?"
-                  value={formData.scopeOfWork}
-                  onChange={handleScopeOfWorkChange}
-                  renderValue={(selected) => (
-                    <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
-                      {selected.map((value) => (
-                        <Chip key={value} label={value} />
-                      ))}
-                    </Box>
-                  )}
-                  MenuProps={{
-                    PaperProps: {
-                      style: {
-                        maxHeight: 300,
-                      },
-                      className: 'MuiSelect-dropdown-paper MuiSelect-dropdown-headers', // Custom class for styling if needed
-                    },
-                  }}
-                >
-                  {SERVICE_CATEGORIES.map((section) => [
-                    <ListSubheader key={section.sectionTitle}>
-                      <Typography>{section.sectionTitle}</Typography>
-                    </ListSubheader>,
-                    section.typesOfWork.map((work) => (
-                      <MenuItem key={work.title} value={work.title}>
-                        <CustomCheckbox checked={formData.scopeOfWork.includes(work.title)} />
-                        <Typography variant="body1" sx={{ textWrap: 'wrap' }}>
-                          <b>{work.title}:</b> {work.description}
-                        </Typography>
-                      </MenuItem>
-                    )),
-                  ])}
-                </Select>
-              </FormControl>
-            </Grid> */}
               {/* Additional Details */}
               <Grid item xxs={12}>
                 <Controller
@@ -599,13 +549,7 @@ const EstimateRequestForm = ({ open, setOpen }) => {
                 <Button variant="contained" component="label" sx={{ width: '100%', mb: { xxs: 1, sm: 2 } }}>
                   <CloudUpload sx={{ mr: 1 }} />
                   Upload Image(s)
-                  <input
-                    type="file"
-                    multiple
-                    accept="image/*" // Accept any image type
-                    hidden
-                    onChange={handleImageChange}
-                  />
+                  <input type="file" multiple accept="image/*" hidden onChange={handleImageChange} />
                 </Button>
                 {imagePreviews.length > 0 && (
                   <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2, mt: 1 }}>
@@ -662,13 +606,7 @@ const EstimateRequestForm = ({ open, setOpen }) => {
                     control={control}
                     render={({ field }) => (
                       <FormControlLabel
-                        control={
-                          <Checkbox
-                            {...field}
-                            checked={field.value} // Use field.value for checked state
-                            size="small"
-                          />
-                        }
+                        control={<CustomCheckbox {...field} checked={field.value} />}
                         label={
                           <Typography variant="body2">
                             Subscribe to our marketing emails for updates and promotions.
@@ -700,7 +638,9 @@ const EstimateRequestForm = ({ open, setOpen }) => {
             {travelChargeMessage} Please approve to continue with your request, or decline to cancel.
           </Typography>
           <FormControlLabel
-            control={<Checkbox checked={agreedToCharges} onChange={(e) => setAgreedToCharges(e.target.checked)} />}
+            control={
+              <CustomCheckbox checked={agreedToCharges} onChange={(e) => setAgreedToCharges(e.target.checked)} />
+            }
             label="I understand and agree to potential additional charges."
           />
         </DialogContent>

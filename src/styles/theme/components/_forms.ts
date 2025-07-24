@@ -347,43 +347,6 @@ const formComponents: Components<Theme> = {
         '&:hover': {
           backgroundColor: alpha(theme.palette.primary.main, 0.08),
         },
-        '&.custom-checkbox': {
-          overflow: 'visible',
-          [theme.breakpoints.up('sm')]: {
-            width: 22,
-            height: 22,
-          },
-          '& .MuiTouchRipple-root': {
-            overflow: 'visible',
-            position: 'absolute',
-            // backgroundColor: 'red',
-            width: 22,
-            height: 22,
-            top: -2,
-            left: -2,
-            [theme.breakpoints.down('sm')]: {
-              width: 20,
-              height: 20,
-              top: -3,
-              left: -3,
-            },
-            '& .MuiTouchRipple-child': {
-              borderRadius: customBorderRadius.small,
-            },
-          },
-          '& .MuiSvgIcon-root': {
-            position: 'absolute',
-            transform: 'scale(1.5)',
-            backgroundColor: 'transparent',
-            // transition: customTransitions.fast,
-            left: 3,
-            top: 1,
-            [theme.breakpoints.down('sm')]: {
-              left: 5.5,
-              top: -2,
-            },
-          },
-        },
       }),
     },
   },

@@ -138,49 +138,6 @@ const navComponents: Components<Theme> = {
         alignItems: 'flex-start',
         minHeight: 'auto',
         transition: customTransitions.standard,
-
-        '& .checkbox-container': {
-          overflow: 'visible',
-          display: 'block',
-          maxWidth: 19,
-          maxHeight: 19,
-          margin: theme.spacing(1, 1.5, 0, 0),
-          boxSizing: 'border-box',
-          border: `2px solid ${theme.palette.secondary.dark}`,
-          borderRadius: customBorderRadius.small,
-          [theme.breakpoints.down('sm')]: {
-            maxWidth: 16,
-            maxHeight: 16,
-          },
-        },
-        '& .MuiCheckbox-root': {
-          color: theme.palette.secondary.dark,
-          top: -4,
-          left: -1,
-          [theme.breakpoints.down('sm')]: {
-            top: -5,
-            left: -1,
-          },
-        },
-        '& .custom-checkbox': {
-          transform: 'scale(1.2)',
-        },
-        '& .custom-checkbox-checked': {
-          color: theme.palette.secondary.dark,
-          transition: customTransitions.standard,
-          paddingBottom: theme.spacing(0.4),
-
-          [theme.breakpoints.down('sm')]: {
-            transform: 'scale(1.7)',
-            paddingRight: theme.spacing(0.45),
-            paddingBottom: theme.spacing(0.5),
-          },
-        },
-        '& .PrivateSwitchBase-input': {
-          width: 36,
-          height: 36,
-          // backgroundColor: 'red',
-        },
         '& .MuiTypography-root': {
           fontSize: '0.95rem',
           margin: 0,

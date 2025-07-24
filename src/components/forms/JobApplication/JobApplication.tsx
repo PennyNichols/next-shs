@@ -385,41 +385,6 @@ const JobApplication = () => {
                   error={!!errors.certifications}
                   helperText={errors.certifications ? errors.certifications.message : 'Select all that apply'}
                 />
-                // <FormControl error={!!errors.certifications}>
-                //   <InputLabel id="certifications-label">Which certifications do you have?</InputLabel>
-                //   <Select
-                //     labelId="certifications-label"
-                //     multiple
-                //     label="Which certifications do you have?"
-                //     renderValue={(selected) => (
-                //       <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
-                //         {selected.map((value) => (
-                //           <Chip key={value} label={value} />
-                //         ))}
-                //       </Box>
-                //     )}
-                //     value={value || []}
-                //     onChange={(event) => onChange(event.target.value)}
-                //     {...field}
-                //     MenuProps={{
-                //       PaperProps: {
-                //         className: 'MuiSelect-dropdown-paper', // Custom class
-                //       },
-                //     }}
-                //   >
-                //     {certifications.map((certification) => (
-                //       <MenuItem key={certification} value={certification}>
-                //         <Checkbox checked={(value || []).includes(certification)} />
-                //         {certification}
-                //       </MenuItem>
-                //     ))}
-                //   </Select>
-                //   {errors.certifications && (
-                //     <Typography variant="caption" color="error">
-                //       {errors.certifications.message}
-                //     </Typography>
-                //   )}
-                // </FormControl>
               )}
             />
           </Grid>

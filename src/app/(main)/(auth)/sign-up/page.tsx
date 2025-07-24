@@ -11,14 +11,13 @@ import {
   Grid,
   CircularProgress,
   FormControlLabel,
-  Checkbox,
 } from '@mui/material';
 import { useRouter } from 'next/navigation';
 import { useForm, Controller } from 'react-hook-form';
-import { useAuth } from '@/contexts/AuthContext/AuthContext';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { doc, setDoc, serverTimestamp } from 'firebase/firestore';
 import { db, auth } from '@/lib/firebase/firebase';
+import CustomCheckbox from '@/components/common/CustomCheckbox';
 
 const SignUpPage = () => {
   const router = useRouter();
@@ -181,7 +180,7 @@ const SignUpPage = () => {
             control={control}
             render={({ field }) => (
               <FormControlLabel
-                control={<Checkbox {...field} checked={field.value} color="primary" />}
+                control={<CustomCheckbox {...field} checked={field.value} />}
                 label={
                   <Typography variant="body2">
                     I agree to the{' '}
@@ -228,6 +227,6 @@ const SignUpPage = () => {
       </Box>
     </Box>
   );
-}
+};
 
 export default SignUpPage;
