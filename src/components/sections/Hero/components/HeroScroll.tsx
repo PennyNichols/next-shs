@@ -37,10 +37,7 @@ const ScrollIcon = () => {
   return (
     <AnimatedText
       sx={{
-        fontSize: '2.5rem',
-        '@media(max-width:400px)': {
-          fontSize: '2rem',
-        },
+        fontSize: { xxs: '2rem', xs: '2.5rem' },
       }}
     >
       &#8595;

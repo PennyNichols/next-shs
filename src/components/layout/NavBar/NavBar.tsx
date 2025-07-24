@@ -1,8 +1,5 @@
 'use client';
 
-// NEED TO FIX LINK BG COLORS AND HOVER BG COLORS
-// STYLE MIGRATION TO SX BROKE IT
-// INTEGRATE INTO THEME, CAN USE CUSTOM CLASSNAMES IN GLOBAL THEME
 import React, { useEffect, useState } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -58,39 +55,30 @@ const NavBar = () => {
   let logoWidth;
   let iconSize;
 
-  if (isXxs) {
-    logoWidth = 80;
-    iconSize = 50;
-  } else if (isXs) {
+  if (isXxs || isXs) {
+    logoWidth = 70;
+    iconSize = 45;
+  } else if (isSm || isMd) {
     logoWidth = 80;
     iconSize = 55;
-  } else if (isSm) {
-    logoWidth = 100;
-    iconSize = 65;
-  } else if (isMd) {
-    logoWidth = 100;
   } else if (isLg) {
-    logoWidth = 110;
+    logoWidth = 90;
   } else if (isXl) {
-    logoWidth = 120;
+    logoWidth = 100;
   } else {
     logoWidth = 50;
   }
 
   let logoHeight;
 
-  if (isXxs) {
-    logoHeight = 80;
-  } else if (isXs) {
-    logoHeight = 80;
-  } else if (isSm) {
-    logoHeight = 100;
-  } else if (isMd) {
-    logoHeight = 100;
+  if (isXxs || isXs) {
+    logoHeight = 50;
+  } else if (isSm || isMd) {
+    logoHeight = 60;
   } else if (isLg) {
-    logoHeight = 110;
+    logoHeight = 70;
   } else if (isXl) {
-    logoHeight = 120;
+    logoHeight = 80;
   } else {
     logoHeight = 50;
   }
@@ -112,6 +100,8 @@ const NavBar = () => {
                     cursor: 'pointer',
                     transition: 'all .1s ease-in-out',
                     transform: `scale(${logoScale})`,
+                    width: { xxs: 70, sm: 80, lg: 90, xl: 100 },
+                    height: { xxs: 50, sm: 60, lg: 70, xl: 80 },
                   }}
                   onMouseEnter={() => setLogoColor(logoHoverColor)}
                   onMouseLeave={() => setLogoColor(theme.palette.background.paper)}
@@ -120,7 +110,7 @@ const NavBar = () => {
                   onTouchStart={() => setLogoScale(0.9)}
                   onTouchEnd={() => setLogoScale(1)}
                 >
-                  <LogoSvg color={logoColor} width={logoWidth} height={logoHeight} />
+                  <LogoSvg color={logoColor} />
                 </Box>
               </Link>
             </Box>{' '}
@@ -190,7 +180,7 @@ const NavBar = () => {
                         height: '100%',
                         color: 'background.paper',
                         transition: `${customTransitions.slow}, transform 0.3s ease-out, opacity 0.3s ease-out`,
-                        fontSize: iconSize,
+                        fontSize: { xxs: 45, sm: 55 },
                         '&:hover': { color: 'accent.primary' },
                         opacity: isMenuOpen ? 1 : 0,
                         transform: isMenuOpen ? 'rotate(0deg)' : 'rotate(-180deg)',
@@ -206,7 +196,7 @@ const NavBar = () => {
                         height: '100%',
                         color: 'background.paper',
                         transition: `${customTransitions.slow}, transform 0.3s ease-out, opacity 0.3s ease-out`,
-                        fontSize: iconSize - 3,
+                        fontSize: { xxs: 42, sm: 52 },
                         '&:hover': { color: 'accent.primary' },
                         opacity: isMenuOpen ? 0 : 1,
                         transform: isMenuOpen ? 'rotate(180deg)' : 'rotate(0deg)',

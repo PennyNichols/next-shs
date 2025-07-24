@@ -101,10 +101,8 @@ const ServicesPage = () => {
             height: 2,
             backgroundColor: 'secondary.dark',
             flex: 1,
+            display: { xxs: 'none', xs: 'block' },
             mx: { xxs: 2, sm: 3, md: 4, lg: 5 },
-            '@media (max-width: 400px)': {
-              display: 'none',
-            },
           }}
         />
         <Typography variant="h2" sx={{ textAlign: 'center' }}>
@@ -117,9 +115,7 @@ const ServicesPage = () => {
             backgroundColor: 'secondary.dark',
             flex: 1,
             mx: { xxs: 2, sm: 3, md: 4, lg: 5 },
-            '@media (max-width: 400px)': {
-              display: 'none',
-            },
+            display: { xxs: 'none', xs: 'block' },
           }}
         />
       </Box>{' '}

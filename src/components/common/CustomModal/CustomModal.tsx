@@ -1,17 +1,6 @@
 // components/CustomModal.tsx
 import React from 'react';
-import {
-  Modal,
-  Box,
-  Typography,
-  IconButton,
-  Button,
-  useTheme,
-  Fade,
-  // Import SxProps and Theme for type annotations
-  type SxProps,
-  type Theme,
-} from '@mui/material';
+import { Modal, Box, Typography, IconButton, Button, useTheme, Fade, type SxProps, type Theme } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close'; // Requires @mui/icons-material
 
 // Define the props interface for the CustomModal component

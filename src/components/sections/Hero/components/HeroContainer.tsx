@@ -18,9 +18,7 @@ const HeroContainer = ({ children }) => {
         color: theme.palette.background.paper,
         textAlign: 'center',
         background: `linear-gradient(to bottom, ${alpha(theme.palette.primary.light, 0.8)}, ${alpha(theme.palette.background.paper, 0.8)})`,
-        px: { xxs: 3, md: 5 },
-        py: { xxs: 2, sm: 3, md: 4, xl: 5 },
-        paddingTop: { xxs: 6, sm: 3, md: 4, xl: 5 },
+        px: 3,
       }}
     >
       {children}

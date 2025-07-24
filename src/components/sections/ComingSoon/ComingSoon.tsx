@@ -91,7 +91,8 @@ const ComingSoon = () => {
           </Box>
           <Box
             sx={{
-              width: '100vw',
+              width: '100%',
+              maxWidth: '100vw',
               height: 40,
               border: `1px solid ${theme.palette.text.primary}`,
               backgroundColor: theme.palette.secondary.dark,
@@ -108,7 +109,8 @@ const ComingSoon = () => {
           >
             <Box
               sx={{
-                width: '100vw',
+                width: '100%',
+                maxWidth: '100vw',
                 height: 2,
                 backgroundImage: `repeating-linear-gradient(
                   to right,

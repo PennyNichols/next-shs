@@ -81,7 +81,7 @@ const PrivacyPolicy = () => {
                         sx={{ marginBottom: '1.5rem', textIndent: '-1.5rem', pl: '1.5rem' }}
                       >
                         {detail.text}
-                        <span style={{ marginLeft: theme.spacing(1) }}>{detail.description}</span>
+                        <span style={{ marginLeft: 8 }}>{detail.description}</span>
                       </Typography>
                     ))
                   : null}
@@ -97,10 +97,10 @@ const PrivacyPolicy = () => {
               width: '100%',
               gap: { xxs: 2, sm: 4, md: 8 },
               mx: 2,
-              [theme.breakpoints.down(520)]: { flexDirection: 'column', mx: 0 },
+              '@media (max-width: 520px)': { flexDirection: 'column', mx: 0 },
             }}
           >
-            <LogoWithTextSvg color={theme.palette.primary.main} width={150} height={150} />
+            <LogoWithTextSvg color="#1976d2" width={150} height={150} />
             <Box
               sx={{
                 display: 'flex',

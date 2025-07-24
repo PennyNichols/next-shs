@@ -228,7 +228,7 @@ const BlogForm = () => {
       const docRef = await addDoc(collection(db, 'blogPosts'), trimmedData);
       handleClear();
     } catch (e) {
-      // console.error('Error adding document: ', e);
+      console.error('Error adding document: ', e);
     }
   };
 
@@ -391,14 +391,14 @@ const BlogForm = () => {
                 label="Sub Detail Title"
                 name="subDetailTitle"
                 value={subDetail.subDetailTitle}
-                onChange={(e) => handleSubDetailChange(e, index, subIndex)}
+                onChange={(e) => handleSubDetailChange(e, 0, index, subIndex, 'details')}
                 fullWidth
               />
               <TextField
                 label="Sub Detail Text"
                 name="subDetailText"
                 value={subDetail.subDetailText}
-                onChange={(e) => handleSubDetailChange(e, index, subIndex)}
+                onChange={(e) => handleSubDetailChange(e, 0, index, subIndex, 'details')}
                 fullWidth
                 multiline
                 minRows={2}

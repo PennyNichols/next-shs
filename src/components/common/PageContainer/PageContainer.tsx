@@ -7,15 +7,21 @@ const PageContainer = ({ children }) => {
     <Box
       sx={{
         minHeight: '100dvh',
-        width: '100dvw',
         display: 'flex',
-        flexDirection: 'column',
-        gap: theme.spacing(4),
-        paddingTop: theme.spacing(4),
+        paddingY: { xxs: theme.spacing(4), xs: theme.spacing(6), md: theme.spacing(7) },
         backgroundColor: theme.palette.background.default,
       }}
     >
-      <Container maxWidth="xl">{children}</Container>
+      <Container
+        maxWidth="xl"
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: { xxs: theme.spacing(5), xs: theme.spacing(6), md: theme.spacing(7) },
+        }}
+      >
+        {children}
+      </Container>
     </Box>
   );
 };

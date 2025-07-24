@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { Box, Typography, Link, Grid, Skeleton } from '@mui/material'; // Removed Container from import
+import { Box, Typography, Link, Grid, Skeleton } from '@mui/material';
 import { Facebook, Google, Instagram } from '@mui/icons-material';
 import SubscribeForm from '../../forms/SubscribeForm/SubscribeForm';
 import EstimateRequestButton from '../../action-buttons/EstimateRequestButton/EstimateRequestButton';
@@ -98,17 +98,14 @@ const Footer = () => {
             <Box
               sx={{
                 display: 'flex',
-                flexDirection: 'row',
+                flexDirection: { xxs: 'column', xs: 'row' },
                 justifyContent: { xxs: 'center', sm: 'flex-start', md: 'center' },
                 alignItems: { xxs: 'flex-start', md: 'center' },
                 textAlign: 'center',
                 gap: 1,
-                '@media (max-width: 350px)': {
-                  flexDirection: 'column',
-                },
               }}
             >
-              <Box sx={{ width: 120, height: 110, flexxshrink: 0 }}>
+              <Box sx={{ width: 120, height: 110, flexShrink: 0 }}>
                 <LogoSvg width={120} height={110} />
               </Box>
               <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
@@ -192,7 +189,7 @@ const Footer = () => {
             sx={{
               display: { xxs: 'none', sm: 'flex' },
               justifyContent: { sm: 'flex-end', md: 'center' },
-              flexxshrink: 1,
+              flexshrink: 1,
             }}
           >
             {showClientContent ? (
@@ -280,11 +277,9 @@ const Footer = () => {
                   justifyContent: 'space-between',
                   width: '100%',
                   mx: 0,
-                  '@media (max-width: 350px)': {
-                    flexDirection: 'column',
-                    textAlign: 'center',
-                    my: 1,
-                  },
+                  my: { xxs: 1, xs: 0 },
+                  flexDirection: { xxs: 'column', xs: 'row' },
+                  textAlign: { xxs: 'center', xs: 'left' },
                 }}
               >
                 <Link
@@ -312,16 +307,12 @@ const Footer = () => {
               <Box
                 sx={{
                   display: 'flex',
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
+                  flexDirection: { xxs: 'column', xs: 'row' },
+                  justifyContent: { xxs: 'center', xs: 'space-between' },
+                  alignItems: { xxs: 'center', xs: 'flex-start' },
+                  my: { xxs: 1, xs: 0 },
                   width: '100%',
                   mx: 0,
-                  '@media (max-width: 350px)': {
-                    flexDirection: 'column',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    my: 1,
-                  },
                 }}
               >
                 <Skeleton variant="text" width={109} height={24} />
