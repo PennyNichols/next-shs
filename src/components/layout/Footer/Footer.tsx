@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { Box, Typography, Link, Grid, Skeleton } from '@mui/material'; // Removed Container from import
+import { Box, Typography, Link, Grid, Skeleton } from '@mui/material';
 import { Facebook, Google, Instagram } from '@mui/icons-material';
 import SubscribeForm from '../../forms/SubscribeForm/SubscribeForm';
 import EstimateRequestButton from '../../action-buttons/EstimateRequestButton/EstimateRequestButton';

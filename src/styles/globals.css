@@ -52,16 +52,16 @@ ol {
   list-style: none;
 }
 
-body .grecaptcha-badge {
+.grecaptcha-badge {
   position: fixed !important;
   bottom: 100px !important;
   margin-right: -250px !important;
-    z-index: 1 !important;
-  opacity: 0.5;
+  z-index: 10000 !important;
+  opacity: 50% !important;
   transition: opacity 0.3s ease;
 }
 
-body .grecaptcha-badge:hover {
+.grecaptcha-badge:hover {
   opacity: 1;
   /* Make fully opaque on hover */
 }

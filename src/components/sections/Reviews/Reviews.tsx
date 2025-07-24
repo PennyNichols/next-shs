@@ -2,6 +2,7 @@ import VilliageSvg from '@/assets/svg/VilliageSvg/VilliageSvg';
 import { customBorderRadius } from '@/styles/theme/otherThemeConstants';
 import { Box, Typography } from '@mui/material';
 import ReviewCard from './ReviewCard/ReviewCard';
+import theme from '@/styles/theme';
 
 // Example review data (replace with Google review data as needed)
 const rawReviews = [
@@ -13,22 +14,26 @@ const rawReviews = [
   },
   {
     rating: 4.5,
-    review: 'Very satisfied with the work. Will use again. Very satisfied with the work. Will use again. Very satisfied with the work. Will use again.',
+    review:
+      'Very satisfied with the work. Will use again. Very satisfied with the work. Will use again. Very satisfied with the work. Will use again.',
     platform: 'Google',
   },
   {
     rating: 5,
-    review: 'They went above and beyond. Highly recommend!They went above and beyond. Highly recommend! They went above and beyond. Highly recommend!',
+    review:
+      'They went above and beyond. Highly recommend!They went above and beyond. Highly recommend! They went above and beyond. Highly recommend!',
     platform: 'Google',
   },
   {
     rating: 4,
-    review: 'Good experience overall, a few minor delays. Good experience overall, a few minor delays. Good experience overall, a few minor delays.',
+    review:
+      'Good experience overall, a few minor delays. Good experience overall, a few minor delays. Good experience overall, a few minor delays.',
     platform: 'Google',
   },
   {
     rating: 5,
-    review: 'Excellent communication and quality. Excellent communication and quality. Excellent communication and quality.',
+    review:
+      'Excellent communication and quality. Excellent communication and quality. Excellent communication and quality.',
     platform: 'Google',
   },
   {
@@ -48,7 +53,7 @@ const getReviews = (rawReviews) => {
 };
 
 const Reviews = () => {
-    const reviews = getReviews(rawReviews);
+  const reviews = getReviews(rawReviews);
   return (
     <Box
       sx={{
@@ -57,7 +62,7 @@ const Reviews = () => {
         alignItems: 'center',
         justifyContent: 'center',
         gap: 1,
-        padding: '4 0',
+        padding: theme.spacing(3, 0),
         marginBottom: 2,
         backgroundColor: 'background.paper',
         boxShadow: 2,
@@ -72,7 +77,7 @@ const Reviews = () => {
           textAlign: 'center',
           whiteSpace: 'nowrap',
           fontSize: { xxs: '1.75rem', sm: '2.25rem' },
-          m: '0 3',
+          margin: theme.spacing(0, 2),
         }}
       >
         What Our <wbr />

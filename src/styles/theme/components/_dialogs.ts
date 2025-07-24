@@ -1,22 +1,11 @@
 import type { Components, Theme } from '@mui/material/styles';
 import type { CSSObject } from '@emotion/react';
-import { customShadows, customBorderRadius } from '../otherThemeConstants'; // Assuming these are correctly typed as discussed
+import { customShadows, customBorderRadius } from '../otherThemeConstants';
 
 const dialogComponents: Components<Theme> = {
-  // ---------------------------------------------------
-  // MuiDialog Component Customizations
-  // ---------------------------------------------------
   MuiDialog: {
-    // defaultProps: { ... },
     styleOverrides: {
-      root: ({ theme }: { theme: Theme }): CSSObject => ({
-        // '& .MuiIconButton-root': {
-        //   color: theme.palette.text.primary,
-        //   '&:hover': {
-        //     color: theme.palette.accent.primary,
-        //   },
-        // },
-      }),
+      root: ({ theme }: { theme: Theme }): CSSObject => ({}),
       paper: ({ theme }: { theme: Theme }): CSSObject => ({
         background: theme.palette.background.default,
         borderRadius: customBorderRadius.medium,
@@ -27,9 +16,6 @@ const dialogComponents: Components<Theme> = {
       }),
     },
   },
-  // ---------------------------------------------------
-  // MuiDialogTitle Component Customizations
-  // ---------------------------------------------------
   MuiDialogTitle: {
     styleOverrides: {
       root: ({ theme }: { theme: Theme }): CSSObject => ({
@@ -62,9 +48,6 @@ const dialogComponents: Components<Theme> = {
       }),
     },
   },
-  // ---------------------------------------------------
-  // MuiDialogContent Component Customizations
-  // ---------------------------------------------------
   MuiDialogContent: {
     styleOverrides: {
       root: ({ theme }: { theme: Theme }): CSSObject => ({
@@ -75,8 +58,6 @@ const dialogComponents: Components<Theme> = {
         marginTop: theme.spacing(2),
         justifyContent: 'center',
         overflowX: 'hidden',
-
-        // alignItems: 'center',   !!!! DO NOT USE ALIGN ITEMS !!!!!
       }),
     },
   },

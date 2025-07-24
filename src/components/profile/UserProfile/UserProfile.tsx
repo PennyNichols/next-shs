@@ -70,30 +70,18 @@ export const UserProfile: React.FC<UserProfileProps> = ({ userId, isAdminView = 
           <Card>
             <CardContent>
               <Box display="flex" alignItems="center" gap={2}>
-                <Avatar
-                  src={displayUser.profilePictureURL}
-                  sx={{ width: 80, height: 80 }}
-                >
-                  {displayUser.first?.[0]}{displayUser.last?.[0]}
+                <Avatar src={displayUser.profilePictureURL} sx={{ width: 80, height: 80 }}>
+                  {displayUser.first?.[0]}
+                  {displayUser.last?.[0]}
                 </Avatar>
                 <Box flex={1}>
                   <Typography variant="h4" gutterBottom>
                     {displayUser.first} {displayUser.last}
                   </Typography>
                   <Box display="flex" gap={1} mb={1}>
-                    <Chip
-                      label={displayUser.type}
-                      color={getTypeColor(displayUser.type)}
-                      size="small"
-                    />
-                    <Chip
-                      label={displayUser.status}
-                      color={getStatusColor(displayUser.status)}
-                      size="small"
-                    />
-                    {displayUser.emailVerified && (
-                      <Chip label="Email Verified" color="success" size="small" />
-                    )}
+                    <Chip label={displayUser.type} color={getTypeColor(displayUser.type)} size="small" />
+                    <Chip label={displayUser.status} color={getStatusColor(displayUser.status)} size="small" />
+                    {displayUser.emailVerified && <Chip label="Email Verified" color="success" size="small" />}
                   </Box>
                   <Box display="flex" alignItems="center" gap={2} color="text.secondary">
                     <Box display="flex" alignItems="center" gap={0.5}>
@@ -107,10 +95,7 @@ export const UserProfile: React.FC<UserProfileProps> = ({ userId, isAdminView = 
                   </Box>
                 </Box>
                 {(isAdminView || authUser?.uid === displayUser.id) && (
-                  <IconButton
-                    onClick={() => setIsEditing(true)}
-                    color="primary"
-                  >
+                  <IconButton onClick={() => setIsEditing(true)} color="primary">
                     <Edit />
                   </IconButton>
                 )}
@@ -154,8 +139,11 @@ export const UserProfile: React.FC<UserProfileProps> = ({ userId, isAdminView = 
                     </Typography>
                     {displayUser.primaryAddress ? (
                       <Typography variant="body1">
-                        {displayUser.primaryAddress.street}<br/>
-                        {displayUser.primaryAddress.city}, {displayUser.primaryAddress.state} {displayUser.primaryAddress.zipCode}<br/>
+                        {displayUser.primaryAddress.street}
+                        <br />
+                        {displayUser.primaryAddress.city}, {displayUser.primaryAddress.state}{' '}
+                        {displayUser.primaryAddress.zipCode}
+                        <br />
                         {displayUser.primaryAddress.country}
                       </Typography>
                     ) : (
@@ -186,9 +174,19 @@ export const UserProfile: React.FC<UserProfileProps> = ({ userId, isAdminView = 
           )}
 
           {activeTab === 'addresses' && (
-            <ServiceAddressManager 
+            <ServiceAddressManager
               userId={displayUser.id}
-              addresses={displayUser.serviceAddresses || []}
+              addresses={(displayUser.serviceAddresses || []).map((addr) => ({
+                id: addr.id,
+                street: `${addr.street1}${addr.street2 ? ' ' + addr.street2 : ''}`,
+                city: addr.city,
+                state: addr.state,
+                zipCode: addr.zip,
+                country: 'US',
+                label: addr.label,
+                isDefault: addr.isDefault,
+                createdOn: addr.createdOn,
+              }))}
               isAdminView={isAdminView}
             />
           )}
@@ -202,11 +200,7 @@ export const UserProfile: React.FC<UserProfileProps> = ({ userId, isAdminView = 
           )}
 
           {activeTab === 'notes' && (
-            <UserNotes
-              userId={displayUser.id}
-              notes={displayUser.notes || []}
-              isAdminView={isAdminView}
-            />
+            <UserNotes userId={displayUser.id} notes={displayUser.notes || []} isAdminView={isAdminView} />
           )}
         </Grid>
       </Grid>

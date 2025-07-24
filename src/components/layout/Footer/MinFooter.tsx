@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Typography, Link, Grid, Skeleton } from '@mui/material'; // Removed Container from import
+import { Box, Typography, Link, Grid, Skeleton } from '@mui/material';
 import { Facebook, Google, Instagram } from '@mui/icons-material';
 import { EMAIL_ADDRESS, FACEBOOK_URL, GOOGLE_URL, INSTAGRAM_URL, PHONE_NUMBER } from '../../../constants/companyDetails';
 import { formatPhoneNumber } from '../../../lib/utils/utils';

@@ -1,17 +1,14 @@
 import { alpha } from '@mui/material/styles';
 import type { Components, Theme } from '@mui/material/styles';
 import type { CSSObject } from '@emotion/react';
-import { customShadows, customBorderRadius, customTransitions } from '../otherThemeConstants'; // Assuming these are correctly typed as discussed
+import { customShadows, customBorderRadius, customTransitions } from '../otherThemeConstants';
 
 const navComponents: Components<Theme> = {
-  // ---------------------------------------------------
-  // MuiLink Component Customizations
-  // ---------------------------------------------------
   MuiLink: {
     defaultProps: {},
     styleOverrides: {
       root: ({ theme }: { theme: Theme }): CSSObject => ({
-        WebkitTapHighlightColor: 'transparent', // Prevents the default tap highlight color on links
+        WebkitTapHighlightColor: 'transparent',
         color: theme.palette.primary.light,
         textDecoration: 'none',
         transition: customTransitions.standard,
@@ -26,9 +23,6 @@ const navComponents: Components<Theme> = {
       }),
     },
   },
-  // ---------------------------------------------------
-  // MuiAppBar Component Customizations
-  // --------------------------------------------------
   MuiAppBar: {
     defaultProps: {},
     styleOverrides: {
@@ -124,9 +118,6 @@ const navComponents: Components<Theme> = {
       }),
     },
   },
-  // ---------------------------------------------------
-  // MuiMenuItem Component Customizations
-  // ---------------------------------------------------
   MuiMenuItem: {
     defaultProps: {
       disableRipple: true,
@@ -146,7 +137,6 @@ const navComponents: Components<Theme> = {
             fontSize: '0.875rem',
           },
         },
-
         '&:hover': {
           backgroundColor: alpha(theme.palette.primary.light, 0.03),
           color: theme.palette.primary.light,
@@ -175,33 +165,19 @@ const navComponents: Components<Theme> = {
     },
   },
 
-  // ---------------------------------------------------
-  // MuiListSubheader Component Customizations
-  // ---------------------------------------------------
   MuiListSubheader: {
     styleOverrides: {
       root: ({ theme }: { theme: Theme }): CSSObject => ({
-        // Ensure the subheader has a distinct background so content doesn't show through
-        backgroundColor: theme.palette.primary.main, // Potentially add some padding if needed, but MuiList-padding should handle overall spacing
+        backgroundColor: theme.palette.primary.main,
         boxShadow: 'none',
-        // padding: theme.spacing(1, 2),
-        zIndex: 1, // Ensure it's above the list items
+        zIndex: 1,
       }),
       sticky: ({ theme }: { theme: Theme }): CSSObject => ({
-        // The default Material-UI sticky implementation should handle this,
-        // but sometimes you might need to adjust top if there's other fixed elements
-        // top: -10, // Adding a small bottom border can help visually separate it when sticky
         borderBottom: `1px solid ${theme.palette.divider}`,
       }),
     },
   },
-  // ---------------------------------------------------
-  // MuiPopover Component Customizations (used by Select dropdown)
-  // ---------------------------------------------------
   MuiPopover: {
-    // defaultProps: {
-    //   disableScrollLock: true,
-    // },
     styleOverrides: {
       paper: ({ theme }: { theme: Theme }): CSSObject => ({
         borderRadius: customBorderRadius.small,

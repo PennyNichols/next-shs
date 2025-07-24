@@ -68,8 +68,7 @@ const EstimateRequestForm = ({ open, setOpen }) => {
   const [imagePreviews, setImagePreviews] = useState([]);
   const [uploadError, setUploadError] = useState(null);
   const [uploadSuccess, setUploadSuccess] = useState(false);
-  const [isEmailSubscribed, setIsEmailSubscribed] = useState(false); // State for email subscription status
-  // const [showSubscribeCheckbox, setShowSubscribeCheckbox] = useState(false); // State to control checkbox visibility
+  const [isEmailSubscribed, setIsEmailSubscribed] = useState(false);
   const [submissionError, setSubmissionError] = useState<string | null>(null);
 
   const [travelCharge, setTravelCharge] = useState<number>(0);
@@ -84,53 +83,14 @@ const EstimateRequestForm = ({ open, setOpen }) => {
 
   const propertyTypeOptions = ['apartment', 'condo', 'duplex', 'house', 'townhouse', 'other'];
 
-  // Mock function for checking email subscription status
-  // Do not have subscriptions set up yet
   const checkEmailSubscriptionStatus = async (email) => {
     await new Promise((resolve) => setTimeout(resolve, 300));
     return email === 'test@example.com';
   };
 
-  // Effect to pre-fill form data if user is authenticated
-  // useEffect(() => {
-  //   const defaultServiceAddress = user?.serviceAddresses?.find((addr) => addr.isDefault);
-  //   if (user) {
-  //     setValue('firstName', user.first || '');
-  //     setValue('lastName', user.last || '');
-  //     setValue('email', user.email || '');
-  //     setValue('phone', user.phone || '');
-  //     if (defaultServiceAddress) {
-  //       setValue('street1', defaultServiceAddress.street1 || '');
-  //       setValue('street2', defaultServiceAddress.street2 || '');
-  //       setValue('city', defaultServiceAddress.city || '');
-  //       setValue('zip', defaultServiceAddress.zip || '');
-  //       setValue('hasPets', defaultServiceAddress.hasPets || false);
-  //       setValue('ownerOccupied', defaultServiceAddress.ownerOccupied || false);
-  //       setValue('propertyType', defaultServiceAddress.propertyType || '');
-  //       setValue('saveServiceAddress', false);
-  //     }
-  //   } else {
-  //     // If user logs out or is not logged in, reset pre-filled fields in RHF
-  //     setValue('firstName', '');
-  //     setValue('lastName', '');
-  //     setValue('email', '');
-  //     setValue('phone', '');
-  //     setValue('street1', '');
-  //     setValue('street2', '');
-  //     setValue('city', '');
-  //     setValue('zip', '');
-  //     setValue('hasPets', false);
-  //     setValue('ownerOccupied', false);
-  //     setValue('propertyType', '');
-  //     setValue('saveServiceAddress', false);
-  //   }
-  // }, [user, setValue]);
-
-  // Effect to check email subscription status when email changes (and is not empty)
   useEffect(() => {
     const checkStatus = async () => {
       if (email) {
-        // Use the watched email
         const subscribed = await checkEmailSubscriptionStatus(email);
         setIsEmailSubscribed(subscribed);
       } else {
@@ -217,10 +177,8 @@ const EstimateRequestForm = ({ open, setOpen }) => {
     } catch (error) {
       console.error('Error uploading images:', error);
       setUploadError('Error uploading images. Please try again.');
-      // Do not return here; allow form submission without images if upload fails
     }
 
-    // Construct the final data object, ensuring all fields are included
     const finalData = {
       ...data, // All RHF controlled fields are here
       userId: user?.id || null,

@@ -67,7 +67,6 @@ const CustomCheckbox = ({ checked = false, onChange = null, name = '' }) => {
           '& .MuiTouchRipple-root': {
             overflow: 'visible',
             position: 'absolute',
-            // backgroundColor: 'red',
             width: 22,
             height: 22,
             top: -2,
@@ -86,7 +85,6 @@ const CustomCheckbox = ({ checked = false, onChange = null, name = '' }) => {
             position: 'absolute',
             transform: 'scale(1.5)',
             backgroundColor: 'transparent',
-            // transition: customTransitions.fast,
             left: 3,
             top: 1,
             [theme.breakpoints.down('sm')]: {
