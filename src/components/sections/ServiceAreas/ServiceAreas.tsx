@@ -29,7 +29,7 @@ const CustomSeparationDot = () => {
 
 const ServiceAreas = () => {
     return (
-        <Box
+      <Box
         sx={{
           display: 'flex',
           flexDirection: 'column',
@@ -70,11 +70,11 @@ const ServiceAreas = () => {
             Port Charlotte
           </Typography>
           <CustomSeparationDot />
-          <Typography variant="h3" sx={{ fontSize: { xxs: '1.5rem', md: '1.875rem', lg: '2.25rem' } }}>
+          <Typography variant="h3" sx={{ fontSize: { xxs: '1.5rem', md: '1.625rem', lg: '1.75rem' } }}>
             Punta Gorda
           </Typography>
           <CustomSeparationDot />
-          <Typography variant="h3" sx={{ fontSize: { xxs: '1.5rem', md: '1.875rem', lg: '2.25rem' } }}>
+          <Typography variant="h3" sx={{ fontSize: { xxs: '1.5rem', md: '1.625rem', lg: '1.75rem' } }}>
             North Port
           </Typography>
         </Box>

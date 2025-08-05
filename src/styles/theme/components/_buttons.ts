@@ -27,59 +27,61 @@ const buttonComponents: Components<Theme> = {
         transition: customTransitions.standard,
         cursor: 'pointer',
         whiteSpace: 'nowrap',
-        padding: theme.spacing(0.75, 2),
+        padding: theme.spacing(0.2, 2),
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
         flexGrow: 1,
+        [theme.breakpoints.down('xxs')]: {
+          fontSize: '0.875rem',
+        },
         [theme.breakpoints.up('xxs')]: {
           fontSize: '0.875rem',
         },
-        [theme.breakpoints.up('xs')]: {
+        [theme.breakpoints.up('md')]: {
           fontSize: '1rem',
         },
-        [theme.breakpoints.up('md')]: {
-          fontSize: '1.2rem',
-        },
         [theme.breakpoints.up('lg')]: {
-          fontSize: '1.5rem',
+          fontSize: '1.1rem',
         },
         [theme.breakpoints.up('xl')]: {
-          fontSize: '1.8rem',
+          fontSize: '1.3rem',
         },
         '& .MuiButton-startIcon': {
           marginRight: theme.spacing(1),
-          [theme.breakpoints.up('xxs')]: {
-            fontSize: '1.25rem',
+          transition: customTransitions.standard,
+          [theme.breakpoints.down('xxs')]: {
+            fontSize: '1.1rem',
           },
-          [theme.breakpoints.up('xs')]: {
-            fontSize: '1.5rem',
+          [theme.breakpoints.up('xxs')]: {
+            fontSize: '1.1rem',
           },
           [theme.breakpoints.up('md')]: {
-            fontSize: '1.75rem',
+            fontSize: '1.3rem',
           },
           [theme.breakpoints.up('lg')]: {
-            fontSize: '1.9rem',
+            fontSize: '1.4rem',
           },
           [theme.breakpoints.up('xl')]: {
-            fontSize: '2.1rem',
+            fontSize: '1.6rem',
           },
           '& > *:nth-of-type(1)': {
+            transition: customTransitions.standard,
             marginRight: theme.spacing(1),
-            [theme.breakpoints.up('xxs')]: {
-              fontSize: '1.25rem',
+            [theme.breakpoints.down('xxs')]: {
+              fontSize: '1.1rem',
             },
-            [theme.breakpoints.up('xs')]: {
-              fontSize: '1.5rem',
+            [theme.breakpoints.up('xxs')]: {
+              fontSize: '1.1rem',
             },
             [theme.breakpoints.up('md')]: {
-              fontSize: '1.75rem',
+              fontSize: '1.3rem',
             },
             [theme.breakpoints.up('lg')]: {
-              fontSize: '1.9rem',
+              fontSize: '1.4rem',
             },
             [theme.breakpoints.up('xl')]: {
-              fontSize: '2.1rem',
+              fontSize: '1.6rem',
             },
           },
         },
@@ -94,20 +96,24 @@ const buttonComponents: Components<Theme> = {
       // Style overrides based on 'variant' prop
       containedPrimary: ({ theme }: { theme: Theme }): CSSObject => ({
         backgroundColor: theme.palette.primary.main,
-        color: theme.palette.secondary.light,
+        color: theme.palette.background.paper,
+        '& .MuiButton-startIcon': {
+          color: theme.palette.background.paper,
+        },
         '&:hover': {
-          color: theme.palette.accent.primary,
-          backgroundColor: theme.palette.primary.main,
-          borderColor: theme.palette.accent.primary,
+          color: theme.palette.primary.main,
+          backgroundColor: theme.palette.background.paper,
+          '& .MuiButton-startIcon': {
+            color: theme.palette.primary.main,
+          },
         },
       }),
       containedSecondary: ({ theme }: { theme: Theme }): CSSObject => ({
-        backgroundColor: theme.palette.accent.primary,
+        backgroundColor: theme.palette.background.paper,
         color: theme.palette.primary.main,
         '&:hover': {
-          color: theme.palette.accent.primary,
+          color: theme.palette.background.paper,
           backgroundColor: theme.palette.primary.main,
-          borderColor: theme.palette.accent.primary,
         },
       }),
       outlinedPrimary: ({ theme }: { theme: Theme }): CSSObject => ({
@@ -115,16 +121,25 @@ const buttonComponents: Components<Theme> = {
         color: theme.palette.primary.main,
         backgroundColor: theme.palette.background.paper,
         '&:hover': {
-          color: theme.palette.accent.primary,
-          border: `2px solid ${theme.palette.accent.primary}`,
-          backgroundColor: theme.palette.background.paper,
+          color: theme.palette.background.paper,
+          border: `2px solid ${theme.palette.background.paper}`,
+          backgroundColor: theme.palette.primary.main,
         },
       }),
       outlinedSecondary: ({ theme }: { theme: Theme }): CSSObject => ({
-        borderColor: theme.palette.secondary.main,
-        color: theme.palette.text.secondary,
+        borderColor: theme.palette.accent.primary,
+        backgroundColor: theme.palette.primary.main,
+        color: theme.palette.accent.primary,
+        '& .MuiButton-startIcon': {
+          color: theme.palette.accent.primary,
+        },
         '&:hover': {
-          backgroundColor: alpha(theme.palette.secondary.main, 0.04),
+          backgroundColor: theme.palette.accent.primary,
+          color: theme.palette.primary.main,
+          border: `2px solid ${theme.palette.primary.main}`,
+          '& .MuiButton-startIcon': {
+            color: theme.palette.primary.main,
+          },
         },
       }),
       // Style overrides based on 'size' prop

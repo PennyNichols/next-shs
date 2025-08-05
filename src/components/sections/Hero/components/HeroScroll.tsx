@@ -22,9 +22,11 @@ const generateAlternatingGradient = (color1, color2, count) => {
 };
 
 const AnimatedText = styled(Typography)`
-  background: linear-gradient(to bottom, 
-    ${generateAlternatingGradient(theme.palette.secondary.main, theme.palette.primary.main, 40)});
-  background-size: 100% 1000%;
+  background: linear-gradient(
+    to bottom,
+    ${generateAlternatingGradient(theme.palette.background.paper, theme.palette.primary.light, 25)}
+  );
+  background-size: 1000% 2000%;
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -37,7 +39,7 @@ const ScrollIcon = () => {
   return (
     <AnimatedText
       sx={{
-        fontSize: { xxs: '2rem', xs: '2.5rem' },
+        fontSize: '2rem',
       }}
     >
       &#8595;
@@ -49,7 +51,7 @@ const ScrollText = () => {
   return (
     <AnimatedText
       sx={{
-        fontSize: { xxs: '1.5rem', xs: '2rem' },
+        fontSize: '1.5rem',
         marginLeft: 3,
         marginRight: 3,
       }}
@@ -67,8 +69,9 @@ const HeroScroll = () => {
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'flex-end',
-        mt: { xxs: 2 },
-        mb: 1,
+        height: '2rem',
+        mt: theme.spacing(2),
+        mb: theme.spacing(1),
         whiteSpace: 'nowrap',
       }}
     >

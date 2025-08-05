@@ -82,7 +82,7 @@ return (
       component="h2"
       sx={{
         fontWeight: '700',
-        fontSize: { xxs: '1rem', sm: '1.2rem', md: '1.5rem', lg: '1.7rem', xl: '2.1rem' },
+        fontSize: { xxs: '.85rem', sm: '1.0rem', lg: '1.1rem', xl: '1.4rem' },
         letterSpacing: '0.2rem',
         display: 'flex',
         flexDirection: 'column',
@@ -94,7 +94,7 @@ return (
         WebkitUserSelect: 'none',
         MozUserSelect: 'none',
         msUserSelect: 'none',
-        marginBottom: { xxs: '0.5rem', sm: 0 },
+        marginBottom: { xxs: '0.1rem', sm: 0 },
       }}
     >
       Expert Hands.

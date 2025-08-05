@@ -35,53 +35,14 @@ const NavBar = () => {
   const logoHoverColor = theme.palette.accent.primary;
   const [logoScale, setLogoScale] = useState(1);
 
-  const { isXxs: initialIsXxs, isXs: initialIsXs, isSm: initialIsSm, isMd, isLg, isXl } = useMedia();
   const [showClientContent, setShowClientContent] = useState(false);
-  const [isXxs, setIsXxs] = useState(false);
-  const [isXs, setIsXs] = useState(false);
-  const [isSm, setIsSm] = useState(false);
 
   useEffect(() => {
     setShowClientContent(true);
-    setIsXxs(initialIsXxs);
-    setIsXs(initialIsXs);
-    setIsSm(initialIsSm);
-  }, [initialIsXxs, initialIsXs, initialIsSm]);
-  const isMobile = isXxs || isXs || isSm;
+  }, []);
 
   const handleMenuToggle = () => setIsMenuOpen((prev) => !prev);
   const handleMenuClose = () => setIsMenuOpen(false);
-
-  let logoWidth;
-  let iconSize;
-
-  if (isXxs || isXs) {
-    logoWidth = 70;
-    iconSize = 45;
-  } else if (isSm || isMd) {
-    logoWidth = 80;
-    iconSize = 55;
-  } else if (isLg) {
-    logoWidth = 90;
-  } else if (isXl) {
-    logoWidth = 100;
-  } else {
-    logoWidth = 50;
-  }
-
-  let logoHeight;
-
-  if (isXxs || isXs) {
-    logoHeight = 50;
-  } else if (isSm || isMd) {
-    logoHeight = 60;
-  } else if (isLg) {
-    logoHeight = 70;
-  } else if (isXl) {
-    logoHeight = 80;
-  } else {
-    logoHeight = 50;
-  }
 
   return (
     <ClickAwayListener onClickAway={handleMenuClose}>
@@ -115,7 +76,7 @@ const NavBar = () => {
               </Link>
             </Box>{' '}
             {/* Desktop Links */}
-            {showClientContent && !isMobile && (
+            {showClientContent && (
               <Box
                 sx={{
                   flexGrow: 1,
@@ -155,10 +116,10 @@ const NavBar = () => {
               </Box>
             )}
             {/* Mobile Hamburger */}
-            {showClientContent && isMobile && (
+            {showClientContent && (
               <Box
                 sx={{
-                  display: 'flex',
+                  display: { xxs: 'flex', md: 'none' },
                   justifyContent: 'flex-end',
                   marginLeft: 'auto',
                 }}
@@ -167,8 +128,8 @@ const NavBar = () => {
                   <Box
                     sx={{
                       position: 'relative',
-                      width: iconSize,
-                      height: iconSize,
+                      width: { xxs: 45, sm: 55 },
+                      height: { xxs: 45, sm: 55 },
                     }}
                   >
                     <Handyman
@@ -210,31 +171,29 @@ const NavBar = () => {
           </Toolbar>
         </Container>
 
-        {isMobile && (
-          <Collapse in={isMenuOpen} timeout="auto" unmountOnExit>
-            <Box
-              onClick={handleMenuClose}
-              sx={{
-                py: 2,
-                backgroundColor: 'primary.main',
-                position: 'absolute',
-                top: 'calc(100% - 4px)',
-                left: 0,
-                right: 0,
-                boxShadow: '0px 10px 15px -3px rgba(0, 0, 0, 0.3)',
-                width: { xxs: '100%', sm: 'auto' },
-              }}
-            >
-              {pages.map((page) => (
-                <MenuItem key={page.name} sx={{ justifyContent: 'center' }} onClick={handleMenuClose}>
-                  <Link className="nav-menu-item" key={page.name} href={page.href} passHref>
-                    <NavButton text={page.name} />
-                  </Link>
-                </MenuItem>
-              ))}
-            </Box>
-          </Collapse>
-        )}
+        <Collapse in={isMenuOpen} timeout="auto" unmountOnExit sx={{ display: { xxs: 'flex', md: 'none' } }}>
+          <Box
+            onClick={handleMenuClose}
+            sx={{
+              py: 2,
+              backgroundColor: 'primary.main',
+              position: 'absolute',
+              top: 'calc(100% - 4px)',
+              left: 0,
+              right: 0,
+              boxShadow: '0px 10px 15px -3px rgba(0, 0, 0, 0.3)',
+              width: { xxs: '100%', sm: 'auto' },
+            }}
+          >
+            {pages.map((page) => (
+              <MenuItem key={page.name} sx={{ justifyContent: 'center' }} onClick={handleMenuClose}>
+                <Link className="nav-menu-item" key={page.name} href={page.href} passHref>
+                  <NavButton text={page.name} />
+                </Link>
+              </MenuItem>
+            ))}
+          </Box>
+        </Collapse>
 
         {/* Mobile Skeleton */}
         {!showClientContent && (

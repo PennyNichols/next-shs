@@ -183,6 +183,9 @@ const baseComponents: Components<Theme> = {
           margin: theme.spacing(1, 'auto'),
           marginBottom: theme.spacing(5),
           maxWidth: '80%',
+          [theme.breakpoints.down('xxs')]: {
+            marginBottom: theme.spacing(1),
+          },
         },
       }),
     },

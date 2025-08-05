@@ -19,7 +19,6 @@ import { Hero } from '@/components/sections';
 import { usePathname } from 'next/navigation';
 
 export const AppProviders = ({ children }: { children: React.ReactNode }) => {
-  const clientSideEmotionCache = React.useMemo(() => createEmotionCache(), []);
   const pathname = usePathname();
 
   const isHomePage = pathname === '/';
@@ -32,14 +31,11 @@ export const AppProviders = ({ children }: { children: React.ReactNode }) => {
             minHeight="100dvh"
             sx={{
               backgroundColor: theme.palette.secondary.light,
-              // overflowX: 'hidden',
               display: 'block',
             }}
           >
             {isHomePage && <Hero />}
-
             <NavBar />
-
             <Box
               sx={{
                 paddingTop: 0,
@@ -49,11 +45,10 @@ export const AppProviders = ({ children }: { children: React.ReactNode }) => {
             >
               {children}
             </Box>
-
             <Footer />
           </Box>
         </FirebaseCollectionProvider>
       </AuthProvider>
     </EmotionRegistry>
   );
-}
+};

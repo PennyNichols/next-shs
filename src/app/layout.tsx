@@ -4,11 +4,7 @@ import 'slick-carousel/slick/slick-theme.css';
 import { Inter, Poppins, Archivo } from 'next/font/google';
 import React from 'react';
 import type { Metadata, Viewport } from 'next';
-
 import { AppProviders } from './providers';
-
-import NavBar from '@/components/layout/NavBar/NavBar';
-import Footer from '@/components/layout/Footer/Footer';
 import { ShareButton } from '@/components/action-buttons';
 
 export const metadata: Metadata = {

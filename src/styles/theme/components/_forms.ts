@@ -386,9 +386,9 @@ const formComponents: Components<Theme> = {
     styleOverrides: {
       root: ({ theme }: { theme: Theme }): CSSObject => ({
         color: theme.palette.secondary.dark,
-        fontSize: '1rem',
+        fontSize: '1.1rem',
         [theme.breakpoints.down('md')]: {
-          fontSize: '0.875rem',
+          fontSize: '1rem',
         },
         '&.MuiFormLabel-colorSecondary': {
           color: theme.palette.accent.primary,

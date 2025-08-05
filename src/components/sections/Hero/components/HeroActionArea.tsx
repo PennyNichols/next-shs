@@ -1,30 +1,54 @@
 'use client';
 import { SmsButton, CallButton, EstimateRequestButton } from '@/components/action-buttons';
 import { useMedia } from '@/hooks';
-import { Grid } from '@mui/material';
+import theme from '@/styles/theme';
+import { alpha, Grid } from '@mui/material';
 
 const HeroActionArea = () => {
-
   return (
     <Grid
       container
-      spacing={{ xxs: 2, lg: 3, xl: 6 }}
+      spacing={{ xxs: 2, lg: 3 }}
       sx={{
-        maxWidth: { xxs: '100%', md: '90%', xl: '100%' },
+        maxWidth: { xxs: '100%', sm: '80%' },
         alignSelf: 'flex-end',
-        mb: { xxs: 0, sm: 3, lg: 4, xl: 6 },
+        mb: { xxs: 0, sm: 5, lg: 8 },
       }}
-      justifyContent={{ xxs: 'center', xl: 'space-between' }}
+      justifyContent="center"
       alignItems="center"
     >
-      <Grid item xxs={12} sm={6} xl={4}>
-        <CallButton />
+      <Grid item xxs={12}>
+        <EstimateRequestButton variant="contained" color="primary" fullWidth={true} />
       </Grid>
-      <Grid item xxs={12} sm={6} xl={4}>
-        <SmsButton />
+      <Grid item xxs={12} sm={6}>
+        <CallButton
+          variant="contained"
+          color="primary"
+          sx={{
+            backgroundColor: 'transparent',
+            border: `2px solid ${theme.palette.background.paper}`,
+            '&:hover': {
+              backgroundColor: theme.palette.background.paper,
+              color: 'black',
+              mixBlendMode: 'screen',
+            },
+          }}
+        />
       </Grid>
-      <Grid item xxs={12} sm={12} xl={4}>
-        <EstimateRequestButton fullWidth={true} />
+      <Grid item xxs={12} sm={6}>
+        <SmsButton
+          variant="contained"
+          color="primary"
+          sx={{
+            backgroundColor: 'transparent',
+            border: `2px solid ${theme.palette.background.paper}`,
+            '&:hover': {
+              backgroundColor: theme.palette.background.paper,
+              color: 'black',
+              mixBlendMode: 'screen',
+            },
+          }}
+        />
       </Grid>
     </Grid>
   );

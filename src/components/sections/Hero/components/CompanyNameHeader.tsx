@@ -1,41 +1,34 @@
+import LogoSvg from '@/assets/svg/LogoSvg/LogoSvg';
 import theme from '@/styles/theme';
-import { Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 
 const CompanyNameHeader = () => {
   return (
-    <Typography
-      variant="h1"
-      component="h1"
+    <Box
       sx={{
-        maxWidth: '1535px',
-        display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(0, 1fr))',
-        gap: 0,
+        display: 'flex',
+        justifyContent: 'flex-start',
+        alignItems: 'flex-end',
+        gap: 1,
         width: '100%',
-        fontSize: { xxs: '2rem', sm: '2.7rem', md: '3.5rem', lg: '5rem' },
-        textAlign: 'center',
-        justifyContent: 'center',
-        margin: theme.spacing(1, 'auto'),
-        flexDirection: 'column',
-        alignItems: 'center',
-        lineHeight: 1.1,
-        letterSpacing: '0.3rem',
-        textTransform: 'uppercase',
-        fontWeight: 800,
+        marginTop: 2,
       }}
     >
-      <span>S</span>
-      <span>H</span>
-      <span>S</span>
-      <span> </span>
-      <span>F</span>
-      <span>L</span>
-      <span>O</span>
-      <span>R</span>
-      <span>I</span>
-      <span>D</span>
-      <span>A</span>
-    </Typography>
+      <Typography
+        variant="h1"
+        component="h1"
+        sx={{
+          fontSize: { xxs: '1rem', md: '1.2rem', lg: '1.5rem' },
+          lineHeight: 1,
+          textTransform: 'uppercase',
+          fontWeight: 700,
+          marginRight: 'auto',
+          color: theme.palette.accent.primary,
+        }}
+      >
+        SHS FLORIDA
+      </Typography>
+    </Box>
   );
 };
 

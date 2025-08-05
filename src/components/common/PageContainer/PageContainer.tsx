@@ -2,7 +2,14 @@
 import theme from '@/styles/theme';
 import { Box, Container } from '@mui/material';
 
-const PageContainer = ({ children }) => {
+import { Breakpoint } from '@mui/material';
+
+interface PageContainerProps {
+  children: React.ReactNode;
+  maxWidth?: Breakpoint | false;
+}
+
+const PageContainer = ({ children, maxWidth = 'xl' }: PageContainerProps) => {
   return (
     <Box
       sx={{
@@ -13,11 +20,11 @@ const PageContainer = ({ children }) => {
       }}
     >
       <Container
-        maxWidth="xl"
+        maxWidth={maxWidth}
         sx={{
           display: 'flex',
           flexDirection: 'column',
-          gap: { xxs: theme.spacing(5), xs: theme.spacing(6), md: theme.spacing(7) },
+          gap: { xxs: theme.spacing(4), xs: theme.spacing(6), md: theme.spacing(7) },
         }}
       >
         {children}

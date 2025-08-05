@@ -17,7 +17,7 @@ const HeroContainer = ({ children }) => {
         alignItems: 'center',
         color: theme.palette.background.paper,
         textAlign: 'center',
-        background: `linear-gradient(to bottom, ${alpha(theme.palette.primary.light, 0.8)}, ${alpha(theme.palette.background.paper, 0.8)})`,
+        background: `linear-gradient(to bottom, ${alpha(theme.palette.primary.main, 0.8)} 0%, ${alpha(theme.palette.background.paper, 0.8)} 40%, ${alpha(theme.palette.primary.main, 0.8)} 100%)`,
         px: 3,
       }}
     >
