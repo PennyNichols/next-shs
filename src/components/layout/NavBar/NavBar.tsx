@@ -86,7 +86,6 @@ const NavBar = () => {
                       lineHeight: 0.71,
                       fontSize: '1.47rem',
                       letterSpacing: '-.05rem',
-                      // mb: 0.7,
                       paddingRight: 0.5,
                     }}
                   >
