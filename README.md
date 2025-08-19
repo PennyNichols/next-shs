@@ -625,320 +625,320 @@ If you would like a custom emulator configuration, edit the `firebase.json` deta
 ## Version Control and Merging
 
 ### Core principles
-    - All code changes must be submitted through a Pull Request.
-    - Direct commits to the `staging` and `prod` branches are **prohibited**.
-    - The `prod` branch must **always** be stable and reflect the **current** state of the production environment.
+  - All code changes must be submitted through a Pull Request.
+  - Direct commits to the `staging` and `prod` branches are **prohibited**.
+  - The `prod` branch must **always** be stable and reflect the **current** state of the production environment.
 
 ### Branching strategy
-    - GitHub workflows for this project enforce strict [branch naming conventions](#branch-naming-conventions)
+  - GitHub workflows for this project enforce strict [branch naming conventions](#branch-naming-conventions)
 
-    **If you are unsure of how to name a branch, copy the task details and the [branch naming conventions](#branch-naming-conventions) and ask Copilot what would be the best fit.**
-    
-    - **`dev`**
-      - All `dev` branches are created from the `staging` branch.
-      - `dev` branches are **NEVER** merged back into `staging`
-      - **Before commiting** any changes to `dev` branches, request a preliminary review from Copilot in the Source Control tab in VSCode:
+  **If you are unsure of how to name a branch, copy the task details and the [branch naming conventions](#branch-naming-conventions) and ask Copilot what would be the best fit.**
+  
+  - **`dev`**
+    - All `dev` branches are created from the `staging` branch.
+    - `dev` branches are **NEVER** merged back into `staging`
+    - **Before commiting** any changes to `dev` branches, request a preliminary review from Copilot in the Source Control tab in VSCode:
 
-      ![Requesting a review from Copilot before committing changes](./public/images/readme-images/image-21.png)
+    ![Requesting a review from Copilot before committing changes](./public/images/readme-images/image-21.png)
 
-      - There are two types of `dev` branches:
+    - There are two types of `dev` branches:
 
-        1. **`dev/task` branches**
-          - Contain changes for individual tasks or small groups of closely related tasks.
-          - Too many changes in a single `dev/task` branch can make it difficult to debug the code.
-          - Commit messages must be clear, concise,  and describe the changes made.
-          - Each `dev/task` branch must be thoroughly tested by the assigned developer before a PR is created.
-          - `dev/task` branches are categorized into 4 types:
-            1. **Bugs:** Errors found in testing, noticed by any team member, or reported by users in production.
-            ```bash
-            dev/task/bug/<task-number>/<task-description>
-            ```
-            2. **Chore:** Minor changes that aren't bugs and general code clean up.
-            ```bash
-            dev/task/chore/<task-number>/<task-description>
-            ```
-            3. **Refactor:** Changes to components and features that are not broken with the goal of improving the code readability, code reusability, UI appearance, user experience, general app flow, app performance, etc. 
-            ```bash
-            dev/task/refactor/<task-number>/<task-description>
-            ```
-            4. **Feature:** Entirely new features and components.
-            ```bash
-            dev/task/feat/<task-number>/<task-description>
-            ```
-
-        2. **`dev/pbi` branches**
-          - All `dev/task` branches derived from a single PBI are merged together, **one at a time**, into a `dev/pbi` branch after each `dev/task` PR is approved and passing all checks.
-          - After each branch is merged in, a new commit should be pushed.
-          - Commit messages for `dev/pbi` branches must contain the task number and a short description.
-          - `dev/pbi` branches are deployed to the `dev` environment and thoroughly tested to the task requirements after each individual `dev/task` branch is merged in to maximize debugging efficacy.
-
-    - **`staging`**
-      - The main `staging` branch should always reflect `prod`.
-      - Code changes are **NEVER** commited directly to `staging`.
-      - There are three kinds of `staging` branches:
-        1. **PBI:** After PR approval, each `dev/pbi` branch is converted to an identical `staging/pbi` branch.
-        - The name of `staging/pbi` branches should reflect the name of the corresponding `dev/pbi` branch.
-        ```bash
-        staging/pbi/<pbi-number>/<pbi-description>
-        ```
-        2. **Feature:** All `staging/pbi` branches are merged, **one at a time**, into `staging/feat` branches after all `dev/pbi` branches for a feature have been converted to `staging/pbi` branches. 
-          - After each `staging/pbi` branch is added to the `staging/feat` branch, deploy to the staging environment and test against the PBI requirements.
-          - After all `staging/pbi` branches have been merged into the `staging/feat` branch, a PR is created and reviewed.
-          - After PR approval, QA will thoroughly test the feature.
+      1. **`dev/task` branches**
+        - Contain changes for individual tasks or small groups of closely related tasks.
+        - Too many changes in a single `dev/task` branch can make it difficult to debug the code.
+        - Commit messages must be clear, concise,  and describe the changes made.
+        - Each `dev/task` branch must be thoroughly tested by the assigned developer before a PR is created.
+        - `dev/task` branches are categorized into 4 types:
+          1. **Bugs:** Errors found in testing, noticed by any team member, or reported by users in production.
           ```bash
-          staging/feat/<feature-name>
+          dev/task/bug/<task-number>/<task-description>
           ```
-        3. **Release:** When `staging/feat` PRs are approved, they are added to a single `staging/release` branch and tested.
-          - After each `staging/feat` branch is added to a `staging/release` branch, it is thoroughly tested by all parties.
+          2. **Chore:** Minor changes that aren't bugs and general code clean up.
+          ```bash
+          dev/task/chore/<task-number>/<task-description>
+          ```
+          3. **Refactor:** Changes to components and features that are not broken with the goal of improving the code readability, code reusability, UI appearance, user experience, general app flow, app performance, etc. 
+          ```bash
+          dev/task/refactor/<task-number>/<task-description>
+          ```
+          4. **Feature:** Entirely new features and components.
+          ```bash
+          dev/task/feat/<task-number>/<task-description>
+          ```
+
+      2. **`dev/pbi` branches**
+        - All `dev/task` branches derived from a single PBI are merged together, **one at a time**, into a `dev/pbi` branch after each `dev/task` PR is approved and passing all checks.
+        - After each branch is merged in, a new commit should be pushed.
+        - Commit messages for `dev/pbi` branches must contain the task number and a short description.
+        - `dev/pbi` branches are deployed to the `dev` environment and thoroughly tested to the task requirements after each individual `dev/task` branch is merged in to maximize debugging efficacy.
+
+  - **`staging`**
+    - The main `staging` branch should always reflect `prod`.
+    - Code changes are **NEVER** commited directly to `staging`.
+    - There are three kinds of `staging` branches:
+      1. **PBI:** After PR approval, each `dev/pbi` branch is converted to an identical `staging/pbi` branch.
+      - The name of `staging/pbi` branches should reflect the name of the corresponding `dev/pbi` branch.
+      ```bash
+      staging/pbi/<pbi-number>/<pbi-description>
+      ```
+      2. **Feature:** All `staging/pbi` branches are merged, **one at a time**, into `staging/feat` branches after all `dev/pbi` branches for a feature have been converted to `staging/pbi` branches. 
+        - After each `staging/pbi` branch is added to the `staging/feat` branch, deploy to the staging environment and test against the PBI requirements.
+        - After all `staging/pbi` branches have been merged into the `staging/feat` branch, a PR is created and reviewed.
+        - After PR approval, QA will thoroughly test the feature.
         ```bash
-        staging/release/<version-number>
+        staging/feat/<feature-name>
         ```
-      
-    - **`prod`**
-      - When all planned features for a production release are merged into a single `staging/release` branch and the PR is created, it is tested one more time by all parties and then merged into `prod`.
-      - This branch is **only** for **production-ready** code.
-      - `prod` is only updated by merging a `staging/release` branch during a scheduled release or a `prod/hotfix` branch to fix a production bug.
-      **Remember to merge back into `staging` after all changes**
-      - The code in this branch is **always** the code currently deployed in the `prod` environment.
-      - `prod` code is automatically deployed to the `prod` environment on every successful merge from `staging/release` or `prod/hotfix`.
-      - After successful release to production, the `prod` branch is back-merged into the main `staging` branch to 'reset' for the next development cycle.
-      - There are two `prod` branches
-        1. The **main** `prod` branch that is a reflection of currently deployed production code.
-        2. **Hotfix:** For urgent fixes that must be deployed to production quickly.
-          - These are the **only** branches that should be created directly from the `prod` branch.
-          - `prod/hotfix` branches merge back into `prod` after approval.
-        ```bash
-        prod/hotfix/<bug-description>
-        ```
-      - **NEVER** push commits or merge branches other than `staging/release` or `prod/hotfix` branches into `prod`.
+      3. **Release:** When `staging/feat` PRs are approved, they are added to a single `staging/release` branch and tested.
+        - After each `staging/feat` branch is added to a `staging/release` branch, it is thoroughly tested by all parties.
+      ```bash
+      staging/release/<version-number>
+      ```
+    
+  - **`prod`**
+    - When all planned features for a production release are merged into a single `staging/release` branch and the PR is created, it is tested one more time by all parties and then merged into `prod`.
+    - This branch is **only** for **production-ready** code.
+    - `prod` is only updated by merging a `staging/release` branch during a scheduled release or a `prod/hotfix` branch to fix a production bug.
+    **Remember to merge back into `staging` after all changes**
+    - The code in this branch is **always** the code currently deployed in the `prod` environment.
+    - `prod` code is automatically deployed to the `prod` environment on every successful merge from `staging/release` or `prod/hotfix`.
+    - After successful release to production, the `prod` branch is back-merged into the main `staging` branch to 'reset' for the next development cycle.
+    - There are two `prod` branches
+      1. The **main** `prod` branch that is a reflection of currently deployed production code.
+      2. **Hotfix:** For urgent fixes that must be deployed to production quickly.
+        - These are the **only** branches that should be created directly from the `prod` branch.
+        - `prod/hotfix` branches merge back into `prod` after approval.
+      ```bash
+      prod/hotfix/<bug-description>
+      ```
+    - **NEVER** push commits or merge branches other than `staging/release` or `prod/hotfix` branches into `prod`.
 
 ### Pull Request (PR) process
-    - **When to create a PR**
+  - **When to create a PR**
 
-      - `dev/task` PRs should be created by the branch owner after code changes are tested against task requirements, and are ready for review.
+    - `dev/task` PRs should be created by the branch owner after code changes are tested against task requirements, and are ready for review.
 
-      - `dev/pbi` PRs should be created when all of the `dev/task` branches belonging to the PBI have approved PRs, have been merged into the `dev/pbi` branch, and have been thoroughly tested against all task and PBI requirements.
+    - `dev/pbi` PRs should be created when all of the `dev/task` branches belonging to the PBI have approved PRs, have been merged into the `dev/pbi` branch, and have been thoroughly tested against all task and PBI requirements.
 
-      - `staging/pbi` branches are created by converting `dev/pbi` PRs after approval; they **do not** require PRs themselves.
+    - `staging/pbi` branches are created by converting `dev/pbi` PRs after approval; they **do not** require PRs themselves.
 
-      - `staging/feat` PRs are created after combining and testing all of the `staging/pbi` branches belonging to a feature, one at a time.
+    - `staging/feat` PRs are created after combining and testing all of the `staging/pbi` branches belonging to a feature, one at a time.
 
-      - `staging/release` PRs are created after all of the `staging/feat` branches belonging to a scheduled production release have been merged in and tested, one at a time.
+    - `staging/release` PRs are created after all of the `staging/feat` branches belonging to a scheduled production release have been merged in and tested, one at a time.
 
-      - After final approval of a `staging/release` PR, the `staging/release` branch is merged into the `prod` branch, triggering automatic deployment.
+    - After final approval of a `staging/release` PR, the `staging/release` branch is merged into the `prod` branch, triggering automatic deployment.
 
-      - After successful deployment of the `prod` branch, `prod` is back-merged to reset `staging`.
+    - After successful deployment of the `prod` branch, `prod` is back-merged to reset `staging`.
 
-    - **What is the PR process**
-      1. Commit your final changes to your local branch
-      2. Push the commit to GitHub
-      3. Deploy changes to the appropriate environment and **test** the changes.
-      3. Navigate to the [repository](https://github.com/PennyNichols/next-shs) on GitHub 
-      4. Open Pull Request on GitHub
-
-
-
--------------------------------------------------------
+  - **What is the PR process**
+    1. Commit your final changes to your local branch
+    2. Push the commit to GitHub
+    3. Deploy changes to the appropriate environment and **test** the changes.
+    3. Navigate to the [repository](https://github.com/PennyNichols/next-shs) on GitHub 
+    4. Open Pull Request on GitHub
 
 
 
-        - **Option 1** 
-          - At the top of the code section, there will be a toast that says "recent pushes to...". Click the toast and it will take you to a new PR.
+  -------------------------------------------------------
 
 
 
-        IMAGE
+      - **Option 1** 
+        - At the top of the code section, there will be a toast that says "recent pushes to...". Click the toast and it will take you to a new PR.
 
 
 
-
-        - **Option 2**
-          - Navigate to the repository's Pull Request tab.
-          - Click the green "New" button
+      IMAGE
 
 
 
 
-      IMAGE + MORE INSTRUCTIONS
+      - **Option 2**
+        - Navigate to the repository's Pull Request tab.
+        - Click the green "New" button
 
 
 
 
--------------------------------------------------------
-      5. Fill out each section of the PR template with appropriate details, documentation, and screenshots, if applicable.
-      6. Click "Draft Pull Request" to start the PR process without automatically requesting reviews from codeowners.
-      7. When drafted, the automatic checks for the PR should begin processing. 
-        - A green checkmark will show next to the test at the bottom of the PR if the code passed.
-        - A red X will appear next to the test if the code failed.
-          1. Click on the failing test to see the output log.
-          2. Search the log for `error`
-          3. Fix the indicated errors and push the code to the remote branch.
-          4. The PR will automatically pick up the changes and begin running the checks again.
-          5. Repeat steps 1-4 until all checks are passing.
-      8. After all checks have passed, request an AI review by clicking "Copilot" in the "Reviewers" section of the PR. It may take a few minutes for the review process to complete.
-      9. Address all comments and code change suggestions provided by Copilot
-      10. Repeat steps 8 and 9 until Copilot approves the PR.
-      11. Set the status of the PR to "Ready for review"
-        - GitHub will automatically request a review from all code owners for the edited files.
-        - You can manually request a review from any other team member on the project, even if they are not a codeowner of the edited files.
+    IMAGE + MORE INSTRUCTIONS
+
+
+
+
+  -------------------------------------------------------
+    5. Fill out each section of the PR template with appropriate details, documentation, and screenshots, if applicable.
+    6. Click "Draft Pull Request" to start the PR process without automatically requesting reviews from codeowners.
+    7. When drafted, the automatic checks for the PR should begin processing. 
+      - A green checkmark will show next to the test at the bottom of the PR if the code passed.
+      - A red X will appear next to the test if the code failed.
+        1. Click on the failing test to see the output log.
+        2. Search the log for `error`
+        3. Fix the indicated errors and push the code to the remote branch.
+        4. The PR will automatically pick up the changes and begin running the checks again.
+        5. Repeat steps 1-4 until all checks are passing.
+    8. After all checks have passed, request an AI review by clicking "Copilot" in the "Reviewers" section of the PR. It may take a few minutes for the review process to complete.
+    9. Address all comments and code change suggestions provided by Copilot
+    10. Repeat steps 8 and 9 until Copilot approves the PR.
+    11. Set the status of the PR to "Ready for review"
+      - GitHub will automatically request a review from all code owners for the edited files.
+      - You can manually request a review from any other team member on the project, even if they are not a codeowner of the edited files.
 
 ### Merging practices
       
-    - **When to merge**
-      1. `dev`
-        - After all `dev/task` branches for a single PBI are complete and PRs are approved, merge them all into a single `dev/pbi`
-        - When multiple developers need to test features in the `dev` environment simultaneously, create a new combined branch to deploy the branches together.
+  - **When to merge**
+    1. `dev`
+      - After all `dev/task` branches for a single PBI are complete and PRs are approved, merge them all into a single `dev/pbi`
+      - When multiple developers need to test features in the `dev` environment simultaneously, create a new combined branch to deploy the branches together.
 
-      2. `staging`
-        - **Only** `prod` is merged into `staging` after a successful release.
-        - Nothing else is merged into `staging` directly.
-        - For organization and visibility, all `dev/pbi` branches are converted to `staging/pbi` branches after PR approval.
-        - Once the `staging/pbi` branches belonging to a feature have been converted from `dev/pbi` to `staging/pbi`, they can be merged into a single `staging/feat` branch for testing.
-        - After the `staging/feat` PR has been approved, the branch can be merged into a `staging/release` branch where it will wait until all the features included in a planned production release are merged into the `staging/release` branch.
+    2. `staging`
+      - **Only** `prod` is merged into `staging` after a successful release.
+      - Nothing else is merged into `staging` directly.
+      - For organization and visibility, all `dev/pbi` branches are converted to `staging/pbi` branches after PR approval.
+      - Once the `staging/pbi` branches belonging to a feature have been converted from `dev/pbi` to `staging/pbi`, they can be merged into a single `staging/feat` branch for testing.
+      - After the `staging/feat` PR has been approved, the branch can be merged into a `staging/release` branch where it will wait until all the features included in a planned production release are merged into the `staging/release` branch.
 
-      3. `prod`
-        - After all `staging/feat` branches have been merged into the `staging/release` branch, had thorough testing, and have recieved approvals from all parties, the `staging/release` branch is merged into `prod`.
-        - After merging into `prod` and confirming a successful deployment, `prod` is merged into `staging` to reset `staging`.
+    3. `prod`
+      - After all `staging/feat` branches have been merged into the `staging/release` branch, had thorough testing, and have recieved approvals from all parties, the `staging/release` branch is merged into `prod`.
+      - After merging into `prod` and confirming a successful deployment, `prod` is merged into `staging` to reset `staging`.
 
-    - **How to merge**   
-      **After** all changes have been tested against requirements, the PR is passing all checks, and the required approvals have been obtained, run the appropriate merge command in your terminal.
+  - **How to merge**   
+    **After** all changes have been tested against requirements, the PR is passing all checks, and the required approvals have been obtained, run the appropriate merge command in your terminal.
 
-        1. `dev/task` merges into `dev/pbi`
-        2. `dev/pbi` merges into `staging/pbi`
-        3. `staging/pbi` merges into `staging/feat`
-        4. `staging/feat` merges into `staging/release`
-        5. `staging/release` merges into `prod`
-        6. `prod/hotfix` merges into `prod`
-        6. `prod` merges into `staging`
+      1. `dev/task` merges into `dev/pbi`
+      2. `dev/pbi` merges into `staging/pbi`
+      3. `staging/pbi` merges into `staging/feat`
+      4. `staging/feat` merges into `staging/release`
+      5. `staging/release` merges into `prod`
+      6. `prod/hotfix` merges into `prod`
+      6. `prod` merges into `staging`
 
-      The general pattern is: 
-      ```bash
-      git checkout <target-branch>
-      git merge <incoming-branch>
-      ```
-      
-      **Every PR** must have approval by 1 code owner and Copilot before merging will be available.
-        - If Copilot is insisting on a change you don't agree with and will not give you approval, review from 1 additional team member is sufficient.
+    The general pattern is: 
+    ```bash
+    git checkout <target-branch>
+    git merge <incoming-branch>
+    ```
+    
+    **Every PR** must have approval by 1 code owner and Copilot before merging will be available.
+      - If Copilot is insisting on a change you don't agree with and will not give you approval, review from 1 additional team member is sufficient.
 
-      - **All branches** stem from `staging` **except** `prod` and `prod/hotfix` branches.
-      - `staging` and `prod/hotfix` branches are created from `prod`.
+    - **All branches** stem from `staging` **except** `prod` and `prod/hotfix` branches.
+    - `staging` and `prod/hotfix` branches are created from `prod`.
 
 ### Creating branches
-    - Creating branches is simple and generally follows the same pattern - make sure everything is up to date, checkout to the origin branch, create the new branch from origin branch.
-    - The newly created branch will contain all of the code from the it was created from, be sure you are starting from the **correct origin**.
+  - Creating branches is simple and generally follows the same pattern - make sure everything is up to date, checkout to the origin branch, create the new branch from origin branch.
+  - The newly created branch will contain all of the code from the it was created from, be sure you are starting from the **correct origin**.
 
-      1. **Update local to origin**
-        - Always make sure your local code is up to date with the remote repository.
+    1. **Update local to origin**
+      - Always make sure your local code is up to date with the remote repository.
 
-        - Checkout to and update your local `staging` branch:
-        ```bash
-        git checkout staging
-        git pull origin
-        ```
+      - Checkout to and update your local `staging` branch:
+      ```bash
+      git checkout staging
+      git pull origin
+      ```
 
-        - Ensure your working branch is up to date and merge the latest `staging` code into your working branch:
-        ```bash
-        git checkout dev/task/chore/123/example-task
-        git pull origin
-        git merge staging
-        ```
+      - Ensure your working branch is up to date and merge the latest `staging` code into your working branch:
+      ```bash
+      git checkout dev/task/chore/123/example-task
+      git pull origin
+      git merge staging
+      ```
 
-      2. **Creating new `dev/task` branches**
-        - All assignments **except hotfixes** will begin as a `dev/task` branch.
+    2. **Creating new `dev/task` branches**
+      - All assignments **except hotfixes** will begin as a `dev/task` branch.
 
-        - Ensure Git Bash is currently working in the `staging` branch and it is up to date with the remote repository:
-        ```bash
-        git checkout staging
-        git pull origin
-        ```
+      - Ensure Git Bash is currently working in the `staging` branch and it is up to date with the remote repository:
+      ```bash
+      git checkout staging
+      git pull origin
+      ```
 
-        - Create new `dev/task` branch from `staging`
-        ```bash
-        git checkout -b dev/task/chore/123/task-description
-        ```
+      - Create new `dev/task` branch from `staging`
+      ```bash
+      git checkout -b dev/task/chore/123/task-description
+      ```
 
-      3. **Creating `dev/pbi` branches**
-        - Ensure Git Bash is working in the `staging` branch and create a new `dev/pbi` branch.
-        ```bash
-        git checkout staging
-        git pull origin
-        git checkout -b dev/pbi/35/pbi-description
-        ```
+    3. **Creating `dev/pbi` branches**
+      - Ensure Git Bash is working in the `staging` branch and create a new `dev/pbi` branch.
+      ```bash
+      git checkout staging
+      git pull origin
+      git checkout -b dev/pbi/35/pbi-description
+      ```
 
-        - Merge `dev/task` branches belonging to the PBI into the `dev/pbi` branch
-        ```bash
-        git merge dev/task/chore/123/task-description
-        ```
+      - Merge `dev/task` branches belonging to the PBI into the `dev/pbi` branch
+      ```bash
+      git merge dev/task/chore/123/task-description
+      ```
 
-        **Repeat to merge all tasks belonging to the PBI into the `dev/pbi` branch**
+      **Repeat to merge all tasks belonging to the PBI into the `dev/pbi` branch**
 
-      4. **Creating `staging/pbi` branches**
-        - Ensure `staging` and `dev/pbi` are up to date with the remote `staging` branch:
-        ```bash
-        git checkout staging
-        git pull origin
-        
-        git checkout dev/pbi/35/pbi-description
-        git pull origin
-        ```
+    4. **Creating `staging/pbi` branches**
+      - Ensure `staging` and `dev/pbi` are up to date with the remote `staging` branch:
+      ```bash
+      git checkout staging
+      git pull origin
+      
+      git checkout dev/pbi/35/pbi-description
+      git pull origin
+      ```
 
-        - Checkout to `staging`, create the new `staging/pbi` branch with the same PBI number and description as the corresponding `dev/pbi`, and merge your `dev/pbi` branch into it:
-        ```bash
-        git checkout staging
-        git checkout -b staging/pbi/35/pbi-description
-        git merge dev/pbi/35/pbi-description
-        ```
+      - Checkout to `staging`, create the new `staging/pbi` branch with the same PBI number and description as the corresponding `dev/pbi`, and merge your `dev/pbi` branch into it:
+      ```bash
+      git checkout staging
+      git checkout -b staging/pbi/35/pbi-description
+      git merge dev/pbi/35/pbi-description
+      ```
 
-      5. **Creating `staging/feat` branches**
-        - Update `staging` and your target `staging/pbi` with the remote repository:
-        ```bash
-        git checkout staging
-        git pull origin
+    5. **Creating `staging/feat` branches**
+      - Update `staging` and your target `staging/pbi` with the remote repository:
+      ```bash
+      git checkout staging
+      git pull origin
 
-        git checkout staging/pbi/35/pbi-description
-        git pull origin
-        ```
+      git checkout staging/pbi/35/pbi-description
+      git pull origin
+      ```
 
-        - Create new `staging/feat` branch from `staging` and merge `staging/pbi` branches.
-        ```bash
-        git checkout staging
-        git checkout -b staging/feat/feature-name
-        git merge staging/pbi/35/pbi-description
-        ```
+      - Create new `staging/feat` branch from `staging` and merge `staging/pbi` branches.
+      ```bash
+      git checkout staging
+      git checkout -b staging/feat/feature-name
+      git merge staging/pbi/35/pbi-description
+      ```
 
-        **Repeat for all PBIs belonging to the target feature**
+      **Repeat for all PBIs belonging to the target feature**
 
-      6. **Creating `staging/release` branches**
-        - Ensure `staging` and `staging/feat` branches are up to date with the remote repository:
-        ```bash
-        git checkout staging
-        git pull origin
+    6. **Creating `staging/release` branches**
+      - Ensure `staging` and `staging/feat` branches are up to date with the remote repository:
+      ```bash
+      git checkout staging
+      git pull origin
 
-        git checkout staging/feat/feature-name
-        git pull origin
-        ```
+      git checkout staging/feat/feature-name
+      git pull origin
+      ```
 
-        - Create the new `staging/release` branch from the `staging` branch and merge `staging/feat` branches:
-        ```bash
-        git checkout staging
-        git checkout -b staging/release/v1.0.0
-        git merge staging/feat/feature-name
-        ```
+      - Create the new `staging/release` branch from the `staging` branch and merge `staging/feat` branches:
+      ```bash
+      git checkout staging
+      git checkout -b staging/release/v1.0.0
+      git merge staging/feat/feature-name
+      ```
 
-        **Repeat for all features planned for the production release**
+      **Repeat for all features planned for the production release**
 
-      6. **Creating a `prod/hotfix` branch**
-        - Ensure your local `prod` branch is up to date with the remote repository:
-        ```bash
-        git checkout prod
-        git pull origin
-        ```
+    6. **Creating a `prod/hotfix` branch**
+      - Ensure your local `prod` branch is up to date with the remote repository:
+      ```bash
+      git checkout prod
+      git pull origin
+      ```
 
-        - Create the `prod/hotfix` branch from the `prod` branch:
+      - Create the `prod/hotfix` branch from the `prod` branch:
 
-        ```bash
-        git checkout -b prod/hotfix/prod-bug-description
-        ```
+      ```bash
+      git checkout -b prod/hotfix/prod-bug-description
+      ```
 
 ## Deployment
 
