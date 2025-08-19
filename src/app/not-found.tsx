@@ -1,4 +1,5 @@
 'use client';
+import PageContainer from '@/components/common/PageContainer/PageContainer';
 import Footer from '@/components/layout/Footer/Footer';
 import NavBar from '@/components/layout/NavBar/NavBar';
 import { Box, Typography, Button, Container } from '@mui/material';
@@ -6,8 +7,7 @@ import Link from 'next/link';
 
 const Custom404 = () => {
   return (
-    <Container className="page-wrapper">
-      <NavBar />
+    <PageContainer>
       <Box
         sx={{
           display: 'flex',
@@ -80,8 +80,7 @@ const Custom404 = () => {
           </Box>
         </Box>
       </Box>
-      <Footer />
-    </Container>
+    </PageContainer>
   );
 };
 

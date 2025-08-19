@@ -2,18 +2,20 @@
 import { TypographyOptions } from '@mui/material/styles/createTypography';
 
 const typography: TypographyOptions = {
-  fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+  fontFamily: 'var(--font-poppins), open-sans, sans-serif',
   h1: {
+    fontFamily: 'var(--font-archivo)',
+    fontWeight: '900',
     fontSize: '2.5rem',
-    fontWeight: 600,
-    lineHeight: 1.2,
-    letterSpacing: 2,
+    wordSpacing: '8px',
+    letterSpacing: '2px',
   },
   h2: {
+    fontWeight: '900',
+    fontFamily: 'var(--font-archivo)',
     fontSize: '2rem',
-    fontWeight: 600,
-    lineHeight: 1.3,
-    letterSpacing: 0.5,
+    wordSpacing: '8px',
+    letterSpacing: '2px',
   },
   h3: {
     fontSize: '1.75rem',

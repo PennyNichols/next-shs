@@ -24,38 +24,22 @@ const Hero = () => {
   }, []);
 
   return (
-    <Container
+    <Box
       sx={{
         position: 'relative',
-        minWidth: '100%',
-        minHeight: '35rem',
-        height: '100%',
-        maxHeight: '70rem !important',
+        width: '100vw',
         overflow: 'hidden',
-        zIndex: 1200,
+        zIndex: 10,
         [theme.breakpoints.up('xxs')]: {
           height: '100dvh',
-          minHeight: '100dvh',
         },
         [theme.breakpoints.up('sm')]: {
-          minHeight: '35rem',
-          height: '35dvh',
-        },
-        [theme.breakpoints.up('md')]: {
-          height: '40dvh',
-        },
-        [theme.breakpoints.up('lg')]: {
-          height: '60dvh',
-        },
-        [theme.breakpoints.up('xl')]: {
-          height: '65dvh',
-          minHeight: '45rem',
+          height: '70dvh',
         },
       }}
     >
       <Image src="/images/poolWithPalms.jpg" alt="Hero Image" layout="fill" objectFit="cover" />
       <HeroContainer>
-        <CompanyNameHeader />
         <Box
           maxWidth="xl"
           sx={{
@@ -72,8 +56,10 @@ const Hero = () => {
                 flexGrow: 1,
                 display: 'flex',
                 flexDirection: 'column',
-                justifyContent: { xxs: 'center', sm: 'flex-end', lg: 'flex-end' },
+                justifyContent: 'flex-end',
                 alignItems: 'center',
+                maxWidth: { xxs: '100%', sm: '70%' },
+                margin: '0 auto',
               }}
             >
               <HeroHeader />
@@ -81,8 +67,8 @@ const Hero = () => {
                 sx={{
                   width: '90dvw',
                   maxWidth: '100%',
-                  marginBottom: { xxs: theme.spacing(2), md: theme.spacing(0), lg: theme.spacing(2) },
-                  fontSize: { xxs: '1rem', sm: '1.2rem', md: '1.6rem', lg: '1.9rem', xl: '2.7rem' },
+                  marginBottom: { xxs: theme.spacing(10), sm: theme.spacing(8), xl: theme.spacing(10) },
+                  fontSize: { xxs: '0.9rem', lg: '1rem', xl: '1.2rem' },
                   letterSpacing: '0.1rem',
                   color: theme.palette.secondary.dark,
                 }}
@@ -97,7 +83,7 @@ const Hero = () => {
               display: 'flex',
               justifyContent: 'center',
               alignItems: 'flex-end',
-              flexGrow: { xxs: 0, sm: 1 },
+              flexGrow: 0,
               margin: 0,
             }}
           >
@@ -106,11 +92,18 @@ const Hero = () => {
           {isAtTop ? (
             <HeroScroll />
           ) : (
-            <Box sx={{ height: { xxs: '3.92rem', xs: '4.57rem' }, display: { xs: 'block', sm: 'none' } }} />
+            <Box
+              sx={{
+                mt: theme.spacing(2),
+                mb: theme.spacing(1),
+                height: '2rem',
+                display: { xs: 'block', sm: 'none' },
+              }}
+            />
           )}
         </Box>
       </HeroContainer>
-    </Container>
+    </Box>
   );
 };
 

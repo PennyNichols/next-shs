@@ -66,7 +66,7 @@ export interface UserData {
   updatedOn: string;
 }
 
-function useUser() {
+const useUser = () => {
   const { currentUser, loading: authLoading } = useAuth();
   const [userData, setUserData] = useState<UserData | null>(null);
   const [loadingUserData, setLoadingUserData] = useState(true);

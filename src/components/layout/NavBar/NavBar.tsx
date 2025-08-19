@@ -1,8 +1,5 @@
 'use client';
 
-// NEED TO FIX LINK BG COLORS AND HOVER BG COLORS
-// STYLE MIGRATION TO SX BROKE IT
-// INTEGRATE INTO THEME, CAN USE CUSTOM CLASSNAMES IN GLOBAL THEME
 import React, { useEffect, useState } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -22,6 +19,7 @@ import theme from '@/styles/theme';
 import { ClickAwayListener, Collapse } from '@mui/material';
 import ActionButton from '@/components/common/ActionButton/ActionButton';
 import NavButton from '@/components/common/NavButton/NavButton';
+import StylableLogo from '../../../assets/svg/LogoSvg/LogoSvg';
 
 const pages = [
   { name: 'Home', href: '/' },
@@ -38,62 +36,14 @@ const NavBar = () => {
   const logoHoverColor = theme.palette.accent.primary;
   const [logoScale, setLogoScale] = useState(1);
 
-  const { isXxs: initialIsXxs, isXs: initialIsXs, isSm: initialIsSm, isMd, isLg, isXl } = useMedia();
   const [showClientContent, setShowClientContent] = useState(false);
-  const [isXxs, setIsXxs] = useState(false);
-  const [isXs, setIsXs] = useState(false);
-  const [isSm, setIsSm] = useState(false);
 
   useEffect(() => {
     setShowClientContent(true);
-    setIsXxs(initialIsXxs);
-    setIsXs(initialIsXs);
-    setIsSm(initialIsSm);
-  }, [initialIsXxs, initialIsXs, initialIsSm]);
-  const isMobile = isXxs || isXs || isSm;
+  }, []);
 
   const handleMenuToggle = () => setIsMenuOpen((prev) => !prev);
   const handleMenuClose = () => setIsMenuOpen(false);
-
-  let logoWidth;
-  let iconSize;
-
-  if (isXxs) {
-    logoWidth = 80;
-    iconSize = 50;
-  } else if (isXs) {
-    logoWidth = 80;
-    iconSize = 55;
-  } else if (isSm) {
-    logoWidth = 100;
-    iconSize = 65;
-  } else if (isMd) {
-    logoWidth = 100;
-  } else if (isLg) {
-    logoWidth = 110;
-  } else if (isXl) {
-    logoWidth = 120;
-  } else {
-    logoWidth = 50;
-  }
-
-  let logoHeight;
-
-  if (isXxs) {
-    logoHeight = 80;
-  } else if (isXs) {
-    logoHeight = 80;
-  } else if (isSm) {
-    logoHeight = 100;
-  } else if (isMd) {
-    logoHeight = 100;
-  } else if (isLg) {
-    logoHeight = 110;
-  } else if (isXl) {
-    logoHeight = 120;
-  } else {
-    logoHeight = 50;
-  }
 
   return (
     <ClickAwayListener onClickAway={handleMenuClose}>
@@ -107,11 +57,13 @@ const NavBar = () => {
                   sx={{
                     display: 'flex',
                     justifyContent: 'center',
-                    alignItems: 'center',
+                    alignItems: 'flex-end',
                     p: 0,
                     cursor: 'pointer',
                     transition: 'all .1s ease-in-out',
                     transform: `scale(${logoScale})`,
+                    height: '2rem',
+                    borderBottom: `2px solid ${theme.palette.background.paper}`,
                   }}
                   onMouseEnter={() => setLogoColor(logoHoverColor)}
                   onMouseLeave={() => setLogoColor(theme.palette.background.paper)}
@@ -120,12 +72,31 @@ const NavBar = () => {
                   onTouchStart={() => setLogoScale(0.9)}
                   onTouchEnd={() => setLogoScale(1)}
                 >
-                  <LogoSvg color={logoColor} width={logoWidth} height={logoHeight} />
+                  <StylableLogo
+                    color={logoColor}
+                    height={50}
+                    width={60}
+                    sx={{ position: 'relative', top: '8px', marginRight: 1 }}
+                  />
+                  <Typography
+                    variant="h2"
+                    component="h1"
+                    sx={{
+                      color: theme.palette.background.paper,
+                      lineHeight: 0.71,
+                      fontSize: '1.47rem',
+                      letterSpacing: '-.05rem',
+                      paddingRight: 0.5,
+                    }}
+                  >
+                    <span style={{ display: 'none' }}></span>
+                    FLORIDA
+                  </Typography>
                 </Box>
               </Link>
             </Box>{' '}
             {/* Desktop Links */}
-            {showClientContent && !isMobile && (
+            {showClientContent && (
               <Box
                 sx={{
                   flexGrow: 1,
@@ -165,10 +136,10 @@ const NavBar = () => {
               </Box>
             )}
             {/* Mobile Hamburger */}
-            {showClientContent && isMobile && (
+            {showClientContent && (
               <Box
                 sx={{
-                  display: 'flex',
+                  display: { xxs: 'flex', md: 'none' },
                   justifyContent: 'flex-end',
                   marginLeft: 'auto',
                 }}
@@ -177,8 +148,8 @@ const NavBar = () => {
                   <Box
                     sx={{
                       position: 'relative',
-                      width: iconSize,
-                      height: iconSize,
+                      width: { xxs: 45, sm: 55 },
+                      height: { xxs: 45, sm: 55 },
                     }}
                   >
                     <Handyman
@@ -190,7 +161,7 @@ const NavBar = () => {
                         height: '100%',
                         color: 'background.paper',
                         transition: `${customTransitions.slow}, transform 0.3s ease-out, opacity 0.3s ease-out`,
-                        fontSize: iconSize,
+                        fontSize: { xxs: 45, sm: 55 },
                         '&:hover': { color: 'accent.primary' },
                         opacity: isMenuOpen ? 1 : 0,
                         transform: isMenuOpen ? 'rotate(0deg)' : 'rotate(-180deg)',
@@ -206,7 +177,7 @@ const NavBar = () => {
                         height: '100%',
                         color: 'background.paper',
                         transition: `${customTransitions.slow}, transform 0.3s ease-out, opacity 0.3s ease-out`,
-                        fontSize: iconSize - 3,
+                        fontSize: { xxs: 42, sm: 52 },
                         '&:hover': { color: 'accent.primary' },
                         opacity: isMenuOpen ? 0 : 1,
                         transform: isMenuOpen ? 'rotate(180deg)' : 'rotate(0deg)',
@@ -220,31 +191,29 @@ const NavBar = () => {
           </Toolbar>
         </Container>
 
-        {isMobile && (
-          <Collapse in={isMenuOpen} timeout="auto" unmountOnExit>
-            <Box
-              onClick={handleMenuClose}
-              sx={{
-                py: 2,
-                backgroundColor: 'primary.main',
-                position: 'absolute',
-                top: 'calc(100% - 4px)',
-                left: 0,
-                right: 0,
-                boxShadow: '0px 10px 15px -3px rgba(0, 0, 0, 0.3)',
-                width: { xxs: '100%', sm: 'auto' },
-              }}
-            >
-              {pages.map((page) => (
-                <MenuItem key={page.name} sx={{ justifyContent: 'center' }} onClick={handleMenuClose}>
-                  <Link className="nav-menu-item" key={page.name} href={page.href} passHref>
-                    <NavButton text={page.name} />
-                  </Link>
-                </MenuItem>
-              ))}
-            </Box>
-          </Collapse>
-        )}
+        <Collapse in={isMenuOpen} timeout="auto" unmountOnExit sx={{ display: { xxs: 'flex', md: 'none' } }}>
+          <Box
+            onClick={handleMenuClose}
+            sx={{
+              py: 2,
+              backgroundColor: 'primary.main',
+              position: 'absolute',
+              top: 'calc(100% - 4px)',
+              left: 0,
+              right: 0,
+              boxShadow: '0px 10px 15px -3px rgba(0, 0, 0, 0.3)',
+              width: { xxs: '100%', sm: 'auto' },
+            }}
+          >
+            {pages.map((page) => (
+              <MenuItem key={page.name} sx={{ justifyContent: 'center' }} onClick={handleMenuClose}>
+                <Link className="nav-menu-item" key={page.name} href={page.href} passHref>
+                  <NavButton text={page.name} />
+                </Link>
+              </MenuItem>
+            ))}
+          </Box>
+        </Collapse>
 
         {/* Mobile Skeleton */}
         {!showClientContent && (

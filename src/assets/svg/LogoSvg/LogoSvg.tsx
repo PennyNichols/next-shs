@@ -1,15 +1,24 @@
 // components/SVG/LogoSvg.jsx
 import theme from '@/styles/theme';
+import { styled } from '@mui/material';
 import * as React from 'react';
 
 const LogoSvg = ({
   color = theme.palette.secondary.light,
   hoverColor = theme.palette.accent.primary,
   transition = 'fill 1s ease',
+  className = '',
   ...props
 }) => {
   return (
-    <svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 538.21 339.98" {...props}>
+    <svg
+      id="Layer_2"
+      className={className}
+      data-name="Layer 2"
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 538.21 339.98"
+      {...props}
+    >
       <defs></defs>
       <g id="Layer_2-2" data-name="Layer 2">
         <g>
@@ -51,4 +60,6 @@ const LogoSvg = ({
   );
 };
 
-export default LogoSvg;
+const StylableLogo = styled(LogoSvg)({});
+
+export default StylableLogo;

@@ -1,12 +1,9 @@
 import { alpha } from '@mui/material/styles';
 import type { Components, Theme } from '@mui/material/styles';
 import type { CSSObject } from '@emotion/react';
-import { customBorderRadius, customTransitions } from '../otherThemeConstants'; // Assuming these are correctly typed as discussed
+import { customBorderRadius, customTransitions } from '../otherThemeConstants';
 
 const formComponents: Components<Theme> = {
-  // ---------------------------------------------------
-  // MuiTextField Component Customizations
-  // ---------------------------------------------------
   MuiTextField: {
     defaultProps: {
       variant: 'outlined',
@@ -18,9 +15,6 @@ const formComponents: Components<Theme> = {
       }),
     },
   },
-  // ---------------------------------------------------
-  // MuiOutlinedInput Component Customizations
-  // ---------------------------------------------------
   MuiOutlinedInput: {
     styleOverrides: {
       root: ({ theme }: { theme: Theme }): CSSObject => ({
@@ -28,7 +22,6 @@ const formComponents: Components<Theme> = {
         backgroundColor: 'transparent',
         transition: theme.transitions.create(['box-shadow']),
         '&.Mui-focused': {
-          // boxShadow: theme.shadows[1],
           '& .MuiOutlinedInput-notchedOutline': {
             borderColor: theme.palette.primary.light,
             borderWidth: '1.5px',
@@ -49,22 +42,17 @@ const formComponents: Components<Theme> = {
             borderColor: alpha(theme.palette.secondary.dark, 0.5),
           },
         },
-        // Target the root when color="secondary" is applied
         '&.MuiInputBase-colorSecondary': {
           '&.Mui-focused': {
-            // If you want secondary fields to have primary.light focus outline
-            // you can keep it, or change it to theme.palette.accent.primary
             '& .MuiOutlinedInput-notchedOutline': {
-              borderColor: theme.palette.accent.primary, // Secondary focused border
-              borderWidth: '1.5px', // Or whatever you need
+              borderColor: theme.palette.accent.primary,
+              borderWidth: '1.5px',
             },
           },
-          // Specific hover for secondary fields
           '&:hover .MuiOutlinedInput-notchedOutline': {
-            borderColor: theme.palette.accent.primary, // Secondary hover border
-            borderWidth: '1.5px', // 0.5px increase from default 1px = 1.5px
+            borderColor: theme.palette.accent.primary,
+            borderWidth: '1.5px',
           },
-          // If you want the default (unfocused, unhovered) border to be accent.primary
           '& .MuiOutlinedInput-notchedOutline': {
             borderColor: theme.palette.accent.primary,
             borderWidth: '1px',
@@ -95,7 +83,6 @@ const formComponents: Components<Theme> = {
         '.MuiInputBase-colorSecondary &': {
           color: theme.palette.accent.primary,
         },
-        // Hide number controls entirely
         '&[type="number"]': {
           MozAppearance: 'textfield',
           '&::-webkit-outer-spin-button': {
@@ -110,9 +97,6 @@ const formComponents: Components<Theme> = {
       }),
     },
   },
-  // ---------------------------------------------------
-  // MuiInputLabel Component Customizations
-  // ---------------------------------------------------
   MuiInputLabel: {
     styleOverrides: {
       root: ({ theme }: { theme: Theme }): CSSObject => ({
@@ -176,17 +160,11 @@ const formComponents: Components<Theme> = {
       }),
     },
   },
-  // ---------------------------------------------------
-  // MuiInputBase Component Customizations
-  // ---------------------------------------------------
   MuiInputBase: {
     styleOverrides: {
       input: ({ theme }: { theme: Theme }): CSSObject => ({}),
     },
   },
-  // ---------------------------------------------------
-  // MuiFormHelperText Component Customizations
-  // ---------------------------------------------------
   MuiFormHelperText: {
     styleOverrides: {
       root: ({ theme }: { theme: Theme }): CSSObject => ({
@@ -208,9 +186,6 @@ const formComponents: Components<Theme> = {
       }),
     },
   },
-  // ---------------------------------------------------
-  // MuiSelect Component Customizations
-  // ---------------------------------------------------
   MuiSelect: {
     defaultProps: {
       variant: 'outlined',
@@ -263,20 +238,11 @@ const formComponents: Components<Theme> = {
       }),
     },
   },
-  // ---------------------------------------------------
-  // MuiRadioGroup Component Customizations
-  // ---------------------------------------------------
   MuiRadioGroup: {
     styleOverrides: {
-      root: ({ theme }: { theme: Theme }): CSSObject => ({
-        // The display, flexDirection, and gap are handled by the parent FormControl,
-        // so generally minimal styles are needed directly on the RadioGroup root.
-      }),
+      root: ({ theme }: { theme: Theme }): CSSObject => ({}),
     },
   },
-  // ---------------------------------------------------
-  // MuiRadio Component Customizations (the actual radio button circle)
-  // ---------------------------------------------------
   MuiRadio: {
     defaultProps: {
       size: 'small',
@@ -304,7 +270,7 @@ const formComponents: Components<Theme> = {
             left: -3,
           },
           '& .MuiTouchRipple-child': {
-            borderRadius: customBorderRadius.round,
+            borderRadius: customBorderRadius.circle,
             // backgroundColor: 'red',
           },
         },
@@ -332,12 +298,9 @@ const formComponents: Components<Theme> = {
       }),
     },
   },
-  // ---------------------------------------------------
-  // MuiCheckbox Component Customizations
-  // ---------------------------------------------------
   MuiCheckbox: {
     defaultProps: {
-      size: 'small', // Matches the default size of MuiRadio
+      size: 'small',
     },
     styleOverrides: {
       root: ({ theme }: { theme: Theme }): CSSObject => ({
@@ -347,49 +310,9 @@ const formComponents: Components<Theme> = {
         '&:hover': {
           backgroundColor: alpha(theme.palette.primary.main, 0.08),
         },
-        '&.custom-checkbox': {
-          overflow: 'visible',
-          [theme.breakpoints.up('sm')]: {
-            width: 22,
-            height: 22,
-          },
-          '& .MuiTouchRipple-root': {
-            overflow: 'visible',
-            position: 'absolute',
-            // backgroundColor: 'red',
-            width: 22,
-            height: 22,
-            top: -2,
-            left: -2,
-            [theme.breakpoints.down('sm')]: {
-              width: 20,
-              height: 20,
-              top: -3,
-              left: -3,
-            },
-            '& .MuiTouchRipple-child': {
-              borderRadius: customBorderRadius.small,
-            },
-          },
-          '& .MuiSvgIcon-root': {
-            position: 'absolute',
-            transform: 'scale(1.5)',
-            backgroundColor: 'transparent',
-            // transition: customTransitions.fast,
-            left: 3,
-            top: 1,
-            [theme.breakpoints.down('sm')]: {
-              left: 5.5,
-              top: -2,
-            },
-          },
-        },
       }),
     },
   },
-  // ---------------------------------------------------
-  // MuiFormControlLabel Component Customizations (wraps Radio and its label text)
-  // ---------------------------------------------------
   MuiFormControlLabel: {
     styleOverrides: {
       root: ({ theme }: { theme: Theme }): CSSObject => ({
@@ -420,9 +343,6 @@ const formComponents: Components<Theme> = {
       }),
     },
   },
-  // ---------------------------------------------------
-  // MuiFormControl Component Customizations
-  // ---------------------------------------------------
   MuiFormControl: {
     defaultProps: {
       fullWidth: true,
@@ -435,7 +355,7 @@ const formComponents: Components<Theme> = {
           alignItems: 'center',
           '&.job-application': {
             alignItems: 'center',
-            [theme.breakpoints.down(450)]: {
+            [theme.breakpoints.down('xxs')]: {
               alignItems: 'flex-start',
             },
           },
@@ -445,7 +365,6 @@ const formComponents: Components<Theme> = {
           display: 'flex',
           flexDirection: 'row',
           justifyContent: 'flex-start',
-          // alignItems: 'center',
         },
         '& .MuiFormLabel-root.Mui-focused ~ .MuiRadioGroup-root': {
           '& .MuiRadio-root.Mui-checked, & .MuiRadio-root.Mui-checked + .MuiTypography-root ': {
@@ -463,16 +382,13 @@ const formComponents: Components<Theme> = {
       }),
     },
   },
-  // ---------------------------------------------------
-  // MuiFormLabel Component Customizations (for the main question label)
-  // --------------------------------------------------
   MuiFormLabel: {
     styleOverrides: {
       root: ({ theme }: { theme: Theme }): CSSObject => ({
         color: theme.palette.secondary.dark,
-        fontSize: '1rem',
+        fontSize: '1.1rem',
         [theme.breakpoints.down('md')]: {
-          fontSize: '0.875rem',
+          fontSize: '1rem',
         },
         '&.MuiFormLabel-colorSecondary': {
           color: theme.palette.accent.primary,

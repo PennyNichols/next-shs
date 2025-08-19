@@ -152,20 +152,16 @@ const JobApplication = () => {
               error={!!errors.eligible}
               className="MuiFormControl-radioGroup job-application"
               sx={{
-                '@media(max-width:450px)': {
-                  alignItems: 'flex-start',
-                },
+                alignItems: { xxs: 'flex-start', xs: 'center' },
                 '& .MuiFormGroup-root': {
-                  '@media(max-width:450px)': {
-                    flexDirection: 'column',
-                    alignItems: 'flex-start',
-                  },
+                  flexDirection: { xxs: 'column', xs: 'row' },
+                  alignItems: { xxs: 'flex-start', xs: 'center' },
                 },
               }}
             >
               <FormLabel
                 id="eligible-radio-buttons-group-label"
-                sx={{ whiteSpace: 'nowrap', '@media(max-width:450px)': { marginTop: 0.5, textAlign: 'center' } }}
+                sx={{ whiteSpace: 'nowrap', marginTop: { xxs: 0.5, xs: 0 }, textAlign: { xxs: 'center', xs: 'left' } }}
               >
                 Eligible to Work <wbr />
                 in US?
@@ -389,41 +385,6 @@ const JobApplication = () => {
                   error={!!errors.certifications}
                   helperText={errors.certifications ? errors.certifications.message : 'Select all that apply'}
                 />
-                // <FormControl error={!!errors.certifications}>
-                //   <InputLabel id="certifications-label">Which certifications do you have?</InputLabel>
-                //   <Select
-                //     labelId="certifications-label"
-                //     multiple
-                //     label="Which certifications do you have?"
-                //     renderValue={(selected) => (
-                //       <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
-                //         {selected.map((value) => (
-                //           <Chip key={value} label={value} />
-                //         ))}
-                //       </Box>
-                //     )}
-                //     value={value || []}
-                //     onChange={(event) => onChange(event.target.value)}
-                //     {...field}
-                //     MenuProps={{
-                //       PaperProps: {
-                //         className: 'MuiSelect-dropdown-paper', // Custom class
-                //       },
-                //     }}
-                //   >
-                //     {certifications.map((certification) => (
-                //       <MenuItem key={certification} value={certification}>
-                //         <Checkbox checked={(value || []).includes(certification)} />
-                //         {certification}
-                //       </MenuItem>
-                //     ))}
-                //   </Select>
-                //   {errors.certifications && (
-                //     <Typography variant="caption" color="error">
-                //       {errors.certifications.message}
-                //     </Typography>
-                //   )}
-                // </FormControl>
               )}
             />
           </Grid>

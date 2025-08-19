@@ -1,17 +1,6 @@
 import React from 'react';
-import {
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
-  Box, // Box is imported for renderValue, even if not using Chips for single select by default
-  Typography,
-  FormHelperText,
-  // Chip is typically for multiple select, but keeping the import consistent with your GroupedMultiSelect
-  // If you later decide to render a chip for a single selected value, it's there.
-  Chip,
-} from '@mui/material';
-import CustomCheckbox from '../CustomCheckbox/CustomCheckbox'; // Assuming the path to your CustomCheckbox is correct
+import { FormControl, InputLabel, Select, MenuItem, Box, Typography, FormHelperText, Chip } from '@mui/material';
+import CustomCheckbox from '../CustomCheckbox/CustomCheckbox';
 import TruncatedChip from '../TruncatedChip/TruncatedChip';
 
 /**

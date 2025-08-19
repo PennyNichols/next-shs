@@ -1,7 +1,9 @@
 import React from 'react';
 import ActionButton from '../../common/ActionButton/ActionButton';
-import { GOOGLE_REVIEW_URL, REVIEW_BUTTON_TEXT } from '../../../constants/companyDetails';
 import { RateReview } from '@mui/icons-material';
+import theme from '@/styles/theme';
+import { REVIEW_BUTTON_TEXT } from '@/constants/general';
+import { COMPANY_GOOGLE_REVIEW_URL } from '@/constants/companyDetails';
 
 const ReviewButton = (props) => {
   return (
@@ -9,8 +11,9 @@ const ReviewButton = (props) => {
       text={REVIEW_BUTTON_TEXT}
       variant="contained"
       color="secondary"
+      iconColor={theme.palette.primary.main}
       icon={<RateReview />}
-      path={GOOGLE_REVIEW_URL}
+      path={COMPANY_GOOGLE_REVIEW_URL}
       {...props}
     />
   );

@@ -1,14 +1,141 @@
-import { Container } from '@mui/material';
+import LogoWithTextSvg from '@/assets/svg/LogoWithTextSvg/LogoWithTextSvg';
+import PageContainer from '@/components/common/PageContainer/PageContainer';
+import { COMPANY_EMAIL_ADDRESS, COMPANY_PHONE_NUMBER } from '@/constants/companyDetails';
+import { SERVICE_TERMS } from '@/constants/serviceTerms';
+import { formatPhoneNumber } from '@/lib/utils';
+import { darkText, mediumBlue } from '@/styles/theme/colors';
+import { Box, Divider, Link, Typography } from '@mui/material';
+import { lightBlue } from '@mui/material/colors';
 import React from 'react';
 
-const TermsOfServicePage = () => {
+const ContactLink = ({ href, ariaLabel, content, sx = null, ...props }) => {
   return (
-    <Container className="page-wrapper">
-      <h1>Terms of Service</h1>
-      <p>Welcome to our Home Services website!</p>
-      <p>Please read these terms carefully before using our services.</p>
-      {/* Add your terms of service content here */}
-    </Container>
+    <Link
+      href={href}
+      aria-label={ariaLabel}
+      role="link"
+      className="contact-link"
+      sx={{ whiteSpace: 'nowrap', margin: '0px !important', fontWeight: 500, ...sx }}
+      {...props}
+    >
+      {content}
+    </Link>
+  );
+};
+
+const TermsOfServicePage = () => {
+  const { lastUpdated, intro, sections, acknowledgement } = SERVICE_TERMS;
+  return (
+    <PageContainer maxWidth="lg">
+      <Box sx={{ mb: { xxs: 0, sm: 3 } }}>
+        <Typography
+          id="privacy-policy-title"
+          variant="h2"
+          component="h1"
+          sx={{ fontSize: { xxs: '2rem', sm: '3rem' } }}
+          tabIndex={-1}
+        >
+          Terms of Service
+        </Typography>
+        <Typography
+          variant="h5"
+          align="center"
+          id="privacy-policy-updated"
+          sx={{ mb: { xxs: 0, sm: 1 }, fontSize: { xxs: '1.2rem', sm: '1.5rem' } }}
+        >
+          Last updated: {lastUpdated}
+        </Typography>
+        <Divider className="title-divider" />
+        <Box sx={{ mb: 4 }} component="section" aria-labelledby="privacy-policy-intro"></Box>
+        <Typography id="privacy-policy-intro">{intro}</Typography>
+      </Box>
+      {sections
+        ? sections.map((section, idx) => (
+            <Box key={idx} id={String(idx)} component="section" aria-labelledby={`privacy-policy-collect-${idx}`}>
+              <Typography
+                id={`privacy-policy-collect-${idx}`}
+                variant="h3"
+                component="h2"
+                mb={2}
+                sx={{ textAlign: { xxs: 'center', md: 'left' } }}
+              >
+                {section.title}
+              </Typography>
+              <Box sx={{ display: 'flex', flexDirection: 'column', gap: { xxs: 2, sm: 4 } }}>
+                <Typography>{section.description}</Typography>
+                {section.details
+                  ? section.details.map((detail, detailIdx) => (
+                      <Typography key={detailIdx} component="h3" sx={{ fontWeight: 600, color: lightBlue }}>
+                        {detail.text}
+                        <span style={{ marginLeft: 8, color: darkText, fontWeight: 400 }}>{detail.description}</span>
+                      </Typography>
+                    ))
+                  : null}
+              </Box>
+            </Box>
+          ))
+        : null}
+      <Typography sx={{ fontWeight: 600 }}>{acknowledgement}</Typography>
+      <Box>
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            width: '100%',
+            gap: { xxs: 2, sm: 4, md: 8 },
+            mx: 2,
+            '@media (max-width: 520px)': { flexDirection: 'column', mx: 0 },
+          }}
+        >
+          <LogoWithTextSvg color={mediumBlue} width={150} height={150} />
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+              alignItems: 'center',
+              width: 'fit-content',
+              '& .MuiTypography-body1': { mb: 0.5 },
+              '& .contact-header': { mb: 1, letterSpacing: '5px' },
+            }}
+          >
+            <Typography
+              variant="h4"
+              component="h3"
+              className="contact-header"
+              sx={{ mb: 1, width: 'fit-content', fontFamily: 'archivo', fontWeight: 800 }}
+            >
+              SHS Florida
+            </Typography>
+            <Typography className="contact-link-label">
+              Call:{' '}
+              <ContactLink
+                href={`tel:${COMPANY_PHONE_NUMBER}`}
+                ariaLabel={`Call SHS Florida at ${formatPhoneNumber(COMPANY_PHONE_NUMBER)}`}
+                content={formatPhoneNumber(COMPANY_PHONE_NUMBER)}
+              />
+            </Typography>
+            <Typography className="contact-link-label">
+              Text:{' '}
+              <ContactLink
+                href={`sms:${COMPANY_PHONE_NUMBER}`}
+                ariaLabel={`Text SHS Florida at ${formatPhoneNumber(COMPANY_PHONE_NUMBER)}`}
+                content={formatPhoneNumber(COMPANY_PHONE_NUMBER)}
+              />
+            </Typography>
+            <Typography className="contact-link-label">
+              Email:{' '}
+              <ContactLink
+                href={`mailto:${COMPANY_EMAIL_ADDRESS}`}
+                ariaLabel={`Email SHS Florida at ${COMPANY_EMAIL_ADDRESS}`}
+                content={COMPANY_EMAIL_ADDRESS}
+              />
+            </Typography>
+          </Box>
+        </Box>
+      </Box>
+    </PageContainer>
   );
 };
 

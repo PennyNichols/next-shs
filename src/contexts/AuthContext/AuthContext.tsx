@@ -4,13 +4,13 @@ import {
   signInWithEmailAndPassword,
   signOut,
   deleteUser,
-  onAuthStateChanged, // Crucial for real-time auth state
-  User, // Firebase User type
-  reauthenticateWithCredential, // To reauthenticate user before sensitive ops like delete
-  EmailAuthProvider, // For reauthentication credential
+  onAuthStateChanged,
+  User,
+  reauthenticateWithCredential,
+  EmailAuthProvider,
 } from 'firebase/auth';
 import { doc, setDoc, deleteDoc } from 'firebase/firestore';
-import { auth, db } from '../../lib/firebase/firebase'; // Assuming firebase.ts is in lib
+import { auth, db } from '../../lib/firebase/firebase';
 
 interface AuthContextType {
   currentUser: User | null;
@@ -21,83 +21,73 @@ interface AuthContextType {
     password: string,
     firstName: string,
     lastName: string,
-    phoneNumber: string
+    phoneNumber: string,
   ) => Promise<User | null>;
   signIn: (email: string, password: string) => Promise<void>;
   signOutUser: () => Promise<void>;
-  deleteAccount: (password: string) => Promise<void>; // Added password for reauthentication
+  deleteAccount: (password: string) => Promise<void>;
   reauthenticateUser: (password: string) => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-export function AuthProvider({ children }: { children: React.ReactNode }) {
+export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
-  const [loading, setLoading] = useState(true); // Initial loading state true for auth check
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState<any>(null);
 
-  // Listen for Firebase Auth state changes
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setCurrentUser(user);
-      setLoading(false); // Set loading to false once the initial auth state is determined
+      setLoading(false);
     });
-    return unsubscribe; // Cleanup subscription on unmount
-  }, []); // Run only once on component mount
+    return unsubscribe;
+  }, []);
 
-  const signUp = useCallback(
-    async (email, password, firstName, lastName, phoneNumber) => {
-      setError(null);
-      setLoading(true);
-      try {
-        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-        const user = userCredential.user;
-        await setDoc(doc(db, 'users', user.uid), {
-          email: email,
-          type: 'client', // Changed from 'role' to 'type' to match new interface
-          first: firstName, // Changed from 'firstName' to 'first'
-          last: lastName, // Changed from 'lastName' to 'last'
-          phone: phoneNumber, // Changed from 'phoneNumber' to 'phone'
-          status: 'active', // Add status field
-          emailVerified: false, // Add emailVerified field
-          createdOn: new Date().toISOString(),
-          updatedOn: new Date().toISOString(), // Add updatedOn field
-        });
-        // setCurrentUser will be updated by onAuthStateChanged listener
-        return user;
-      } catch (err: any) {
-        setError(err);
-        throw err;
-      } finally {
-        setLoading(false);
-      }
-    },
-    [] // No dependencies as it's a core auth function
-  );
+  const signUp = useCallback(async (email, password, firstName, lastName, phoneNumber) => {
+    setError(null);
+    setLoading(true);
+    try {
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+      await setDoc(doc(db, 'users', user.uid), {
+        email: email,
+        type: 'client',
+        first: firstName,
+        last: lastName,
+        phone: phoneNumber,
+        status: 'active',
+        emailVerified: false,
+        createdOn: new Date().toISOString(),
+        updatedOn: new Date().toISOString(),
+      });
+      return user;
+    } catch (err: any) {
+      setError(err);
+      throw err;
+    } finally {
+      setLoading(false);
+    }
+  }, []);
 
-  const signIn = useCallback(
-    async (email, password) => {
-      setError(null);
-      setLoading(true);
-      try {
-        await signInWithEmailAndPassword(auth, email, password);
-        // setCurrentUser will be updated by onAuthStateChanged listener
-      } catch (err: any) {
-        setError(err);
-        throw err;
-      } finally {
-        setLoading(false);
-      }
-    },
-    []
-  );
+  const signIn = useCallback(async (email, password) => {
+    setError(null);
+    setLoading(true);
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+    } catch (err: any) {
+      setError(err);
+      throw err;
+    } finally {
+      setLoading(false);
+    }
+  }, []);
 
   const signOutUser = useCallback(async () => {
     setError(null);
     setLoading(true);
     try {
       await signOut(auth);
-      // setCurrentUser will be updated to null by onAuthStateChanged listener
     } catch (err: any) {
       setError(err);
       throw err;
@@ -124,32 +114,28 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   }, []);
 
+  const deleteAccount = useCallback(
+    async (password: string) => {
+      setError(null);
+      setLoading(true);
+      try {
+        const user = auth.currentUser;
+        if (!user) {
+          throw new Error('No user is currently signed in to delete account.');
+        }
 
-  const deleteAccount = useCallback(async (password: string) => {
-    setError(null);
-    setLoading(true);
-    try {
-      const user = auth.currentUser;
-      if (!user) {
-        throw new Error('No user is currently signed in to delete account.');
+        await reauthenticateUser(password);
+        await deleteDoc(doc(db, 'users', user.uid));
+        await deleteUser(user);
+      } catch (err: any) {
+        setError(err);
+        throw err;
+      } finally {
+        setLoading(false);
       }
-
-      // Reauthenticate before sensitive operation
-      await reauthenticateUser(password); // Ensure the user is recently authenticated
-
-      // Delete user document from Firestore first
-      await deleteDoc(doc(db, 'users', user.uid));
-
-      // Delete Firebase Auth user
-      await deleteUser(user);
-      // setCurrentUser will be updated to null by onAuthStateChanged listener
-    } catch (err: any) {
-      setError(err);
-      throw err;
-    } finally {
-      setLoading(false);
-    }
-  }, [reauthenticateUser]); // Dependency: reauthenticateUser
+    },
+    [reauthenticateUser],
+  );
 
   const value = {
     currentUser,
@@ -162,16 +148,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     reauthenticateUser,
   };
 
-  // Render children only when loading is complete to prevent flashing UI
-  // or components trying to access currentUser before it's set.
-  return (
-    <AuthContext.Provider value={value}>
-      {!loading && children}
-    </AuthContext.Provider>
-  );
-}
+  return <AuthContext.Provider value={value}>{!loading && children}</AuthContext.Provider>;
+};
 
-// Custom hook to consume the AuthContext
 export const useAuth = () => {
   const context = useContext(AuthContext);
   if (context === undefined) {
