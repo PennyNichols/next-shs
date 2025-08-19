@@ -739,7 +739,6 @@ If you would like a custom emulator configuration, edit the `firebase.json` deta
     - **Option 1** 
       - At the top of the code section, there will be a toast that says "recent pushes to...". Click the toast and it will take you to a new PR.
 
-
     - **Option 2**
       - Navigate to the repository's Pull Request tab.
       - Click the green "New" button
