@@ -745,7 +745,6 @@ If you would like a custom emulator configuration, edit the `firebase.json` deta
       - Click the green "New" button
 
 
-
     5. Fill out each section of the PR template with appropriate details, documentation, and screenshots, if applicable.
     6. Click "Draft Pull Request" to start the PR process without automatically requesting reviews from codeowners.
     7. When drafted, the automatic checks for the PR should begin processing. 
