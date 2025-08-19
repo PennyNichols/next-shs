@@ -49,7 +49,7 @@ const contentComponents: Components<Theme> = {
       h1: ({ theme }: { theme: Theme }): CSSObject => ({
         textAlign: 'center',
         fontSize: '3rem',
-        fontWeight: 600,
+        fontWeight: 900,
         lineHeight: 1.2,
         color: theme.palette.primary.dark,
         letterSpacing: 1.5,
@@ -57,7 +57,7 @@ const contentComponents: Components<Theme> = {
       h2: ({ theme }: { theme: Theme }): CSSObject => ({
         textAlign: 'center',
         fontSize: '2.4rem',
-        fontWeight: 600,
+        fontWeight: 900,
         lineHeight: 1.5,
         color: theme.palette.primary.main,
         letterSpacing: 0.5,

@@ -19,6 +19,7 @@ import theme from '@/styles/theme';
 import { ClickAwayListener, Collapse } from '@mui/material';
 import ActionButton from '@/components/common/ActionButton/ActionButton';
 import NavButton from '@/components/common/NavButton/NavButton';
+import StylableLogo from '../../../assets/svg/LogoSvg/LogoSvg';
 
 const pages = [
   { name: 'Home', href: '/' },
@@ -56,13 +57,13 @@ const NavBar = () => {
                   sx={{
                     display: 'flex',
                     justifyContent: 'center',
-                    alignItems: 'center',
+                    alignItems: 'flex-end',
                     p: 0,
                     cursor: 'pointer',
                     transition: 'all .1s ease-in-out',
                     transform: `scale(${logoScale})`,
-                    width: { xxs: 70, sm: 80, lg: 90, xl: 100 },
-                    height: { xxs: 50, sm: 60, lg: 70, xl: 80 },
+                    height: '2rem',
+                    borderBottom: `2px solid ${theme.palette.background.paper}`,
                   }}
                   onMouseEnter={() => setLogoColor(logoHoverColor)}
                   onMouseLeave={() => setLogoColor(theme.palette.background.paper)}
@@ -71,7 +72,27 @@ const NavBar = () => {
                   onTouchStart={() => setLogoScale(0.9)}
                   onTouchEnd={() => setLogoScale(1)}
                 >
-                  <LogoSvg color={logoColor} />
+                  <StylableLogo
+                    color={logoColor}
+                    height={50}
+                    width={60}
+                    sx={{ position: 'relative', top: '8px', marginRight: 1 }}
+                  />
+                  <Typography
+                    variant="h2"
+                    component="h1"
+                    sx={{
+                      color: theme.palette.background.paper,
+                      lineHeight: 0.71,
+                      fontSize: '1.47rem',
+                      letterSpacing: '-.05rem',
+                      // mb: 0.7,
+                      paddingRight: 0.5,
+                    }}
+                  >
+                    <span style={{ display: 'none' }}></span>
+                    FLORIDA
+                  </Typography>
                 </Box>
               </Link>
             </Box>{' '}
