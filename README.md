@@ -736,35 +736,16 @@ If you would like a custom emulator configuration, edit the `firebase.json` deta
     3. Navigate to the [repository](https://github.com/PennyNichols/next-shs) on GitHub 
     4. Open Pull Request on GitHub
 
+    - **Option 1** 
+      - At the top of the code section, there will be a toast that says "recent pushes to...". Click the toast and it will take you to a new PR.
 
 
-  -------------------------------------------------------
-
-
-
-      - **Option 1** 
-        - At the top of the code section, there will be a toast that says "recent pushes to...". Click the toast and it will take you to a new PR.
-
-
-
-      IMAGE
+    - **Option 2**
+      - Navigate to the repository's Pull Request tab.
+      - Click the green "New" button
 
 
 
-
-      - **Option 2**
-        - Navigate to the repository's Pull Request tab.
-        - Click the green "New" button
-
-
-
-
-    IMAGE + MORE INSTRUCTIONS
-
-
-
-
-  -------------------------------------------------------
     5. Fill out each section of the PR template with appropriate details, documentation, and screenshots, if applicable.
     6. Click "Draft Pull Request" to start the PR process without automatically requesting reviews from codeowners.
     7. When drafted, the automatic checks for the PR should begin processing. 
