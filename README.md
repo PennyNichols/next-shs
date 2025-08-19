@@ -738,12 +738,11 @@ If you would like a custom emulator configuration, edit the `firebase.json` deta
 
     - **Option 1** 
       - At the top of the code section, there will be a toast that says "recent pushes to...". Click the toast and it will take you to a new PR.
-
+    ![create pull request](image.png)
     - **Option 2**
       - Navigate to the repository's Pull Request tab.
       - Click the green "New" button
-
-
+    ![create new pull request](image-1.png)
     5. Fill out each section of the PR template with appropriate details, documentation, and screenshots, if applicable.
     6. Click "Draft Pull Request" to start the PR process without automatically requesting reviews from codeowners.
     7. When drafted, the automatic checks for the PR should begin processing. 
