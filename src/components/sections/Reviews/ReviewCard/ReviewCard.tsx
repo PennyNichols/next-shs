@@ -17,7 +17,13 @@ import StarIcon from '@mui/icons-material/Star';
 import { alpha } from '@mui/material/styles';
 import theme from '@/styles/theme';
 
-const ReviewCard = ({ rating = 5, review, platform }) => {
+interface ReviewCardProps {
+  rating?: number;
+  review: string;
+  platform?: string;
+}
+
+const ReviewCard = ({ rating = 5, review, platform }: ReviewCardProps) => {
   const [scale, setScale] = useState(1);
   const [open, setOpen] = useState(false);
   const [showExpand, setShowExpand] = useState(false);
