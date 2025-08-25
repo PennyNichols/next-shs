@@ -1,3 +1,3 @@
-import { authenticate } from "./authMiddleware";
+import { authenticate } from './authMiddleware';
 
 export { authenticate };

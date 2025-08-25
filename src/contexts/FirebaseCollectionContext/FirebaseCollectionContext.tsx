@@ -283,7 +283,7 @@ export const FirebaseCollectionProvider = ({ children }: { children: React.React
   };
 
   return <FirebaseCollectionContext.Provider value={value}>{children}</FirebaseCollectionContext.Provider>;
-}
+};
 
 export const useFirebaseCollections = () => {
   const context = useContext(FirebaseCollectionContext);
@@ -291,4 +291,4 @@ export const useFirebaseCollections = () => {
     throw new Error('useFirebaseCollections must be used within a FirebaseCollectionProvider');
   }
   return context;
-}
+};

@@ -130,6 +130,6 @@ const useUser = () => {
   const isLoading = authLoading || loadingUserData;
 
   return { user: userData, loading: isLoading, error };
-}
+};
 
 export default useUser;

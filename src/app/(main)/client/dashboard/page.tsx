@@ -35,7 +35,9 @@ import useUser from '@/hooks/auth/useUser';
 
 const ClientDashboardContent = () => {
   const { user, loading } = useUser();
-  const [activeSection, setActiveSection] = useState<'dashboard' | 'profile' | 'requests' | 'appointments'>('dashboard');
+  const [activeSection, setActiveSection] = useState<'dashboard' | 'profile' | 'requests' | 'appointments'>(
+    'dashboard',
+  );
 
   if (loading) {
     return (
@@ -92,22 +94,17 @@ const ClientDashboardContent = () => {
       >
         {/* User Header */}
         <Box sx={{ mb: 3, textAlign: 'center' }}>
-          <Avatar
-            src={user.profilePictureURL}
-            sx={{ width: 64, height: 64, mx: 'auto', mb: 2 }}
-          >
-            {user.first?.[0]}{user.last?.[0]}
+          <Avatar src={user.profilePictureURL} sx={{ width: 64, height: 64, mx: 'auto', mb: 2 }}>
+            {user.first?.[0]}
+            {user.last?.[0]}
           </Avatar>
-          <Typography variant="h6">{user.first} {user.last}</Typography>
+          <Typography variant="h6">
+            {user.first} {user.last}
+          </Typography>
           <Typography variant="body2" color="text.secondary">
             {user.email}
           </Typography>
-          <Chip
-            label={user.type}
-            size="small"
-            color="primary"
-            sx={{ mt: 1 }}
-          />
+          <Chip label={user.type} size="small" color="primary" sx={{ mt: 1 }} />
         </Box>
 
         <Divider sx={{ mb: 2 }} />
@@ -144,30 +141,19 @@ const ClientDashboardContent = () => {
         <Typography variant="subtitle2" sx={{ mb: 1, color: 'text.secondary' }}>
           Quick Actions
         </Typography>
-        <Button
-          variant="contained"
-          fullWidth
-          sx={{ mb: 1 }}
-          startIcon={<RequestQuote />}
-        >
+        <Button variant="contained" fullWidth sx={{ mb: 1 }} startIcon={<RequestQuote />}>
           Request Estimate
         </Button>
-        <Button
-          variant="outlined"
-          fullWidth
-          startIcon={<Phone />}
-        >
+        <Button variant="outlined" fullWidth startIcon={<Phone />}>
           Contact Support
         </Button>
       </Paper>
 
       {/* Main Content */}
-      <Box sx={{ flex: 1, p: 3 }}>
-        {renderDashboardContent()}
-      </Box>
+      <Box sx={{ flex: 1, p: 3 }}>{renderDashboardContent()}</Box>
     </Box>
   );
-}
+};
 
 const DashboardOverview = ({ user }: { user: any }) => (
   <Box>
@@ -240,28 +226,19 @@ const DashboardOverview = ({ user }: { user: any }) => (
                 <ListItemIcon>
                   <RequestQuote />
                 </ListItemIcon>
-                <ListItemText
-                  primary="New estimate request submitted"
-                  secondary="Kitchen renovation - 2 hours ago"
-                />
+                <ListItemText primary="New estimate request submitted" secondary="Kitchen renovation - 2 hours ago" />
               </ListItem>
               <ListItem>
                 <ListItemIcon>
                   <Schedule />
                 </ListItemIcon>
-                <ListItemText
-                  primary="Appointment scheduled"
-                  secondary="Site visit - Tomorrow at 2:00 PM"
-                />
+                <ListItemText primary="Appointment scheduled" secondary="Site visit - Tomorrow at 2:00 PM" />
               </ListItem>
               <ListItem>
                 <ListItemIcon>
                   <Email />
                 </ListItemIcon>
-                <ListItemText
-                  primary="Estimate received"
-                  secondary="Bathroom remodel - 1 day ago"
-                />
+                <ListItemText primary="Estimate received" secondary="Bathroom remodel - 1 day ago" />
               </ListItem>
             </List>
           </CardContent>
@@ -280,9 +257,7 @@ const DashboardOverview = ({ user }: { user: any }) => (
                 <Typography variant="body2" color="text.secondary">
                   Member Since
                 </Typography>
-                <Typography variant="body1">
-                  {new Date(user.createdOn).toLocaleDateString()}
-                </Typography>
+                <Typography variant="body1">{new Date(user.createdOn).toLocaleDateString()}</Typography>
               </Box>
               <Box>
                 <Typography variant="body2" color="text.secondary">
@@ -296,9 +271,7 @@ const DashboardOverview = ({ user }: { user: any }) => (
                 <Typography variant="body2" color="text.secondary">
                   Communication Preference
                 </Typography>
-                <Typography variant="body1">
-                  {user.communicationPreferences?.email ? 'Email' : 'Phone'}
-                </Typography>
+                <Typography variant="body1">{user.communicationPreferences?.email ? 'Email' : 'Phone'}</Typography>
               </Box>
             </Box>
           </CardContent>
@@ -344,6 +317,6 @@ const ClientDashboard = () => {
       <ClientDashboardContent />
     </AuthRoute>
   );
-}
+};
 
 export default ClientDashboard;

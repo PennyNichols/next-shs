@@ -24,6 +24,7 @@ const SignUpPage = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
+  const [subscribeToMarketing, setSubscribeToMarketing] = useState(true);
 
   const form = useForm({
     defaultValues: {
@@ -31,6 +32,7 @@ const SignUpPage = () => {
       password: '',
       confirmPassword: '',
       agreeToTerms: false,
+      subscribe: false,
     },
   });
 
@@ -184,15 +186,33 @@ const SignUpPage = () => {
                 label={
                   <Typography variant="body2">
                     I agree to the{' '}
-                    <Link href="/terms" color="primary.main">
+                    <Link href="/service-terms" color="primary.main">
                       Terms and Conditions
                     </Link>{' '}
                     and{' '}
-                    <Link href="/privacy" color="primary.main">
+                    <Link href="/privacy-policy" color="primary.main">
                       Privacy Policy
                     </Link>
                   </Typography>
                 }
+              />
+            )}
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <Controller
+            name="subscribe"
+            control={control}
+            render={({ field }) => (
+              <FormControlLabel
+                control={
+                  <CustomCheckbox
+                    checked={subscribeToMarketing}
+                    onChange={(e) => setSubscribeToMarketing(e.target.checked)}
+                  />
+                }
+                label="Yes, I would like to subscribe to email marketing from SHS Florida"
+                sx={{ mt: 1, alignItems: 'flex-start' }}
               />
             )}
           />
@@ -218,9 +238,9 @@ const SignUpPage = () => {
       </Button>
 
       <Box sx={{ textAlign: 'center', mt: 2 }}>
-        <Typography variant="body2" color="text.secondary">
+        <Typography variant="body2" color="secondary.main">
           Already have an account?{' '}
-          <Link href="/auth/sign-in" color="primary.main" sx={{ textDecoration: 'none', fontWeight: 'medium' }}>
+          <Link href="/sign-in" color="primary.main" sx={{ textDecoration: 'none', fontWeight: 'medium' }}>
             Sign In
           </Link>
         </Typography>

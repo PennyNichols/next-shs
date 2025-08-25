@@ -1,7 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Typography, Link, Grid, Skeleton } from '@mui/material';
 import { Facebook, Google, Instagram } from '@mui/icons-material';
-import { EMAIL_ADDRESS, FACEBOOK_URL, GOOGLE_URL, INSTAGRAM_URL, PHONE_NUMBER } from '../../../constants/companyDetails';
+import {
+  EMAIL_ADDRESS,
+  FACEBOOK_URL,
+  GOOGLE_URL,
+  INSTAGRAM_URL,
+  PHONE_NUMBER,
+} from '../../../constants/companyDetails';
 import { formatPhoneNumber } from '../../../lib/utils/utils';
 import LogoSvg from '../../../assets/svg/LogoSvg/LogoSvg';
 import useMedia from '../../../hooks/useMedia';

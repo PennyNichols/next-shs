@@ -1,4 +1,4 @@
-const addNum = 21225
+const addNum = 21225;
 const street = 'Bassett Ave';
 const city = 'Port Charlotte';
 const zip = '33952';

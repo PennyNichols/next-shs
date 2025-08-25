@@ -51,10 +51,10 @@ const buttonComponents: Components<Theme> = {
           marginRight: theme.spacing(1),
           transition: customTransitions.standard,
           [theme.breakpoints.down('xxs')]: {
-            fontSize: '1.1rem',
+            fontSize: '1.2rem',
           },
           [theme.breakpoints.up('xxs')]: {
-            fontSize: '1.1rem',
+            fontSize: '1.2rem',
           },
           [theme.breakpoints.up('md')]: {
             fontSize: '1.3rem',
@@ -69,10 +69,10 @@ const buttonComponents: Components<Theme> = {
             transition: customTransitions.standard,
             marginRight: theme.spacing(1),
             [theme.breakpoints.down('xxs')]: {
-              fontSize: '1.1rem',
+              fontSize: '1.2rem',
             },
             [theme.breakpoints.up('xxs')]: {
-              fontSize: '1.1rem',
+              fontSize: '1.2rem',
             },
             [theme.breakpoints.up('md')]: {
               fontSize: '1.3rem',
@@ -109,11 +109,13 @@ const buttonComponents: Components<Theme> = {
         },
       }),
       containedSecondary: ({ theme }: { theme: Theme }): CSSObject => ({
-        backgroundColor: theme.palette.background.paper,
-        color: theme.palette.primary.main,
+        backgroundColor: theme.palette.primary.main,
+        color: theme.palette.accent.primary,
+        borderColor: theme.palette.accent.primary,
         '&:hover': {
-          color: theme.palette.background.paper,
-          backgroundColor: theme.palette.primary.main,
+          backgroundColor: theme.palette.accent.primary,
+          color: theme.palette.primary.main,
+          borderColor: theme.palette.accent.primary,
         },
       }),
       outlinedPrimary: ({ theme }: { theme: Theme }): CSSObject => ({

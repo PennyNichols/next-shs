@@ -19,7 +19,7 @@ let clientSideEmotionCache;
 
 const getEmotionCacheSingleton = () => {
   return createEmotionCache();
-}
+};
 
 const EmotionRegistry = ({ children }: { children: React.ReactNode }) => {
   // Determine which cache to use:
@@ -64,6 +64,6 @@ const EmotionRegistry = ({ children }: { children: React.ReactNode }) => {
       </ThemeProvider>
     </CacheProvider>
   );
-}
+};
 
 export default EmotionRegistry;

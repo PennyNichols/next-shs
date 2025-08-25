@@ -1,11 +1,13 @@
 # User Management System Implementation
 
 ## Overview
+
 This implementation provides a comprehensive user management system with client and admin dashboards, complete with profile management, service addresses, communication preferences, and user notes functionality.
 
 ## Features Implemented
 
 ### 1. User Profile Management
+
 - **UserProfile Component** (`/components/profile/UserProfile/UserProfile.tsx`)
   - Displays user information with tabs for different sections
   - Shows profile picture, basic info, status, and type
@@ -13,6 +15,7 @@ This implementation provides a comprehensive user management system with client 
   - Admin view support for managing other users
 
 ### 2. Profile Editing
+
 - **UserProfileEdit Component** (`/components/profile/UserProfileEdit/UserProfileEdit.tsx`)
   - Modal-based editing interface
   - Form validation with react-hook-form and yup
@@ -21,6 +24,7 @@ This implementation provides a comprehensive user management system with client 
   - Profile picture upload support
 
 ### 3. Service Address Management
+
 - **ServiceAddressManager Component** (`/components/profile/ServiceAddressManager/ServiceAddressManager.tsx`)
   - Add, edit, and delete service addresses
   - Mark addresses as default
@@ -28,12 +32,14 @@ This implementation provides a comprehensive user management system with client 
   - Address labeling system
 
 ### 4. Communication Preferences
+
 - **CommunicationPreferences Component** (`/components/profile/CommunicationPreferences/CommunicationPreferences.tsx`)
   - Toggle preferences for email, SMS, phone, and push notifications
   - Content type preferences (service reminders, estimates, marketing)
   - Visual interface with switches and icons
 
 ### 5. User Notes System
+
 - **UserNotes Component** (`/components/profile/UserNotes/UserNotes.tsx`)
   - Add, edit, and delete user notes
   - Internal vs. public note classification
@@ -42,6 +48,7 @@ This implementation provides a comprehensive user management system with client 
   - Permission-based note visibility
 
 ### 6. Client Dashboard
+
 - **ClientDashboard** (`/app/(main)/client/dashboard/page.tsx`)
   - Sidebar navigation with user info
   - Dashboard overview with stats
@@ -50,6 +57,7 @@ This implementation provides a comprehensive user management system with client 
   - Recent activity display
 
 ### 7. Admin Dashboard
+
 - **AdminDashboard** (`/app/(main)/admin/dashboard/page.tsx`)
   - Administrative interface with system overview
   - User management table with search and filters
@@ -58,6 +66,7 @@ This implementation provides a comprehensive user management system with client 
   - User selection for detailed profile editing
 
 ### 8. Route Protection
+
 - **RouteGuard Components** (`/components/auth/RouteGuard/RouteGuard.tsx`)
   - Role-based access control
   - Authentication requirements
@@ -65,6 +74,7 @@ This implementation provides a comprehensive user management system with client 
   - Convenience components for specific roles
 
 ### 9. Navigation
+
 - **DashboardNavigation** (`/components/navigation/DashboardNavigation/DashboardNavigation.tsx`)
   - Top navigation bar
   - User menu with profile access
@@ -73,6 +83,7 @@ This implementation provides a comprehensive user management system with client 
 ## Database Structure Updates
 
 ### User Document Schema
+
 The Firebase user document now includes:
 
 ```typescript
@@ -88,7 +99,7 @@ interface UserData {
   activeOn?: string;
   status: string; // active, inactive, disabled
   emailVerified: boolean;
-  
+
   // New fields
   primaryAddress?: {
     street: string;
@@ -97,7 +108,7 @@ interface UserData {
     zipCode: string;
     country: string;
   };
-  
+
   serviceAddresses?: Array<{
     id: number;
     street: string;
@@ -109,7 +120,7 @@ interface UserData {
     isDefault: boolean;
     createdOn: string;
   }>;
-  
+
   communicationPreferences?: {
     email: boolean;
     sms: boolean;
@@ -120,7 +131,7 @@ interface UserData {
     estimateUpdates: boolean;
     promotions: boolean;
   };
-  
+
   notes?: Array<{
     id: number;
     message: string;
@@ -130,7 +141,7 @@ interface UserData {
     createdOn: string;
     updatedOn: string;
   }>;
-  
+
   createdOn: string;
   updatedOn: string;
 }
@@ -139,15 +150,18 @@ interface UserData {
 ## Integration Points
 
 ### 1. AuthContext Updates
+
 - Updated user creation to use new field names
 - Added proper field initialization for new users
 
 ### 2. EstimateRequestForm Updates
+
 - Pre-populates user information from profile
 - Uses default service address when available
 - Improved user experience with smart defaults
 
 ### 3. useUser Hook Updates
+
 - Exported UserData interface for reuse
 - Added support for all new fields
 - Proper typing for complex nested objects
@@ -155,6 +169,7 @@ interface UserData {
 ## Usage Examples
 
 ### Accessing User Profile
+
 ```typescript
 import { UserProfile } from '@/components/profile';
 
@@ -166,6 +181,7 @@ import { UserProfile } from '@/components/profile';
 ```
 
 ### Route Protection
+
 ```typescript
 import { AdminRoute, ClientRoute, AuthRoute } from '@/components/auth/RouteGuard/RouteGuard';
 
@@ -181,6 +197,7 @@ import { AdminRoute, ClientRoute, AuthRoute } from '@/components/auth/RouteGuard
 ```
 
 ### Managing Service Addresses
+
 ```typescript
 import { ServiceAddressManager } from '@/components/profile';
 

@@ -44,21 +44,19 @@ const userProfileSchema = yup.object().shape({
   type: yup.string().required('User type is required'),
   status: yup.string().required('Status is required'),
   emailVerified: yup.boolean(),
-  primaryAddress: yup.object().shape({
-    street: yup.string(),
-    city: yup.string(),
-    state: yup.string(),
-    zipCode: yup.string(),
-    country: yup.string(),
-  }).nullable(),
+  primaryAddress: yup
+    .object()
+    .shape({
+      street: yup.string(),
+      city: yup.string(),
+      state: yup.string(),
+      zipCode: yup.string(),
+      country: yup.string(),
+    })
+    .nullable(),
 });
 
-export const UserProfileEdit: React.FC<UserProfileEditProps> = ({
-  user,
-  open,
-  onClose,
-  isAdminView = false,
-}) => {
+export const UserProfileEdit: React.FC<UserProfileEditProps> = ({ user, open, onClose, isAdminView = false }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
@@ -120,7 +118,8 @@ export const UserProfileEdit: React.FC<UserProfileEditProps> = ({
       <DialogTitle>
         <Box display="flex" alignItems="center" gap={2}>
           <Avatar src={user.profilePictureURL} sx={{ width: 40, height: 40 }}>
-            {user.first?.[0]}{user.last?.[0]}
+            {user.first?.[0]}
+            {user.last?.[0]}
           </Avatar>
           <Typography variant="h6">
             Edit Profile - {user.first} {user.last}
@@ -145,11 +144,9 @@ export const UserProfileEdit: React.FC<UserProfileEditProps> = ({
             {/* Profile Picture */}
             <Grid item xs={12}>
               <Box display="flex" alignItems="center" gap={2}>
-                <Avatar
-                  src={user.profilePictureURL}
-                  sx={{ width: 80, height: 80 }}
-                >
-                  {user.first?.[0]}{user.last?.[0]}
+                <Avatar src={user.profilePictureURL} sx={{ width: 80, height: 80 }}>
+                  {user.first?.[0]}
+                  {user.last?.[0]}
                 </Avatar>
                 <Box>
                   <Typography variant="body2" color="text.secondary">
@@ -276,12 +273,7 @@ export const UserProfileEdit: React.FC<UserProfileEditProps> = ({
                     control={control}
                     render={({ field }) => (
                       <FormControlLabel
-                        control={
-                          <Switch
-                            checked={field.value}
-                            onChange={field.onChange}
-                          />
-                        }
+                        control={<Switch checked={field.value} onChange={field.onChange} />}
                         label="Email Verified"
                       />
                     )}
@@ -301,13 +293,7 @@ export const UserProfileEdit: React.FC<UserProfileEditProps> = ({
               <Controller
                 name="primaryAddress.street"
                 control={control}
-                render={({ field }) => (
-                  <TextField
-                    {...field}
-                    label="Street Address"
-                    fullWidth
-                  />
-                )}
+                render={({ field }) => <TextField {...field} label="Street Address" fullWidth />}
               />
             </Grid>
 
@@ -315,13 +301,7 @@ export const UserProfileEdit: React.FC<UserProfileEditProps> = ({
               <Controller
                 name="primaryAddress.city"
                 control={control}
-                render={({ field }) => (
-                  <TextField
-                    {...field}
-                    label="City"
-                    fullWidth
-                  />
-                )}
+                render={({ field }) => <TextField {...field} label="City" fullWidth />}
               />
             </Grid>
 
@@ -329,13 +309,7 @@ export const UserProfileEdit: React.FC<UserProfileEditProps> = ({
               <Controller
                 name="primaryAddress.state"
                 control={control}
-                render={({ field }) => (
-                  <TextField
-                    {...field}
-                    label="State"
-                    fullWidth
-                  />
-                )}
+                render={({ field }) => <TextField {...field} label="State" fullWidth />}
               />
             </Grid>
 
@@ -343,13 +317,7 @@ export const UserProfileEdit: React.FC<UserProfileEditProps> = ({
               <Controller
                 name="primaryAddress.zipCode"
                 control={control}
-                render={({ field }) => (
-                  <TextField
-                    {...field}
-                    label="ZIP Code"
-                    fullWidth
-                  />
-                )}
+                render={({ field }) => <TextField {...field} label="ZIP Code" fullWidth />}
               />
             </Grid>
           </Grid>
@@ -357,19 +325,10 @@ export const UserProfileEdit: React.FC<UserProfileEditProps> = ({
       </DialogContent>
 
       <DialogActions>
-        <Button
-          onClick={onClose}
-          disabled={loading}
-          startIcon={<Cancel />}
-        >
+        <Button onClick={onClose} disabled={loading} startIcon={<Cancel />}>
           Cancel
         </Button>
-        <Button
-          onClick={handleSubmit(onSubmit)}
-          variant="contained"
-          disabled={loading}
-          startIcon={<Save />}
-        >
+        <Button onClick={handleSubmit(onSubmit)} variant="contained" disabled={loading} startIcon={<Save />}>
           {loading ? 'Saving...' : 'Save Changes'}
         </Button>
       </DialogActions>

@@ -130,12 +130,10 @@ router.get('/', authenticate, async (req: Request, res: Response) => {
           query = query.where('userId', 'in', assignedClientIds);
         }
       } else {
-        return res
-          .status(403)
-          .json({
-            success: false,
-            error: 'Forbidden: Employee not assigned to any clients or no assigned client IDs found.',
-          });
+        return res.status(403).json({
+          success: false,
+          error: 'Forbidden: Employee not assigned to any clients or no assigned client IDs found.',
+        });
       }
     } else if (userRole === 'client') {
       // Clients can only see their own requests

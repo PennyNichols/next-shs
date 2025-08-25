@@ -3,6 +3,7 @@
 This project is the foundational web application for SHS Site 2025, designed to evolve into a comprehensive construction business and operations management platform. The current Minimum Viable Product (MVP) focuses on core functionalities such as client estimate requests, subscription management, and establishing role-based access control (RBAC) for super, admin, employee, contractor, and client users. It leverages Next.js for a performant front-end and a Google Cloud/Firebase backend for scalability and security.
 
 ## Table of Contents
+
 - [Prerequisites](#prerequisites)
 - [Installation](#installation)
   1. [Configure GitHub SSH keys](#configure-github-ssh-keys)
@@ -28,7 +29,7 @@ This project is the foundational web application for SHS Site 2025, designed to 
   4. [Save the emulator data](#save-the-current-state-of-your-emulated-data)
   5. [Load saved emulator data](#load-previously-saved-emulator)
   6. [Load saved emulator data and save on exit](#load-previously-saved-data-and-save-on-exit)
-  6. [Run a shell command](#start-specified-emulators-and-run-a-shell-command)
+  7. [Run a shell command](#start-specified-emulators-and-run-a-shell-command)
 - [Running the Application](#running-the-application)
   1. [Start emulators](#start-the-emulators)
   2. [Start development server](#start-the-development-server)
@@ -50,8 +51,8 @@ This project is the foundational web application for SHS Site 2025, designed to 
 - [Deployment](#deployment)
   1. [General deployment information](#general-deployment-information)
   2. [Deploy to `dev`](#deploy-to-dev)
-  2. [Deploy to `staging`](#deploy-to-staging)
-  2. [Deploy to `prod`](#deploy-to-prod)
+  3. [Deploy to `staging`](#deploy-to-staging)
+  4. [Deploy to `prod`](#deploy-to-prod)
 - [Contributing](#contributing)
   1. [Coding standards](#coding-standards)
   2. [Running tests](#running-tests)
@@ -66,342 +67,370 @@ This project is the foundational web application for SHS Site 2025, designed to 
 - [License](#license)
 
 ## Prerequisites
+
 Before you begin, ensure you have met the following **requirements**:
 
-  1. `Node.js v22.x` (LTS version required for Firebase) 
-  2. `npm v11.x` or higher. We recommend using a Node Version Manager (like `nvm`) to easily switch between versions.
-  3. `Java Development Kit (JDK) v21.0.7` or higher is required for running the Firebase Emulators.
-  4. Firebase Tools CLI: Install globally via `npm`: 
+1. `Node.js v22.x` (LTS version required for Firebase)
+2. `npm v11.x` or higher. We recommend using a Node Version Manager (like `nvm`) to easily switch between versions.
+3. `Java Development Kit (JDK) v21.0.7` or higher is required for running the Firebase Emulators.
+4. Firebase Tools CLI: Install globally via `npm`:
+
 
     npm install -g firebase-tools
-    
+
 ## Installation
 
 ### Configure GitHub SSH keys
-  Check for existing SSH keys in your terminal (Git Bash on Windows, Terminal on macOS/Linux)
+
+Check for existing SSH keys in your terminal (Git Bash on Windows, Terminal on macOS/Linux)
 
     ls -al ~/.ssh
 
-  Look for files named `id_rsa.pub`, `id_ed25519.pub`, or similar. If you find one, **do not** generate a new one. Doing so will effect your other project(s). If you already have an SSH key and it is configured with your GitHub account, continue to [clone the repository](#clone-the-repository).
+Look for files named `id_rsa.pub`, `id_ed25519.pub`, or similar. If you find one, **do not** generate a new one. Doing so will effect your other project(s). If you already have an SSH key and it is configured with your GitHub account, continue to [clone the repository](#clone-the-repository).
 
 ### Generate a new SSH key (if needed)
-  If you don't have an existing key or prefer a new one, generate one.
 
-  Replace 'your_email@example.com' with **your GitHub registered email**
-  Press Enter to **accept the default file location** (`~/.ssh/id_ed25519` or `~/.ssh/id_rsa`).
+If you don't have an existing key or prefer a new one, generate one.
+
+Replace 'your_email@example.com' with **your GitHub registered email**
+Press Enter to **accept the default file location** (`~/.ssh/id_ed25519` or `~/.ssh/id_rsa`).
 
     ssh-keygen -t ed25519 -C "your_email@example.com"
 
-  - You'll be prompted to enter a passphrase. **Remember this** passphrase, it is important! Please, do not leave it blank.
-  - If the SSH key generation was successful, you should see something like this:
+- You'll be prompted to enter a passphrase. **Remember this** passphrase, it is important! Please, do not leave it blank.
+- If the SSH key generation was successful, you should see something like this:
 
-    ![SSH successful keygen](./public/images/readme-images/image-8.png)
+  ![SSH successful keygen](./public/images/readme-images/image-8.png)
 
-    If you encounter this error, you are using the wrong CLI, it is recommended to switch to Git Bash.
+  If you encounter this error, you are using the wrong CLI, it is recommended to switch to Git Bash.
 
-    ![SSH generation error](./public/images/readme-images/image-2.png)
+  ![SSH generation error](./public/images/readme-images/image-2.png)
 
-    If you are using VSCode, you can easily use Git Bash by selecting the option from the "+" dropdown:
+  If you are using VSCode, you can easily use Git Bash by selecting the option from the "+" dropdown:
 
-    ![Changing CLIs in VSCode](./public/images/readme-images/image-3.png)
+  ![Changing CLIs in VSCode](./public/images/readme-images/image-3.png)
 
 ### Start the SSH agent
-  - Start the SSH agent in the background:
-    ```
-    eval "$(ssh-agent -s)"
-    ```
-    This will return something like this:
 
-    ![Agent pid](./public/images/readme-images/image-9.png)
+- Start the SSH agent in the background:
+
+  ```
+  eval "$(ssh-agent -s)"
+  ```
+
+  This will return something like this:
+
+  ![Agent pid](./public/images/readme-images/image-9.png)
 
 ### Add your private SSH key to the agent
-  - Replace id_ed25519 with your key file name if different. Use `id_rsa` if you have an older key:
-    ```
-    ssh-add ~/.ssh/id_ed25519
-    ```
-    If successful, you should see something like this:
 
-    ![Identity added](./public/images/readme-images/image-10.png)
+- Replace id_ed25519 with your key file name if different. Use `id_rsa` if you have an older key:
+
+  ```
+  ssh-add ~/.ssh/id_ed25519
+  ```
+
+  If successful, you should see something like this:
+
+  ![Identity added](./public/images/readme-images/image-10.png)
 
 ### Add your public SSH key to GitHub
-  - Copy your public key:
-  
-    - macOS/Linux: 
-      ```
-      pbcopy < ~/.ssh/id_ed25519.pub
-      ```
-    - Windows (Git Bash): 
-      ```
-      cat ~/.ssh/id_ed25519.pub | clip
-      ```
-      If successful, the terminal will show no response. Even though there is no response, the text is in your clipboard.
 
-  - Link SSH Key to GitHub:
-    1. Log in to your GitHub account.
-    2. Go to Settings (your profile picture in the top right):
+- Copy your public key:
+  - macOS/Linux:
+    ```
+    pbcopy < ~/.ssh/id_ed25519.pub
+    ```
+  - Windows (Git Bash):
+    ```
+    cat ~/.ssh/id_ed25519.pub | clip
+    ```
+    If successful, the terminal will show no response. Even though there is no response, the text is in your clipboard.
 
-    ![GitHub account settings](./public/images/readme-images/image-4.png)
+- Link SSH Key to GitHub:
+  1. Log in to your GitHub account.
+  2. Go to Settings (your profile picture in the top right):
 
-    3. Click the option "SSH and GPG keys":
+  ![GitHub account settings](./public/images/readme-images/image-4.png)
+  3. Click the option "SSH and GPG keys":
 
-    ![SSH and GPG key setting](./public/images/readme-images/image-5.png)
+  ![SSH and GPG key setting](./public/images/readme-images/image-5.png)
+  4. Click New SSH key or Add SSH key:
+     - Give it a descriptive Title (e.g., "My Work Laptop").
+     - Paste your copied public key into the Key field
+     - Click Add SSH key and enter your passcode.
 
-    4. Click New SSH key or Add SSH key:
+  ![Add new SSH key](./public/images/readme-images/image-6.png)
+  5. Confirm your key is in your GitHub SSH keys:
 
-        - Give it a descriptive Title (e.g., "My Work Laptop").
-        - Paste your copied public key into the Key field
-        - Click Add SSH key and enter your passcode.
-    
-    ![Add new SSH key](./public/images/readme-images/image-6.png)
-
-    5. Confirm your key is in your GitHub SSH keys:
-
-    ![Active key](./public/images/readme-images/image-7.png)
+  ![Active key](./public/images/readme-images/image-7.png)
 
 ### Clone the repository
+
 Ensure your SSH key is **password protected** and follow these steps to clone the repository:
-  - Obtain the SSH cloning URL from the SSH tab of the "Code" dropdown on the repository [homepage](https://github.com/PennyNichols/next-shs#):
 
-    - You should see the dropdown here:
+- Obtain the SSH cloning URL from the SSH tab of the "Code" dropdown on the repository [homepage](https://github.com/PennyNichols/next-shs#):
+  - You should see the dropdown here:
 
-    ![Repository Code dropdown](./public/images/readme-images/image-11.png)
+  ![Repository Code dropdown](./public/images/readme-images/image-11.png)
+  - Under the "SSH" tab you will see this:
 
-    - Under the "SSH" tab you will see this:
-
-    ![SSH clone tab](./public/images/readme-images/image-12.png)
+  ![SSH clone tab](./public/images/readme-images/image-12.png)
 
 > [!WARNING]
 > If you do not see the previous image on your screen, it is most likely the SSH key was set up incorrectly and will need to be done, again. If your keys are incorrect, the SSH tab will look like this and **you must restart at [SSH key generation](#generate-a-new-ssh-key-if-needed)**:\
-![Incorrect SSH key](./public/images/readme-images/image-1.png)
-    
-  - Clone the repository from your command line:
-    ```
-    git clone git@github.com:PennyNichols/next-shs.git
-    ```
+> ![Incorrect SSH key](./public/images/readme-images/image-1.png)
+
+- Clone the repository from your command line:
+  ```
+  git clone git@github.com:PennyNichols/next-shs.git
+  ```
 
 ### Install project dependencies
 
 Dependencies must be installed both in the root directory (`next-shs/`) of the project and in the functions directory (`next-shs/functions/`) within the project following these steps:
-  - In the same terminal you just cloned the repo in, run these commands to enter the project root directory and install the root dependencies:
-    ```
-    cd next-shs
-    npm install
-    ```
-  - Move to the functions directory and install the /function dependencies
-    ```
-    cd functions
-    npm install
-    ```
+
+- In the same terminal you just cloned the repo in, run these commands to enter the project root directory and install the root dependencies:
+  ```
+  cd next-shs
+  npm install
+  ```
+- Move to the functions directory and install the /function dependencies
+  ```
+  cd functions
+  npm install
+  ```
 
 **For help with `npm install` on initial set up, view the [npm install on start up](#npm-install-on-project-start-up) troubleshooting steps in the [Troubleshooting](#troubleshooting) section of this document.**
-  
+
 **For help with `npm install` after initial setup, view the [npm install after start up](#npm-install-after-successful-initial-project-setup) troubleshooting steps in the [Troubleshooting](#troubleshooting) section of this document.**
 
 ## Environment Configuration
-  
+
 **Developers on the team will be provided with the appropriate `.env` files. You may read on, if you're curious. Otherwise, proceed to [Firebase Emulators Configuration](#firebase-emulator-configuration)**
 
-For this multi-environment system to be viable in your project, you must have: 
-  - Three Firebase projects set up - `dev`, `staging`, and `prod`. 
-  - At least 2 Vercel projects set up - `staging` and `prod`.
-  - Optionally, add a 3rd Vercel project for `dev`.
+For this multi-environment system to be viable in your project, you must have:
+
+- Three Firebase projects set up - `dev`, `staging`, and `prod`.
+- At least 2 Vercel projects set up - `staging` and `prod`.
+- Optionally, add a 3rd Vercel project for `dev`.
 
 ### Create `.env` files in the root directory:
-  - Depending on your role and permissions, you may need up to three `.env` files - `.env.local`, `.env.staging`, `.env.prod`.
-  - add this configuration to whichever environments you intend to execute and obtain the values following the instructions in **[Obtain Environment Variables](#obtain-environment-variables)** below.
-  - You will need to add these environment variables to their respective Vercel projects.
 
-    ```
-    NEXT_PUBLIC_FIREBASE_API_KEY=your_firebase_api_key
-    NEXT_PUBLIC_API_BASE_URL=next_public_api_base_url
-    NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=your_firebase_auth_domain
-    NEXT_PUBLIC_FIREBASE_PROJECT_ID=your_firebase_project_id
-    NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=your_firebase_storage_bucket
-    NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=your_firebase_messaging_sender_id
-    NEXT_PUBLIC_FIREBASE_APP_ID=your_firebase_app_id
-    NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID=your_firebase_measurement_id
-    NEXT_PUBLIC_USE_FIREBASE_EMULATORS=true
-    ```
+- Depending on your role and permissions, you may need up to three `.env` files - `.env.local`, `.env.staging`, `.env.prod`.
+- add this configuration to whichever environments you intend to execute and obtain the values following the instructions in **[Obtain Environment Variables](#obtain-environment-variables)** below.
+- You will need to add these environment variables to their respective Vercel projects.
+
+  ```
+  NEXT_PUBLIC_FIREBASE_API_KEY=your_firebase_api_key
+  NEXT_PUBLIC_API_BASE_URL=next_public_api_base_url
+  NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=your_firebase_auth_domain
+  NEXT_PUBLIC_FIREBASE_PROJECT_ID=your_firebase_project_id
+  NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=your_firebase_storage_bucket
+  NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=your_firebase_messaging_sender_id
+  NEXT_PUBLIC_FIREBASE_APP_ID=your_firebase_app_id
+  NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID=your_firebase_measurement_id
+  NEXT_PUBLIC_USE_FIREBASE_EMULATORS=true
+  ```
 
 ### Create `.env` file in the `functions` directory:
-  - The `functions` directory needs a single .env.local file.
-  - This file is to provide Firebase emulators with the `dev` environment to run on your local machine.
-  - These environment variables are set directly in Vercel for our `staging` and `prod` environments.
 
-    ```
-    MAPS_API_KEY=your_maps_api_key
-    RECAPTCHA_SECRET_KEY=your_recaptcha_secret_key
-    RECAPTCHA_VERIFY_URL=recaptcha_verify_url
-    FIREBASE_PRIVATE_KEY=your_firebase_private_key
-    FIREBASE_CLIENT_EMAIL=your_firebase_client_email
-    FIREBASE_DATABASE_URL=your_firebase_database_url
-    FIREBASE_PROJECT_ID=your_firebase_project_id
-    ```
+- The `functions` directory needs a single .env.local file.
+- This file is to provide Firebase emulators with the `dev` environment to run on your local machine.
+- These environment variables are set directly in Vercel for our `staging` and `prod` environments.
+
+  ```
+  MAPS_API_KEY=your_maps_api_key
+  RECAPTCHA_SECRET_KEY=your_recaptcha_secret_key
+  RECAPTCHA_VERIFY_URL=recaptcha_verify_url
+  FIREBASE_PRIVATE_KEY=your_firebase_private_key
+  FIREBASE_CLIENT_EMAIL=your_firebase_client_email
+  FIREBASE_DATABASE_URL=your_firebase_database_url
+  FIREBASE_PROJECT_ID=your_firebase_project_id
+  ```
 
 ### Obtain environment variables
-**Create your Firebase and Google Cloud projects:**
-  - Go to the [Firebase Console](console.firebase.google.com).
-  - Click the "+ Add project" card.
-  - Set a project name. This is the user-facing name you'll see in the console. 
-> [!NOTE]
-> If you are running multiple environments, name them with either the prefix `dev-your-project-name` or the `suffix your-project-name-dev`.
-  - Adjust project ID (if necessary)
-> [!WARNING]
-> Firebase will set a globally unique project ID based on the project name. You can edit it, but this ID is permanent and cannot be changed later. Make sure you're happy with it.
-  - Enable Google Analytics. It's optional, but recommended.
-  - Click "Create project". This could take a minute or two.
 
-  You should now have a Firebase project and a linked Google Cloud project with the same name and ID.
+**Create your Firebase and Google Cloud projects:**
+
+- Go to the [Firebase Console](console.firebase.google.com).
+- Click the "+ Add project" card.
+- Set a project name. This is the user-facing name you'll see in the console.
+  > [!NOTE]
+  > If you are running multiple environments, name them with either the prefix `dev-your-project-name` or the `suffix your-project-name-dev`.
+- Adjust project ID (if necessary)
+  > [!WARNING]
+  > Firebase will set a globally unique project ID based on the project name. You can edit it, but this ID is permanent and cannot be changed later. Make sure you're happy with it.
+- Enable Google Analytics. It's optional, but recommended.
+- Click "Create project". This could take a minute or two.
+
+You should now have a Firebase project and a linked Google Cloud project with the same name and ID.
 
 **Access Your Google Cloud Project directly from Firebase:**
-  - In the Firebase console, go to your project.
-  - Click the gear icon ⚙️ next to "Project Overview" and select "Project settings."
-  - On the "General" tab, you'll see a link to your project in the Google Cloud console.
 
-  Alternatively, you can go directly to the Google Cloud console and select the project from the dropdown menu at the top of the page. It will have the same project ID you just created.
+- In the Firebase console, go to your project.
+- Click the gear icon ⚙️ next to "Project Overview" and select "Project settings."
+- On the "General" tab, you'll see a link to your project in the Google Cloud console.
+
+Alternatively, you can go directly to the Google Cloud console and select the project from the dropdown menu at the top of the page. It will have the same project ID you just created.
 
 **Enable the necessary Cloud APIs:**
-  - In your Google Cloud console left-side menu, select **APIs and Services**
-  - Navigate to the API library. Search for and ensure these APIs are enabled:
-    - **Cloud Resource Manager API** (cloudresourcemanager.googleapis.com): Manages your cloud project resources.
-    - **Firebase Management API** (firebase.googleapis.com): Allows for programmatic management of your Firebase project.
-    - **Firebase Rules API** (firebaserules.googleapis.com): Manages security rules for Firestore and Cloud Storage.
-    - **Cloud Storage** (storage.googleapis.com): This is the underlying service to store and serve user-generated content in Firebase Storage.
-    - **Cloud Firestore API** (firestore.googleapis.com): The main API for the Firestore database.
-    - **Cloud Functions API** (cloudfunctions.googleapis.com): To deploy and run your backend code.
-    - **Cloud Build API** (cloudbuild.googleapis.com): Builds the container images for your functions.
-    - **Artifact Registry API** (artifactregistry.googleapis.com): Stores and manages the container images created by Cloud Build.
-    - **Cloud Run Admin API** (run.googleapis.com): Manages and runs the deployed function containers.
-    - **Identity Toolkit API** (identitytoolkit.googleapis.com): The backend for Firebase Authentication, managing users and credentials.
-    - **Token Service API** (sts.googleapis.com): Issues security tokens for authentication.
-    - **Firebase Hosting API** (firebasehosting.googleapis.com): Manages your hosting sites. If you connect your hosting to a Cloud Run service, the Cloud Run Admin API will also be used.
-    - **Cloud Secret Manager API** (secretmanager.googleapis.com): Many extensions use this to handle secrets and API keys securely. 
-    - Other APIs may be required depending on the specific extension you install.
-    - **Directions API** (directions.googleapis.com): Enforces service area boundaries.
-    - **Geocoding API** (geocoding.googleapis.com): Enforces service area boundaries.
+
+- In your Google Cloud console left-side menu, select **APIs and Services**
+- Navigate to the API library. Search for and ensure these APIs are enabled:
+  - **Cloud Resource Manager API** (cloudresourcemanager.googleapis.com): Manages your cloud project resources.
+  - **Firebase Management API** (firebase.googleapis.com): Allows for programmatic management of your Firebase project.
+  - **Firebase Rules API** (firebaserules.googleapis.com): Manages security rules for Firestore and Cloud Storage.
+  - **Cloud Storage** (storage.googleapis.com): This is the underlying service to store and serve user-generated content in Firebase Storage.
+  - **Cloud Firestore API** (firestore.googleapis.com): The main API for the Firestore database.
+  - **Cloud Functions API** (cloudfunctions.googleapis.com): To deploy and run your backend code.
+  - **Cloud Build API** (cloudbuild.googleapis.com): Builds the container images for your functions.
+  - **Artifact Registry API** (artifactregistry.googleapis.com): Stores and manages the container images created by Cloud Build.
+  - **Cloud Run Admin API** (run.googleapis.com): Manages and runs the deployed function containers.
+  - **Identity Toolkit API** (identitytoolkit.googleapis.com): The backend for Firebase Authentication, managing users and credentials.
+  - **Token Service API** (sts.googleapis.com): Issues security tokens for authentication.
+  - **Firebase Hosting API** (firebasehosting.googleapis.com): Manages your hosting sites. If you connect your hosting to a Cloud Run service, the Cloud Run Admin API will also be used.
+  - **Cloud Secret Manager API** (secretmanager.googleapis.com): Many extensions use this to handle secrets and API keys securely.
+  - Other APIs may be required depending on the specific extension you install.
+  - **Directions API** (directions.googleapis.com): Enforces service area boundaries.
+  - **Geocoding API** (geocoding.googleapis.com): Enforces service area boundaries.
 
 **Configure public Firebase env variables:**
-  - Go to the Firebase [console](https://console.firebase.google.com/).
-  - Select your project.
-  - In the project overview, click the icon (the web icon) to view your project configuration object and use the values to set these env variables:
-    - `NEXT_PUBLIC_FIREBASE_API_KEY` (`apiKey`) 
+
+- Go to the Firebase [console](https://console.firebase.google.com/).
+- Select your project.
+- In the project overview, click the icon (the web icon) to view your project configuration object and use the values to set these env variables:
+  - `NEXT_PUBLIC_FIREBASE_API_KEY` (`apiKey`)
     If this does not auto-generate, create it in the Google Cloud console on the next step.
-    - `NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN` (`authDomain`)
-    - `NEXT_PUBLIC_FIREBASE_PROJECT_ID` (`projectId`)
-    - `NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET` (`storageBucket`)
-    - `NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID` (`messagingSenderId`)
-    - `NEXT_PUBLIC_FIREBASE_APP_ID` (`appId`)
-    - `NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID` (`measurementId`)  
+  - `NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN` (`authDomain`)
+  - `NEXT_PUBLIC_FIREBASE_PROJECT_ID` (`projectId`)
+  - `NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET` (`storageBucket`)
+  - `NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID` (`messagingSenderId`)
+  - `NEXT_PUBLIC_FIREBASE_APP_ID` (`appId`)
+  - `NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID` (`measurementId`)
 
-**Configure `NEXT_PUBLIC_FIREBASE_API_KEY`** 
-  - Go to your Google Cloud console. 
-  - In the left menu, select **APIs and Services > Credentials**. Here you should see the API key created by your Firebase project. 
-    - If you **do not** see an API key there, click **Create credentials > API key**.
-    - The Firebase API key will be auto-generated. 
-  - Click the corresponding **Show key** button and copy the value :
-    - `NEXT_PUBLIC_FIREBASE_API_KEY` (paste API key)
-  - Click on the API key to view the details.
-  - Under **Application restrictions**, select **Websites**
-  - Ensure you have these website referrers, at minimum. If you do not, add them.
-    - `127.0.0.1:5000`
-    - `localhost:3000`
-    - `<YOUR_CLOUD_PROJECT_ID>.web.app`
-    - `<YOUR_CLOUD_PROJECT_ID>.firebaseapp.com`
-  - Click **save**. Your API key is now properly configured for this application.
+**Configure `NEXT_PUBLIC_FIREBASE_API_KEY`**
 
-**Configure `MAPS_API_KEY`** 
-  - Go to your Google Cloud console. 
-  - In the left menu, select **APIs and Services > Credentials**.
-  - Click **Create credentials > API key**.
-  - The API key will be auto-generated. 
-  - Click the **Show key** button and copy the value.
-  - Paste the value into `functions/.env.local` for the `MAPS_API_KEY`.
-  - Click on the API key to view the details.
-  - Under **Application restrictions**, select **None**
+- Go to your Google Cloud console.
+- In the left menu, select **APIs and Services > Credentials**. Here you should see the API key created by your Firebase project.
+  - If you **do not** see an API key there, click **Create credentials > API key**.
+  - The Firebase API key will be auto-generated.
+- Click the corresponding **Show key** button and copy the value :
+  - `NEXT_PUBLIC_FIREBASE_API_KEY` (paste API key)
+- Click on the API key to view the details.
+- Under **Application restrictions**, select **Websites**
+- Ensure you have these website referrers, at minimum. If you do not, add them.
+  - `127.0.0.1:5000`
+  - `localhost:3000`
+  - `<YOUR_CLOUD_PROJECT_ID>.web.app`
+  - `<YOUR_CLOUD_PROJECT_ID>.firebaseapp.com`
+- Click **save**. Your API key is now properly configured for this application.
+
+**Configure `MAPS_API_KEY`**
+
+- Go to your Google Cloud console.
+- In the left menu, select **APIs and Services > Credentials**.
+- Click **Create credentials > API key**.
+- The API key will be auto-generated.
+- Click the **Show key** button and copy the value.
+- Paste the value into `functions/.env.local` for the `MAPS_API_KEY`.
+- Click on the API key to view the details.
+- Under **Application restrictions**, select **None**
 
 > [!CAUTION]
 > This grants API access to our backend, adding referrers is for frontend access and will block a backend request.
 
-  - Under **API restrictions**, select **Restrict key**
-  - In the dropdown, select **Directions API** and **Geocoding API**
-  - Click **save**. Your Maps API key is now properly configured.
+- Under **API restrictions**, select **Restrict key**
+- In the dropdown, select **Directions API** and **Geocoding API**
+- Click **save**. Your Maps API key is now properly configured.
 
 **Configure private Firebase env variables:**
-  These are for the backend application only. They should not be used in any client facing code. They do not need the prefix `NEXT_PUBLIC_` for our express app to use them. The private key and client email are part of a service account allowing the backend to interact with Firebase services with admin privileges.
-  - In the Firebase console, go to **Project settings** (click the gear icon ⚙️).
-  - Select the **Service accounts** tab.
-  -	Click the **Generate new private key** button. A JSON file will be downloaded.
-    **Do not store this JSON file in your remote repository**
-  -	From this downloaded JSON file, you can get these env variables:
-    - `FIREBASE_PRIVATE_KEY`: (`private_key`), including `-----BEGIN PRIVATE KEY-----` and `-----END PRIVATE KEY-----`. **wrap it in quotes**.
-    - `FIREBASE_CLIENT_EMAIL` (`client_email`)
-    - `FIREBASE_PROJECT_ID`: This is the same as `NEXT_PUBLIC_FIREBASE_PROJECT_ID`.
+These are for the backend application only. They should not be used in any client facing code. They do not need the prefix `NEXT_PUBLIC_` for our express app to use them. The private key and client email are part of a service account allowing the backend to interact with Firebase services with admin privileges.
+
+- In the Firebase console, go to **Project settings** (click the gear icon ⚙️).
+- Select the **Service accounts** tab.
+- Click the **Generate new private key** button. A JSON file will be downloaded.
+  **Do not store this JSON file in your remote repository**
+- From this downloaded JSON file, you can get these env variables:
+  - `FIREBASE_PRIVATE_KEY`: (`private_key`), including `-----BEGIN PRIVATE KEY-----` and `-----END PRIVATE KEY-----`. **wrap it in quotes**.
+  - `FIREBASE_CLIENT_EMAIL` (`client_email`)
+  - `FIREBASE_PROJECT_ID`: This is the same as `NEXT_PUBLIC_FIREBASE_PROJECT_ID`.
 
 **Configure Firebase Realtime Database env variable**
-  - In the left-hand menu of the Firebase console, select **Build > Realtime Database**.
-  - Create a new Realtime Database instance. 
-    - If you encounter an unknown error, ensure **all** of the required APIs have been enabled in your Google Cloud console.
-  - The URL for your database will be displayed at the top of the data viewer:
-    - `FIREBASE_DATABASE_URL` (`https://<your-project-id>-default-rtdb.firebaseio.com`) 
+
+- In the left-hand menu of the Firebase console, select **Build > Realtime Database**.
+- Create a new Realtime Database instance.
+  - If you encounter an unknown error, ensure **all** of the required APIs have been enabled in your Google Cloud console.
+- The URL for your database will be displayed at the top of the data viewer:
+  - `FIREBASE_DATABASE_URL` (`https://<your-project-id>-default-rtdb.firebaseio.com`)
 
 **Configure Firebase Emulators env variable**
 The Firebase Emulators env variable is a self-set value to indicate whether the application should connect to local emulators or live services.
-  - `NEXT_PUBLIC_USE_FIREBASE_EMULATORS`: `true` for local use or `false` for live services 
+
+- `NEXT_PUBLIC_USE_FIREBASE_EMULATORS`: `true` for local use or `false` for live services
 
 **Configure Google reCAPTCHA env variables**
-  - Go to the Google Cloud reCAPTCHA [admin console](https://www.google.com/recaptcha/admin/create): 
-  - Register your site:
-    - Provide a label for your site.
-    - Choose **reCAPTCHA v3**.
-    - Add your domain (e.g., localhost for local development).
-  -	After submitting, you will be provided with a **Site Key** and a **Secret Key**:
-    - `NEXT_PUBLIC_RECAPTCHA_SITE_KEY` (Site Key)
-    - `RECAPTCHA_SECRET_KEY` (Secret Key)
-    - `RECAPTCHA_VERIFY_URL` (`https://www.google.com/recaptcha/api/siteverify`)
-  - **You must verify reCAPTCHA v3 on the server**
-    - The verification function can be viewed in `next-shs/src/app/api/recaptcha/route.ts`
+
+- Go to the Google Cloud reCAPTCHA [admin console](https://www.google.com/recaptcha/admin/create):
+- Register your site:
+  - Provide a label for your site.
+  - Choose **reCAPTCHA v3**.
+  - Add your domain (e.g., localhost for local development).
+- After submitting, you will be provided with a **Site Key** and a **Secret Key**:
+  - `NEXT_PUBLIC_RECAPTCHA_SITE_KEY` (Site Key)
+  - `RECAPTCHA_SECRET_KEY` (Secret Key)
+  - `RECAPTCHA_VERIFY_URL` (`https://www.google.com/recaptcha/api/siteverify`)
+- **You must verify reCAPTCHA v3 on the server**
+  - The verification function can be viewed in `next-shs/src/app/api/recaptcha/route.ts`
 
 ### Generate a `.firebaserc` file
+
 In the root directory, create a file named `.firebaserc` with these contents:
 
-  ```
-  {
-    "projects": {
-      "default": "<YOUR_FIREBASE_DEV_PROJECT_ID>",
-      "dev": "<YOUR_FIREBASE_DEV_PROJECT_ID>",
-      "staging": "<YOUR_FIREBASE_STAGING_PROJECT_ID>",
-      "prod": "<YOUR_FIREBASE_PROD_PROJECT_ID>"
-    }
+```
+{
+  "projects": {
+    "default": "<YOUR_FIREBASE_DEV_PROJECT_ID>",
+    "dev": "<YOUR_FIREBASE_DEV_PROJECT_ID>",
+    "staging": "<YOUR_FIREBASE_STAGING_PROJECT_ID>",
+    "prod": "<YOUR_FIREBASE_PROD_PROJECT_ID>"
   }
-  ```
+}
+```
 
 ## Firebase Emulator Configuration:
 
 ### Log in to Firebase
+
 Authenticating the Firebase CLI with your Google account is required by Firebase.
 
     firebase login
 
 ### Compile Cloud Functions
+
 Cloud functions must be compiled before starting the emulators for the first time and after changing backend code.
-  - From the root `next-shs` directory:
-  
-    ```
-    cd functions
-    npm run build
-    cd ..
-    ```
+
+- From the root `next-shs` directory:
+
+  ```
+  cd functions
+  npm run build
+  cd ..
+  ```
+
 ### Initialize Firebase emulators
+
 **Members of the team**, skip this and proceed to [Firebase Emulator Commands](#firebase-emulator-commands).
 
 > [!WARNING]  
-> **This project is already initialized**: Do **not** run `firebase init emulators`, it will not give you any options to select. 
+> **This project is already initialized**: Do **not** run `firebase init emulators`, it will not give you any options to select.
 
 If you would like a custom emulator configuration, edit the `firebase.json` details directly and execute the `npm run build` command again.
 
 ## Firebase Emulator Commands
 
 ### Tell Firebase which environment
+
     - The environment options for this project are `dev`, `staging`, and `prod`.
 
     ```bash
@@ -416,28 +445,30 @@ If you would like a custom emulator configuration, edit the `firebase.json` deta
 
 ### Start the emulators
 
-  ```bash
-  firebase emulators:start
-  ```
+```bash
+firebase emulators:start
+```
 
 ### Start only a subset of emulators
 
-  ```bash
-    firebase emulators:start --only functions,firestore,auth,storage
-  ```
+```bash
+  firebase emulators:start --only functions,firestore,auth,storage
+```
 
-### Save the current state of your emulated data 
-    - Firebase emulators do not store state between sessions. 
-    - Once you shut down the emulator, all entries made will be lost. 
+### Save the current state of your emulated data
+
+    - Firebase emulators do not store state between sessions.
+    - Once you shut down the emulator, all entries made will be lost.
     - You can save inserted data for Firestore, RTDB, Storage, and Auth to a local directory when the emulators shut down:
 
     ```bash
     firebase emulators:start --export-on-exit=<path>
-    
+
     firebase emulators:start --export-on-exit=./firebase-data
     ```
 
-### Load previously saved emulator 
+### Load previously saved emulator
+
     - To load previously exported emulator data from a specified path:
 
     ```bash
@@ -448,12 +479,13 @@ If you would like a custom emulator configuration, edit the `firebase.json` deta
 
 ### Load previously saved data and save on exit
 
-  ```bash
-  firebase emulators:start --import=./firebase-data --export-on-exit
-  ```
+```bash
+firebase emulators:start --import=./firebase-data --export-on-exit
+```
 
 ### Start specified emulators and run a shell command
-    - Firebase emulators can execute test scripts by running an indicated shell command (e.g., `npm test`), and then shuting down the emulators. 
+
+    - Firebase emulators can execute test scripts by running an indicated shell command (e.g., `npm test`), and then shuting down the emulators.
     - This is most useful for CI/CD pipelines and automated testing.
 
     ```bash
@@ -465,15 +497,17 @@ If you would like a custom emulator configuration, edit the `firebase.json` deta
 ## Running the Application
 
 ### Start the emulators
+
     - It is crucial to make sure the **emulators are running BEFORE the development server**.
-      
+
       1. Open a new terminal
       2. Choose your desired start up method from [Firebase Emulator Commands](#firebase-emulator-commands)
-     
+
 
 ### Start the development server
-    - After making absolutely sure your emulators **are already running**: 
-    
+
+    - After making absolutely sure your emulators **are already running**:
+
       1. Open another new terminal
       2. Start the Next.js development server
         - For this project, there are three command options to start the server.
@@ -501,11 +535,12 @@ If you would like a custom emulator configuration, edit the `firebase.json` deta
 ## Local Firebase Setup
 
 ### Initial user setup for emulators:
+
     - You'll need to create a test user and assign them a "super" or "admin" role in the emulated Firestore "users" collection in order to test role-based access control:
 
       1. Sign up a new user through the application's sign-up page while the **emulators are running**.
 
-      2. Access the Firebase Emulator UI 
+      2. Access the Firebase Emulator UI
         - You can use [localhost:/4000](localhost:4000) or any of these more specific local addresses:
 
         ![Firebase emulator URLs](./public/images/readme-images/image.png)
@@ -523,35 +558,38 @@ If you would like a custom emulator configuration, edit the `firebase.json` deta
     - `employee_applications`: Stores all employee applications submitted through the platform.
 
 ### Firebase Storage
+
     - Stores user-uploaded content and platform images (e.g., profile pictures, blog post images, estimate request images.)
 
 ## Firestore Security Rules:
 
-  **Security rules already exist for this project**
+**Security rules already exist for this project**
 
-  - When you need to **add or edit** rules, you must ensure the permissions for each environment are appropriately secure.
+- When you need to **add or edit** rules, you must ensure the permissions for each environment are appropriately secure.
 
-  - `next-shs/firestore_rules/` 
-    - `dev.rules`
-    - `staging.rules`
-    - `prod.rules`
+- `next-shs/firestore_rules/`
+  - `dev.rules`
+  - `staging.rules`
+  - `prod.rules`
 
-  - `next-shs/storage_rules/` 
-    - `dev.rules`
-    - `staging.rules`
-    - `prod.rules`
+- `next-shs/storage_rules/`
+  - `dev.rules`
+  - `staging.rules`
+  - `prod.rules`
 
-  - `staging.rules` and `prod.rules` should be identical, as staging is a test environment for prod.
-  - Permissions for `dev.rules` are less restrictive than `staging.rules` and `prod.rules`.
+- `staging.rules` and `prod.rules` should be identical, as staging is a test environment for prod.
+- Permissions for `dev.rules` are less restrictive than `staging.rules` and `prod.rules`.
 
 ### Important concepts
-    - `get()` : Used to fetch data 
+
+    - `get()` : Used to fetch data
       `get(/databses/$(database)/documents/users/$(userId)).data.role` securely fetches the role field from a user's document in the users collection.
     - `resource.data` : Used to post data
       - `request.resource.data` refers to the data that is being written (new data for `create` or altered existing data for `update`)
       - `resource.data` refers to the existing data of the document being modified (`update` or `delete`)
 
-### Update security rules in the project 
+### Update security rules in the project
+
     - When **updating** any Firestore security rules, ensure you are editing the rules for the correct environment and role restrictions are set appropriately.
     - When **creating** new security rules, the rule must be added to the rules file for each environment, separately, with sufficient permissions restrictions
 
@@ -560,7 +598,7 @@ If you would like a custom emulator configuration, edit the `firebase.json` deta
     **TEAM MEMBERS**: Skip this section and [Update from the CLI](#update-your-firestore-rules-in-the-cli).
 
     **Do not use the console for multi-environment set ups!** Instead, [Update from the CLI](#update-your-firestore-rules-in-the-cli)
-  
+
     - It is vital to make sure they match the security rules within your Firebase Console, *exactly*, to allow the necessary permissions for adding documents.
 
       1. Go to your Firebase Console
@@ -568,7 +606,7 @@ If you would like a custom emulator configuration, edit the `firebase.json` deta
 
         ![Firebase console homepage](./public/images/readme-images/image-14.png)
 
-      2. Select your project 
+      2. Select your project
         - You should see the project you want to update from your Firebase homepage. Click on the project you designated for this application. You should see a screen like this:
 
         ![Firebase project homepage](./public/images/readme-images/image-15.png)
@@ -599,9 +637,10 @@ If you would like a custom emulator configuration, edit the `firebase.json` deta
         ![Success toast](./public/images/readme-images/image-20.png)
 
       **Repeat the process for storage.rules**
-    
-### Update security rules in the CLI 
-      - When deploying the rules in a multi-environment project, do **not** use the Firebase Console directly. 
+
+### Update security rules in the CLI
+
+      - When deploying the rules in a multi-environment project, do **not** use the Firebase Console directly.
       - Deploy different rules for each environment separately from the CLI using these commands:
 
       **Deploy dev rules to your dev project**
@@ -625,300 +664,307 @@ If you would like a custom emulator configuration, edit the `firebase.json` deta
 ## Version Control and Merging
 
 ### Core principles
-  - All code changes must be submitted through a Pull Request.
-  - Direct commits to the `staging` and `prod` branches are **prohibited**.
-  - The `prod` branch must **always** be stable and reflect the **current** state of the production environment.
+
+- All code changes must be submitted through a Pull Request.
+- Direct commits to the `staging` and `prod` branches are **prohibited**.
+- The `prod` branch must **always** be stable and reflect the **current** state of the production environment.
 
 ### Branching strategy
-  - GitHub workflows for this project enforce strict [branch naming conventions](#branch-naming-conventions)
 
-  **If you are unsure of how to name a branch, copy the task details and the [branch naming conventions](#branch-naming-conventions) and ask Copilot what would be the best fit.**
-  
-  - **`dev`**
-    - All `dev` branches are created from the `staging` branch.
-    - `dev` branches are **NEVER** merged back into `staging`
-    - **Before commiting** any changes to `dev` branches, request a preliminary review from Copilot in the Source Control tab in VSCode:
+- GitHub workflows for this project enforce strict [branch naming conventions](#branch-naming-conventions)
 
-    ![Requesting a review from Copilot before committing changes](./public/images/readme-images/image-21.png)
+**If you are unsure of how to name a branch, copy the task details and the [branch naming conventions](#branch-naming-conventions) and ask Copilot what would be the best fit.**
 
-    - There are two types of `dev` branches:
+- **`dev`**
+  - All `dev` branches are created from the `staging` branch.
+  - `dev` branches are **NEVER** merged back into `staging`
+  - **Before commiting** any changes to `dev` branches, request a preliminary review from Copilot in the Source Control tab in VSCode:
 
-      1. **`dev/task` branches**
-        - Contain changes for individual tasks or small groups of closely related tasks.
-        - Too many changes in a single `dev/task` branch can make it difficult to debug the code.
-        - Commit messages must be clear, concise,  and describe the changes made.
-        - Each `dev/task` branch must be thoroughly tested by the assigned developer before a PR is created.
-        - `dev/task` branches are categorized into 4 types:
-          1. **Bugs:** Errors found in testing, noticed by any team member, or reported by users in production.
-          ```bash
-          dev/task/bug/<task-number>/<task-description>
-          ```
-          2. **Chore:** Minor changes that aren't bugs and general code clean up.
-          ```bash
-          dev/task/chore/<task-number>/<task-description>
-          ```
-          3. **Refactor:** Changes to components and features that are not broken with the goal of improving the code readability, code reusability, UI appearance, user experience, general app flow, app performance, etc. 
-          ```bash
-          dev/task/refactor/<task-number>/<task-description>
-          ```
-          4. **Feature:** Entirely new features and components.
-          ```bash
-          dev/task/feat/<task-number>/<task-description>
-          ```
-
-      2. **`dev/pbi` branches**
-        - All `dev/task` branches derived from a single PBI are merged together, **one at a time**, into a `dev/pbi` branch after each `dev/task` PR is approved and passing all checks.
-        - After each branch is merged in, a new commit should be pushed.
-        - Commit messages for `dev/pbi` branches must contain the task number and a short description.
-        - `dev/pbi` branches are deployed to the `dev` environment and thoroughly tested to the task requirements after each individual `dev/task` branch is merged in to maximize debugging efficacy.
-
-  - **`staging`**
-    - The main `staging` branch should always reflect `prod`.
-    - Code changes are **NEVER** commited directly to `staging`.
-    - There are three kinds of `staging` branches:
-      1. **PBI:** After PR approval, each `dev/pbi` branch is converted to an identical `staging/pbi` branch.
-      - The name of `staging/pbi` branches should reflect the name of the corresponding `dev/pbi` branch.
+  ![Requesting a review from Copilot before committing changes](./public/images/readme-images/image-21.png)
+  - There are two types of `dev` branches:
+    1. **`dev/task` branches**
+    - Contain changes for individual tasks or small groups of closely related tasks.
+    - Too many changes in a single `dev/task` branch can make it difficult to debug the code.
+    - Commit messages must be clear, concise, and describe the changes made.
+    - Each `dev/task` branch must be thoroughly tested by the assigned developer before a PR is created.
+    - `dev/task` branches are categorized into 4 types:
+      1. **Bugs:** Errors found in testing, noticed by any team member, or reported by users in production.
       ```bash
-      staging/pbi/<pbi-number>/<pbi-description>
+      dev/task/bug/<task-number>/<task-description>
       ```
-      2. **Feature:** All `staging/pbi` branches are merged, **one at a time**, into `staging/feat` branches after all `dev/pbi` branches for a feature have been converted to `staging/pbi` branches. 
-        - After each `staging/pbi` branch is added to the `staging/feat` branch, deploy to the staging environment and test against the PBI requirements.
-        - After all `staging/pbi` branches have been merged into the `staging/feat` branch, a PR is created and reviewed.
-        - After PR approval, QA will thoroughly test the feature.
-        ```bash
-        staging/feat/<feature-name>
-        ```
-      3. **Release:** When `staging/feat` PRs are approved, they are added to a single `staging/release` branch and tested.
-        - After each `staging/feat` branch is added to a `staging/release` branch, it is thoroughly tested by all parties.
+
+      2. **Chore:** Minor changes that aren't bugs and general code clean up.
       ```bash
-      staging/release/<version-number>
+      dev/task/chore/<task-number>/<task-description>
       ```
-    
-  - **`prod`**
-    - When all planned features for a production release are merged into a single `staging/release` branch and the PR is created, it is tested one more time by all parties and then merged into `prod`.
-    - This branch is **only** for **production-ready** code.
-    - `prod` is only updated by merging a `staging/release` branch during a scheduled release or a `prod/hotfix` branch to fix a production bug.
+
+      3. **Refactor:** Changes to components and features that are not broken with the goal of improving the code readability, code reusability, UI appearance, user experience, general app flow, app performance, etc.
+      ```bash
+      dev/task/refactor/<task-number>/<task-description>
+      ```
+
+      4. **Feature:** Entirely new features and components.
+      ```bash
+      dev/task/feat/<task-number>/<task-description>
+      ```
+    2. **`dev/pbi` branches**
+    - All `dev/task` branches derived from a single PBI are merged together, **one at a time**, into a `dev/pbi` branch after each `dev/task` PR is approved and passing all checks.
+    - After each branch is merged in, a new commit should be pushed.
+    - Commit messages for `dev/pbi` branches must contain the task number and a short description.
+    - `dev/pbi` branches are deployed to the `dev` environment and thoroughly tested to the task requirements after each individual `dev/task` branch is merged in to maximize debugging efficacy.
+
+- **`staging`**
+  - The main `staging` branch should always reflect `prod`.
+  - Code changes are **NEVER** commited directly to `staging`.
+  - There are three kinds of `staging` branches:
+    1. **PBI:** After PR approval, each `dev/pbi` branch is converted to an identical `staging/pbi` branch.
+    - The name of `staging/pbi` branches should reflect the name of the corresponding `dev/pbi` branch.
+    ```bash
+    staging/pbi/<pbi-number>/<pbi-description>
+    ```
+
+    2. **Feature:** All `staging/pbi` branches are merged, **one at a time**, into `staging/feat` branches after all `dev/pbi` branches for a feature have been converted to `staging/pbi` branches.
+    - After each `staging/pbi` branch is added to the `staging/feat` branch, deploy to the staging environment and test against the PBI requirements.
+    - After all `staging/pbi` branches have been merged into the `staging/feat` branch, a PR is created and reviewed.
+    - After PR approval, QA will thoroughly test the feature.
+    ```bash
+    staging/feat/<feature-name>
+    ```
+
+    3. **Release:** When `staging/feat` PRs are approved, they are added to a single `staging/release` branch and tested.
+    - After each `staging/feat` branch is added to a `staging/release` branch, it is thoroughly tested by all parties.
+    ```bash
+    staging/release/<version-number>
+    ```
+- **`prod`**
+  - When all planned features for a production release are merged into a single `staging/release` branch and the PR is created, it is tested one more time by all parties and then merged into `prod`.
+  - This branch is **only** for **production-ready** code.
+  - `prod` is only updated by merging a `staging/release` branch during a scheduled release or a `prod/hotfix` branch to fix a production bug.
     **Remember to merge back into `staging` after all changes**
-    - The code in this branch is **always** the code currently deployed in the `prod` environment.
-    - `prod` code is automatically deployed to the `prod` environment on every successful merge from `staging/release` or `prod/hotfix`.
-    - After successful release to production, the `prod` branch is back-merged into the main `staging` branch to 'reset' for the next development cycle.
-    - There are two `prod` branches
-      1. The **main** `prod` branch that is a reflection of currently deployed production code.
-      2. **Hotfix:** For urgent fixes that must be deployed to production quickly.
-        - These are the **only** branches that should be created directly from the `prod` branch.
-        - `prod/hotfix` branches merge back into `prod` after approval.
-      ```bash
-      prod/hotfix/<bug-description>
-      ```
-    - **NEVER** push commits or merge branches other than `staging/release` or `prod/hotfix` branches into `prod`.
+  - The code in this branch is **always** the code currently deployed in the `prod` environment.
+  - `prod` code is automatically deployed to the `prod` environment on every successful merge from `staging/release` or `prod/hotfix`.
+  - After successful release to production, the `prod` branch is back-merged into the main `staging` branch to 'reset' for the next development cycle.
+  - There are two `prod` branches
+    1. The **main** `prod` branch that is a reflection of currently deployed production code.
+    2. **Hotfix:** For urgent fixes that must be deployed to production quickly.
+    - These are the **only** branches that should be created directly from the `prod` branch.
+    - `prod/hotfix` branches merge back into `prod` after approval.
+    ```bash
+    prod/hotfix/<bug-description>
+    ```
+  - **NEVER** push commits or merge branches other than `staging/release` or `prod/hotfix` branches into `prod`.
 
 ### Pull Request (PR) process
-  - **When to create a PR**
 
-    - `dev/task` PRs should be created by the branch owner after code changes are tested against task requirements, and are ready for review.
+- **When to create a PR**
+  - `dev/task` PRs should be created by the branch owner after code changes are tested against task requirements, and are ready for review.
 
-    - `dev/pbi` PRs should be created when all of the `dev/task` branches belonging to the PBI have approved PRs, have been merged into the `dev/pbi` branch, and have been thoroughly tested against all task and PBI requirements.
+  - `dev/pbi` PRs should be created when all of the `dev/task` branches belonging to the PBI have approved PRs, have been merged into the `dev/pbi` branch, and have been thoroughly tested against all task and PBI requirements.
 
-    - `staging/pbi` branches are created by converting `dev/pbi` PRs after approval; they **do not** require PRs themselves.
+  - `staging/pbi` branches are created by converting `dev/pbi` PRs after approval; they **do not** require PRs themselves.
 
-    - `staging/feat` PRs are created after combining and testing all of the `staging/pbi` branches belonging to a feature, one at a time.
+  - `staging/feat` PRs are created after combining and testing all of the `staging/pbi` branches belonging to a feature, one at a time.
 
-    - `staging/release` PRs are created after all of the `staging/feat` branches belonging to a scheduled production release have been merged in and tested, one at a time.
+  - `staging/release` PRs are created after all of the `staging/feat` branches belonging to a scheduled production release have been merged in and tested, one at a time.
 
-    - After final approval of a `staging/release` PR, the `staging/release` branch is merged into the `prod` branch, triggering automatic deployment.
+  - After final approval of a `staging/release` PR, the `staging/release` branch is merged into the `prod` branch, triggering automatic deployment.
 
-    - After successful deployment of the `prod` branch, `prod` is back-merged to reset `staging`.
+  - After successful deployment of the `prod` branch, `prod` is back-merged to reset `staging`.
 
-  - **What is the PR process**
-    1. Commit your final changes to your local branch
-    2. Push the commit to GitHub
-    3. Deploy changes to the appropriate environment and **test** the changes.
-    3. Navigate to the [repository](https://github.com/PennyNichols/next-shs) on GitHub 
-    4. Open Pull Request on GitHub
+- **What is the PR process**
+  1. Commit your final changes to your local branch
+  2. Push the commit to GitHub
+  3. Deploy changes to the appropriate environment and **test** the changes.
+  4. Navigate to the [repository](https://github.com/PennyNichols/next-shs) on GitHub
+  5. Open Pull Request on GitHub
+  - **Option 1**
+    - At the top of the code section, there will be a toast that says "recent pushes to...". Click the toast and it will take you to a new PR.
 
-    - **Option 1** 
-      - At the top of the code section, there will be a toast that says "recent pushes to...". Click the toast and it will take you to a new PR.
-
-
-    - **Option 2**
-      - Navigate to the repository's Pull Request tab.
-      - Click the green "New" button
-
-
-    5. Fill out each section of the PR template with appropriate details, documentation, and screenshots, if applicable.
-    6. Click "Draft Pull Request" to start the PR process without automatically requesting reviews from codeowners.
-    7. When drafted, the automatic checks for the PR should begin processing. 
-      - A green checkmark will show next to the test at the bottom of the PR if the code passed.
-      - A red X will appear next to the test if the code failed.
-        1. Click on the failing test to see the output log.
-        2. Search the log for `error`
-        3. Fix the indicated errors and push the code to the remote branch.
-        4. The PR will automatically pick up the changes and begin running the checks again.
-        5. Repeat steps 1-4 until all checks are passing.
-    8. After all checks have passed, request an AI review by clicking "Copilot" in the "Reviewers" section of the PR. It may take a few minutes for the review process to complete.
-    9. Address all comments and code change suggestions provided by Copilot
-    10. Repeat steps 8 and 9 until Copilot approves the PR.
-    11. Set the status of the PR to "Ready for review"
-      - GitHub will automatically request a review from all code owners for the edited files.
-      - You can manually request a review from any other team member on the project, even if they are not a codeowner of the edited files.
+  - **Option 2**
+    - Navigate to the repository's Pull Request tab.
+    - Click the green "New" button
+  5. Fill out each section of the PR template with appropriate details, documentation, and screenshots, if applicable.
+  6. Click "Draft Pull Request" to start the PR process without automatically requesting reviews from codeowners.
+  7. When drafted, the automatic checks for the PR should begin processing.
+  - A green checkmark will show next to the test at the bottom of the PR if the code passed.
+  - A red X will appear next to the test if the code failed.
+    1. Click on the failing test to see the output log.
+    2. Search the log for `error`
+    3. Fix the indicated errors and push the code to the remote branch.
+    4. The PR will automatically pick up the changes and begin running the checks again.
+    5. Repeat steps 1-4 until all checks are passing.
+  8. After all checks have passed, request an AI review by clicking "Copilot" in the "Reviewers" section of the PR. It may take a few minutes for the review process to complete.
+  9. Address all comments and code change suggestions provided by Copilot
+  10. Repeat steps 8 and 9 until Copilot approves the PR.
+  11. Set the status of the PR to "Ready for review"
+  - GitHub will automatically request a review from all code owners for the edited files.
+  - You can manually request a review from any other team member on the project, even if they are not a codeowner of the edited files.
 
 ### Merging practices
-      
-  - **When to merge**
-    1. `dev`
-      - After all `dev/task` branches for a single PBI are complete and PRs are approved, merge them all into a single `dev/pbi`
-      - When multiple developers need to test features in the `dev` environment simultaneously, create a new combined branch to deploy the branches together.
 
-    2. `staging`
-      - **Only** `prod` is merged into `staging` after a successful release.
-      - Nothing else is merged into `staging` directly.
-      - For organization and visibility, all `dev/pbi` branches are converted to `staging/pbi` branches after PR approval.
-      - Once the `staging/pbi` branches belonging to a feature have been converted from `dev/pbi` to `staging/pbi`, they can be merged into a single `staging/feat` branch for testing.
-      - After the `staging/feat` PR has been approved, the branch can be merged into a `staging/release` branch where it will wait until all the features included in a planned production release are merged into the `staging/release` branch.
+- **When to merge**
+  1. `dev`
+  - After all `dev/task` branches for a single PBI are complete and PRs are approved, merge them all into a single `dev/pbi`
+  - When multiple developers need to test features in the `dev` environment simultaneously, create a new combined branch to deploy the branches together.
+  2. `staging`
+  - **Only** `prod` is merged into `staging` after a successful release.
+  - Nothing else is merged into `staging` directly.
+  - For organization and visibility, all `dev/pbi` branches are converted to `staging/pbi` branches after PR approval.
+  - Once the `staging/pbi` branches belonging to a feature have been converted from `dev/pbi` to `staging/pbi`, they can be merged into a single `staging/feat` branch for testing.
+  - After the `staging/feat` PR has been approved, the branch can be merged into a `staging/release` branch where it will wait until all the features included in a planned production release are merged into the `staging/release` branch.
+  3. `prod`
+  - After all `staging/feat` branches have been merged into the `staging/release` branch, had thorough testing, and have recieved approvals from all parties, the `staging/release` branch is merged into `prod`.
+  - After merging into `prod` and confirming a successful deployment, `prod` is merged into `staging` to reset `staging`.
 
-    3. `prod`
-      - After all `staging/feat` branches have been merged into the `staging/release` branch, had thorough testing, and have recieved approvals from all parties, the `staging/release` branch is merged into `prod`.
-      - After merging into `prod` and confirming a successful deployment, `prod` is merged into `staging` to reset `staging`.
+- **How to merge**  
+  **After** all changes have been tested against requirements, the PR is passing all checks, and the required approvals have been obtained, run the appropriate merge command in your terminal.
+  1. `dev/task` merges into `dev/pbi`
+  2. `dev/pbi` merges into `staging/pbi`
+  3. `staging/pbi` merges into `staging/feat`
+  4. `staging/feat` merges into `staging/release`
+  5. `staging/release` merges into `prod`
+  6. `prod/hotfix` merges into `prod`
+  7. `prod` merges into `staging`
 
-  - **How to merge**   
-    **After** all changes have been tested against requirements, the PR is passing all checks, and the required approvals have been obtained, run the appropriate merge command in your terminal.
+  The general pattern is:
 
-      1. `dev/task` merges into `dev/pbi`
-      2. `dev/pbi` merges into `staging/pbi`
-      3. `staging/pbi` merges into `staging/feat`
-      4. `staging/feat` merges into `staging/release`
-      5. `staging/release` merges into `prod`
-      6. `prod/hotfix` merges into `prod`
-      6. `prod` merges into `staging`
+  ```bash
+  git checkout <target-branch>
+  git merge <incoming-branch>
+  ```
 
-    The general pattern is: 
-    ```bash
-    git checkout <target-branch>
-    git merge <incoming-branch>
-    ```
-    
-    **Every PR** must have approval by 1 code owner and Copilot before merging will be available.
-      - If Copilot is insisting on a change you don't agree with and will not give you approval, review from 1 additional team member is sufficient.
+  **Every PR** must have approval by 1 code owner and Copilot before merging will be available.
+  - If Copilot is insisting on a change you don't agree with and will not give you approval, review from 1 additional team member is sufficient.
 
-    - **All branches** stem from `staging` **except** `prod` and `prod/hotfix` branches.
-    - `staging` and `prod/hotfix` branches are created from `prod`.
+  - **All branches** stem from `staging` **except** `prod` and `prod/hotfix` branches.
+  - `staging` and `prod/hotfix` branches are created from `prod`.
 
 ### Creating branches
-  - Creating branches is simple and generally follows the same pattern - make sure everything is up to date, checkout to the origin branch, create the new branch from origin branch.
-  - The newly created branch will contain all of the code from the it was created from, be sure you are starting from the **correct origin**.
 
-    1. **Update local to origin**
-      - Always make sure your local code is up to date with the remote repository.
+- Creating branches is simple and generally follows the same pattern - make sure everything is up to date, checkout to the origin branch, create the new branch from origin branch.
+- The newly created branch will contain all of the code from the it was created from, be sure you are starting from the **correct origin**.
+  1. **Update local to origin**
+  - Always make sure your local code is up to date with the remote repository.
 
-      - Checkout to and update your local `staging` branch:
-      ```bash
-      git checkout staging
-      git pull origin
-      ```
+  - Checkout to and update your local `staging` branch:
 
-      - Ensure your working branch is up to date and merge the latest `staging` code into your working branch:
-      ```bash
-      git checkout dev/task/chore/123/example-task
-      git pull origin
-      git merge staging
-      ```
+  ```bash
+  git checkout staging
+  git pull origin
+  ```
 
-    2. **Creating new `dev/task` branches**
-      - All assignments **except hotfixes** will begin as a `dev/task` branch.
+  - Ensure your working branch is up to date and merge the latest `staging` code into your working branch:
 
-      - Ensure Git Bash is currently working in the `staging` branch and it is up to date with the remote repository:
-      ```bash
-      git checkout staging
-      git pull origin
-      ```
+  ```bash
+  git checkout dev/task/chore/123/example-task
+  git pull origin
+  git merge staging
+  ```
 
-      - Create new `dev/task` branch from `staging`
-      ```bash
-      git checkout -b dev/task/chore/123/task-description
-      ```
+  2. **Creating new `dev/task` branches**
+  - All assignments **except hotfixes** will begin as a `dev/task` branch.
 
-    3. **Creating `dev/pbi` branches**
-      - Ensure Git Bash is working in the `staging` branch and create a new `dev/pbi` branch.
-      ```bash
-      git checkout staging
-      git pull origin
-      git checkout -b dev/pbi/35/pbi-description
-      ```
+  - Ensure Git Bash is currently working in the `staging` branch and it is up to date with the remote repository:
 
-      - Merge `dev/task` branches belonging to the PBI into the `dev/pbi` branch
-      ```bash
-      git merge dev/task/chore/123/task-description
-      ```
+  ```bash
+  git checkout staging
+  git pull origin
+  ```
 
-      **Repeat to merge all tasks belonging to the PBI into the `dev/pbi` branch**
+  - Create new `dev/task` branch from `staging`
 
-    4. **Creating `staging/pbi` branches**
-      - Ensure `staging` and `dev/pbi` are up to date with the remote `staging` branch:
-      ```bash
-      git checkout staging
-      git pull origin
-      
-      git checkout dev/pbi/35/pbi-description
-      git pull origin
-      ```
+  ```bash
+  git checkout -b dev/task/chore/123/task-description
+  ```
 
-      - Checkout to `staging`, create the new `staging/pbi` branch with the same PBI number and description as the corresponding `dev/pbi`, and merge your `dev/pbi` branch into it:
-      ```bash
-      git checkout staging
-      git checkout -b staging/pbi/35/pbi-description
-      git merge dev/pbi/35/pbi-description
-      ```
+  3. **Creating `dev/pbi` branches**
+  - Ensure Git Bash is working in the `staging` branch and create a new `dev/pbi` branch.
 
-    5. **Creating `staging/feat` branches**
-      - Update `staging` and your target `staging/pbi` with the remote repository:
-      ```bash
-      git checkout staging
-      git pull origin
+  ```bash
+  git checkout staging
+  git pull origin
+  git checkout -b dev/pbi/35/pbi-description
+  ```
 
-      git checkout staging/pbi/35/pbi-description
-      git pull origin
-      ```
+  - Merge `dev/task` branches belonging to the PBI into the `dev/pbi` branch
 
-      - Create new `staging/feat` branch from `staging` and merge `staging/pbi` branches.
-      ```bash
-      git checkout staging
-      git checkout -b staging/feat/feature-name
-      git merge staging/pbi/35/pbi-description
-      ```
+  ```bash
+  git merge dev/task/chore/123/task-description
+  ```
 
-      **Repeat for all PBIs belonging to the target feature**
+  **Repeat to merge all tasks belonging to the PBI into the `dev/pbi` branch**
+  4. **Creating `staging/pbi` branches**
+  - Ensure `staging` and `dev/pbi` are up to date with the remote `staging` branch:
 
-    6. **Creating `staging/release` branches**
-      - Ensure `staging` and `staging/feat` branches are up to date with the remote repository:
-      ```bash
-      git checkout staging
-      git pull origin
+  ```bash
+  git checkout staging
+  git pull origin
 
-      git checkout staging/feat/feature-name
-      git pull origin
-      ```
+  git checkout dev/pbi/35/pbi-description
+  git pull origin
+  ```
 
-      - Create the new `staging/release` branch from the `staging` branch and merge `staging/feat` branches:
-      ```bash
-      git checkout staging
-      git checkout -b staging/release/v1.0.0
-      git merge staging/feat/feature-name
-      ```
+  - Checkout to `staging`, create the new `staging/pbi` branch with the same PBI number and description as the corresponding `dev/pbi`, and merge your `dev/pbi` branch into it:
 
-      **Repeat for all features planned for the production release**
+  ```bash
+  git checkout staging
+  git checkout -b staging/pbi/35/pbi-description
+  git merge dev/pbi/35/pbi-description
+  ```
 
-    6. **Creating a `prod/hotfix` branch**
-      - Ensure your local `prod` branch is up to date with the remote repository:
-      ```bash
-      git checkout prod
-      git pull origin
-      ```
+  5. **Creating `staging/feat` branches**
+  - Update `staging` and your target `staging/pbi` with the remote repository:
 
-      - Create the `prod/hotfix` branch from the `prod` branch:
+  ```bash
+  git checkout staging
+  git pull origin
 
-      ```bash
-      git checkout -b prod/hotfix/prod-bug-description
-      ```
+  git checkout staging/pbi/35/pbi-description
+  git pull origin
+  ```
+
+  - Create new `staging/feat` branch from `staging` and merge `staging/pbi` branches.
+
+  ```bash
+  git checkout staging
+  git checkout -b staging/feat/feature-name
+  git merge staging/pbi/35/pbi-description
+  ```
+
+  **Repeat for all PBIs belonging to the target feature**
+  6. **Creating `staging/release` branches**
+  - Ensure `staging` and `staging/feat` branches are up to date with the remote repository:
+
+  ```bash
+  git checkout staging
+  git pull origin
+
+  git checkout staging/feat/feature-name
+  git pull origin
+  ```
+
+  - Create the new `staging/release` branch from the `staging` branch and merge `staging/feat` branches:
+
+  ```bash
+  git checkout staging
+  git checkout -b staging/release/v1.0.0
+  git merge staging/feat/feature-name
+  ```
+
+  **Repeat for all features planned for the production release**
+  6. **Creating a `prod/hotfix` branch**
+  - Ensure your local `prod` branch is up to date with the remote repository:
+
+  ```bash
+  git checkout prod
+  git pull origin
+  ```
+
+  - Create the `prod/hotfix` branch from the `prod` branch:
+
+  ```bash
+  git checkout -b prod/hotfix/prod-bug-description
+  ```
 
 ## Deployment
 
@@ -933,6 +979,7 @@ If you would like a custom emulator configuration, edit the `firebase.json` deta
     **Always** make sure your branch is up to date with the remote `staging` branch before deploying to the `dev` or `staging` environments.
 
 ### Deploy to `dev`
+
     - Complete the **Dev Deployment Log** in the repository wiki
       1. **Before** deployment
       2. **After** testing is complete
@@ -941,23 +988,24 @@ If you would like a custom emulator configuration, edit the `firebase.json` deta
       **Multiple times per day**
 
       1. Every time you want to test a new feature, bug fix, or integration in a shared cloud environment mirroring the real set up.
-      2. Before merging a `dev/pbi` Pull Request into a `staging/pbi` branch.  
-      
+      2. Before merging a `dev/pbi` Pull Request into a `staging/pbi` branch.
+
     - **Who can deploy**
       - All team members are required to deploy and test changes for all of their owned `dev/task` branches.
       - Any developer can deploy their branch to see their changes live and test integrations with existing code.
       - Firebase emulators reduce the frequency of deployments to our shared `dev` environment by creating a simulated environment on your local machine, use them for regular development testing.
       - Use deployments to the shared `dev` environment for final testing before submitting PRs.
-      - If more than one developer needs to deploy at a time, we use communication and collaboration to create combined branches with all changes to be tested. 
+      - If more than one developer needs to deploy at a time, we use communication and collaboration to create combined branches with all changes to be tested.
 
       - To stay informed about who is currently using the `dev` environment, check the **Dev Deployment Log** in repository [wiki](https://github.com/PennyNichols/next-shs/wiki) on GitHub.
-    
+
     - **How to deploy**
     ```bash
     npm run deploy:dev
     ```
 
 ### Deploy to `staging`
+
     - Deployment to `staging` is for testing code changes before sending to production.
 
     - Complete the **Staging Deployment Log** in the repository wiki
@@ -968,7 +1016,7 @@ If you would like a custom emulator configuration, edit the `firebase.json` deta
       1. After converting a `dev/pbi` branch to a `staging/pbi` branch and preliminary testing has already occurred on `dev/pbi` in a `dev` deployment.
       2. After **each** `staging/pbi` branch belonging to a single feature is merged into a `staging/feat` branch.
       3. After **each** `staging/feat` branch included in a specific release is merged into a `staging/release` branch.
-    
+
     - **Who can deploy**
       - Owners of a PBI can deploy their `staging/pbi` branch to staging.
       - Only a team lead can deploy a `staging/feat` or `staging/release` branch.
@@ -979,6 +1027,7 @@ If you would like a custom emulator configuration, edit the `firebase.json` deta
     ```
 
 ### Deploy to `prod`
+
     - **When to deploy**
       - Before deploying to `prod`, the `staging/release` or `prod/hotfix` PR must thoroughly reviewed and tested by **ALL** parties.
       - We **only** deploy to `prod` after rigorous testing and explicit approval by QA, stakeholders, team lead, and every developer who contributed to the feature.
@@ -989,7 +1038,7 @@ If you would like a custom emulator configuration, edit the `firebase.json` deta
 
     - **Who can deploy**
       - Deployments to `prod` are restricted to our automated CI/CD pipeline.
-      - If a manual deployment is ever required, only a tech lead can deploy. 
+      - If a manual deployment is ever required, only a tech lead can deploy.
 
     - **How to deploy**
       - When a `staging/release` or `prod/hotfix` branch is merged into `prod`, our CI/CD pipeline automatically depoys to the `prod` environement.
@@ -1002,84 +1051,98 @@ If you would like a custom emulator configuration, edit the `firebase.json` deta
 ## Contributing
 
 ### Coding standards
-  - This project enforces code style and quality using `ESLint` and `Prettier`. 
-  - Pull requests with **errors will not be committed**.
-  - All pull requests are **required** to be reviewed by Copilot and at least one code owner and pass all checks before the commit option will become available.
-  - It will be most beneficial if you **run the linter and format** before pushing a new branch and all subsequent commits:
 
-  ```bash
-  npm run lint:fix
-  npm run format
-  ```
+- This project enforces code style and quality using `ESLint` and `Prettier`.
+- Pull requests with **errors will not be committed**.
+- All pull requests are **required** to be reviewed by Copilot and at least one code owner and pass all checks before the commit option will become available.
+- It will be most beneficial if you **run the linter and format** before pushing a new branch and all subsequent commits:
+
+```bash
+npm run lint:fix
+npm run format
+```
 
 ### Running tests
-  - Run unit/integration tests with `npm test`.
+
+- Run unit/integration tests with `npm test`.
 
 ### Branch naming conventions
 
-  **All branches** enforce "slug-case" style (lowercase letters, numbers, and hyphens)
+**All branches** enforce "slug-case" style (lowercase letters, numbers, and hyphens)
 
-  - **Development Branches:** Used for every day development work. The individual branches developers personally create for their assignments. They are short-lived and are deleted once their changes are successfully merged into production.
+- **Development Branches:** Used for every day development work. The individual branches developers personally create for their assignments. They are short-lived and are deleted once their changes are successfully merged into production.
+  1. **`dev/task` branches:**
+     For specific tasks, bugs, chores, refactors, or new components. The individual assignments in a PBI.
+     There are 4 accepted task types: `chore`, `bug`, `refactor`, `feat`.
 
-    1. **`dev/task` branches:**
-    For specific tasks, bugs, chores, refactors, or new components. The individual assignments in a PBI. 
-    There are 4 accepted task types: `chore`, `bug`, `refactor`, `feat`.
-    ```bash
-    dev/task/<task-type>/<task-number>/<description>
-    ```
-    Example:
-    ```bash
-    dev/task/chore/123/example-task
-    ```
+  ```bash
+  dev/task/<task-type>/<task-number>/<description>
+  ```
 
-    2. **`dev/pbi` branches:** 
-    For combining individual `dev/task` branches for the tasks in a PBI for isolated integration testing.
-    ```bash
-    dev/pbi/<pbi-number>/<description>
-    ```
-    Example:
-    ```bash
-    dev/pbi/35/example-pbi
-    ```
+  Example:
 
-  - **Staging Branches:** These are shared branches used for preparing changes to be released in production.
+  ```bash
+  dev/task/chore/123/example-task
+  ```
 
-    1. **`staging/pbi` branches:**
-    For transitioning an approved `dev/pbi` branch into our staging environment. These branches are identical to their corresponding `dev/pbi` branches. 
+  2. **`dev/pbi` branches:**
+     For combining individual `dev/task` branches for the tasks in a PBI for isolated integration testing.
 
-      **The name of a `staging/pbi` branch should match the name of the `dev/pbi` from which it was created**
+  ```bash
+  dev/pbi/<pbi-number>/<description>
+  ```
 
-    ```bash
-    staging/pbi/<pbi-number>/<description> 
-    ```
-    Example:
-    ```bash
-    staging/pbi/35/example-pbi
-    ```
+  Example:
 
-    2. **`staging/feat` branches:**
-    For combining all `staging/pbi` branches belonging to a single feature. This is used for more complete integration testing before deployment to production.
-    ```bash
-    staging/feat/<feature-name>
-    ```
-    Example:
-    ```bash
-    staging/feat/user-authentication-flow
-    ```
+  ```bash
+  dev/pbi/35/example-pbi
+  ```
 
-    3. **`staging/release` branches:**
-    For combining all `staging/feat` branches to be included in a single, scheduled, production deployment. This is used for final integration testing before deploying to the live production environment.
-    ```bash
-    staging/release/<version-number>
-    ```
-    Example:
-    ```bash
-    staging/release/v1.0.0
-    ```
+- **Staging Branches:** These are shared branches used for preparing changes to be released in production.
+  1. **`staging/pbi` branches:**
+     For transitioning an approved `dev/pbi` branch into our staging environment. These branches are identical to their corresponding `dev/pbi` branches.
 
-  - **Production branches:** Only used to fix urgent bugs in our `prod` environment.
-  
-  **`prod/hotfix` branches are the only branches that are created from the main `prod` branch.**
+     **The name of a `staging/pbi` branch should match the name of the `dev/pbi` from which it was created**
+
+  ```bash
+  staging/pbi/<pbi-number>/<description>
+  ```
+
+  Example:
+
+  ```bash
+  staging/pbi/35/example-pbi
+  ```
+
+  2. **`staging/feat` branches:**
+     For combining all `staging/pbi` branches belonging to a single feature. This is used for more complete integration testing before deployment to production.
+
+  ```bash
+  staging/feat/<feature-name>
+  ```
+
+  Example:
+
+  ```bash
+  staging/feat/user-authentication-flow
+  ```
+
+  3. **`staging/release` branches:**
+     For combining all `staging/feat` branches to be included in a single, scheduled, production deployment. This is used for final integration testing before deploying to the live production environment.
+
+  ```bash
+  staging/release/<version-number>
+  ```
+
+  Example:
+
+  ```bash
+  staging/release/v1.0.0
+  ```
+
+- **Production branches:** Only used to fix urgent bugs in our `prod` environment.
+
+**`prod/hotfix` branches are the only branches that are created from the main `prod` branch.**
 
     1. **`prod/hotfix` branches:**
     To deploy urgent bug fixes directly to the production environment, bypassing the typical development and staging cycles for critical issues.
@@ -1091,211 +1154,212 @@ If you would like a custom emulator configuration, edit the `firebase.json` deta
     prod/hotfix/job-application-form-submit-button-disabled
     ```
 
-  **For help with failing name checks, see [Failing Branch Name](#failing-branch-name) in the [Troubleshooting](#troubleshooting) section below.**
+**For help with failing name checks, see [Failing Branch Name](#failing-branch-name) in the [Troubleshooting](#troubleshooting) section below.**
 
 ## Project Structure
 
 ### Top-level directories
 
-  -  **`.github/`**: Contains GitHub-specific configurations, including CI/CD workflows (like ESLint checks) and the `CODEOWNERS` file for pull request reviews.
-  - **`firestore_rules/`**: Holds the security rules for the Firestore database, with separate files for each environment (`dev`, `staging`, `prod`).
-  - **`functions/`**: Contains all backend logic as Firebase Cloud Functions. This serves as the secure API for operations requiring elevated privileges. It has its own `package.json` and dependencies.
-  - **`public/`**: Stores all static assets that are served directly by Next.js, such as images, icons, and fonts.
-  - **`src/`**: The main source code directory for the Next.js frontend application. All pages, components, contexts, hooks, and styles are located here.
-  - **`storage_rules/`**: Holds the security rules for Cloud Storage, with separate files for each environment.
+- **`.github/`**: Contains GitHub-specific configurations, including CI/CD workflows (like ESLint checks) and the `CODEOWNERS` file for pull request reviews.
+- **`firestore_rules/`**: Holds the security rules for the Firestore database, with separate files for each environment (`dev`, `staging`, `prod`).
+- **`functions/`**: Contains all backend logic as Firebase Cloud Functions. This serves as the secure API for operations requiring elevated privileges. It has its own `package.json` and dependencies.
+- **`public/`**: Stores all static assets that are served directly by Next.js, such as images, icons, and fonts.
+- **`src/`**: The main source code directory for the Next.js frontend application. All pages, components, contexts, hooks, and styles are located here.
+- **`storage_rules/`**: Holds the security rules for Cloud Storage, with separate files for each environment.
 
 ### Project File Tree
 
-  ```plaintext
-  ┣ 📂.firebase
-  ┃ ┗ 📜hosting.Lm5leHQ.cache
-  ┣ 📂.github
-  ┃ ┣ 📂workflows
-  ┃ ┃ ┣ 📜branch-naming.yml
-  ┃ ┃ ┗ 📜eslint.yml
-  ┃ ┗ 📜CODEOWNERS
-  ┣ 📂.next
-  ┣ 📂.vscode
-  ┃ ┗ 📜settings.json
-  ┣ 📂extensions
-  ┣ 📂firestore_rules
-  ┃ ┣ 📜dev.rules
-  ┃ ┣ 📜prod.rules
-  ┃ ┗ 📜staging.rules
-  ┣ 📂functions
-  ┃ ┣ 📂lib
-  ┃ ┃ ┣ 📂middleware
-  ┃ ┃ ┃ ┣ 📜authMiddleware.js
-  ┃ ┃ ┣ 📂routes
-  ┃ ┃ ┃ ┣ 📜blogPosts.js
-  ┃ ┃ ┃ ┣ 📜estimateRequests.js
-  ┃ ┃ ┃ ┣ 📜subscribers.js
-  ┃ ┃ ┣ 📂utils
-  ┃ ┃ ┃ ┣ 📜admin.js
-  ┃ ┃ ┣ 📜types.js
-  ┃ ┣ 📂src
-  ┃ ┃ ┣ 📂middleware
-  ┃ ┃ ┃ ┣ 📜authMiddleware.ts
-  ┃ ┃ ┣ 📂routes
-  ┃ ┃ ┃ ┣ 📜blogPosts.ts
-  ┃ ┃ ┃ ┣ 📜estimateRequests.ts
-  ┃ ┃ ┃ ┗ 📜subscribers.ts
-  ┃ ┃ ┣ 📂utils
-  ┃ ┃ ┃ ┗ 📜admin.ts
-  ┃ ┃ ┗ 📜types.ts
-  ┣ 📂public
-  ┃ ┣ 📂icons
-  ┃ ┣ 📂images
-  ┣ 📂src
-  ┃ ┣ 📂app
-  ┃ ┃ ┣ 📂(main)
-  ┃ ┃ ┃ ┣ 📂(auth)
-  ┃ ┃ ┃ ┃ ┣ 📂login
-  ┃ ┃ ┃ ┃ ┣ 📂sign-up
-  ┃ ┃ ┃ ┃ ┗ 📜layout.tsx
-  ┃ ┃ ┃ ┣ 📂about
-  ┃ ┃ ┃ ┣ 📂admin
-  ┃ ┃ ┃ ┃ ┣ 📂_components
-  ┃ ┃ ┃ ┃ ┃ ┣ 📜AdminHeader.tsx
-  ┃ ┃ ┃ ┃ ┃ ┗ 📜AdminSidebar.tsx
-  ┃ ┃ ┃ ┃ ┣ 📂clients
-  ┃ ┃ ┃ ┃ ┣ 📂contact-requests
-  ┃ ┃ ┃ ┃ ┣ 📂dashboard
-  ┃ ┃ ┃ ┃ ┣ 📂estimates
-  ┃ ┃ ┃ ┃ ┗ 📜layout.tsx
-  ┃ ┃ ┃ ┣ 📂blog
-  ┃ ┃ ┃ ┃ ┣ 📂[id]
-  ┃ ┃ ┃ ┃ ┣ 📜layout.tsx
-  ┃ ┃ ┃ ┣ 📂careers
-  ┃ ┃ ┃ ┣ 📂faq
-  ┃ ┃ ┃ ┣ 📂news
-  ┃ ┃ ┃ ┃ ┣ 📂[id]
-  ┃ ┃ ┃ ┃ ┣ 📜layout.tsx
-  ┃ ┃ ┃ ┣ 📂privacy-policies
-  ┃ ┃ ┃ ┣ 📂service-terms
-  ┃ ┃ ┃ ┣ 📂services
-  ┃ ┃ ┃ ┃ ┣ 📂[id]
-  ┃ ┃ ┃ ┗ 📂testimonials
-  ┃ ┃ ┣ 📂api
-  ┃ ┃ ┃ ┗ 📂recaptcha
-  ┃ ┃ ┃   ┗ 📜route.ts
-  ┃ ┃ ┣ 📜EmotionRegistry.tsx
-  ┃ ┃ ┣ 📜globals.css
-  ┃ ┃ ┣ 📜layout.tsx
-  ┃ ┃ ┣ 📜not-found.tsx
-  ┃ ┃ ┣ 📜page.tsx
-  ┃ ┃ ┗ 📜providers.tsx
-  ┃ ┣ 📂assets
-  ┃ ┃ ┗ 📂svg
-  ┃ ┣ 📂components
-  ┃ ┃ ┣ 📂action-buttons
-  ┃ ┃ ┃ ┣ 📂CallButton
-  ┃ ┃ ┃ ┣ 📂CreateBlogButton
-  ┃ ┃ ┃ ┣ 📂EstimateRequestButton
-  ┃ ┃ ┃ ┣ 📂ReviewButton
-  ┃ ┃ ┃ ┣ 📂ShareButton
-  ┃ ┃ ┃ ┣ 📂SmsButton
-  ┃ ┃ ┣ 📂auth
-  ┃ ┃ ┃ ┣ 📂AuthForm
-  ┃ ┃ ┃ ┃ ┗ 📜AuthForm.tsx
-  ┃ ┃ ┣ 📂common
-  ┃ ┃ ┃ ┣ 📂ActionButton
-  ┃ ┃ ┃ ┣ 📂ArrowButtons
-  ┃ ┃ ┃ ┣ 📂ContentBox
-  ┃ ┃ ┃ ┣ 📂CustomCheckbox
-  ┃ ┃ ┃ ┣ 📂CustomModal
-  ┃ ┃ ┃ ┣ 📂CustomTextField
-  ┃ ┃ ┃ ┣ 📂DropdownMultiSelect
-  ┃ ┃ ┃ ┣ 📂GroupedMultiSelect
-  ┃ ┃ ┃ ┣ 📂NavButton
-  ┃ ┃ ┃ ┣ 📂PageContainer
-  ┃ ┃ ┃ ┣ 📂PageTitle
-  ┃ ┃ ┃ ┣ 📂Section
-  ┃ ┃ ┃ ┣ 📂SectionTitle
-  ┃ ┃ ┃ ┣ 📂TruncatedChip
-  ┃ ┃ ┃ ┗ 📂TypographyHangingIndent
-  ┃ ┃ ┣ 📂forms
-  ┃ ┃ ┃ ┣ 📂BlogForm
-  ┃ ┃ ┃ ┣ 📂EstimateRequestForm
-  ┃ ┃ ┃ ┣ 📂JobApplication
-  ┃ ┃ ┃ ┣ 📂SubscribeForm
-  ┃ ┃ ┣ 📂layout
-  ┃ ┃ ┃ ┣ 📂Footer
-  ┃ ┃ ┃ ┗ 📂NavBar
-  ┃ ┃ ┗ 📂sections
-  ┃ ┃   ┣ 📂Award
-  ┃ ┃   ┣ 📂ComingSoon
-  ┃ ┃   ┣ 📂Hero
-  ┃ ┃   ┃ ┣ 📂components
-  ┃ ┃   ┃ ┃ ┣ 📂HeroHeader
-  ┃ ┃   ┃ ┃ ┣ 📜CompanyNameHeader.tsx
-  ┃ ┃   ┃ ┃ ┣ 📜HeroActionArea.tsx
-  ┃ ┃   ┃ ┃ ┣ 📜HeroContainer.tsx
-  ┃ ┃   ┃ ┃ ┣ 📜HeroScroll.tsx
-  ┃ ┃   ┣ 📂ReviewCard
-  ┃ ┃   ┣ 📂ServicesAccordion
-  ┃ ┣ 📂constants
-  ┃ ┃ ┣ 📜careers.ts
-  ┃ ┃ ┣ 📜companyDetails.ts
-  ┃ ┃ ┣ 📜FAQ.ts
-  ┃ ┃ ┣ 📜privacyPolicy.ts
-  ┃ ┃ ┗ 📜services.ts
-  ┃ ┣ 📂contexts
-  ┃ ┃ ┣ 📂AuthContext
-  ┃ ┃ ┗ 📂FirebaseCollectionContext
-  ┃ ┣ 📂hooks
-  ┃ ┃ ┣ 📂auth
-  ┃ ┃ ┃ ┗ 📜useUser.ts
-  ┃ ┃ ┣ 📜useMedia.ts
-  ┃ ┃ ┗ 📜useRecaptcha.ts
-  ┃ ┣ 📂lib
-  ┃ ┃ ┣ 📂createEmotionCache
-  ┃ ┃ ┣ 📂firebase
-  ┃ ┃ ┃ ┣ 📜firebase.ts
-  ┃ ┃ ┃ ┣ 📜firebaseAdmin.ts
-  ┃ ┃ ┣ 📂services
-  ┃ ┃ ┃ ┣ 📜apiService.ts
-  ┃ ┃ ┣ 📂utils
-  ┃ ┣ 📂styles
-  ┃ ┃ ┣ 📂theme
-  ┃ ┃ ┃ ┣ 📂components
-  ┃ ┃ ┃ ┃ ┣ 📜_base.ts
-  ┃ ┃ ┃ ┃ ┣ 📜_buttons.ts
-  ┃ ┃ ┃ ┃ ┣ 📜_content.ts
-  ┃ ┃ ┃ ┃ ┣ 📜_dialogs.ts
-  ┃ ┃ ┃ ┃ ┣ 📜_forms.ts
-  ┃ ┃ ┃ ┃ ┣ 📜_navigation.ts
-  ┃ ┃ ┃ ┣ 📜colors.ts
-  ┃ ┃ ┃ ┣ 📜globalSlickStyles.ts
-  ┃ ┃ ┃ ┣ 📜otherThemeConstants.ts
-  ┃ ┃ ┃ ┣ 📜palette.ts
-  ┃ ┃ ┃ ┗ 📜typography.ts
-  ┃ ┃ ┣ 📜globals.css
-  ┃ ┃ ┗ 📜variables.css
-  ┃ ┗ 📂types
-  ┃   ┣ 📜express.d.ts
-  ┃   ┗ 📜mui.d.ts
-  ┣ 📂storage_rules
-  ┃ ┣ 📜dev.rules
-  ┃ ┣ 📜prod.rules
-  ┃ ┗ 📜staging.rules
-  ┣ 📜.env.local
-  ┣ 📜.env.prod
-  ┣ 📜.env.staging
-  ┣ 📜.firebaserc
-  ┣ 📜database.rules.json
-  ┣ 📜firebase.json
-  ┣ 📜package.json
+```plaintext
+┣ 📂.firebase
+┃ ┗ 📜hosting.Lm5leHQ.cache
+┣ 📂.github
+┃ ┣ 📂workflows
+┃ ┃ ┣ 📜branch-naming.yml
+┃ ┃ ┗ 📜eslint.yml
+┃ ┗ 📜CODEOWNERS
+┣ 📂.next
+┣ 📂.vscode
+┃ ┗ 📜settings.json
+┣ 📂extensions
+┣ 📂firestore_rules
+┃ ┣ 📜dev.rules
+┃ ┣ 📜prod.rules
+┃ ┗ 📜staging.rules
+┣ 📂functions
+┃ ┣ 📂lib
+┃ ┃ ┣ 📂middleware
+┃ ┃ ┃ ┣ 📜authMiddleware.js
+┃ ┃ ┣ 📂routes
+┃ ┃ ┃ ┣ 📜blogPosts.js
+┃ ┃ ┃ ┣ 📜estimateRequests.js
+┃ ┃ ┃ ┣ 📜subscribers.js
+┃ ┃ ┣ 📂utils
+┃ ┃ ┃ ┣ 📜admin.js
+┃ ┃ ┣ 📜types.js
+┃ ┣ 📂src
+┃ ┃ ┣ 📂middleware
+┃ ┃ ┃ ┣ 📜authMiddleware.ts
+┃ ┃ ┣ 📂routes
+┃ ┃ ┃ ┣ 📜blogPosts.ts
+┃ ┃ ┃ ┣ 📜estimateRequests.ts
+┃ ┃ ┃ ┗ 📜subscribers.ts
+┃ ┃ ┣ 📂utils
+┃ ┃ ┃ ┗ 📜admin.ts
+┃ ┃ ┗ 📜types.ts
+┣ 📂public
+┃ ┣ 📂icons
+┃ ┣ 📂images
+┣ 📂src
+┃ ┣ 📂app
+┃ ┃ ┣ 📂(main)
+┃ ┃ ┃ ┣ 📂(auth)
+┃ ┃ ┃ ┃ ┣ 📂login
+┃ ┃ ┃ ┃ ┣ 📂sign-up
+┃ ┃ ┃ ┃ ┗ 📜layout.tsx
+┃ ┃ ┃ ┣ 📂about
+┃ ┃ ┃ ┣ 📂admin
+┃ ┃ ┃ ┃ ┣ 📂_components
+┃ ┃ ┃ ┃ ┃ ┣ 📜AdminHeader.tsx
+┃ ┃ ┃ ┃ ┃ ┗ 📜AdminSidebar.tsx
+┃ ┃ ┃ ┃ ┣ 📂clients
+┃ ┃ ┃ ┃ ┣ 📂contact-requests
+┃ ┃ ┃ ┃ ┣ 📂dashboard
+┃ ┃ ┃ ┃ ┣ 📂estimates
+┃ ┃ ┃ ┃ ┗ 📜layout.tsx
+┃ ┃ ┃ ┣ 📂blog
+┃ ┃ ┃ ┃ ┣ 📂[id]
+┃ ┃ ┃ ┃ ┣ 📜layout.tsx
+┃ ┃ ┃ ┣ 📂careers
+┃ ┃ ┃ ┣ 📂faq
+┃ ┃ ┃ ┣ 📂news
+┃ ┃ ┃ ┃ ┣ 📂[id]
+┃ ┃ ┃ ┃ ┣ 📜layout.tsx
+┃ ┃ ┃ ┣ 📂privacy-policies
+┃ ┃ ┃ ┣ 📂service-terms
+┃ ┃ ┃ ┣ 📂services
+┃ ┃ ┃ ┃ ┣ 📂[id]
+┃ ┃ ┃ ┗ 📂testimonials
+┃ ┃ ┣ 📂api
+┃ ┃ ┃ ┗ 📂recaptcha
+┃ ┃ ┃   ┗ 📜route.ts
+┃ ┃ ┣ 📜EmotionRegistry.tsx
+┃ ┃ ┣ 📜globals.css
+┃ ┃ ┣ 📜layout.tsx
+┃ ┃ ┣ 📜not-found.tsx
+┃ ┃ ┣ 📜page.tsx
+┃ ┃ ┗ 📜providers.tsx
+┃ ┣ 📂assets
+┃ ┃ ┗ 📂svg
+┃ ┣ 📂components
+┃ ┃ ┣ 📂action-buttons
+┃ ┃ ┃ ┣ 📂CallButton
+┃ ┃ ┃ ┣ 📂CreateBlogButton
+┃ ┃ ┃ ┣ 📂EstimateRequestButton
+┃ ┃ ┃ ┣ 📂ReviewButton
+┃ ┃ ┃ ┣ 📂ShareButton
+┃ ┃ ┃ ┣ 📂SmsButton
+┃ ┃ ┣ 📂auth
+┃ ┃ ┃ ┣ 📂AuthForm
+┃ ┃ ┃ ┃ ┗ 📜AuthForm.tsx
+┃ ┃ ┣ 📂common
+┃ ┃ ┃ ┣ 📂ActionButton
+┃ ┃ ┃ ┣ 📂ArrowButtons
+┃ ┃ ┃ ┣ 📂ContentBox
+┃ ┃ ┃ ┣ 📂CustomCheckbox
+┃ ┃ ┃ ┣ 📂CustomModal
+┃ ┃ ┃ ┣ 📂CustomTextField
+┃ ┃ ┃ ┣ 📂DropdownMultiSelect
+┃ ┃ ┃ ┣ 📂GroupedMultiSelect
+┃ ┃ ┃ ┣ 📂NavButton
+┃ ┃ ┃ ┣ 📂PageContainer
+┃ ┃ ┃ ┣ 📂PageTitle
+┃ ┃ ┃ ┣ 📂Section
+┃ ┃ ┃ ┣ 📂SectionTitle
+┃ ┃ ┃ ┣ 📂TruncatedChip
+┃ ┃ ┃ ┗ 📂TypographyHangingIndent
+┃ ┃ ┣ 📂forms
+┃ ┃ ┃ ┣ 📂BlogForm
+┃ ┃ ┃ ┣ 📂EstimateRequestForm
+┃ ┃ ┃ ┣ 📂JobApplication
+┃ ┃ ┃ ┣ 📂SubscribeForm
+┃ ┃ ┣ 📂layout
+┃ ┃ ┃ ┣ 📂Footer
+┃ ┃ ┃ ┗ 📂NavBar
+┃ ┃ ┗ 📂sections
+┃ ┃   ┣ 📂Award
+┃ ┃   ┣ 📂ComingSoon
+┃ ┃   ┣ 📂Hero
+┃ ┃   ┃ ┣ 📂components
+┃ ┃   ┃ ┃ ┣ 📂HeroHeader
+┃ ┃   ┃ ┃ ┣ 📜CompanyNameHeader.tsx
+┃ ┃   ┃ ┃ ┣ 📜HeroActionArea.tsx
+┃ ┃   ┃ ┃ ┣ 📜HeroContainer.tsx
+┃ ┃   ┃ ┃ ┣ 📜HeroScroll.tsx
+┃ ┃   ┣ 📂ReviewCard
+┃ ┃   ┣ 📂ServicesAccordion
+┃ ┣ 📂constants
+┃ ┃ ┣ 📜careers.ts
+┃ ┃ ┣ 📜companyDetails.ts
+┃ ┃ ┣ 📜FAQ.ts
+┃ ┃ ┣ 📜privacyPolicy.ts
+┃ ┃ ┗ 📜services.ts
+┃ ┣ 📂contexts
+┃ ┃ ┣ 📂AuthContext
+┃ ┃ ┗ 📂FirebaseCollectionContext
+┃ ┣ 📂hooks
+┃ ┃ ┣ 📂auth
+┃ ┃ ┃ ┗ 📜useUser.ts
+┃ ┃ ┣ 📜useMedia.ts
+┃ ┃ ┗ 📜useRecaptcha.ts
+┃ ┣ 📂lib
+┃ ┃ ┣ 📂createEmotionCache
+┃ ┃ ┣ 📂firebase
+┃ ┃ ┃ ┣ 📜firebase.ts
+┃ ┃ ┃ ┣ 📜firebaseAdmin.ts
+┃ ┃ ┣ 📂services
+┃ ┃ ┃ ┣ 📜apiService.ts
+┃ ┃ ┣ 📂utils
+┃ ┣ 📂styles
+┃ ┃ ┣ 📂theme
+┃ ┃ ┃ ┣ 📂components
+┃ ┃ ┃ ┃ ┣ 📜_base.ts
+┃ ┃ ┃ ┃ ┣ 📜_buttons.ts
+┃ ┃ ┃ ┃ ┣ 📜_content.ts
+┃ ┃ ┃ ┃ ┣ 📜_dialogs.ts
+┃ ┃ ┃ ┃ ┣ 📜_forms.ts
+┃ ┃ ┃ ┃ ┣ 📜_navigation.ts
+┃ ┃ ┃ ┣ 📜colors.ts
+┃ ┃ ┃ ┣ 📜globalSlickStyles.ts
+┃ ┃ ┃ ┣ 📜otherThemeConstants.ts
+┃ ┃ ┃ ┣ 📜palette.ts
+┃ ┃ ┃ ┗ 📜typography.ts
+┃ ┃ ┣ 📜globals.css
+┃ ┃ ┗ 📜variables.css
+┃ ┗ 📂types
+┃   ┣ 📜express.d.ts
+┃   ┗ 📜mui.d.ts
+┣ 📂storage_rules
+┃ ┣ 📜dev.rules
+┃ ┣ 📜prod.rules
+┃ ┗ 📜staging.rules
+┣ 📜.env.local
+┣ 📜.env.prod
+┣ 📜.env.staging
+┣ 📜.firebaserc
+┣ 📜database.rules.json
+┣ 📜firebase.json
+┣ 📜package.json
 
-  ```
+```
 
 ## Troubleshooting
 
 ### npm install (on project start up)
 
-  1. Read the error message. Look closely for `Err!` lines in the console output.
+1. Read the error message. Look closely for `Err!` lines in the console output.
 
-  2. Verify `Node.js` and `npm` versions. You should have:
+2. Verify `Node.js` and `npm` versions. You should have:
+
 
     - `Node.js `**v22.x** or higher
     - `npm `**v11.x** or higher
@@ -1307,18 +1371,20 @@ If you would like a custom emulator configuration, edit the `firebase.json` deta
     npm -v
     ```
 
-    If there is a mismatch, use a version manager like `nvm` to switch to the required version. 
-    
+    If there is a mismatch, use a version manager like `nvm` to switch to the required version.
+
     See instructions for switching versions [here](https://medium.com/@madhawaawishka/switching-node-js-versions-with-nvm-53aff64ac4f2#:~:text=nvm%20allows%20you%20to%20install,on%20via%20the%20command%20line.).
 
-  3. Clear `npm cache` (precautionary) and attempt to reinstall:
+3. Clear `npm cache` (precautionary) and attempt to reinstall:
+
 
     ```bash
     npm cache clean --force
     npm install
     ```
 
-  4. Check network/proxy for issues in the console
+4. Check network/proxy for issues in the console
+
 
     - Errors like `ETIMEDOUT`, `EAI_AGAIN`, `SSL_CERT_ERR` are indicative of network issues.
     - Ensure `npm proxy` settings are correct with these commands:
@@ -1335,29 +1401,30 @@ If you would like a custom emulator configuration, edit the `firebase.json` deta
         {}
         ```
 
-        - If unsuccessful, it will return network errors like `ETIMEDOUT`, `ECONNRESET`, or `UNABLE_TO_GET_ISSUER_CERT_LOCALLY`. 
-        - This indicates the proxy settings are incorrect or there are underlying network/SSL issues. 
-        - For help debugging network/SSL issues, please reach out to me or find troubleshooting instructions from a reputable source. 
+        - If unsuccessful, it will return network errors like `ETIMEDOUT`, `ECONNRESET`, or `UNABLE_TO_GET_ISSUER_CERT_LOCALLY`.
+        - This indicates the proxy settings are incorrect or there are underlying network/SSL issues.
+        - For help debugging network/SSL issues, please reach out to me or find troubleshooting instructions from a reputable source.
         - **Do not** set `strict-ssl` to `false`, as it is not secure.
 
-  5. If none of the above methods are successful, try running with a verbose output for more detailed debugging information with this command:
+5. If none of the above methods are successful, try running with a verbose output for more detailed debugging information with this command:
 
-  ```bash
-  npm install --loglevel verbose
-  ```
+```bash
+npm install --loglevel verbose
+```
 
-  6. If you still can't figure it out, copy your `ERR!` lines from your terminal and paste them into a search engine or AI model (Gemini, Copilot, ChatGPT, your choice). Many common errors have well-known solutions.
+6. If you still can't figure it out, copy your `ERR!` lines from your terminal and paste them into a search engine or AI model (Gemini, Copilot, ChatGPT, your choice). Many common errors have well-known solutions.
 
 ### npm install (after successful initial project setup)
 
-  1. Read the error message. Look closely for `Err!` lines in the console output.
+1. Read the error message. Look closely for `Err!` lines in the console output.
 
-  2. Clear `npm cache`: `npm cache clean --force`
+2. Clear `npm cache`: `npm cache clean --force`
 
-  3. Delete `node_modules` and `package-lock.json`:
+3. Delete `node_modules` and `package-lock.json`:
+
 
     - First, ensure your local environment is **not actively running** in any terminals.
-    - Delete `node_modules` and `package-lock.json`: 
+    - Delete `node_modules` and `package-lock.json`:
 
     ```bash
     rm -rf node_modules
@@ -1366,7 +1433,8 @@ If you would like a custom emulator configuration, edit the `firebase.json` deta
 
     - Attempt to reinstall dependencies: `npm install`
 
-  4. Verify `Node.js` and `npm` versions. You should have:
+4. Verify `Node.js` and `npm` versions. You should have:
+
 
     - `Node.js` **v22.x** or higher
     - `npm` **v11.x** or higher
@@ -1380,7 +1448,8 @@ If you would like a custom emulator configuration, edit the `firebase.json` deta
 
     If there is a mismatch, use a version manager like `nvm` to switch to the required version. See instructions for switching versions [here](https://medium.com/@madhawaawishka/switching-node-js-versions-with-nvm-53aff64ac4f2#:~:text=nvm%20allows%20you%20to%20install,on%20via%20the%20command%20line.).
 
-  5. Check network/proxy for issues in the console
+5. Check network/proxy for issues in the console
+
 
     - Errors like `ETIMEDOUT`, `EAI_AGAIN`, `SSL_CERT_ERR` are indicative of network issues.
     - Temporarily disable VPN/proxy (NOT recommended), or ensure npm proxy settings are correct with these commands:
@@ -1397,14 +1466,15 @@ If you would like a custom emulator configuration, edit the `firebase.json` deta
         {}
         ```
 
-        - If unsuccessful, it will return network errors like `ETIMEDOUT`, `ECONNRESET`, or `UNABLE_TO_GET_ISSUER_CERT_LOCALLY`. 
-        - This indicates the proxy settings are incorrect or there are underlying network/SSL issues. 
-        - For help debugging network/SSL issues, please reach out to me or find troubleshooting instructions from a reputable source. 
+        - If unsuccessful, it will return network errors like `ETIMEDOUT`, `ECONNRESET`, or `UNABLE_TO_GET_ISSUER_CERT_LOCALLY`.
+        - This indicates the proxy settings are incorrect or there are underlying network/SSL issues.
+        - For help debugging network/SSL issues, please reach out to me or find troubleshooting instructions from a reputable source.
         - **Do not** set `strict-ssl` to `false`, as it is not secure.
 
-  6. Try running with a verbose output for more detailed debugging information: `npm install --loglevel verbose`
+6. Try running with a verbose output for more detailed debugging information: `npm install --loglevel verbose`
 
-  7. Check permissions to make sure they are correct for `npm`: 
+7. Check permissions to make sure they are correct for `npm`:
+
 
     - If errors mention `EACCES` or permission denied, the problem is likely the permissions configuration on your local machine.
     - To bypass permissions and install anyway (use with caution, only if absolutely necessary):
@@ -1452,7 +1522,7 @@ If you would like a custom emulator configuration, edit the `firebase.json` deta
       ```bash
       source ~/.profile
       ```
-    
+
     5. Test your changes by attempting to install a package globally without `sudo` using this command (using any package you like, ideally a small one):
 
     ```bash
@@ -1466,7 +1536,7 @@ If you would like a custom emulator configuration, edit the `firebase.json` deta
 
         1. Make sure the project directory, permissions, and CLI are in the same filesystem.
         2. Once you are sure you are using and storing everything within a single filesystem, return to **step 4**.
-      
+
     ** If you are still having problems, or frequently have permission errors:**
 
     - Use a tool like Node Version Manager `nvm` or `volta` to automatically handle permissions correclty. These tool install Node.js and `npm` to your user directory from the start. This is the ideal solution to frequent permissions errors.
@@ -1474,7 +1544,8 @@ If you would like a custom emulator configuration, edit the `firebase.json` deta
     - Still having permission problems?
       Clone the repository in a different filesystem (e.g., WSL for windows)
 
-  8. Try updating `npm`.
+8. Try updating `npm`.
+
 
     - To update `npm` to the latest version, run this command:
 
@@ -1482,9 +1553,10 @@ If you would like a custom emulator configuration, edit the `firebase.json` deta
     npm install -g npm@latest
     ```
 
-  9. Check `package.json` for typos, missing commas, incorrect version ranges, etc.
+9. Check `package.json` for typos, missing commas, incorrect version ranges, etc.
 
-  10. Check for specific dependency issues.
+10. Check for specific dependency issues.
+
 
     - Try installing each dependency individually with `--force` to determine if one or more of the dependencies are the issue with this command:
 
@@ -1492,47 +1564,48 @@ If you would like a custom emulator configuration, edit the `firebase.json` deta
     npm install --force
     ```
 
-  11. If you still can't figure it out, copy your `ERR!` lines from your terminal and paste them into a search engine or AI model (Gemini, Copilot, ChatGPT, your choice). Many common errors have well-known solutions.
+11. If you still can't figure it out, copy your `ERR!` lines from your terminal and paste them into a search engine or AI model (Gemini, Copilot, ChatGPT, your choice). Many common errors have well-known solutions.
 
 ### Failing Branch Name Check
-  - All branches must follow the naming conventions mentioned in the [Contributing](#contributing) section above. 
-  - If you accidentally created and worked on a branch with an incorrect naming pattern, your PR will not pass necessary checks. To rename your branch, follow these steps:
 
-    1. In your CLI, switch to the branch that needs renaming
+- All branches must follow the naming conventions mentioned in the [Contributing](#contributing) section above.
+- If you accidentally created and worked on a branch with an incorrect naming pattern, your PR will not pass necessary checks. To rename your branch, follow these steps:
+  1. In your CLI, switch to the branch that needs renaming
 
-    ```bash
-    git checkout <old-branch-name>
-    ```
+  ```bash
+  git checkout <old-branch-name>
+  ```
 
-    2. Rename the local branch. The `-m` flag is for "move" (rename)
+  2. Rename the local branch. The `-m` flag is for "move" (rename)
 
-    ```bash
-    git branch -m <new-branch-name>
-    ```
+  ```bash
+  git branch -m <new-branch-name>
+  ```
 
-    3. Delete the old, incorrectly named branch from the remote repository
+  3. Delete the old, incorrectly named branch from the remote repository
 
-    ```bash
-    git push origin --delete <old-branch-name>
-    ```
+  ```bash
+  git push origin --delete <old-branch-name>
+  ```
 
-    4. Push the new, correclty named branch to the remote repository. The `-u` (or `--set-upstream`) flag sets the upstream ranch for future push and pull commands to automatically track the new remote branch.
+  4. Push the new, correclty named branch to the remote repository. The `-u` (or `--set-upstream`) flag sets the upstream ranch for future push and pull commands to automatically track the new remote branch.
 
-    ```bash
-    git push -u origin <new-branch-name>
-    ```
+  ```bash
+  git push -u origin <new-branch-name>
+  ```
 
-    5. Confirm the new branch is working and run this command to cleanup local references to branches that no longer exist on the remote repository.
+  5. Confirm the new branch is working and run this command to cleanup local references to branches that no longer exist on the remote repository.
 
-    ```bash
-    git remote prune origin
-    ```
+  ```bash
+  git remote prune origin
+  ```
 
-    6. Update your Pull Request
-      - Go to PR on GitHub
-      - GitHub may have automatically updated the PR, but if not there should be an option to associate the PR with a new branch.
-      - If GitHub does not automatically update the PR and you do not see the option to change the associated branch, close the PR linked to the old branch and create a new PR with the new branch.
+  6. Update your Pull Request
+  - Go to PR on GitHub
+  - GitHub may have automatically updated the PR, but if not there should be an option to associate the PR with a new branch.
+  - If GitHub does not automatically update the PR and you do not see the option to change the associated branch, close the PR linked to the old branch and create a new PR with the new branch.
 
 ## License
-  - This project is proprietary and is not licensed for public use. All rights are reserved by Penny Nichols.
-  - Contributions are welcom, but require a Contributor License Agreement (CLA) to be signed. Please contact Penny Nichols to request access or discuss contributions.
+
+- This project is proprietary and is not licensed for public use. All rights are reserved by Penny Nichols.
+- Contributions are welcom, but require a Contributor License Agreement (CLA) to be signed. Please contact Penny Nichols to request access or discuss contributions.

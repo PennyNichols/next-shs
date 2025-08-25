@@ -1,5 +1,5 @@
 import { Check } from '@mui/icons-material';
-import { Box, Checkbox } from '@mui/material';
+import { Box, Checkbox, alpha } from '@mui/material';
 import { customBorderRadius, customTransitions } from '@/styles/theme/otherThemeConstants';
 import theme from '@/styles/theme';
 
@@ -12,7 +12,7 @@ const CustomCheckbox = ({ checked = false, onChange = null, name = '' }) => {
         display: 'block',
         maxWidth: 19,
         maxHeight: 19,
-        margin: theme.spacing(1, 1.5, 0, 0),
+        margin: theme.spacing(0, 1.5, 0, 0),
         boxSizing: 'border-box',
         border: `2px solid ${theme.palette.secondary.dark}`,
         borderRadius: customBorderRadius.small,
@@ -34,7 +34,7 @@ const CustomCheckbox = ({ checked = false, onChange = null, name = '' }) => {
             sx={{
               color: 'inherit',
               transition: customTransitions.standard,
-              paddingBottom: theme.spacing(0.4),
+              paddingBottom: theme.spacing(0.9),
               [theme.breakpoints.down('sm')]: {
                 transform: 'scale(1.7)',
                 paddingRight: theme.spacing(0.45),
@@ -50,7 +50,7 @@ const CustomCheckbox = ({ checked = false, onChange = null, name = '' }) => {
           position: 'relative',
           top: -4,
           left: -1,
-          transform: 'scale(1.2)',
+          transform: 'scale(1.4)',
           overflow: 'visible',
 
           [theme.breakpoints.down('sm')]: {
@@ -59,6 +59,18 @@ const CustomCheckbox = ({ checked = false, onChange = null, name = '' }) => {
           },
           '&:hover': {
             color: theme.palette.primary.light,
+            backgroundColor: 'transparent',
+            '&::before': {
+              content: '""',
+              position: 'absolute',
+              top: '-2px',
+              left: '0px',
+              width: '20px',
+              height: '20px',
+              backgroundColor: alpha(theme.palette.primary.main, 0.08),
+              borderRadius: customBorderRadius.small,
+              zIndex: -1,
+            },
           },
           '& .PrivateSwitchBase-input': {
             width: 36,
@@ -67,10 +79,10 @@ const CustomCheckbox = ({ checked = false, onChange = null, name = '' }) => {
           '& .MuiTouchRipple-root': {
             overflow: 'visible',
             position: 'absolute',
-            width: 22,
-            height: 22,
-            top: -2,
-            left: -2,
+            width: 20,
+            height: 20,
+            top: -6,
+            left: -4,
             [theme.breakpoints.down('sm')]: {
               width: 20,
               height: 20,

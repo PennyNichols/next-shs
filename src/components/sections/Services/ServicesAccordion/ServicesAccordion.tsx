@@ -11,7 +11,8 @@ const ServicesAccordion = () => {
     <Box
       sx={{
         mt: 3,
-        maxWidth: { xxs: '90vw', sm: '70vw' },
+        maxWidth: '900px',
+        mx: 'auto',
       }}
     >
       {SERVICE_CATEGORIES.map((section, idx) => (

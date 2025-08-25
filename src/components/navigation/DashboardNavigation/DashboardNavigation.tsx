@@ -45,44 +45,33 @@ export const DashboardNavigation = () => {
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
           SHS Dashboard
         </Typography>
-        
+
         {user && (
           <Box display="flex" alignItems="center" gap={2}>
             <Typography variant="body2">
               Welcome, {user.first} {user.last}
             </Typography>
-            <Button
-              onClick={handleMenuOpen}
-              sx={{ color: 'inherit', textTransform: 'none' }}
-            >
-              <Avatar
-                src={user.profilePictureURL}
-                sx={{ width: 32, height: 32, mr: 1 }}
-              >
-                {user.first?.[0]}{user.last?.[0]}
+            <Button onClick={handleMenuOpen} sx={{ color: 'inherit', textTransform: 'none' }}>
+              <Avatar src={user.profilePictureURL} sx={{ width: 32, height: 32, mr: 1 }}>
+                {user.first?.[0]}
+                {user.last?.[0]}
               </Avatar>
             </Button>
-            <Menu
-              anchorEl={anchorEl}
-              open={Boolean(anchorEl)}
-              onClose={handleMenuClose}
-            >
-              <MenuItem onClick={navigateToDashboard}>
-                Dashboard
-              </MenuItem>
-              <MenuItem onClick={() => {
-                if (user?.type === 'admin' || user?.type === 'employee') {
-                  router.push('/admin/dashboard');
-                } else {
-                  router.push('/client/dashboard');
-                }
-                handleMenuClose();
-              }}>
+            <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleMenuClose}>
+              <MenuItem onClick={navigateToDashboard}>Dashboard</MenuItem>
+              <MenuItem
+                onClick={() => {
+                  if (user?.type === 'admin' || user?.type === 'employee') {
+                    router.push('/admin/dashboard');
+                  } else {
+                    router.push('/client/dashboard');
+                  }
+                  handleMenuClose();
+                }}
+              >
                 My Profile
               </MenuItem>
-              <MenuItem onClick={handleSignOut}>
-                Sign Out
-              </MenuItem>
+              <MenuItem onClick={handleSignOut}>Sign Out</MenuItem>
             </Menu>
           </Box>
         )}

@@ -20,17 +20,10 @@ import { ClickAwayListener, Collapse } from '@mui/material';
 import ActionButton from '@/components/common/ActionButton/ActionButton';
 import NavButton from '@/components/common/NavButton/NavButton';
 import StylableLogo from '../../../assets/svg/LogoSvg/LogoSvg';
-
-const pages = [
-  { name: 'Home', href: '/' },
-  { name: 'Services', href: '/services' },
-  { name: 'Careers', href: '/careers' },
-  { name: 'Blog', href: '/blog' },
-  { name: 'About', href: '/about' },
-  { name: 'FAQ', href: '/FAQ' },
-];
+import { useAuth } from '@/contexts/AuthContext/AuthContext';
 
 const NavBar = () => {
+  const { currentUser, signOutUser } = useAuth();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [logoColor, setLogoColor] = useState(theme.palette.background.paper);
   const logoHoverColor = theme.palette.accent.primary;
@@ -38,12 +31,36 @@ const NavBar = () => {
 
   const [showClientContent, setShowClientContent] = useState(false);
 
+  // Dynamic pages array based on authentication status
+  const pages = [
+    // { name: 'Home', href: '/' },
+    { name: 'Services', href: '/services' },
+    { name: 'Careers', href: '/careers' },
+    // { name: 'Blog', href: '/blog' },
+    // { name: 'About', href: '/about' },
+    { name: 'FAQ', href: '/FAQ' },
+    {
+      name: currentUser ? 'Sign Out' : 'Login',
+      href: currentUser ? '#' : '/sign-up',
+      isSignOut: !!currentUser,
+    },
+  ];
+
   useEffect(() => {
     setShowClientContent(true);
   }, []);
 
   const handleMenuToggle = () => setIsMenuOpen((prev) => !prev);
   const handleMenuClose = () => setIsMenuOpen(false);
+
+  const handleSignOut = async () => {
+    try {
+      await signOutUser();
+      handleMenuClose();
+    } catch (error) {
+      console.error('Sign out error:', error);
+    }
+  };
 
   return (
     <ClickAwayListener onClickAway={handleMenuClose}>
@@ -57,13 +74,11 @@ const NavBar = () => {
                   sx={{
                     display: 'flex',
                     justifyContent: 'center',
-                    alignItems: 'flex-end',
+                    alignItems: 'center',
                     p: 0,
                     cursor: 'pointer',
                     transition: 'all .1s ease-in-out',
                     transform: `scale(${logoScale})`,
-                    height: '2rem',
-                    borderBottom: `2px solid ${theme.palette.background.paper}`,
                   }}
                   onMouseEnter={() => setLogoColor(logoHoverColor)}
                   onMouseLeave={() => setLogoColor(theme.palette.background.paper)}
@@ -74,24 +89,12 @@ const NavBar = () => {
                 >
                   <StylableLogo
                     color={logoColor}
-                    height={50}
-                    width={60}
-                    sx={{ position: 'relative', top: '8px', marginRight: 1 }}
-                  />
-                  <Typography
-                    variant="h2"
-                    component="h1"
                     sx={{
-                      color: theme.palette.background.paper,
-                      lineHeight: 0.71,
-                      fontSize: '1.47rem',
-                      letterSpacing: '-.05rem',
-                      paddingRight: 0.5,
+                      height: { xxs: 55, md: 60, xl: 70 },
+                      width: { xxs: 65, md: 70, xl: 82 },
+                      margin: { xxs: 0.7, md: 1 },
                     }}
-                  >
-                    <span style={{ display: 'none' }}></span>
-                    FLORIDA
-                  </Typography>
+                  />
                 </Box>
               </Link>
             </Box>{' '}
@@ -104,11 +107,17 @@ const NavBar = () => {
                   display: { xxs: 'none', md: 'flex' },
                 }}
               >
-                {pages.map((page) => (
-                  <Link className="nav-menu-item" key={page.name} href={page.href} passHref>
-                    <NavButton text={page.name} />
-                  </Link>
-                ))}
+                {pages.map((page) =>
+                  page.isSignOut ? (
+                    <Box key={page.name} component="span" onClick={handleSignOut} sx={{ cursor: 'pointer' }}>
+                      <NavButton text={page.name} />
+                    </Box>
+                  ) : (
+                    <Link className="nav-menu-item" key={page.name} href={page.href} passHref>
+                      <NavButton text={page.name} />
+                    </Link>
+                  ),
+                )}
               </Box>
             )}
             {/* Desktop Skeleton */}
@@ -144,7 +153,7 @@ const NavBar = () => {
                   marginLeft: 'auto',
                 }}
               >
-                <IconButton size="large" aria-label="menu" onClick={handleMenuToggle} color="inherit">
+                <IconButton size="medium" aria-label="menu" onClick={handleMenuToggle} color="inherit">
                   <Box
                     sx={{
                       position: 'relative',
@@ -207,9 +216,15 @@ const NavBar = () => {
           >
             {pages.map((page) => (
               <MenuItem key={page.name} sx={{ justifyContent: 'center' }} onClick={handleMenuClose}>
-                <Link className="nav-menu-item" key={page.name} href={page.href} passHref>
-                  <NavButton text={page.name} />
-                </Link>
+                {page.isSignOut ? (
+                  <Box component="span" onClick={handleSignOut} sx={{ cursor: 'pointer' }}>
+                    <NavButton text={page.name} />
+                  </Box>
+                ) : (
+                  <Link className="nav-menu-item" key={page.name} href={page.href} passHref>
+                    <NavButton text={page.name} />
+                  </Link>
+                )}
               </MenuItem>
             ))}
           </Box>

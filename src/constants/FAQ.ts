@@ -15,7 +15,7 @@ export const FAQ = [
   },
   {
     id: 'q3',
-    question: 'What\'s the typical cost for handyman services?',
+    question: "What's the typical cost for handyman services?",
     answer:
       'Handyman costs vary widely based on the type of job, complexity, materials, and hourly rates. Some charge hourly ($50-$100+), while others quote per project. Always ask for an upfront estimate.',
   },
@@ -23,11 +23,11 @@ export const FAQ = [
     id: 'q4',
     question: 'Do handymen offer emergency services?',
     answer:
-      'Some handymen offer emergency services for urgent repairs like burst pipes or electrical issues. It\'s best to confirm this when you first contact them, as rates for emergency services may be higher.',
+      "Some handymen offer emergency services for urgent repairs like burst pipes or electrical issues. It's best to confirm this when you first contact them, as rates for emergency services may be higher.",
   },
   {
     id: 'q5',
-    question: 'What\'s the difference between a handyman and a licensed contractor?',
+    question: "What's the difference between a handyman and a licensed contractor?",
     answer:
       'A handyman typically handles smaller, non-specialized tasks and minor repairs. A licensed contractor is usually required for larger projects, structural work, or specialized trades (like major electrical or plumbing) that require specific permits and licenses.',
   },
@@ -35,7 +35,7 @@ export const FAQ = [
     id: 'q6',
     question: 'Can a handyman help with home renovations?',
     answer:
-      'For minor renovations like updating a bathroom vanity, installing new flooring, or painting, a handyman can be very helpful. For major structural changes or additions, you\'ll likely need a licensed general contractor.',
+      "For minor renovations like updating a bathroom vanity, installing new flooring, or painting, a handyman can be very helpful. For major structural changes or additions, you'll likely need a licensed general contractor.",
   },
   {
     id: 'q7',
@@ -81,7 +81,7 @@ export const FAQ = [
   },
   {
     id: 'q14',
-    question: 'What if I\'m not satisfied with the handyman\'s work?',
+    question: "What if I'm not satisfied with the handyman's work?",
     answer:
       'Communicate your concerns immediately and clearly. A professional handyman should be willing to address any issues and ensure your satisfaction. If not resolved, consider leaving an honest review.',
   },
@@ -113,12 +113,12 @@ export const FAQ = [
     id: 'q19',
     question: 'What are common signs I need a handyman?',
     answer:
-      'If you have a growing \'to-do\' list of small repairs, notice minor leaks, squeaky doors, loose fixtures, or simply don\'t have the time or tools for a task, it\'s a good time to call a handyman.',
+      "If you have a growing 'to-do' list of small repairs, notice minor leaks, squeaky doors, loose fixtures, or simply don't have the time or tools for a task, it's a good time to call a handyman.",
   },
   {
     id: 'q20',
     question: 'Can a handyman help with hanging pictures and shelving?',
     answer:
-      'Yes, hanging items securely, whether it\'s heavy mirrors, artwork, flat-screen TVs, or installing various types of shelving, is a very common and frequently requested handyman service.',
+      "Yes, hanging items securely, whether it's heavy mirrors, artwork, flat-screen TVs, or installing various types of shelving, is a very common and frequently requested handyman service.",
   },
 ];

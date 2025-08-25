@@ -1,2 +1,2 @@
-import { FirebaseCollectionProvider, useFirebaseCollections } from "./FirebaseCollectionContext";
-export { FirebaseCollectionProvider, useFirebaseCollections };  
+import { FirebaseCollectionProvider, useFirebaseCollections } from './FirebaseCollectionContext';
+export { FirebaseCollectionProvider, useFirebaseCollections };

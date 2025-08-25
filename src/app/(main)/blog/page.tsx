@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { Card, CardActionArea, CardContent, Container, Typography, Box } from '@mui/material';
 import { useFirebaseCollections } from '@/contexts/FirebaseCollectionContext';
-import {CreateBlogButton} from '@/components/action-buttons';
+import { CreateBlogButton } from '@/components/action-buttons';
 const BlogHome = () => {
   const [posts, setPosts] = useState([]);
   const { getBlogPosts } = useFirebaseCollections();

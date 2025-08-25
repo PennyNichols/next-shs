@@ -188,7 +188,7 @@ const AdminDashboardContent = () => {
       </Box>
     </Box>
   );
-}
+};
 
 const AdminDashboardOverview = ({ user }: { user: UserData }) => (
   <Box>
@@ -518,6 +518,6 @@ const AdminDashboard = () => {
       <AdminDashboardContent />
     </StaffRoute>
   );
-}
+};
 
 export default AdminDashboard;

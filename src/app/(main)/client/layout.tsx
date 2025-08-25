@@ -24,13 +24,11 @@ const ClientLayout = ({ children }: { children: React.ReactNode }) => {
             backgroundColor: 'background.default',
           }}
         >
-          <Container maxWidth="xl">
-            {children}
-          </Container>
+          <Container maxWidth="xl">{children}</Container>
         </Box>
       </Box>
     </ClientRoute>
   );
-}
+};
 
 export default ClientLayout;

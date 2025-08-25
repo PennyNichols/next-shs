@@ -29,6 +29,6 @@ const AdminLayout = ({ children }: { children: React.ReactNode }) => {
       </Box>
     </StaffRoute>
   );
-}
+};
 
 export default AdminLayout;

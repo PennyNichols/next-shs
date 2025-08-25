@@ -35,10 +35,10 @@ const DropdownMultiSelect = ({
   menuMaxHeight = 300,
 }) => {
   const uniqueId = React.useId();
-  
+
   const handleChipDelete = (val) => {
     const newSelectedValues = (fieldValue || []).filter((value) => value !== val);
-    onChange(newSelectedValues); 
+    onChange(newSelectedValues);
   };
 
   const handleMenuItemClick = (selectedValue) => {
@@ -68,11 +68,9 @@ const DropdownMultiSelect = ({
         value={fieldValue || []}
         onChange={() => {}}
         renderValue={(selected) => (
-          <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.8, paddingY: hasChips ? 1 : 0, overflow: 'visible'  }}>
+          <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.8, paddingY: hasChips ? 1 : 0, overflow: 'visible' }}>
             {Array.isArray(selected) &&
-              selected.map((val) => (
-                <TruncatedChip key={val} label={val} onDelete={() => handleChipDelete(val)} />
-              ))}
+              selected.map((val) => <TruncatedChip key={val} label={val} onDelete={() => handleChipDelete(val)} />)}
           </Box>
         )}
         MenuProps={{

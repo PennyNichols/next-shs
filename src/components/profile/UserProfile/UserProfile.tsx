@@ -1,18 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import {
-  Box,
-  Card,
-  CardContent,
-  Typography,
-  Avatar,
-  Grid,
-  Chip,
-  IconButton,
-  Divider,
-  Alert,
-} from '@mui/material';
+import { Box, Card, CardContent, Typography, Avatar, Grid, Chip, IconButton, Divider, Alert } from '@mui/material';
 import { Edit, Email, Phone, Home, Person } from '@mui/icons-material';
 import useUser from '@/hooks/auth/useUser';
 import { UserProfileEdit } from '../UserProfileEdit/UserProfileEdit';
@@ -36,29 +25,34 @@ export const UserProfile: React.FC<UserProfileProps> = ({ userId, isAdminView = 
   const displayUser = currentUser; // In a real implementation, fetch user by userId if provided
 
   if (!displayUser) {
-    return (
-      <Alert severity="warning">
-        User profile not found or still loading.
-      </Alert>
-    );
+    return <Alert severity="warning">User profile not found or still loading.</Alert>;
   }
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'active': return 'success';
-      case 'inactive': return 'warning';
-      case 'disabled': return 'error';
-      default: return 'default';
+      case 'active':
+        return 'success';
+      case 'inactive':
+        return 'warning';
+      case 'disabled':
+        return 'error';
+      default:
+        return 'default';
     }
   };
 
   const getTypeColor = (type: string) => {
     switch (type) {
-      case 'admin': return 'error';
-      case 'employee': return 'warning';
-      case 'contractor': return 'info';
-      case 'client': return 'primary';
-      default: return 'default';
+      case 'admin':
+        return 'error';
+      case 'employee':
+        return 'warning';
+      case 'contractor':
+        return 'info';
+      case 'client':
+        return 'primary';
+      default:
+        return 'default';
     }
   };
 
