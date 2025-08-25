@@ -44,7 +44,7 @@ const rawReviews = [
 ];
 
 // Helper to ensure even number of reviews for continuous marquee effect
-const getReviews = (rawReviews) => {
+const getReviews = (rawReviews: Review[]) => {
   if (rawReviews.length % 2 === 0) {
     return rawReviews;
   } else {
