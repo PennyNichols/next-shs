@@ -3,7 +3,13 @@ import { Box, Checkbox, alpha } from '@mui/material';
 import { customBorderRadius, customTransitions } from '@/styles/theme/otherThemeConstants';
 import theme from '@/styles/theme';
 
-const CustomCheckbox = ({ checked = false, onChange = null, name = '' }) => {
+interface CustomCheckboxProps {
+  checked?: boolean;
+  onChange?: ((event: React.ChangeEvent<HTMLInputElement>) => void) | null;
+  name?: string;
+}
+
+const CustomCheckbox = ({ checked = false, onChange = null, name = '' }: CustomCheckboxProps) => {
   return (
     <Box
       className="checkbox-container"
