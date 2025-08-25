@@ -197,7 +197,7 @@ const Footer = () => {
             sx={{
               display: { xxs: 'none', sm: 'flex' },
               justifyContent: { sm: 'flex-end', md: 'center' },
-              flexshrink: 1,
+              flexShrink: 1,
             }}
           >
             {showClientContent ? (
