@@ -1,17 +1,6 @@
 import React from 'react';
-import {
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
-  Box, // Box is imported for renderValue, even if not using Chips for single select by default
-  Typography,
-  FormHelperText,
-  // Chip is typically for multiple select, but keeping the import consistent with your GroupedMultiSelect
-  // If you later decide to render a chip for a single selected value, it's there.
-  Chip,
-} from '@mui/material';
-import CustomCheckbox from '../CustomCheckbox/CustomCheckbox'; // Assuming the path to your CustomCheckbox is correct
+import { FormControl, InputLabel, Select, MenuItem, Box, Typography, FormHelperText, Chip } from '@mui/material';
+import CustomCheckbox from '../CustomCheckbox/CustomCheckbox';
 import TruncatedChip from '../TruncatedChip/TruncatedChip';
 
 /**
@@ -46,10 +35,10 @@ const DropdownMultiSelect = ({
   menuMaxHeight = 300,
 }) => {
   const uniqueId = React.useId();
-  
+
   const handleChipDelete = (val) => {
     const newSelectedValues = (fieldValue || []).filter((value) => value !== val);
-    onChange(newSelectedValues); 
+    onChange(newSelectedValues);
   };
 
   const handleMenuItemClick = (selectedValue) => {
@@ -79,11 +68,9 @@ const DropdownMultiSelect = ({
         value={fieldValue || []}
         onChange={() => {}}
         renderValue={(selected) => (
-          <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.8, paddingY: hasChips ? 1 : 0, overflow: 'visible'  }}>
+          <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.8, paddingY: hasChips ? 1 : 0, overflow: 'visible' }}>
             {Array.isArray(selected) &&
-              selected.map((val) => (
-                <TruncatedChip key={val} label={val} onDelete={() => handleChipDelete(val)} />
-              ))}
+              selected.map((val) => <TruncatedChip key={val} label={val} onDelete={() => handleChipDelete(val)} />)}
           </Box>
         )}
         MenuProps={{

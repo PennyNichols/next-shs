@@ -1,14 +1,10 @@
 import './globals.css';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-
+import { Inter, Poppins, Archivo } from 'next/font/google';
 import React from 'react';
 import type { Metadata, Viewport } from 'next';
-
 import { AppProviders } from './providers';
-
-import NavBar from '@/components/layout/NavBar/NavBar';
-import Footer from '@/components/layout/Footer/Footer';
 import { ShareButton } from '@/components/action-buttons';
 
 export const metadata: Metadata = {
@@ -62,9 +58,31 @@ export const viewport: Viewport = {
   themeColor: '#00112c',
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+const inter = Inter({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-inter',
+});
+
+const poppins = Poppins({
+  weight: ['300', '400', '500', '600', '700'],
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-poppins',
+  fallback: ['open-sans', 'sans-serif'],
+});
+
+const archivo = Archivo({
+  weight: ['400', '500', '600', '900'],
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-archivo',
+  fallback: ['open-sans', 'sans-serif'],
+});
+
+const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <html lang="en">
+    <html lang="en" className={`${inter.variable} ${poppins.variable} ${archivo.variable}`}>
       <body suppressHydrationWarning={true}>
         {/*
           AppProviders handles Emotion/MUI Theme, AuthContext, and FirebaseCollectionContext.
@@ -73,13 +91,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {/*
             Global UI components that appear on every page
         */}
-        <div style={{ flexGrow: 1, minWidth: '100%', overflowX: 'hidden' }}>
-          <AppProviders>
-            {children}
-            <ShareButton />
-          </AppProviders>
-        </div>
+        <AppProviders>
+          {children}
+          <ShareButton />
+        </AppProviders>
       </body>
     </html>
   );
-}
+};
+
+export default RootLayout;

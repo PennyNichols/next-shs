@@ -1,7 +1,7 @@
 // This file extends the Express Request interface to include the 'user' property.
 
 import { DecodedIdToken } from 'firebase-admin/auth';
-import { Request } from 'express'; 
+import { Request } from 'express';
 
 declare module 'express-serve-static-core' {
   /**

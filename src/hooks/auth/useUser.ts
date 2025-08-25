@@ -66,7 +66,7 @@ export interface UserData {
   updatedOn: string;
 }
 
-function useUser() {
+const useUser = () => {
   const { currentUser, loading: authLoading } = useAuth();
   const [userData, setUserData] = useState<UserData | null>(null);
   const [loadingUserData, setLoadingUserData] = useState(true);
@@ -130,6 +130,6 @@ function useUser() {
   const isLoading = authLoading || loadingUserData;
 
   return { user: userData, loading: isLoading, error };
-}
+};
 
 export default useUser;

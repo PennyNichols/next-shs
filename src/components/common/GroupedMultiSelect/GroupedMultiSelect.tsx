@@ -8,10 +8,9 @@ import {
   Chip,
   ListSubheader,
   Typography,
-  FormHelperText, 
-  Checkbox as MuiCheckbox, 
+  FormHelperText,
 } from '@mui/material';
-import CustomCheckbox from '../CustomCheckbox/CustomCheckbox'; 
+import CustomCheckbox from '../CustomCheckbox/CustomCheckbox';
 import TruncatedChip from '../TruncatedChip/TruncatedChip';
 
 /**
@@ -111,7 +110,7 @@ const GroupedMultiSelect = ({
       >
         {options.map((section) => (
           <Box key={section.sectionTitle}>
-            <ListSubheader className="GroupedMuiSelect-subheader">
+            <ListSubheader>
               <Typography>{section.sectionTitle}</Typography>
             </ListSubheader>
             {section.typesOfWork.map((item) => (

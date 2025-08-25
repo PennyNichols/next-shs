@@ -1,15 +1,7 @@
-// react-quill is incompatible with react 19, need to find a different library before using this component
-
-
 import React, { useState } from 'react';
-// import dynamic from 'next/dynamic'; // Import dynamic from next/dynamic
 import { Box, Button, TextField, Typography, IconButton, Alert } from '@mui/material';
 import { Add, Remove } from '@mui/icons-material';
 import { useFirebaseCollections } from '../../../contexts/FirebaseCollectionContext/FirebaseCollectionContext';
-
-// const ReactQuill = dynamic(() => import('react-quill'), { ssr: false }); // Dynamic import
-
-// import 'react-quill/dist/quill.snow.css';
 
 const initialState = {
   header: '',
@@ -24,7 +16,7 @@ const BlogForm = ({ setOpen }) => {
   const [imagePreviews, setImagePreviews] = useState([]);
   const [uploadError, setUploadError] = useState(null);
   const [uploadSuccess, setUploadSuccess] = useState(false);
-  const { addBlogPost } = useFirebaseCollections();
+  const { createBlogPost } = useFirebaseCollections();
 
   const handleClear = () => {
     setFormData(initialState);
@@ -59,8 +51,8 @@ const BlogForm = ({ setOpen }) => {
     setFormData({ ...formData, keywords: newKeywords });
   };
 
-  const handleImageChange = (e) => {
-    const files = Array.from(e.target.files);
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = Array.from(e.target.files || []) as File[];
     setImageFiles(files);
 
     const previews = files.map((file) => URL.createObjectURL(file));
@@ -83,18 +75,16 @@ const BlogForm = ({ setOpen }) => {
     try {
       const transformedData = transformFormData(formData);
 
-      const result = await addBlogPost(transformedData, imageFiles);
+      const result = await createBlogPost(transformedData, imageFiles);
 
       if (result.success) {
         setUploadSuccess(true);
         setUploadError(null);
         handleClear();
       } else {
-        // console.error('Error adding document: ', result.error);
         setUploadError('Error uploading images and blog post. Please try again.');
       }
     } catch (error) {
-      // console.error('An unexpected error occurred: ', error);
       setUploadError('An unexpected error occurred. Please try again.');
     }
 

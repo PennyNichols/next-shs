@@ -1,22 +1,24 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { Box, Typography, Link, Grid, Skeleton } from '@mui/material'; // Removed Container from import
+import { Box, Typography, Link, Grid, Skeleton } from '@mui/material';
 import { Facebook, Google, Instagram } from '@mui/icons-material';
 import SubscribeForm from '../../forms/SubscribeForm/SubscribeForm';
 import EstimateRequestButton from '../../action-buttons/EstimateRequestButton/EstimateRequestButton';
-import {
-  EMAIL_ADDRESS,
-  FACEBOOK_URL,
-  GOOGLE_URL,
-  INSTAGRAM_URL,
-  PHONE_NUMBER,
-} from '../../../constants/companyDetails';
+
 import { formatPhoneNumber } from '../../../lib/utils/utils';
 import ReviewButton from '../../action-buttons/ReviewButton/ReviewButton';
 import LogoSvg from '../../../assets/svg/LogoSvg/LogoSvg';
 import useMedia from '../../../hooks/useMedia';
 import { customTransitions } from '@/styles/theme/otherThemeConstants';
+import {
+  COMPANY_EMAIL_ADDRESS,
+  COMPANY_FACEBOOK_URL,
+  COMPANY_GOOGLE_URL,
+  COMPANY_INSTAGRAM_URL,
+  COMPANY_PHONE_NUMBER,
+} from '@/constants/companyDetails';
+import theme from '@/styles/theme';
 
 const Footer = () => {
   const { isXxs: initialIsXxs, isXs: initialIsXs, isSm: initialIsSm } = useMedia();
@@ -29,7 +31,7 @@ const Footer = () => {
   }, [initialIsXxs, initialIsXs, initialIsSm]);
 
   const contentWrapperSx = {
-    maxWidth: { xxs: '100%', sm: 600, md: 1200 },
+    maxWidth: '1535px',
     mx: 'auto',
   };
 
@@ -52,30 +54,35 @@ const Footer = () => {
           sx={{
             alignItems: 'center',
             justifyContent: 'center',
+            maxWidth: { xxs: '100%', md: '900px' },
           }}
         >
-          <Grid item xxs={12} md={5}>
+          <Grid item xxs={12} lg={5}>
             <SubscribeForm />
           </Grid>{' '}
           {showClientContent ? (
-            <Grid item xxs={12} md={7}>
-              <Grid container spacing={2} sx={{ justifyContent: { xxs: 'center', md: 'flex-end' } }}>
-                <Grid item xxs={12} sm={6} md="auto">
-                  <ReviewButton fullWidth={isFullWidth} />
+            <Grid item xxs={12} lg={7}>
+              <Grid container spacing={2} sx={{ justifyContent: { xxs: 'center', lg: 'flex-end' } }}>
+                <Grid item xxs={12} sm={6} lg="auto">
+                  <ReviewButton fullWidth={{ xxs: true, lg: false }} />
                 </Grid>
-                <Grid item xxs={12} sm={6} md="auto">
-                  <EstimateRequestButton color="secondary" fullWidth={isFullWidth} />
+                <Grid item xxs={12} sm={6} lg="auto">
+                  <EstimateRequestButton
+                    color="secondary"
+                    iconColor={theme.palette.primary.main}
+                    fullWidth={{ xxs: true, lg: false }}
+                  />
                 </Grid>
               </Grid>
             </Grid>
           ) : (
-            <Grid item xxs={12} md={7}>
-              <Grid container spacing={2} sx={{ justifyContent: { xxs: 'center', md: 'flex-end' } }}>
-                <Grid item xxs={12} sm={6} md="auto">
-                  <Skeleton variant="rounded" sx={{ width: { xxs: '100%', md: 163 } }} height={40.5} />
+            <Grid item xxs={12} lg={7}>
+              <Grid container spacing={2} sx={{ justifyContent: { xxs: 'center', lg: 'flex-end' } }}>
+                <Grid item xxs={12} sm={6} lg="auto">
+                  <Skeleton variant="rounded" sx={{ width: { xxs: '100%', lg: 163 } }} height={40.5} />
                 </Grid>
-                <Grid item xxs={12} sm={6} md="auto">
-                  <Skeleton variant="rounded" sx={{ width: { xxs: '100%', md: 194 } }} height={40.5} />
+                <Grid item xxs={12} sm={6} lg="auto">
+                  <Skeleton variant="rounded" sx={{ width: { xxs: '100%', lg: 194 } }} height={40.5} />
                 </Grid>
               </Grid>
             </Grid>
@@ -98,17 +105,15 @@ const Footer = () => {
             <Box
               sx={{
                 display: 'flex',
-                flexDirection: 'row',
+                flexDirection: { xxs: 'column', xs: 'row' },
                 justifyContent: { xxs: 'center', sm: 'flex-start', md: 'center' },
-                alignItems: { xxs: 'flex-start', md: 'center' },
+                alignItems: 'center',
                 textAlign: 'center',
+                marginBottom: { xxs: 2, sm: 0 },
                 gap: 1,
-                '@media (max-width: 350px)': {
-                  flexDirection: 'column',
-                },
               }}
             >
-              <Box sx={{ width: 120, height: 110, flexxshrink: 0 }}>
+              <Box sx={{ width: 120, height: 110, flexShrink: 0 }}>
                 <LogoSvg width={120} height={110} />
               </Box>
               <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
@@ -132,14 +137,14 @@ const Footer = () => {
                   <Link
                     component="a"
                     color="inherit"
-                    href={`tel:${PHONE_NUMBER}`}
+                    href={`tel:${COMPANY_PHONE_NUMBER}`}
                     sx={{
                       transition: customTransitions.standard,
                       textDecoration: 'none',
                       '&:hover': { color: 'accent.primary' },
                     }}
                   >
-                    {formatPhoneNumber(PHONE_NUMBER)}
+                    {formatPhoneNumber(COMPANY_PHONE_NUMBER)}
                   </Link>
                 </Typography>
                 <Typography variant="body1" color="inherit">
@@ -147,14 +152,14 @@ const Footer = () => {
                   <Link
                     component="a"
                     color="inherit"
-                    href={`sms:${PHONE_NUMBER}`}
+                    href={`sms:${COMPANY_PHONE_NUMBER}`}
                     sx={{
                       transition: customTransitions.standard,
                       textDecoration: 'none',
                       '&:hover': { color: 'accent.primary' },
                     }}
                   >
-                    {formatPhoneNumber(PHONE_NUMBER)}
+                    {formatPhoneNumber(COMPANY_PHONE_NUMBER)}
                   </Link>
                 </Typography>
                 <Typography variant="body1" color="inherit">
@@ -162,14 +167,14 @@ const Footer = () => {
                   <Link
                     component="a"
                     color="inherit"
-                    href={`mailto:${EMAIL_ADDRESS}`}
+                    href={`mailto:${COMPANY_EMAIL_ADDRESS}`}
                     sx={{
                       transition: customTransitions.standard,
                       textDecoration: 'none',
                       '&:hover': { color: 'accent.primary' },
                     }}
                   >
-                    {EMAIL_ADDRESS}
+                    {COMPANY_EMAIL_ADDRESS}
                   </Link>
                 </Typography>
               </Box>
@@ -192,7 +197,7 @@ const Footer = () => {
             sx={{
               display: { xxs: 'none', sm: 'flex' },
               justifyContent: { sm: 'flex-end', md: 'center' },
-              flexxshrink: 1,
+              flexShrink: 1,
             }}
           >
             {showClientContent ? (
@@ -280,11 +285,9 @@ const Footer = () => {
                   justifyContent: 'space-between',
                   width: '100%',
                   mx: 0,
-                  '@media (max-width: 350px)': {
-                    flexDirection: 'column',
-                    textAlign: 'center',
-                    my: 1,
-                  },
+                  my: { xxs: 1, xs: 0 },
+                  flexDirection: { xxs: 'column', xs: 'row' },
+                  textAlign: { xxs: 'center', xs: 'left' },
                 }}
               >
                 <Link
@@ -312,16 +315,12 @@ const Footer = () => {
               <Box
                 sx={{
                   display: 'flex',
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
+                  flexDirection: { xxs: 'column', xs: 'row' },
+                  justifyContent: { xxs: 'center', xs: 'space-between' },
+                  alignItems: { xxs: 'center', xs: 'flex-start' },
+                  my: { xxs: 1, xs: 0 },
                   width: '100%',
                   mx: 0,
-                  '@media (max-width: 350px)': {
-                    flexDirection: 'column',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    my: 1,
-                  },
                 }}
               >
                 <Skeleton variant="text" width={109} height={24} />
@@ -331,7 +330,7 @@ const Footer = () => {
           </Grid>
           <Grid item xxs={12} sm={6} order={{ xxs: 1, sm: 2 }}>
             <Box sx={{ display: 'flex', justifyContent: { xxs: 'center', sm: 'end' }, alignItems: 'center', gap: 1 }}>
-              <Link href={FACEBOOK_URL} color="inherit" aria-label="Facebook">
+              <Link href={COMPANY_FACEBOOK_URL} color="inherit" aria-label="Facebook">
                 <Facebook
                   sx={{
                     color: 'accent.primary',
@@ -343,7 +342,7 @@ const Footer = () => {
                   }}
                 />
               </Link>
-              <Link href={INSTAGRAM_URL} color="inherit" aria-label="Instagram">
+              <Link href={COMPANY_INSTAGRAM_URL} color="inherit" aria-label="Instagram">
                 <Instagram
                   sx={{
                     color: 'accent.primary',
@@ -355,7 +354,7 @@ const Footer = () => {
                   }}
                 />
               </Link>
-              <Link href={GOOGLE_URL} color="inherit" aria-label="Google">
+              <Link href={COMPANY_GOOGLE_URL} color="inherit" aria-label="Google">
                 <Google
                   sx={{
                     color: 'accent.primary',

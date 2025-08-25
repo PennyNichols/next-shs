@@ -57,7 +57,7 @@ interface FirebaseCollectionContextType {
 
 const FirebaseCollectionContext = createContext<FirebaseCollectionContextType | undefined>(undefined);
 
-export function FirebaseCollectionProvider({ children }: { children: React.ReactNode }) {
+export const FirebaseCollectionProvider = ({ children }: { children: React.ReactNode }) => {
   const { currentUser } = useAuth(); // Get currentUser from the new AuthContext
 
   // --- Client-Side Firebase Functions (still use direct Firestore) ---
@@ -283,12 +283,12 @@ export function FirebaseCollectionProvider({ children }: { children: React.React
   };
 
   return <FirebaseCollectionContext.Provider value={value}>{children}</FirebaseCollectionContext.Provider>;
-}
+};
 
-export function useFirebaseCollections() {
+export const useFirebaseCollections = () => {
   const context = useContext(FirebaseCollectionContext);
   if (context === undefined) {
     throw new Error('useFirebaseCollections must be used within a FirebaseCollectionProvider');
   }
   return context;
-}
+};

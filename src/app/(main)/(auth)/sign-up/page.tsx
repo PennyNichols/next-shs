@@ -11,20 +11,20 @@ import {
   Grid,
   CircularProgress,
   FormControlLabel,
-  Checkbox,
 } from '@mui/material';
 import { useRouter } from 'next/navigation';
 import { useForm, Controller } from 'react-hook-form';
-import { useAuth } from '@/contexts/AuthContext/AuthContext';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { doc, setDoc, serverTimestamp } from 'firebase/firestore';
 import { db, auth } from '@/lib/firebase/firebase';
+import CustomCheckbox from '@/components/common/CustomCheckbox';
 
-export default function SignUpPage() {
+const SignUpPage = () => {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
+  const [subscribeToMarketing, setSubscribeToMarketing] = useState(true);
 
   const form = useForm({
     defaultValues: {
@@ -32,6 +32,7 @@ export default function SignUpPage() {
       password: '',
       confirmPassword: '',
       agreeToTerms: false,
+      subscribe: false,
     },
   });
 
@@ -181,19 +182,37 @@ export default function SignUpPage() {
             control={control}
             render={({ field }) => (
               <FormControlLabel
-                control={<Checkbox {...field} checked={field.value} color="primary" />}
+                control={<CustomCheckbox {...field} checked={field.value} />}
                 label={
                   <Typography variant="body2">
                     I agree to the{' '}
-                    <Link href="/terms" color="primary.main">
+                    <Link href="/service-terms" color="primary.main">
                       Terms and Conditions
                     </Link>{' '}
                     and{' '}
-                    <Link href="/privacy" color="primary.main">
+                    <Link href="/privacy-policy" color="primary.main">
                       Privacy Policy
                     </Link>
                   </Typography>
                 }
+              />
+            )}
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <Controller
+            name="subscribe"
+            control={control}
+            render={({ field }) => (
+              <FormControlLabel
+                control={
+                  <CustomCheckbox
+                    checked={subscribeToMarketing}
+                    onChange={(e) => setSubscribeToMarketing(e.target.checked)}
+                  />
+                }
+                label="Yes, I would like to subscribe to email marketing from SHS Florida"
+                sx={{ mt: 1, alignItems: 'flex-start' }}
               />
             )}
           />
@@ -219,13 +238,15 @@ export default function SignUpPage() {
       </Button>
 
       <Box sx={{ textAlign: 'center', mt: 2 }}>
-        <Typography variant="body2" color="text.secondary">
+        <Typography variant="body2" color="secondary.main">
           Already have an account?{' '}
-          <Link href="/auth/sign-in" color="primary.main" sx={{ textDecoration: 'none', fontWeight: 'medium' }}>
+          <Link href="/sign-in" color="primary.main" sx={{ textDecoration: 'none', fontWeight: 'medium' }}>
             Sign In
           </Link>
         </Typography>
       </Box>
     </Box>
   );
-}
+};
+
+export default SignUpPage;

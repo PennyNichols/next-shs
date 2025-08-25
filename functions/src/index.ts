@@ -3,7 +3,7 @@ import express from 'express';
 import * as admin from 'firebase-admin';
 import cors from 'cors';
 import { apiRouter } from './routes';
-import {getDrivingDistance} from './callable/distance'; // Import your callable function
+import { getDrivingDistance } from './callable/distance'; // Import your callable function
 
 admin.initializeApp();
 
@@ -32,10 +32,10 @@ const corsOptions = {
 // --- Cloud Function for your dedicated API ---
 const apiApp = express();
 // Apply middleware
-apiApp.use(cors(corsOptions)); 
+apiApp.use(cors(corsOptions));
 apiApp.use(express.json());
-apiApp.use('/', apiRouter); 
+apiApp.use('/', apiRouter);
 
 // Expose your Express API as a Cloud Function named "api"
-export const api = functions.https.onRequest({ region: 'us-east1', secrets: ["RECAPTCHA_SECRET_KEY"] }, apiApp);
-export { getDrivingDistance }
+export const api = functions.https.onRequest({ region: 'us-east1', secrets: ['RECAPTCHA_SECRET_KEY'] }, apiApp);
+export { getDrivingDistance };

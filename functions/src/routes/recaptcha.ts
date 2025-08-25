@@ -18,7 +18,7 @@ router.post('/verify-recaptcha', async (req: Request, res: Response) => {
     }
 
     const verifyUrl = `https://www.google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${token}`;
-    
+
     const response = await fetch(verifyUrl, {
       method: 'POST',
     });
@@ -29,7 +29,9 @@ router.post('/verify-recaptcha', async (req: Request, res: Response) => {
       return res.status(200).json({ success: true, score: data.score });
     } else {
       console.warn('reCAPTCHA verification failed:', data['error-codes']);
-      return res.status(400).json({ success: false, message: 'reCAPTCHA verification failed.', errors: data['error-codes'] });
+      return res
+        .status(400)
+        .json({ success: false, message: 'reCAPTCHA verification failed.', errors: data['error-codes'] });
     }
   } catch (error) {
     console.error('Error verifying reCAPTCHA:', error);

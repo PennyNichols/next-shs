@@ -1,3 +1,3 @@
-import useUser from "./useUser";
+import useUser from './useUser';
 
 export { useUser };

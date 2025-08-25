@@ -1,4 +1,3 @@
-
 import React, { useRef, useState, useEffect } from 'react';
 import { Typography } from '@mui/material';
 
@@ -40,10 +39,10 @@ const TypographyHangingIndent = ({ label, description, typographyProps }) => {
         // Add skeleton for this component!
         ...(indentWidth > 0 && {
           textIndent: `-${indentWidth}px`,
-          paddingLeft: `${indentWidth}px`, 
+          paddingLeft: `${indentWidth}px`,
         }),
       }}
-      {...typographyProps} 
+      {...typographyProps}
     >
       <b ref={bRef}>{label}:</b> {description}
     </Typography>

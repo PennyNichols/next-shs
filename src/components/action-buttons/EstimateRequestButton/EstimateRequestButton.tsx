@@ -1,13 +1,14 @@
 'use client';
 
 import React, { useState } from 'react';
-import CustomModal from '../../common/CustomModal/CustomModal';
 import EstimateRequestForm from '../../forms/EstimateRequestForm/EstimateRequestForm';
 import ActionButton from '../../common/ActionButton/ActionButton';
-import { Description, RequestQuoteRounded } from '@mui/icons-material';
+import { Description } from '@mui/icons-material';
 import PropTypes from 'prop-types';
+import theme from '@/styles/theme';
 
-const EstimateRequestButton = ({ fullWidth = false, ...props }) => {
+const EstimateRequestButton = (props) => {
+  const { fullWidth = false, iconColor = theme.palette.secondary.light, ...restProps } = props;
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => setOpen(true);
@@ -17,10 +18,11 @@ const EstimateRequestButton = ({ fullWidth = false, ...props }) => {
     <>
       <ActionButton
         text="Request an Estimate"
-        fullWidth={fullWidth}
-        onClick={handleOpen}
         icon={<Description />}
-        {...props}
+        onClick={handleOpen}
+        iconColor={iconColor}
+        fullWidth={fullWidth}
+        {...restProps}
       />
       <EstimateRequestForm open={open} setOpen={setOpen} />
     </>

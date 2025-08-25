@@ -60,7 +60,7 @@ export const CAREERS = [
             'Strong spatial reasoning with the ability to visualize projects in 3-D space.',
             'Proficient knowledge of common tools, including their names and proper uses.',
             'A baseline understanding across a wide range of home service categories, including but not limited to: carpentry, masonry, plumbing, electrical, roofing, framing, sheetrock, door and window installation and repair, and painting.',
-            'Possess a valid driver\'s license and have reliable transportation.',
+            "Possess a valid driver's license and have reliable transportation.",
             'Maintain excellent hygiene and a professional appearance.',
             'No criminal history.',
             'Must be authorized to work in the U.S.',
@@ -110,7 +110,7 @@ export const CAREERS = [
       items: [
         {
           title: 'Set Your Own Schedule:',
-          description: 'You have the freedom to choose when you work and when you don\'t.',
+          description: "You have the freedom to choose when you work and when you don't.",
         },
         {
           title: 'Unlimited Time Off:',

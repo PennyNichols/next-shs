@@ -41,32 +41,11 @@ const NavButton: React.FC<NavButtonProps> = ({
 }) => {
   const [scale, setScale] = useState(1);
 
-  const { isXxs, isXs, isSm, isMd, isLg, isXl } = useMedia();
-
-  let buttonSize;
-
-  if (size) {
-    buttonSize = size;
-  } else if (isXxs) {
-    buttonSize = 'medium';
-  } else if (isXs) {
-    buttonSize = 'large';
-  } else if (isSm) {
-    buttonSize = 'large';
-  } else if (isMd) {
-    buttonSize = 'medium';
-  } else if (isLg) {
-    buttonSize = 'large';
-  } else if (isXl) {
-    buttonSize = 'large';
-  }
-
   return (
     <Button
       type={type}
       variant={variant}
       color={color}
-      size={buttonSize}
       className={className}
       sx={{
         display: 'flex',
@@ -75,6 +54,7 @@ const NavButton: React.FC<NavButtonProps> = ({
         boxShadow: 'none',
         transform: `scale(${scale})`,
         transition: 'all 0.5s ease-in-out, transform 0.1s ease-in-out',
+        fontSize: { xxs: '0.875rem', xs: '1rem', md: '1.2rem', lg: '1.3rem', xl: '1.5rem' },
         '&:hover': {
           boxShadow: 'none',
           backgroundColor: 'transparent',

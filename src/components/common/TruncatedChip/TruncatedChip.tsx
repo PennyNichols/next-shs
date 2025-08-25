@@ -1,7 +1,13 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { Chip, Tooltip } from '@mui/material';
-import CloseIcon from '@mui/icons-material/Close'; // For the delete icon
+import { Chip, Tooltip, ChipProps, TooltipProps } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
 import { RemoveCircleOutline } from '@mui/icons-material';
+
+interface TruncatedChipProps extends Omit<ChipProps, 'ref'> {
+  label: string;
+  onDelete?: () => void;
+  tooltipPlacement?: TooltipProps['placement'];
+}
 
 /**
  * A wrapper around Mui Chip that adds a tooltip only if its label text is truncated,
@@ -10,15 +16,10 @@ import { RemoveCircleOutline } from '@mui/icons-material';
  * @param {object} props - The component props.
  * @param {string} props.label - The visible text label for the Chip.
  * @param {function} [props.onDelete] - Callback for when the delete icon is clicked.
- * @param {'top' | 'bottom-end' | 'bottom-start' | 'bottom' | 'left-end' | 'left-start' | 'left' | 'right-end' | 'right-start' | 'right' | 'top-end' | 'top-start'} [props.tooltipPlacement] - The position of the tooltip relative to the Chip.
+ * @param {"bottom" | "left" | "right" | "top" | "bottom-end" | "bottom-start" | "left-end" | "left-start" | "right-end" | "right-start" | "top-end" | "top-start"} [props.tooltipPlacement] - The position of the tooltip relative to the Chip.
  * @param {object} [props.chipProps] - Additional props to pass directly to the Mui Chip component.
  */
-const TruncatedChip = ({
-  label,
-  onDelete,
-  tooltipPlacement = "top",
-  ...chipProps
-}) => {
+const TruncatedChip: React.FC<TruncatedChipProps> = ({ label, onDelete, tooltipPlacement = 'top', ...chipProps }) => {
   const chipRef = useRef(null); // Ref to the root DOM element of the Chip
   const [isTruncated, setIsTruncated] = useState(false);
 
@@ -52,7 +53,7 @@ const TruncatedChip = ({
     }
   };
 
-    // IMPORTANT: We need to create the deleteIcon element directly to attach onMouseDown
+  // IMPORTANT: We need to create the deleteIcon element directly to attach onMouseDown
   const deleteIconElement = (
     <RemoveCircleOutline
       fontSize="small"
@@ -71,7 +72,7 @@ const TruncatedChip = ({
       disableHoverListener={!isTruncated}
       disableFocusListener={!isTruncated}
       disableTouchListener={!isTruncated}
-      placement={tooltipPlacement} 
+      placement={tooltipPlacement}
       arrow
     >
       <Chip
@@ -83,15 +84,15 @@ const TruncatedChip = ({
           // Styles to control the visibility of the delete icon on hover
           '& .MuiChip-deleteIcon': {
             display: 'none',
-            marginRight:0,
+            marginRight: 0,
             marginLeft: 0.1,
-            opacity: 0, 
+            opacity: 0,
             transition: 'opacity 0.2s ease-in-out, visibility 0s linear 0.2s',
           },
           '&:hover .MuiChip-deleteIcon': {
-            display: 'block', 
-            opacity: 1, 
-            transition: 'opacity 0.2s ease-in-out, visibility 0s linear 0s', 
+            display: 'block',
+            opacity: 1,
+            transition: 'opacity 0.2s ease-in-out, visibility 0s linear 0s',
           },
         }}
         {...chipProps} // Pass any other props (e.g., variant, color) to the Chip

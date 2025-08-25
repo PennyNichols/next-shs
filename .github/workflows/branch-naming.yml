@@ -7,7 +7,7 @@ on:
     # as these are typically target branches for merges, not branches created by developers
     # for individual assignments using the specific naming conventions below.
     branches-ignore:
-      - prod    # Your main production branch
+      - prod # Your main production branch
       - staging # Your main staging integration branch (if it exists and is a direct push target)
       # Add other long-lived, protected branches here that are NOT subject to the dev/task, dev/pbi, etc. naming rules
       # - main # If 'main' is another long-lived branch not subject to these rules

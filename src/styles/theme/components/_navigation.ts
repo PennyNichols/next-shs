@@ -1,17 +1,14 @@
 import { alpha } from '@mui/material/styles';
 import type { Components, Theme } from '@mui/material/styles';
 import type { CSSObject } from '@emotion/react';
-import { customShadows, customBorderRadius, customTransitions } from '../otherThemeConstants'; // Assuming these are correctly typed as discussed
+import { customShadows, customBorderRadius, customTransitions } from '../otherThemeConstants';
 
 const navComponents: Components<Theme> = {
-  // ---------------------------------------------------
-  // MuiLink Component Customizations
-  // ---------------------------------------------------
   MuiLink: {
     defaultProps: {},
     styleOverrides: {
       root: ({ theme }: { theme: Theme }): CSSObject => ({
-        WebkitTapHighlightColor: 'transparent', // Prevents the default tap highlight color on links
+        WebkitTapHighlightColor: 'transparent',
         color: theme.palette.primary.light,
         textDecoration: 'none',
         transition: customTransitions.standard,
@@ -26,9 +23,6 @@ const navComponents: Components<Theme> = {
       }),
     },
   },
-  // ---------------------------------------------------
-  // MuiAppBar Component Customizations
-  // --------------------------------------------------
   MuiAppBar: {
     defaultProps: {},
     styleOverrides: {
@@ -83,14 +77,6 @@ const navComponents: Components<Theme> = {
             [theme.breakpoints.down('sm')]: {
               fontSize: '0.9rem',
             },
-            '&.review-text': {
-              color: 'primary.dark',
-              fontSize: '0.8rem',
-              fontStyle: 'italic',
-              overflow: 'hidden',
-              textOverflow: 'ellipsis',
-              textShadow: '0 1px 4px rgba(0,0,0,0.18)',
-            },
           },
           '&.MuiSelect-dropdown-headers': {
             '& .MuiListSubheader-root': {
@@ -132,9 +118,6 @@ const navComponents: Components<Theme> = {
       }),
     },
   },
-  // ---------------------------------------------------
-  // MuiMenuItem Component Customizations
-  // ---------------------------------------------------
   MuiMenuItem: {
     defaultProps: {
       disableRipple: true,
@@ -146,49 +129,6 @@ const navComponents: Components<Theme> = {
         alignItems: 'flex-start',
         minHeight: 'auto',
         transition: customTransitions.standard,
-
-        '& .checkbox-container': {
-          overflow: 'visible',
-          display: 'block',
-          maxWidth: 19,
-          maxHeight: 19,
-          margin: theme.spacing(1, 1.5, 0, 0),
-          boxSizing: 'border-box',
-          border: `2px solid ${theme.palette.secondary.dark}`,
-          borderRadius: customBorderRadius.small,
-          [theme.breakpoints.down('sm')]: {
-            maxWidth: 16,
-            maxHeight: 16,
-          },
-        },
-        '& .MuiCheckbox-root': {
-          color: theme.palette.secondary.dark,
-          top: -4,
-          left: -1,
-          [theme.breakpoints.down('sm')]: {
-            top: -5,
-            left: -1,
-          },
-        },
-        '& .custom-checkbox': {
-          transform: 'scale(1.2)',
-        },
-        '& .custom-checkbox-checked': {
-          color: theme.palette.secondary.dark,
-          transition: customTransitions.standard,
-          paddingBottom: theme.spacing(0.4),
-
-          [theme.breakpoints.down('sm')]: {
-            transform: 'scale(1.7)',
-            paddingRight: theme.spacing(0.45),
-            paddingBottom: theme.spacing(0.5),
-          },
-        },
-        '& .PrivateSwitchBase-input': {
-          width: 36,
-          height: 36,
-          // backgroundColor: 'red',
-        },
         '& .MuiTypography-root': {
           fontSize: '0.95rem',
           margin: 0,
@@ -197,7 +137,6 @@ const navComponents: Components<Theme> = {
             fontSize: '0.875rem',
           },
         },
-
         '&:hover': {
           backgroundColor: alpha(theme.palette.primary.light, 0.03),
           color: theme.palette.primary.light,
@@ -226,33 +165,19 @@ const navComponents: Components<Theme> = {
     },
   },
 
-  // ---------------------------------------------------
-  // MuiListSubheader Component Customizations
-  // ---------------------------------------------------
   MuiListSubheader: {
     styleOverrides: {
       root: ({ theme }: { theme: Theme }): CSSObject => ({
-        // Ensure the subheader has a distinct background so content doesn't show through
-        backgroundColor: theme.palette.primary.main, // Potentially add some padding if needed, but MuiList-padding should handle overall spacing
+        backgroundColor: theme.palette.primary.main,
         boxShadow: 'none',
-        // padding: theme.spacing(1, 2),
-        zIndex: 1, // Ensure it's above the list items
+        zIndex: 1,
       }),
       sticky: ({ theme }: { theme: Theme }): CSSObject => ({
-        // The default Material-UI sticky implementation should handle this,
-        // but sometimes you might need to adjust top if there's other fixed elements
-        // top: -10, // Adding a small bottom border can help visually separate it when sticky
         borderBottom: `1px solid ${theme.palette.divider}`,
       }),
     },
   },
-  // ---------------------------------------------------
-  // MuiPopover Component Customizations (used by Select dropdown)
-  // ---------------------------------------------------
   MuiPopover: {
-    // defaultProps: {
-    //   disableScrollLock: true,
-    // },
     styleOverrides: {
       paper: ({ theme }: { theme: Theme }): CSSObject => ({
         borderRadius: customBorderRadius.small,

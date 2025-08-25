@@ -100,7 +100,7 @@ export const ServiceAddressManager: React.FC<ServiceAddressManagerProps> = ({
       // If this is set as default, update other addresses
       let updatedAddresses = addresses;
       if (data.isDefault) {
-        updatedAddresses = addresses.map(addr => ({ ...addr, isDefault: false }));
+        updatedAddresses = addresses.map((addr) => ({ ...addr, isDefault: false }));
       }
 
       await updateDoc(doc(db, 'users', userId), {
@@ -124,7 +124,7 @@ export const ServiceAddressManager: React.FC<ServiceAddressManagerProps> = ({
     setError(null);
 
     try {
-      const updatedAddresses = addresses.map(addr => {
+      const updatedAddresses = addresses.map((addr) => {
         if (addr.id === editingAddress.id) {
           return { ...addr, ...data };
         }
@@ -154,7 +154,7 @@ export const ServiceAddressManager: React.FC<ServiceAddressManagerProps> = ({
     setError(null);
 
     try {
-      const updatedAddresses = addresses.filter(addr => addr.id !== addressId);
+      const updatedAddresses = addresses.filter((addr) => addr.id !== addressId);
 
       await updateDoc(doc(db, 'users', userId), {
         serviceAddresses: updatedAddresses,
@@ -185,11 +185,7 @@ export const ServiceAddressManager: React.FC<ServiceAddressManagerProps> = ({
       <CardContent>
         <Box display="flex" justifyContent="space-between" alignItems="center" mb={2}>
           <Typography variant="h6">Service Addresses</Typography>
-          <Button
-            variant="contained"
-            startIcon={<Add />}
-            onClick={() => setShowAddForm(true)}
-          >
+          <Button variant="contained" startIcon={<Add />} onClick={() => setShowAddForm(true)}>
             Add Address
           </Button>
         </Box>
@@ -207,14 +203,7 @@ export const ServiceAddressManager: React.FC<ServiceAddressManagerProps> = ({
                 primary={
                   <Box display="flex" alignItems="center" gap={1}>
                     <Typography variant="body1">{address.label}</Typography>
-                    {address.isDefault && (
-                      <Chip
-                        label="Default"
-                        size="small"
-                        color="primary"
-                        icon={<Home />}
-                      />
-                    )}
+                    {address.isDefault && <Chip label="Default" size="small" color="primary" icon={<Home />} />}
                   </Box>
                 }
                 secondary={
@@ -224,12 +213,7 @@ export const ServiceAddressManager: React.FC<ServiceAddressManagerProps> = ({
                 }
               />
               <ListItemSecondaryAction>
-                <IconButton
-                  edge="end"
-                  aria-label="edit"
-                  onClick={() => openEditForm(address)}
-                  sx={{ mr: 1 }}
-                >
+                <IconButton edge="end" aria-label="edit" onClick={() => openEditForm(address)} sx={{ mr: 1 }}>
                   <Edit />
                 </IconButton>
                 <IconButton
@@ -245,10 +229,7 @@ export const ServiceAddressManager: React.FC<ServiceAddressManagerProps> = ({
           ))}
           {addresses.length === 0 && (
             <ListItem>
-              <ListItemText
-                primary="No service addresses"
-                secondary="Add your first service address to get started"
-              />
+              <ListItemText primary="No service addresses" secondary="Add your first service address to get started" />
             </ListItem>
           )}
         </List>
@@ -341,12 +322,7 @@ export const ServiceAddressManager: React.FC<ServiceAddressManagerProps> = ({
                     control={control}
                     render={({ field }) => (
                       <FormControlLabel
-                        control={
-                          <Switch
-                            checked={field.value}
-                            onChange={field.onChange}
-                          />
-                        }
+                        control={<Switch checked={field.value} onChange={field.onChange} />}
                         label="Set as default address"
                       />
                     )}
@@ -357,11 +333,7 @@ export const ServiceAddressManager: React.FC<ServiceAddressManagerProps> = ({
           </DialogContent>
           <DialogActions>
             <Button onClick={() => setShowAddForm(false)}>Cancel</Button>
-            <Button
-              onClick={handleSubmit(handleAddAddress)}
-              variant="contained"
-              disabled={loading}
-            >
+            <Button onClick={handleSubmit(handleAddAddress)} variant="contained" disabled={loading}>
               {loading ? 'Adding...' : 'Add Address'}
             </Button>
           </DialogActions>
@@ -454,12 +426,7 @@ export const ServiceAddressManager: React.FC<ServiceAddressManagerProps> = ({
                     control={control}
                     render={({ field }) => (
                       <FormControlLabel
-                        control={
-                          <Switch
-                            checked={field.value}
-                            onChange={field.onChange}
-                          />
-                        }
+                        control={<Switch checked={field.value} onChange={field.onChange} />}
                         label="Set as default address"
                       />
                     )}
@@ -470,11 +437,7 @@ export const ServiceAddressManager: React.FC<ServiceAddressManagerProps> = ({
           </DialogContent>
           <DialogActions>
             <Button onClick={() => setEditingAddress(null)}>Cancel</Button>
-            <Button
-              onClick={handleSubmit(handleEditAddress)}
-              variant="contained"
-              disabled={loading}
-            >
+            <Button onClick={handleSubmit(handleEditAddress)} variant="contained" disabled={loading}>
               {loading ? 'Updating...' : 'Update Address'}
             </Button>
           </DialogActions>

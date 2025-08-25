@@ -2,7 +2,7 @@
 
 export const SERVICE_CATEGORIES = [
   {
-    sectionTitle: 'Core Repair and Maintenance',
+    sectionTitle: 'Core Repair & Maintenance',
     typesOfWork: [
       {
         title: 'General Repairs',
@@ -57,7 +57,7 @@ export const SERVICE_CATEGORIES = [
     ],
   },
   {
-    sectionTitle: 'Installation and Assembly',
+    sectionTitle: 'Installation & Assembly',
     typesOfWork: [
       {
         title: 'Furniture Assembly',

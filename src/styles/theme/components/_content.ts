@@ -28,10 +28,6 @@ const contentComponents: Components<Theme> = {
             fontSize: '2rem',
             whiteSpace: 'normal',
           },
-          [theme.breakpoints.down(500)]: {
-            fontSize: '1.8rem',
-            lineHeight: 1.3,
-          },
         }),
       },
       {
@@ -44,10 +40,6 @@ const contentComponents: Components<Theme> = {
           color: theme.palette.primary.main,
           letterSpacing: 0.5,
           marginBottom: theme.spacing(3.5),
-          [theme.breakpoints.down(500)]: {
-            fontSize: '1.4rem',
-            lineHeight: 1.1,
-          },
         }),
       },
     ],
@@ -57,26 +49,18 @@ const contentComponents: Components<Theme> = {
       h1: ({ theme }: { theme: Theme }): CSSObject => ({
         textAlign: 'center',
         fontSize: '3rem',
-        fontWeight: 600,
+        fontWeight: 900,
         lineHeight: 1.2,
         color: theme.palette.primary.dark,
         letterSpacing: 1.5,
-        [theme.breakpoints.down(500)]: {
-          fontSize: '2.2rem',
-          lineHeight: 1.5,
-        },
       }),
       h2: ({ theme }: { theme: Theme }): CSSObject => ({
         textAlign: 'center',
         fontSize: '2.4rem',
-        fontWeight: 600,
+        fontWeight: 900,
         lineHeight: 1.5,
         color: theme.palette.primary.main,
         letterSpacing: 0.5,
-        [theme.breakpoints.down(500)]: {
-          fontSize: '1.9rem',
-          lineHeight: 1.25,
-        },
       }),
       h3: ({ theme }: { theme: Theme }): CSSObject => ({
         fontSize: '1.6rem',
@@ -84,13 +68,6 @@ const contentComponents: Components<Theme> = {
         lineHeight: 1.5,
         color: theme.palette.primary.main,
         letterSpacing: 0.2,
-        [theme.breakpoints.down('sm')]: {
-          textAlign: 'center',
-        },
-        [theme.breakpoints.down(500)]: {
-          fontSize: '1.4rem',
-          lineHeight: 1.6,
-        },
       }),
       h4: ({ theme }: { theme: Theme }): CSSObject => ({
         fontSize: '1.6rem',
@@ -98,10 +75,6 @@ const contentComponents: Components<Theme> = {
         lineHeight: 1.5,
         color: theme.palette.primary.main,
         letterSpacing: 0.5,
-        [theme.breakpoints.down(500)]: {
-          fontSize: '1.4rem',
-          lineHeight: 1.6,
-        },
       }),
       h5: ({ theme }: { theme: Theme }): CSSObject => ({
         fontSize: '1.4rem',
@@ -109,10 +82,6 @@ const contentComponents: Components<Theme> = {
         lineHeight: 1.3,
         color: theme.palette.secondary.dark,
         letterSpacing: 0.2,
-        [theme.breakpoints.down(500)]: {
-          fontSize: '1.25rem',
-          lineHeight: 1.2,
-        },
       }),
       h6: ({ theme }: { theme: Theme }): CSSObject => ({
         fontSize: '1.2rem',
@@ -120,10 +89,6 @@ const contentComponents: Components<Theme> = {
         lineHeight: 1.15,
         color: theme.palette.primary.light,
         letterSpacing: 0.2,
-        [theme.breakpoints.down(500)]: {
-          fontSize: '1.15rem',
-          lineHeight: 1,
-        },
       }),
       body1: ({ theme }: { theme: Theme }): CSSObject => ({
         fontSize: '1.1rem',
@@ -133,10 +98,6 @@ const contentComponents: Components<Theme> = {
 
         '&.contact-link-label': {
           marginBottom: theme.spacing(0.7),
-          [theme.breakpoints.down(500)]: {
-            fontSize: '0.9rem',
-            lineHeight: 1,
-          },
         },
         [theme.breakpoints.down('sm')]: {
           textAlign: 'center',
@@ -147,10 +108,6 @@ const contentComponents: Components<Theme> = {
         lineHeight: 1.2,
         color: theme.palette.secondary.dark,
         letterSpacing: 0.2,
-        [theme.breakpoints.down(500)]: {
-          fontSize: '0.85rem',
-          lineHeight: 1.1,
-        },
       }),
     },
   },

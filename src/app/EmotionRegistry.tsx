@@ -17,11 +17,11 @@ import globalSlickStyles from '@/styles/theme/globalSlickStyles';
 // Important for performance and consistent style order.
 let clientSideEmotionCache;
 
-function getEmotionCacheSingleton() {
+const getEmotionCacheSingleton = () => {
   return createEmotionCache();
-}
+};
 
-export default function EmotionRegistry({ children }: { children: React.ReactNode }) {
+const EmotionRegistry = ({ children }: { children: React.ReactNode }) => {
   // Determine which cache to use:
   // On the server (during SSR), we create a fresh cache for each request.
   // On the client, we reuse the singleton `clientSideEmotionCache`.
@@ -64,4 +64,6 @@ export default function EmotionRegistry({ children }: { children: React.ReactNod
       </ThemeProvider>
     </CacheProvider>
   );
-}
+};
+
+export default EmotionRegistry;

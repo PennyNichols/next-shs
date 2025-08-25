@@ -4,7 +4,7 @@ import React from 'react';
 import { Box, Container, Paper, Typography } from '@mui/material';
 import { usePathname } from 'next/navigation';
 
-export default function AuthLayout({ children }: { children: React.ReactNode }) {
+const AuthLayout = ({ children }: { children: React.ReactNode }) => {
   const pathname = usePathname();
 
   // Extract the auth page type from the pathname
@@ -15,16 +15,23 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
     if (pathname.includes('verify-email')) return 'Verify Email';
     return 'Authentication';
   };
+  const getPageGreeting = () => {
+    if (pathname.includes('sign-in')) return 'Welcome Back!';
+    if (pathname.includes('sign-up')) return 'Get Started with SHS Florida!';
+    if (pathname.includes('forgot-password')) return "Forgot Your Password? Don't Worry! We Can Help.";
+    if (pathname.includes('verify-email')) return 'Last Step!';
+    return 'Welcome!';
+  };
 
   return (
     <Box
       sx={{
-        minHeight: '100vh',
+        minHeight: '100%',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: 'background.default',
-        py: 4,
+        py: 6,
       }}
     >
       <Container maxWidth="sm">
@@ -42,7 +49,7 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
-              mb: 3,
+              mb: 4,
             }}
           >
             <Typography
@@ -52,12 +59,13 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
                 color: 'primary.main',
                 fontWeight: 'bold',
                 mb: 1,
+                fontSize: '2rem',
               }}
             >
               {getPageTitle()}
             </Typography>
-            <Typography variant="body2" color="text.secondary" sx={{ textAlign: 'center' }}>
-              SHS - Home Services Management
+            <Typography variant="body2" color="secondary.main" sx={{ textAlign: 'center', fontSize: '1.2rem' }}>
+              {getPageGreeting()}
             </Typography>
           </Box>
           {children}
@@ -65,4 +73,6 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
       </Container>
     </Box>
   );
-}
+};
+
+export default AuthLayout;

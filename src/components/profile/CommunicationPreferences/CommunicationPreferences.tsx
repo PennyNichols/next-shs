@@ -55,7 +55,7 @@ export const CommunicationPreferences: React.FC<CommunicationPreferencesProps> =
   const [success, setSuccess] = useState(false);
 
   const handlePreferenceChange = (key: keyof CommunicationPreferencesData) => {
-    setPrefs(prev => ({
+    setPrefs((prev) => ({
       ...prev,
       [key]: !prev[key],
     }));
@@ -80,14 +80,14 @@ export const CommunicationPreferences: React.FC<CommunicationPreferencesProps> =
     }
   };
 
-  const PreferenceGroup = ({ 
-    title, 
-    icon, 
-    children 
-  }: { 
-    title: string; 
-    icon: React.ReactNode; 
-    children: React.ReactNode 
+  const PreferenceGroup = ({
+    title,
+    icon,
+    children,
+  }: {
+    title: string;
+    icon: React.ReactNode;
+    children: React.ReactNode;
   }) => (
     <Box>
       <Box display="flex" alignItems="center" gap={1} mb={2}>
@@ -103,12 +103,7 @@ export const CommunicationPreferences: React.FC<CommunicationPreferencesProps> =
       <CardContent>
         <Box display="flex" justifyContent="space-between" alignItems="center" mb={3}>
           <Typography variant="h6">Communication Preferences</Typography>
-          <Button
-            variant="contained"
-            startIcon={<Save />}
-            onClick={handleSave}
-            disabled={loading}
-          >
+          <Button variant="contained" startIcon={<Save />} onClick={handleSave} disabled={loading}>
             {loading ? 'Saving...' : 'Save Changes'}
           </Button>
         </Box>
@@ -127,18 +122,10 @@ export const CommunicationPreferences: React.FC<CommunicationPreferencesProps> =
 
         <Grid container spacing={4}>
           <Grid item xs={12} md={6}>
-            <PreferenceGroup 
-              title="Communication Methods" 
-              icon={<NotificationsActive color="primary" />}
-            >
+            <PreferenceGroup title="Communication Methods" icon={<NotificationsActive color="primary" />}>
               <Box display="flex" flexDirection="column" gap={1}>
                 <FormControlLabel
-                  control={
-                    <Switch
-                      checked={prefs.email}
-                      onChange={() => handlePreferenceChange('email')}
-                    />
-                  }
+                  control={<Switch checked={prefs.email} onChange={() => handlePreferenceChange('email')} />}
                   label={
                     <Box display="flex" alignItems="center" gap={1}>
                       <Email fontSize="small" />
@@ -147,12 +134,7 @@ export const CommunicationPreferences: React.FC<CommunicationPreferencesProps> =
                   }
                 />
                 <FormControlLabel
-                  control={
-                    <Switch
-                      checked={prefs.sms}
-                      onChange={() => handlePreferenceChange('sms')}
-                    />
-                  }
+                  control={<Switch checked={prefs.sms} onChange={() => handlePreferenceChange('sms')} />}
                   label={
                     <Box display="flex" alignItems="center" gap={1}>
                       <Sms fontSize="small" />
@@ -161,12 +143,7 @@ export const CommunicationPreferences: React.FC<CommunicationPreferencesProps> =
                   }
                 />
                 <FormControlLabel
-                  control={
-                    <Switch
-                      checked={prefs.phone}
-                      onChange={() => handlePreferenceChange('phone')}
-                    />
-                  }
+                  control={<Switch checked={prefs.phone} onChange={() => handlePreferenceChange('phone')} />}
                   label={
                     <Box display="flex" alignItems="center" gap={1}>
                       <Phone fontSize="small" />
@@ -175,12 +152,7 @@ export const CommunicationPreferences: React.FC<CommunicationPreferencesProps> =
                   }
                 />
                 <FormControlLabel
-                  control={
-                    <Switch
-                      checked={prefs.push}
-                      onChange={() => handlePreferenceChange('push')}
-                    />
-                  }
+                  control={<Switch checked={prefs.push} onChange={() => handlePreferenceChange('push')} />}
                   label={
                     <Box display="flex" alignItems="center" gap={1}>
                       <NotificationsActive fontSize="small" />
@@ -193,10 +165,7 @@ export const CommunicationPreferences: React.FC<CommunicationPreferencesProps> =
           </Grid>
 
           <Grid item xs={12} md={6}>
-            <PreferenceGroup 
-              title="Content Types" 
-              icon={<Campaign color="primary" />}
-            >
+            <PreferenceGroup title="Content Types" icon={<Campaign color="primary" />}>
               <Box display="flex" flexDirection="column" gap={1}>
                 <FormControlLabel
                   control={
@@ -217,21 +186,11 @@ export const CommunicationPreferences: React.FC<CommunicationPreferencesProps> =
                   label="Estimate Updates"
                 />
                 <FormControlLabel
-                  control={
-                    <Switch
-                      checked={prefs.marketing}
-                      onChange={() => handlePreferenceChange('marketing')}
-                    />
-                  }
+                  control={<Switch checked={prefs.marketing} onChange={() => handlePreferenceChange('marketing')} />}
                   label="Marketing Communications"
                 />
                 <FormControlLabel
-                  control={
-                    <Switch
-                      checked={prefs.promotions}
-                      onChange={() => handlePreferenceChange('promotions')}
-                    />
-                  }
+                  control={<Switch checked={prefs.promotions} onChange={() => handlePreferenceChange('promotions')} />}
                   label="Promotions & Offers"
                 />
               </Box>
@@ -243,8 +202,8 @@ export const CommunicationPreferences: React.FC<CommunicationPreferencesProps> =
 
         <Box>
           <Typography variant="body2" color="text.secondary">
-            <strong>Note:</strong> You can change these preferences at any time. 
-            Service reminders and estimate updates are recommended to stay informed about your projects.
+            <strong>Note:</strong> You can change these preferences at any time. Service reminders and estimate updates
+            are recommended to stay informed about your projects.
           </Typography>
         </Box>
       </CardContent>

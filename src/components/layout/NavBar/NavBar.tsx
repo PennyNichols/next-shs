@@ -1,8 +1,5 @@
 'use client';
 
-// NEED TO FIX LINK BG COLORS AND HOVER BG COLORS
-// STYLE MIGRATION TO SX BROKE IT
-// INTEGRATE INTO THEME, CAN USE CUSTOM CLASSNAMES IN GLOBAL THEME
 import React, { useEffect, useState } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -22,78 +19,48 @@ import theme from '@/styles/theme';
 import { ClickAwayListener, Collapse } from '@mui/material';
 import ActionButton from '@/components/common/ActionButton/ActionButton';
 import NavButton from '@/components/common/NavButton/NavButton';
-
-const pages = [
-  { name: 'Home', href: '/' },
-  { name: 'Services', href: '/services' },
-  { name: 'Careers', href: '/careers' },
-  { name: 'Blog', href: '/blog' },
-  { name: 'About', href: '/about' },
-  { name: 'FAQ', href: '/FAQ' },
-];
+import StylableLogo from '../../../assets/svg/LogoSvg/LogoSvg';
+import { useAuth } from '@/contexts/AuthContext/AuthContext';
 
 const NavBar = () => {
+  const { currentUser, signOutUser } = useAuth();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [logoColor, setLogoColor] = useState(theme.palette.background.paper);
   const logoHoverColor = theme.palette.accent.primary;
   const [logoScale, setLogoScale] = useState(1);
 
-  const { isXxs: initialIsXxs, isXs: initialIsXs, isSm: initialIsSm, isMd, isLg, isXl } = useMedia();
   const [showClientContent, setShowClientContent] = useState(false);
-  const [isXxs, setIsXxs] = useState(false);
-  const [isXs, setIsXs] = useState(false);
-  const [isSm, setIsSm] = useState(false);
+
+  // Dynamic pages array based on authentication status
+  const pages = [
+    // { name: 'Home', href: '/' },
+    { name: 'Services', href: '/services' },
+    { name: 'Careers', href: '/careers' },
+    // { name: 'Blog', href: '/blog' },
+    // { name: 'About', href: '/about' },
+    { name: 'FAQ', href: '/FAQ' },
+    {
+      name: currentUser ? 'Sign Out' : 'Login',
+      href: currentUser ? '#' : '/sign-up',
+      isSignOut: !!currentUser,
+    },
+  ];
 
   useEffect(() => {
     setShowClientContent(true);
-    setIsXxs(initialIsXxs);
-    setIsXs(initialIsXs);
-    setIsSm(initialIsSm);
-  }, [initialIsXxs, initialIsXs, initialIsSm]);
-  const isMobile = isXxs || isXs || isSm;
+  }, []);
 
   const handleMenuToggle = () => setIsMenuOpen((prev) => !prev);
   const handleMenuClose = () => setIsMenuOpen(false);
 
-  let logoWidth;
-  let iconSize;
-
-  if (isXxs) {
-    logoWidth = 80;
-    iconSize = 50;
-  } else if (isXs) {
-    logoWidth = 80;
-    iconSize = 55;
-  } else if (isSm) {
-    logoWidth = 100;
-    iconSize = 65;
-  } else if (isMd) {
-    logoWidth = 100;
-  } else if (isLg) {
-    logoWidth = 110;
-  } else if (isXl) {
-    logoWidth = 120;
-  } else {
-    logoWidth = 50;
-  }
-
-  let logoHeight;
-
-  if (isXxs) {
-    logoHeight = 80;
-  } else if (isXs) {
-    logoHeight = 80;
-  } else if (isSm) {
-    logoHeight = 100;
-  } else if (isMd) {
-    logoHeight = 100;
-  } else if (isLg) {
-    logoHeight = 110;
-  } else if (isXl) {
-    logoHeight = 120;
-  } else {
-    logoHeight = 50;
-  }
+  const handleSignOut = async () => {
+    try {
+      await signOutUser();
+      handleMenuClose();
+    } catch (error) {
+      console.error('Sign out error:', error);
+    }
+  };
 
   return (
     <ClickAwayListener onClickAway={handleMenuClose}>
@@ -120,12 +87,19 @@ const NavBar = () => {
                   onTouchStart={() => setLogoScale(0.9)}
                   onTouchEnd={() => setLogoScale(1)}
                 >
-                  <LogoSvg color={logoColor} width={logoWidth} height={logoHeight} />
+                  <StylableLogo
+                    color={logoColor}
+                    sx={{
+                      height: { xxs: 55, md: 60, xl: 70 },
+                      width: { xxs: 65, md: 70, xl: 82 },
+                      margin: { xxs: 0.7, md: 1 },
+                    }}
+                  />
                 </Box>
               </Link>
             </Box>{' '}
             {/* Desktop Links */}
-            {showClientContent && !isMobile && (
+            {showClientContent && (
               <Box
                 sx={{
                   flexGrow: 1,
@@ -133,11 +107,17 @@ const NavBar = () => {
                   display: { xxs: 'none', md: 'flex' },
                 }}
               >
-                {pages.map((page) => (
-                  <Link className="nav-menu-item" key={page.name} href={page.href} passHref>
-                    <NavButton text={page.name} />
-                  </Link>
-                ))}
+                {pages.map((page) =>
+                  page.isSignOut ? (
+                    <Box key={page.name} component="span" onClick={handleSignOut} sx={{ cursor: 'pointer' }}>
+                      <NavButton text={page.name} />
+                    </Box>
+                  ) : (
+                    <Link className="nav-menu-item" key={page.name} href={page.href} passHref>
+                      <NavButton text={page.name} />
+                    </Link>
+                  ),
+                )}
               </Box>
             )}
             {/* Desktop Skeleton */}
@@ -165,20 +145,20 @@ const NavBar = () => {
               </Box>
             )}
             {/* Mobile Hamburger */}
-            {showClientContent && isMobile && (
+            {showClientContent && (
               <Box
                 sx={{
-                  display: 'flex',
+                  display: { xxs: 'flex', md: 'none' },
                   justifyContent: 'flex-end',
                   marginLeft: 'auto',
                 }}
               >
-                <IconButton size="large" aria-label="menu" onClick={handleMenuToggle} color="inherit">
+                <IconButton size="medium" aria-label="menu" onClick={handleMenuToggle} color="inherit">
                   <Box
                     sx={{
                       position: 'relative',
-                      width: iconSize,
-                      height: iconSize,
+                      width: { xxs: 45, sm: 55 },
+                      height: { xxs: 45, sm: 55 },
                     }}
                   >
                     <Handyman
@@ -190,7 +170,7 @@ const NavBar = () => {
                         height: '100%',
                         color: 'background.paper',
                         transition: `${customTransitions.slow}, transform 0.3s ease-out, opacity 0.3s ease-out`,
-                        fontSize: iconSize,
+                        fontSize: { xxs: 45, sm: 55 },
                         '&:hover': { color: 'accent.primary' },
                         opacity: isMenuOpen ? 1 : 0,
                         transform: isMenuOpen ? 'rotate(0deg)' : 'rotate(-180deg)',
@@ -206,7 +186,7 @@ const NavBar = () => {
                         height: '100%',
                         color: 'background.paper',
                         transition: `${customTransitions.slow}, transform 0.3s ease-out, opacity 0.3s ease-out`,
-                        fontSize: iconSize - 3,
+                        fontSize: { xxs: 42, sm: 52 },
                         '&:hover': { color: 'accent.primary' },
                         opacity: isMenuOpen ? 0 : 1,
                         transform: isMenuOpen ? 'rotate(180deg)' : 'rotate(0deg)',
@@ -220,31 +200,35 @@ const NavBar = () => {
           </Toolbar>
         </Container>
 
-        {isMobile && (
-          <Collapse in={isMenuOpen} timeout="auto" unmountOnExit>
-            <Box
-              onClick={handleMenuClose}
-              sx={{
-                py: 2,
-                backgroundColor: 'primary.main',
-                position: 'absolute',
-                top: 'calc(100% - 4px)',
-                left: 0,
-                right: 0,
-                boxShadow: '0px 10px 15px -3px rgba(0, 0, 0, 0.3)',
-                width: { xxs: '100%', sm: 'auto' },
-              }}
-            >
-              {pages.map((page) => (
-                <MenuItem key={page.name} sx={{ justifyContent: 'center' }} onClick={handleMenuClose}>
+        <Collapse in={isMenuOpen} timeout="auto" unmountOnExit sx={{ display: { xxs: 'flex', md: 'none' } }}>
+          <Box
+            onClick={handleMenuClose}
+            sx={{
+              py: 2,
+              backgroundColor: 'primary.main',
+              position: 'absolute',
+              top: 'calc(100% - 4px)',
+              left: 0,
+              right: 0,
+              boxShadow: '0px 10px 15px -3px rgba(0, 0, 0, 0.3)',
+              width: { xxs: '100%', sm: 'auto' },
+            }}
+          >
+            {pages.map((page) => (
+              <MenuItem key={page.name} sx={{ justifyContent: 'center' }} onClick={handleMenuClose}>
+                {page.isSignOut ? (
+                  <Box component="span" onClick={handleSignOut} sx={{ cursor: 'pointer' }}>
+                    <NavButton text={page.name} />
+                  </Box>
+                ) : (
                   <Link className="nav-menu-item" key={page.name} href={page.href} passHref>
                     <NavButton text={page.name} />
                   </Link>
-                </MenuItem>
-              ))}
-            </Box>
-          </Collapse>
-        )}
+                )}
+              </MenuItem>
+            ))}
+          </Box>
+        </Collapse>
 
         {/* Mobile Skeleton */}
         {!showClientContent && (

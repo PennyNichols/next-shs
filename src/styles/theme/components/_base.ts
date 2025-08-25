@@ -1,21 +1,32 @@
 import { alpha } from '@mui/material/styles';
 import type { Components, Theme } from '@mui/material/styles';
 import type { CSSObject } from '@emotion/react';
-import { customShadows, customBorderRadius, customTransitions } from '../otherThemeConstants'; // Assuming these are correctly typed as discussed
+import { customShadows, customBorderRadius, customTransitions } from '../otherThemeConstants';
 
 const svgDropShadowFilter = `%3Cdefs%3E%3Cfilter id='shadow' x='-70%25' y='-70%25' width='300%25' height='300%25'%3E%3CfeDropShadow dx='0' dy='2' stdDeviation='1' flood-color='%23000' flood-opacity='.3'/%3E%3C/filter%3E%3C/defs%3E`;
 
 const baseComponents: Components<Theme> = {
-  // ---------------------------------------------------
-  // Global Scrollbar Customizations
-  // ---------------------------------------------------
   MuiCssBaseline: {
     styleOverrides: (theme: Theme) => ({
       html: {
         scrollbarGutter: 'stable',
         WebkitTapHighlightColor: 'transparent',
+        '& .grecaptcha-badge': {
+          position: 'fixed !important',
+          bottom: '100px !important',
+          right: '-157px !important',
+          // marginRight: '-250px !important',
+          zIndex: '10000 !important',
+          opacity: '50% !important',
+          transition: 'all 1s ease-in-out !important',
+          transform: 'scale(0.5)',
+          '&:hover': {
+            opacity: '80% !important',
+            transform: 'scale(0.5) translateX(-170px)',
+          },
+        },
       },
-      // For Webkit-based browsers (Chrome, Safari, Edge, etc.)
+
       body: {
         WebkitTapHighlightColor: 'transparent',
         '& .firebase-emulator-warning': {
@@ -126,20 +137,15 @@ const baseComponents: Components<Theme> = {
       form: {},
     }),
   },
-  // ---------------------------------------------------
-  // MuiContainer Component Customizations
-  // ---------------------------------------------------
   MuiContainer: {
     defaultProps: {
       maxWidth: 'xl',
     },
     styleOverrides: {
       root: ({ theme }: { theme: Theme }): CSSObject => ({
-        width: '100%',
         '&.page-wrapper': {
           minHeight: '100dvh',
-          maxWidth: '100%',
-          minWidth: '100%',
+          width: '100%',
           display: 'flex',
           flexDirection: 'column',
           gap: theme.spacing(4),
@@ -149,9 +155,6 @@ const baseComponents: Components<Theme> = {
       }),
     },
   },
-  // ---------------------------------------------------
-  // MuiDivider Component Customizations
-  // ---------------------------------------------------
   MuiDivider: {
     defaultProps: {},
     styleOverrides: {
@@ -179,13 +182,13 @@ const baseComponents: Components<Theme> = {
           margin: theme.spacing(1, 'auto'),
           marginBottom: theme.spacing(5),
           maxWidth: '80%',
+          [theme.breakpoints.down('xxs')]: {
+            marginBottom: theme.spacing(1),
+          },
         },
       }),
     },
   },
-  // ---------------------------------------------------
-  // MuiPaper Component Customizations
-  // ---------------------------------------------------
   MuiPaper: {
     defaultProps: {
       elevation: 3,
@@ -197,23 +200,12 @@ const baseComponents: Components<Theme> = {
       }),
     },
   },
-  // ---------------------------------------------------
-  // MuiGrid Component Customizations (for the main question label)
-  // ---------------------------------------------------
   MuiGrid: {
     defaultProps: {
       item: true,
-      // If you set container: true here, all Grid components would be containers unless specified otherwise
-      // container: true, // Not recommended to make ALL grids containers by default
-      // spacing: 2,      // Not recommended to make ALL grids have spacing 2 by default
     },
     styleOverrides: {
-      // This is where you put CSS for the .MuiGrid-root class
-      root: ({ theme, ownerState }) => ({
-        // CSS that applies to the root element of a Grid
-        // You can even target it when it's a form if you want specific styles
-        // if (ownerState.component === 'form') { ... }
-      }),
+      root: ({ theme, ownerState }) => ({}),
     },
   },
 };

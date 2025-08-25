@@ -3,10 +3,11 @@
 import { Box, Typography, Skeleton, Container } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import Slider from 'react-slick';
-import {useMedia} from '@/hooks';
+import { useMedia } from '@/hooks';
 import { customBorderRadius, customBreakpoints, customShadows } from '@/styles/theme/otherThemeConstants';
 import { ServicesAccordion } from '@/components/sections';
 import { CustomNextArrow, CustomPrevArrow } from '@/components/common/ArrowButtons';
+import PageContainer from '@/components/common/PageContainer/PageContainer';
 
 const carouselImages = [
   '/images/servicesCarousel1.png',
@@ -84,118 +85,128 @@ const ServicesPage = () => {
   }, [initialIsXxs, initialIsXs]);
   const imageDisplayHeight = isXxs || isXs ? '300px' : '200px';
   return (
-    <Container className="page-wrapper">
+    <PageContainer>
       <Box
         sx={{
-          width: '100%',
-          maxWidth: 1200,
-          mb: 4,
+          backgroundColor: 'background.paper',
           display: 'flex',
-          justifyContent: 'center',
+          flexDirection: 'column',
           alignItems: 'center',
-        }}
-      >
-        <Box
-          sx={{
-            minWidth: 20,
-            height: 2,
-            backgroundColor: 'secondary.dark',
-            flex: 1,
-            mx: { xxs: 2, sm: 3, md: 4, lg: 5 },
-            '@media (max-width: 400px)': {
-              display: 'none',
-            },
-          }}
-        />
-        <Typography variant="h2" sx={{ textAlign: 'center' }}>
-          Our Services
-        </Typography>
-        <Box
-          sx={{
-            minWidth: 20,
-            height: 2,
-            backgroundColor: 'secondary.dark',
-            flex: 1,
-            mx: { xxs: 2, sm: 3, md: 4, lg: 5 },
-            '@media (max-width: 400px)': {
-              display: 'none',
-            },
-          }}
-        />
-      </Box>{' '}
-      {/* Image Carousel */}
-      <Box
-        sx={{
+          py: 4,
+          px: 2,
           width: '100%',
-          maxWidth: 900,
-          mb: 6,
-          position: 'relative',
+          maxWidth: '1200px',
+          mx: 'auto',
         }}
       >
-        {showClientContent ? (
-          <Slider {...sliderSettings}>
-            {carouselImages.map((src, idx) => (
-              <Box
-                key={idx}
-                sx={{
-                  p: 2,
-                  height: imageDisplayHeight, // Fixed height for the container
-                  overflow: 'hidden', // Hide overflow if image is cropped
-                  borderRadius: customBorderRadius.small, // Consistent border radius
-                }}
-              >
-                <img
-                  src={src}
-                  alt={`Service ${idx + 1}`}
-                  style={{
-                    width: '100%',
-                    height: '100%',
+        <Box
+          sx={{
+            width: '100%',
+            maxWidth: 1200,
+            mb: 4,
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <Box
+            sx={{
+              minWidth: 20,
+              height: 2,
+              backgroundColor: 'secondary.dark',
+              flex: 1,
+              display: { xxs: 'none', xs: 'block' },
+              mx: { xxs: 2, sm: 3, md: 4, lg: 5 },
+            }}
+          />
+          <Typography variant="h2" sx={{ textAlign: 'center' }}>
+            Our Services
+          </Typography>
+          <Box
+            sx={{
+              minWidth: 20,
+              height: 2,
+              backgroundColor: 'secondary.dark',
+              flex: 1,
+              mx: { xxs: 2, sm: 3, md: 4, lg: 5 },
+              display: { xxs: 'none', xs: 'block' },
+            }}
+          />
+        </Box>{' '}
+        {/* Image Carousel */}
+        <Box
+          sx={{
+            width: '100%',
+            maxWidth: 900,
+            mb: 6,
+            position: 'relative',
+          }}
+        >
+          {showClientContent ? (
+            <Slider {...sliderSettings}>
+              {carouselImages.map((src, idx) => (
+                <Box
+                  key={idx}
+                  sx={{
+                    p: 2,
+                    height: imageDisplayHeight, // Fixed height for the container
+                    overflow: 'hidden', // Hide overflow if image is cropped
+                    borderRadius: customBorderRadius.small, // Consistent border radius
+                  }}
+                >
+                  <img
+                    src={src}
+                    alt={`Service ${idx + 1}`}
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      borderRadius: customBorderRadius.medium,
+                      objectFit: 'cover',
+                      boxShadow: customShadows[2],
+                    }}
+                  />
+                </Box>
+              ))}
+            </Slider>
+          ) : (
+            // Skeleton for carousel
+            <Box sx={{ display: 'flex', gap: 2, overflow: 'hidden' }}>
+              {Array.from({ length: isXs ? 1 : 5 }).map((_, idx) => (
+                <Skeleton
+                  key={idx}
+                  variant="rectangular"
+                  sx={{
+                    flex: isXxs || isXs ? '1' : '0 0 calc(20% - 16px)',
+                    height: imageDisplayHeight,
                     borderRadius: customBorderRadius.medium,
-                    objectFit: 'cover',
-                    boxShadow: customShadows[2],
+                    minWidth: isXxs || isXs ? '100%' : 'auto',
+                  }}
+                />
+              ))}
+            </Box>
+          )}{' '}
+        </Box>
+        {showClientContent ? (
+          <ServicesAccordion />
+        ) : (
+          // Skeleton for Services Accordion
+          <Box sx={{ width: '100%', maxWidth: 1200 }}>
+            {Array.from({ length: 6 }).map((_, idx) => (
+              <Box key={idx} sx={{ mb: 2 }}>
+                <Skeleton
+                  variant="rectangular"
+                  height={60}
+                  sx={{
+                    borderRadius: customBorderRadius.small,
+                    mb: 1,
                   }}
                 />
               </Box>
             ))}
-          </Slider>
-        ) : (
-          // Skeleton for carousel
-          <Box sx={{ display: 'flex', gap: 2, overflow: 'hidden' }}>
-            {Array.from({ length: isXs ? 1 : 5 }).map((_, idx) => (
-              <Skeleton
-                key={idx}
-                variant="rectangular"
-                sx={{
-                  flex: isXxs || isXs ? '1' : '0 0 calc(20% - 16px)',
-                  height: imageDisplayHeight,
-                  borderRadius: customBorderRadius.medium,
-                  minWidth: isXxs || isXs ? '100%' : 'auto',
-                }}
-              />
-            ))}
           </Box>
-        )}{' '}
+        )}
       </Box>
-      {showClientContent ? (
-        <ServicesAccordion />
-      ) : (
-        // Skeleton for Services Accordion
-        <Box sx={{ width: '100%', maxWidth: 1200 }}>
-          {Array.from({ length: 6 }).map((_, idx) => (
-            <Box key={idx} sx={{ mb: 2 }}>
-              <Skeleton
-                variant="rectangular"
-                height={60}
-                sx={{
-                  borderRadius: customBorderRadius.small,
-                  mb: 1,
-                }}
-              />
-            </Box>
-          ))}
-        </Box>
-      )}
-    </Container>
+    </PageContainer>
   );
 };
 

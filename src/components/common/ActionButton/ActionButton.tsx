@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import Button, { ButtonProps } from '@mui/material/Button';
-import { customShadows } from '@/styles/theme/otherThemeConstants';
+import { customShadows, customTransitions } from '@/styles/theme/otherThemeConstants';
 import theme from '@/styles/theme';
 import { useMedia } from '@/hooks';
 
@@ -16,7 +16,7 @@ interface ActionButtonProps
   icon?: React.ReactNode | null;
   iconColor?: string | null;
   iconHoverColor?: string | null;
-  fullWidth?: boolean;
+  fullWidth?: boolean | { [key: string]: boolean };
   path?: string | null;
   target?: string | null;
   onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
@@ -40,50 +40,22 @@ const ActionButton: React.FC<ActionButtonProps> = ({
 }) => {
   const [scale, setScale] = useState(1);
 
-  const { isXxs, isXs, isSm, isMd, isLg, isXl } = useMedia();
-
-  let buttonSize;
-
-  if (isXxs) {
-    buttonSize = 'small';
-  } else if (isXs) {
-    buttonSize = 'small';
-  } else if (isSm) {
-    buttonSize = 'medium';
-  } else if (isMd) {
-    buttonSize = 'medium';
-  } else if (isLg) {
-    buttonSize = 'large';
-  } else if (isXl) {
-    buttonSize = 'large';
-  }
-
   return (
     <Button
       type={type}
       variant={variant}
       color={color}
-      size={buttonSize}
       className={className}
       sx={{
         display: 'flex',
         gap: 1,
         boxShadow: { xxs: customShadows[5], lg: customShadows[10] },
         transform: `scale(${scale})`,
-        transition: 'all 0.5s ease-in-out, transform 0.1s ease-in-out',
-        '& .MuiButton-startIcon': {
-          color: iconColor || 'secondary.light',
-          transition: 'all 0.5s ease-in-out',
-        },
-        '&:hover': {
-          '& .MuiButton-startIcon': {
-            color: iconHoverColor || 'accent.primary',
-          },
-        },
+        transition: customTransitions.standard,
         ...sx,
       }}
       startIcon={icon}
-      fullWidth={fullWidth}
+      fullWidth={fullWidth as any}
       {...(path && {
         href: path,
         target: target,

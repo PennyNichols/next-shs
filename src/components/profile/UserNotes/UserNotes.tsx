@@ -53,11 +53,7 @@ const noteSchema = yup.object().shape({
   isInternal: yup.boolean(),
 });
 
-export const UserNotes: React.FC<UserNotesProps> = ({
-  userId,
-  notes,
-  isAdminView = false,
-}) => {
+export const UserNotes: React.FC<UserNotesProps> = ({ userId, notes, isAdminView = false }) => {
   const { user: currentUser } = useUser();
   const [editingNote, setEditingNote] = useState<UserNote | null>(null);
   const [showAddForm, setShowAddForm] = useState(false);
@@ -115,7 +111,7 @@ export const UserNotes: React.FC<UserNotesProps> = ({
     setError(null);
 
     try {
-      const updatedNotes = notes.map(note => {
+      const updatedNotes = notes.map((note) => {
         if (note.id === editingNote.id) {
           return {
             ...note,
@@ -146,7 +142,7 @@ export const UserNotes: React.FC<UserNotesProps> = ({
     setError(null);
 
     try {
-      const updatedNotes = notes.filter(note => note.id !== noteId);
+      const updatedNotes = notes.filter((note) => note.id !== noteId);
 
       await updateDoc(doc(db, 'users', userId), {
         notes: updatedNotes,
@@ -178,7 +174,7 @@ export const UserNotes: React.FC<UserNotesProps> = ({
   };
 
   // Filter notes based on user permissions
-  const visibleNotes = notes.filter(note => {
+  const visibleNotes = notes.filter((note) => {
     if (isAdminView) return true; // Admins see all notes
     return !note.isInternal; // Regular users only see public notes
   });
@@ -189,11 +185,7 @@ export const UserNotes: React.FC<UserNotesProps> = ({
         <Box display="flex" justifyContent="space-between" alignItems="center" mb={2}>
           <Typography variant="h6">User Notes</Typography>
           {(isAdminView || currentUser?.type === 'admin') && (
-            <Button
-              variant="contained"
-              startIcon={<Add />}
-              onClick={() => setShowAddForm(true)}
-            >
+            <Button variant="contained" startIcon={<Add />} onClick={() => setShowAddForm(true)}>
               Add Note
             </Button>
           )}
@@ -221,22 +213,8 @@ export const UserNotes: React.FC<UserNotesProps> = ({
                       <Typography variant="caption" color="text.secondary">
                         {formatDate(note.createdOn)}
                       </Typography>
-                      {note.isInternal && (
-                        <Chip
-                          label="Internal"
-                          size="small"
-                          color="warning"
-                          icon={<Lock />}
-                        />
-                      )}
-                      {!note.isInternal && (
-                        <Chip
-                          label="Public"
-                          size="small"
-                          color="success"
-                          icon={<Public />}
-                        />
-                      )}
+                      {note.isInternal && <Chip label="Internal" size="small" color="warning" icon={<Lock />} />}
+                      {!note.isInternal && <Chip label="Public" size="small" color="success" icon={<Public />} />}
                     </Box>
                     <Typography variant="body2" color="text.primary">
                       {note.message}
@@ -249,18 +227,10 @@ export const UserNotes: React.FC<UserNotesProps> = ({
                   </Box>
                   {(isAdminView || currentUser?.id === note.createdBy) && (
                     <Box>
-                      <IconButton
-                        size="small"
-                        onClick={() => openEditForm(note)}
-                        sx={{ mr: 1 }}
-                      >
+                      <IconButton size="small" onClick={() => openEditForm(note)} sx={{ mr: 1 }}>
                         <Edit />
                       </IconButton>
-                      <IconButton
-                        size="small"
-                        onClick={() => handleDeleteNote(note.id)}
-                        color="error"
-                      >
+                      <IconButton size="small" onClick={() => handleDeleteNote(note.id)} color="error">
                         <Delete />
                       </IconButton>
                     </Box>
@@ -272,10 +242,7 @@ export const UserNotes: React.FC<UserNotesProps> = ({
           ))}
           {visibleNotes.length === 0 && (
             <ListItem>
-              <ListItemText
-                primary="No notes available"
-                secondary="No notes have been added for this user yet"
-              />
+              <ListItemText primary="No notes available" secondary="No notes have been added for this user yet" />
             </ListItem>
           )}
         </List>
@@ -307,12 +274,7 @@ export const UserNotes: React.FC<UserNotesProps> = ({
                   control={control}
                   render={({ field }) => (
                     <FormControlLabel
-                      control={
-                        <Switch
-                          checked={field.value}
-                          onChange={field.onChange}
-                        />
-                      }
+                      control={<Switch checked={field.value} onChange={field.onChange} />}
                       label="Internal Note (only visible to staff)"
                       sx={{ mt: 2 }}
                     />
@@ -323,11 +285,7 @@ export const UserNotes: React.FC<UserNotesProps> = ({
           </DialogContent>
           <DialogActions>
             <Button onClick={() => setShowAddForm(false)}>Cancel</Button>
-            <Button
-              onClick={handleSubmit(handleAddNote)}
-              variant="contained"
-              disabled={loading}
-            >
+            <Button onClick={handleSubmit(handleAddNote)} variant="contained" disabled={loading}>
               {loading ? 'Adding...' : 'Add Note'}
             </Button>
           </DialogActions>
@@ -360,12 +318,7 @@ export const UserNotes: React.FC<UserNotesProps> = ({
                   control={control}
                   render={({ field }) => (
                     <FormControlLabel
-                      control={
-                        <Switch
-                          checked={field.value}
-                          onChange={field.onChange}
-                        />
-                      }
+                      control={<Switch checked={field.value} onChange={field.onChange} />}
                       label="Internal Note (only visible to staff)"
                       sx={{ mt: 2 }}
                     />
@@ -376,11 +329,7 @@ export const UserNotes: React.FC<UserNotesProps> = ({
           </DialogContent>
           <DialogActions>
             <Button onClick={() => setEditingNote(null)}>Cancel</Button>
-            <Button
-              onClick={handleSubmit(handleEditNote)}
-              variant="contained"
-              disabled={loading}
-            >
+            <Button onClick={handleSubmit(handleEditNote)} variant="contained" disabled={loading}>
               {loading ? 'Updating...' : 'Update Note'}
             </Button>
           </DialogActions>

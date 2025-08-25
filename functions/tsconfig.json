@@ -1,21 +1,21 @@
 {
   "compilerOptions": {
-    "module": "commonjs",             // Use CommonJS modules (Node.js standard for Cloud Functions)
-    "noImplicitReturns": true,       // Error on functions that don't return a value on all code paths
-    "noUnusedLocals": true,          // Report errors on unused local variables
-    "outDir": "lib",                 // Output compiled JavaScript files to the 'lib' directory
+    "module": "commonjs", // Use CommonJS modules (Node.js standard for Cloud Functions)
+    "noImplicitReturns": true, // Error on functions that don't return a value on all code paths
+    "noUnusedLocals": true, // Report errors on unused local variables
+    "outDir": "lib", // Output compiled JavaScript files to the 'lib' directory
     "rootDir": "src",
-    "sourceMap": true,               // Generate source maps for easier debugging
-    "strict": true,                  // Enable all strict type-checking options
-    "target": "es2020",              // Compile to ES2020 JavaScript (compatible with modern Node.js runtimes in Cloud Functions)
-    "esModuleInterop": true,         // Allow default imports from modules with no default export (e.g., `import * as express from 'express';`)
+    "sourceMap": true, // Generate source maps for easier debugging
+    "strict": true, // Enable all strict type-checking options
+    "target": "es2020", // Compile to ES2020 JavaScript (compatible with modern Node.js runtimes in Cloud Functions)
+    "esModuleInterop": true, // Allow default imports from modules with no default export (e.g., `import * as express from 'express';`)
     "forceConsistentCasingInFileNames": true, // Disallow inconsistently-cased references to the same file
-    "skipLibCheck": true             // Skip type checking of all declaration files (*.d.ts)
+    "skipLibCheck": true // Skip type checking of all declaration files (*.d.ts)
   },
-  "compileOnSave": true,             // Recompile on save in supported editors
-  "include": ["src"],                // Only include files in the 'src' directory for compilation
+  "compileOnSave": true, // Recompile on save in supported editors
+  "include": ["src"], // Only include files in the 'src' directory for compilation
   "exclude": [
-    "node_modules",                  // Exclude node_modules (handled by npm install on deployment)
-    "lib"                            // Exclude the output directory itself
+    "node_modules", // Exclude node_modules (handled by npm install on deployment)
+    "lib" // Exclude the output directory itself
   ]
 }

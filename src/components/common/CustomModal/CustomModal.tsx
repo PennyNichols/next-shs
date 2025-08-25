@@ -1,17 +1,6 @@
 // components/CustomModal.tsx
 import React from 'react';
-import {
-  Modal,
-  Box,
-  Typography,
-  IconButton,
-  Button,
-  useTheme,
-  Fade,
-  // Import SxProps and Theme for type annotations
-  type SxProps,
-  type Theme,
-} from '@mui/material';
+import { Modal, Box, Typography, IconButton, Button, useTheme, Fade, type SxProps, type Theme } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close'; // Requires @mui/icons-material
 
 // Define the props interface for the CustomModal component
@@ -66,7 +55,8 @@ interface CustomModalProps {
  * A reusable custom modal component built on Mui Modal for lightweight,
  * fully customizable overlays with theme integration.
  */
-const CustomModal: React.FC<CustomModalProps> = ({ // Type annotation for functional component
+const CustomModal: React.FC<CustomModalProps> = ({
+  // Type annotation for functional component
   open,
   onClose,
   title,
@@ -75,23 +65,23 @@ const CustomModal: React.FC<CustomModalProps> = ({ // Type annotation for functi
   maxWidth = { xs: '90%', sm: 500 }, // Default responsive max width
   disableEscapeKeyDown = false,
   containerSx, // sx for the inner content box
-  sx // sx for the root Modal component
+  sx, // sx for the root Modal component
 }) => {
-  const theme = useTheme(); 
+  const theme = useTheme();
 
   const baseContentStyle: SxProps<Theme> = {
     position: 'absolute' as 'absolute',
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: maxWidth, 
-    maxHeight: '90vh', 
-    overflowY: 'auto', 
-    bgcolor: 'background.paper', 
-    borderRadius: theme.shape.borderRadius, 
-    boxShadow: theme.shadows[24], 
+    width: maxWidth,
+    maxHeight: '90vh',
+    overflowY: 'auto',
+    bgcolor: 'background.paper',
+    borderRadius: theme.shape.borderRadius,
+    boxShadow: theme.shadows[24],
     display: 'flex',
-    flexDirection: 'column', 
+    flexDirection: 'column',
   };
 
   return (
@@ -129,11 +119,7 @@ const CustomModal: React.FC<CustomModalProps> = ({ // Type annotation for functi
             <Typography variant="h6" component="h2" id="custom-modal-title">
               {title}
             </Typography>
-            <IconButton
-              aria-label="close"
-              onClick={onClose}
-              sx={{ color: (theme) => theme.palette.grey[500] }}
-            >
+            <IconButton aria-label="close" onClick={onClose} sx={{ color: (theme) => theme.palette.grey[500] }}>
               <CloseIcon />
             </IconButton>
           </Box>

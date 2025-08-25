@@ -53,7 +53,7 @@ import { StaffRoute } from '@/components/auth/RouteGuard/RouteGuard';
 import useUser from '@/hooks/auth/useUser';
 import { UserData } from '@/hooks/auth/useUser';
 
-function AdminDashboardContent() {
+const AdminDashboardContent = () => {
   const { user, loading } = useUser();
   const [activeSection, setActiveSection] = useState<'dashboard' | 'users' | 'requests' | 'analytics' | 'settings'>(
     'dashboard',
@@ -188,7 +188,7 @@ function AdminDashboardContent() {
       </Box>
     </Box>
   );
-}
+};
 
 const AdminDashboardOverview = ({ user }: { user: UserData }) => (
   <Box>
@@ -512,10 +512,12 @@ const SettingsView = () => (
   </Box>
 );
 
-export default function AdminDashboard() {
+const AdminDashboard = () => {
   return (
     <StaffRoute>
       <AdminDashboardContent />
     </StaffRoute>
   );
-}
+};
+
+export default AdminDashboard;

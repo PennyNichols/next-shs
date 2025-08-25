@@ -5,7 +5,7 @@ import { Box, Container } from '@mui/material';
 import { StaffRoute } from '@/components/auth/RouteGuard/RouteGuard';
 import { DashboardNavigation } from '@/components/navigation/DashboardNavigation/DashboardNavigation';
 
-export default function AdminLayout({ children }: { children: React.ReactNode }) {
+const AdminLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <StaffRoute>
       <Box
@@ -24,11 +24,11 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             backgroundColor: 'background.default',
           }}
         >
-          <Container maxWidth="xl">
-            {children}
-          </Container>
+          <Container maxWidth="xl">{children}</Container>
         </Box>
       </Box>
     </StaffRoute>
   );
-}
+};
+
+export default AdminLayout;

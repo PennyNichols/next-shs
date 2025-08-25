@@ -1,3 +1,3 @@
-import JobApplication from "./JobApplication";
+import JobApplication from './JobApplication';
 
 export { JobApplication };

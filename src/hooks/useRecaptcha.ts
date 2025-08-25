@@ -1,4 +1,4 @@
-"use client";
+'use client';
 /* eslint-disable no-console */
 import { useState, useEffect } from 'react';
 

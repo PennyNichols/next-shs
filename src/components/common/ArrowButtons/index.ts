@@ -1,2 +1,2 @@
-import {CustomNextArrow, CustomPrevArrow} from './ArrowButtons';
-export {CustomNextArrow, CustomPrevArrow};
+import { CustomNextArrow, CustomPrevArrow } from './ArrowButtons';
+export { CustomNextArrow, CustomPrevArrow };
