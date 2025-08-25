@@ -771,34 +771,36 @@ firebase emulators:start --import=./firebase-data --export-on-exit
 
   - After successful deployment of the `prod` branch, `prod` is back-merged to reset `staging`.
 
-- **What is the PR process**
-  1. Commit your final changes to your local branch
-  2. Push the commit to GitHub
-  3. Deploy changes to the appropriate environment and **test** the changes.
-  4. Navigate to the [repository](https://github.com/PennyNichols/next-shs) on GitHub
-  5. Open Pull Request on GitHub
-  - **Option 1**
-    - At the top of the code section, there will be a toast that says "recent pushes to...". Click the toast and it will take you to a new PR.
+  - **What is the PR process**
+    1. Commit your final changes to your local branch
+    2. Push the commit to GitHub
+    3. Deploy changes to the appropriate environment and **test** the changes.
+    3. Navigate to the [repository](https://github.com/PennyNichols/next-shs) on GitHub 
+    4. Open Pull Request on GitHub
 
-  - **Option 2**
-    - Navigate to the repository's Pull Request tab.
-    - Click the green "New" button
-  5. Fill out each section of the PR template with appropriate details, documentation, and screenshots, if applicable.
-  6. Click "Draft Pull Request" to start the PR process without automatically requesting reviews from codeowners.
-  7. When drafted, the automatic checks for the PR should begin processing.
-  - A green checkmark will show next to the test at the bottom of the PR if the code passed.
-  - A red X will appear next to the test if the code failed.
-    1. Click on the failing test to see the output log.
-    2. Search the log for `error`
-    3. Fix the indicated errors and push the code to the remote branch.
-    4. The PR will automatically pick up the changes and begin running the checks again.
-    5. Repeat steps 1-4 until all checks are passing.
-  8. After all checks have passed, request an AI review by clicking "Copilot" in the "Reviewers" section of the PR. It may take a few minutes for the review process to complete.
-  9. Address all comments and code change suggestions provided by Copilot
-  10. Repeat steps 8 and 9 until Copilot approves the PR.
-  11. Set the status of the PR to "Ready for review"
-  - GitHub will automatically request a review from all code owners for the edited files.
-  - You can manually request a review from any other team member on the project, even if they are not a codeowner of the edited files.
+    - **Option 1** 
+      - At the top of the code section, there will be a toast that says "recent pushes to...". Click the toast and it will take you to a new PR.
+    ![create pull request](image.png)
+    - **Option 2**
+      - Navigate to the repository's Pull Request tab.
+      - Click the green "New" button
+    ![create new pull request](image-1.png)
+    5. Fill out each section of the PR template with appropriate details, documentation, and screenshots, if applicable.
+    6. Click "Draft Pull Request" to start the PR process without automatically requesting reviews from codeowners.
+    7. When drafted, the automatic checks for the PR should begin processing. 
+      - A green checkmark will show next to the test at the bottom of the PR if the code passed.
+      - A red X will appear next to the test if the code failed.
+        1. Click on the failing test to see the output log.
+        2. Search the log for `error`
+        3. Fix the indicated errors and push the code to the remote branch.
+        4. The PR will automatically pick up the changes and begin running the checks again.
+        5. Repeat steps 1-4 until all checks are passing.
+    8. After all checks have passed, request an AI review by clicking "Copilot" in the "Reviewers" section of the PR. It may take a few minutes for the review process to complete.
+    9. Address all comments and code change suggestions provided by Copilot
+    10. Repeat steps 8 and 9 until Copilot approves the PR.
+    11. Set the status of the PR to "Ready for review"
+      - GitHub will automatically request a review from all code owners for the edited files.
+      - You can manually request a review from any other team member on the project, even if they are not a codeowner of the edited files.
 
 ### Merging practices
 
@@ -970,83 +972,80 @@ firebase emulators:start --import=./firebase-data --export-on-exit
 
 ### General deployment information
 
-    **Only team members can deploy to our environments, external developers need their own environments**
+  **Only team members can deploy to our environments, external developers need their own environments**
 
-    - We will deploy to `dev`, `staging`, and `prod` at different phases of the development lifecycle.
-    - Only deploy to environments for which you are **authorized** to deploy to.
-    - We deploy using scripts defined in `package.json` that automatically select the correct Firebase project, copy the appropriate security rules, and deploy all services.
+  - We will deploy to `dev`, `staging`, and `prod` at different phases of the development lifecycle.
+  - Only deploy to environments for which you are **authorized** to deploy to.
+  - We deploy using scripts defined in `package.json` that automatically select the correct Firebase project, copy the appropriate security rules, and deploy all services.
 
-    **Always** make sure your branch is up to date with the remote `staging` branch before deploying to the `dev` or `staging` environments.
+  **Always** make sure your branch is up to date with the remote `staging` branch before deploying to the `dev` or `staging` environments.
 
 ### Deploy to `dev`
+  - Complete the **Dev Deployment Log** in the repository wiki
+    1. **Before** deployment
+    2. **After** testing is complete
 
-    - Complete the **Dev Deployment Log** in the repository wiki
-      1. **Before** deployment
-      2. **After** testing is complete
+  - **When to deploy**
+    **Multiple times per day**
 
-    - **When to deploy**
-      **Multiple times per day**
+    1. Every time you want to test a new feature, bug fix, or integration in a shared cloud environment mirroring the real set up.
+    2. Before merging a `dev/pbi` Pull Request into a `staging/pbi` branch.  
+    
+  - **Who can deploy**
+    - All team members are required to deploy and test changes for all of their owned `dev/task` branches.
+    - Any developer can deploy their branch to see their changes live and test integrations with existing code.
+    - Firebase emulators reduce the frequency of deployments to our shared `dev` environment by creating a simulated environment on your local machine, use them for regular development testing.
+    - Use deployments to the shared `dev` environment for final testing before submitting PRs.
+    - If more than one developer needs to deploy at a time, we use communication and collaboration to create combined branches with all changes to be tested. 
 
-      1. Every time you want to test a new feature, bug fix, or integration in a shared cloud environment mirroring the real set up.
-      2. Before merging a `dev/pbi` Pull Request into a `staging/pbi` branch.
-
-    - **Who can deploy**
-      - All team members are required to deploy and test changes for all of their owned `dev/task` branches.
-      - Any developer can deploy their branch to see their changes live and test integrations with existing code.
-      - Firebase emulators reduce the frequency of deployments to our shared `dev` environment by creating a simulated environment on your local machine, use them for regular development testing.
-      - Use deployments to the shared `dev` environment for final testing before submitting PRs.
-      - If more than one developer needs to deploy at a time, we use communication and collaboration to create combined branches with all changes to be tested.
-
-      - To stay informed about who is currently using the `dev` environment, check the **Dev Deployment Log** in repository [wiki](https://github.com/PennyNichols/next-shs/wiki) on GitHub.
-
-    - **How to deploy**
-    ```bash
-    npm run deploy:dev
-    ```
+    - To stay informed about who is currently using the `dev` environment, check the **Dev Deployment Log** in repository [wiki](https://github.com/PennyNichols/next-shs/wiki) on GitHub.
+  
+  - **How to deploy**
+  ```bash
+  npm run deploy:dev
+  ```
 
 ### Deploy to `staging`
+  - Deployment to `staging` is for testing code changes before sending to production.
 
-    - Deployment to `staging` is for testing code changes before sending to production.
+  - Complete the **Staging Deployment Log** in the repository wiki
+    1. **Before** deployment
+    2. **After** testing is complete
 
-    - Complete the **Staging Deployment Log** in the repository wiki
-      1. **Before** deployment
-      2. **After** testing is complete
+  - **When to deploy**
+    1. After converting a `dev/pbi` branch to a `staging/pbi` branch and preliminary testing has already occurred on `dev/pbi` in a `dev` deployment.
+    2. After **each** `staging/pbi` branch belonging to a single feature is merged into a `staging/feat` branch.
+    3. After **each** `staging/feat` branch included in a specific release is merged into a `staging/release` branch.
+  
+  - **Who can deploy**
+    - Owners of a PBI can deploy their `staging/pbi` branch to staging.
+    - Only a team lead can deploy a `staging/feat` or `staging/release` branch.
 
-    - **When to deploy**
-      1. After converting a `dev/pbi` branch to a `staging/pbi` branch and preliminary testing has already occurred on `dev/pbi` in a `dev` deployment.
-      2. After **each** `staging/pbi` branch belonging to a single feature is merged into a `staging/feat` branch.
-      3. After **each** `staging/feat` branch included in a specific release is merged into a `staging/release` branch.
-
-    - **Who can deploy**
-      - Owners of a PBI can deploy their `staging/pbi` branch to staging.
-      - Only a team lead can deploy a `staging/feat` or `staging/release` branch.
-
-    - **How to deploy**
-    ```bash
-    npm run deploy:staging
-    ```
+  - **How to deploy**
+  ```bash
+  npm run deploy:staging
+  ```
 
 ### Deploy to `prod`
+  - **When to deploy**
+    - Before deploying to `prod`, the `staging/release` or `prod/hotfix` PR must thoroughly reviewed and tested by **ALL** parties.
+    - We **only** deploy to `prod` after rigorous testing and explicit approval by QA, stakeholders, team lead, and every developer who contributed to the feature.
+      - **QA** must test against every task requirement, every PBI requirement, and every feature requirement.
+      - **Team lead** must test against every feature requirement.
+      - **Each developer** must test against against task requirements of their assigned tasks and PBI requirements of their assigned PBIs
+    - Deploying to `prod` is a scheduled and closely monitored event.
 
-    - **When to deploy**
-      - Before deploying to `prod`, the `staging/release` or `prod/hotfix` PR must thoroughly reviewed and tested by **ALL** parties.
-      - We **only** deploy to `prod` after rigorous testing and explicit approval by QA, stakeholders, team lead, and every developer who contributed to the feature.
-        - **QA** must test against every task requirement, every PBI requirement, and every feature requirement.
-        - **Team lead** must test against every feature requirement.
-        - **Each developer** must test against against task requirements of their assigned tasks and PBI requirements of their assigned PBIs
-      - Deploying to `prod` is a scheduled and closely monitored event.
+  - **Who can deploy**
+    - Deployments to `prod` are restricted to our automated CI/CD pipeline.
+    - If a manual deployment is ever required, only a tech lead can deploy. 
 
-    - **Who can deploy**
-      - Deployments to `prod` are restricted to our automated CI/CD pipeline.
-      - If a manual deployment is ever required, only a tech lead can deploy.
+  - **How to deploy**
+    - When a `staging/release` or `prod/hotfix` branch is merged into `prod`, our CI/CD pipeline automatically depoys to the `prod` environement.
+    - If a manual deployment outside of the normal lifecycle flow is required:
 
-    - **How to deploy**
-      - When a `staging/release` or `prod/hotfix` branch is merged into `prod`, our CI/CD pipeline automatically depoys to the `prod` environement.
-      - If a manual deployment outside of the normal lifecycle flow is required:
-
-      ```bash
-      npm run deploy:prod
-      ```
+    ```bash
+    npm run deploy:prod
+    ```
 
 ## Contributing
 
