@@ -75,8 +75,7 @@ Before you begin, ensure you have met the following **requirements**:
 3. `Java Development Kit (JDK) v21.0.7` or higher is required for running the Firebase Emulators.
 4. Firebase Tools CLI: Install globally via `npm`:
 
-
-    npm install -g firebase-tools
+   npm install -g firebase-tools
 
 ## Installation
 
@@ -151,17 +150,14 @@ Press Enter to **accept the default file location** (`~/.ssh/id_ed25519` or `~/.
   1. Log in to your GitHub account.
   2. Go to Settings (your profile picture in the top right):
 
-  ![GitHub account settings](./public/images/readme-images/image-4.png)
-  3. Click the option "SSH and GPG keys":
+  ![GitHub account settings](./public/images/readme-images/image-4.png) 3. Click the option "SSH and GPG keys":
 
-  ![SSH and GPG key setting](./public/images/readme-images/image-5.png)
-  4. Click New SSH key or Add SSH key:
-     - Give it a descriptive Title (e.g., "My Work Laptop").
-     - Paste your copied public key into the Key field
-     - Click Add SSH key and enter your passcode.
+  ![SSH and GPG key setting](./public/images/readme-images/image-5.png) 4. Click New SSH key or Add SSH key:
+  - Give it a descriptive Title (e.g., "My Work Laptop").
+  - Paste your copied public key into the Key field
+  - Click Add SSH key and enter your passcode.
 
-  ![Add new SSH key](./public/images/readme-images/image-6.png)
-  5. Confirm your key is in your GitHub SSH keys:
+  ![Add new SSH key](./public/images/readme-images/image-6.png) 5. Confirm your key is in your GitHub SSH keys:
 
   ![Active key](./public/images/readme-images/image-7.png)
 
@@ -503,7 +499,6 @@ firebase emulators:start --import=./firebase-data --export-on-exit
       1. Open a new terminal
       2. Choose your desired start up method from [Firebase Emulator Commands](#firebase-emulator-commands)
 
-
 ### Start the development server
 
     - After making absolutely sure your emulators **are already running**:
@@ -689,21 +684,25 @@ firebase emulators:start --import=./firebase-data --export-on-exit
     - Each `dev/task` branch must be thoroughly tested by the assigned developer before a PR is created.
     - `dev/task` branches are categorized into 4 types:
       1. **Bugs:** Errors found in testing, noticed by any team member, or reported by users in production.
+
       ```bash
       dev/task/bug/<task-number>/<task-description>
       ```
 
       2. **Chore:** Minor changes that aren't bugs and general code clean up.
+
       ```bash
       dev/task/chore/<task-number>/<task-description>
       ```
 
       3. **Refactor:** Changes to components and features that are not broken with the goal of improving the code readability, code reusability, UI appearance, user experience, general app flow, app performance, etc.
+
       ```bash
       dev/task/refactor/<task-number>/<task-description>
       ```
 
       4. **Feature:** Entirely new features and components.
+
       ```bash
       dev/task/feat/<task-number>/<task-description>
       ```
@@ -719,6 +718,7 @@ firebase emulators:start --import=./firebase-data --export-on-exit
   - There are three kinds of `staging` branches:
     1. **PBI:** After PR approval, each `dev/pbi` branch is converted to an identical `staging/pbi` branch.
     - The name of `staging/pbi` branches should reflect the name of the corresponding `dev/pbi` branch.
+
     ```bash
     staging/pbi/<pbi-number>/<pbi-description>
     ```
@@ -727,15 +727,18 @@ firebase emulators:start --import=./firebase-data --export-on-exit
     - After each `staging/pbi` branch is added to the `staging/feat` branch, deploy to the staging environment and test against the PBI requirements.
     - After all `staging/pbi` branches have been merged into the `staging/feat` branch, a PR is created and reviewed.
     - After PR approval, QA will thoroughly test the feature.
+
     ```bash
     staging/feat/<feature-name>
     ```
 
     3. **Release:** When `staging/feat` PRs are approved, they are added to a single `staging/release` branch and tested.
     - After each `staging/feat` branch is added to a `staging/release` branch, it is thoroughly tested by all parties.
+
     ```bash
     staging/release/<version-number>
     ```
+
 - **`prod`**
   - When all planned features for a production release are merged into a single `staging/release` branch and the PR is created, it is tested one more time by all parties and then merged into `prod`.
   - This branch is **only** for **production-ready** code.
@@ -775,32 +778,31 @@ firebase emulators:start --import=./firebase-data --export-on-exit
     1. Commit your final changes to your local branch
     2. Push the commit to GitHub
     3. Deploy changes to the appropriate environment and **test** the changes.
-    3. Navigate to the [repository](https://github.com/PennyNichols/next-shs) on GitHub 
-    4. Open Pull Request on GitHub
-
-    - **Option 1** 
+    4. Navigate to the [repository](https://github.com/PennyNichols/next-shs) on GitHub
+    5. Open Pull Request on GitHub
+    - **Option 1**
       - At the top of the code section, there will be a toast that says "recent pushes to...". Click the toast and it will take you to a new PR.
-    ![create pull request](image.png)
+        ![create pull request](image.png)
     - **Option 2**
       - Navigate to the repository's Pull Request tab.
       - Click the green "New" button
-    ![create new pull request](image-1.png)
+        ![create new pull request](image-1.png)
     5. Fill out each section of the PR template with appropriate details, documentation, and screenshots, if applicable.
     6. Click "Draft Pull Request" to start the PR process without automatically requesting reviews from codeowners.
-    7. When drafted, the automatic checks for the PR should begin processing. 
-      - A green checkmark will show next to the test at the bottom of the PR if the code passed.
-      - A red X will appear next to the test if the code failed.
-        1. Click on the failing test to see the output log.
-        2. Search the log for `error`
-        3. Fix the indicated errors and push the code to the remote branch.
-        4. The PR will automatically pick up the changes and begin running the checks again.
-        5. Repeat steps 1-4 until all checks are passing.
+    7. When drafted, the automatic checks for the PR should begin processing.
+    - A green checkmark will show next to the test at the bottom of the PR if the code passed.
+    - A red X will appear next to the test if the code failed.
+      1. Click on the failing test to see the output log.
+      2. Search the log for `error`
+      3. Fix the indicated errors and push the code to the remote branch.
+      4. The PR will automatically pick up the changes and begin running the checks again.
+      5. Repeat steps 1-4 until all checks are passing.
     8. After all checks have passed, request an AI review by clicking "Copilot" in the "Reviewers" section of the PR. It may take a few minutes for the review process to complete.
     9. Address all comments and code change suggestions provided by Copilot
     10. Repeat steps 8 and 9 until Copilot approves the PR.
     11. Set the status of the PR to "Ready for review"
-      - GitHub will automatically request a review from all code owners for the edited files.
-      - You can manually request a review from any other team member on the project, even if they are not a codeowner of the edited files.
+    - GitHub will automatically request a review from all code owners for the edited files.
+    - You can manually request a review from any other team member on the project, even if they are not a codeowner of the edited files.
 
 ### Merging practices
 
@@ -894,8 +896,7 @@ firebase emulators:start --import=./firebase-data --export-on-exit
   git merge dev/task/chore/123/task-description
   ```
 
-  **Repeat to merge all tasks belonging to the PBI into the `dev/pbi` branch**
-  4. **Creating `staging/pbi` branches**
+  **Repeat to merge all tasks belonging to the PBI into the `dev/pbi` branch** 4. **Creating `staging/pbi` branches**
   - Ensure `staging` and `dev/pbi` are up to date with the remote `staging` branch:
 
   ```bash
@@ -933,8 +934,7 @@ firebase emulators:start --import=./firebase-data --export-on-exit
   git merge staging/pbi/35/pbi-description
   ```
 
-  **Repeat for all PBIs belonging to the target feature**
-  6. **Creating `staging/release` branches**
+  **Repeat for all PBIs belonging to the target feature** 6. **Creating `staging/release` branches**
   - Ensure `staging` and `staging/feat` branches are up to date with the remote repository:
 
   ```bash
@@ -953,8 +953,7 @@ firebase emulators:start --import=./firebase-data --export-on-exit
   git merge staging/feat/feature-name
   ```
 
-  **Repeat for all features planned for the production release**
-  6. **Creating a `prod/hotfix` branch**
+  **Repeat for all features planned for the production release** 6. **Creating a `prod/hotfix` branch**
   - Ensure your local `prod` branch is up to date with the remote repository:
 
   ```bash
@@ -972,80 +971,84 @@ firebase emulators:start --import=./firebase-data --export-on-exit
 
 ### General deployment information
 
-  **Only team members can deploy to our environments, external developers need their own environments**
+**Only team members can deploy to our environments, external developers need their own environments**
 
-  - We will deploy to `dev`, `staging`, and `prod` at different phases of the development lifecycle.
-  - Only deploy to environments for which you are **authorized** to deploy to.
-  - We deploy using scripts defined in `package.json` that automatically select the correct Firebase project, copy the appropriate security rules, and deploy all services.
+- We will deploy to `dev`, `staging`, and `prod` at different phases of the development lifecycle.
+- Only deploy to environments for which you are **authorized** to deploy to.
+- We deploy using scripts defined in `package.json` that automatically select the correct Firebase project, copy the appropriate security rules, and deploy all services.
 
-  **Always** make sure your branch is up to date with the remote `staging` branch before deploying to the `dev` or `staging` environments.
+**Always** make sure your branch is up to date with the remote `staging` branch before deploying to the `dev` or `staging` environments.
 
 ### Deploy to `dev`
-  - Complete the **Dev Deployment Log** in the repository wiki
-    1. **Before** deployment
-    2. **After** testing is complete
 
-  - **When to deploy**
-    **Multiple times per day**
+- Complete the **Dev Deployment Log** in the repository wiki
+  1. **Before** deployment
+  2. **After** testing is complete
 
-    1. Every time you want to test a new feature, bug fix, or integration in a shared cloud environment mirroring the real set up.
-    2. Before merging a `dev/pbi` Pull Request into a `staging/pbi` branch.  
-    
-  - **Who can deploy**
-    - All team members are required to deploy and test changes for all of their owned `dev/task` branches.
-    - Any developer can deploy their branch to see their changes live and test integrations with existing code.
-    - Firebase emulators reduce the frequency of deployments to our shared `dev` environment by creating a simulated environment on your local machine, use them for regular development testing.
-    - Use deployments to the shared `dev` environment for final testing before submitting PRs.
-    - If more than one developer needs to deploy at a time, we use communication and collaboration to create combined branches with all changes to be tested. 
+- **When to deploy**
+  **Multiple times per day**
+  1. Every time you want to test a new feature, bug fix, or integration in a shared cloud environment mirroring the real set up.
+  2. Before merging a `dev/pbi` Pull Request into a `staging/pbi` branch.
 
-    - To stay informed about who is currently using the `dev` environment, check the **Dev Deployment Log** in repository [wiki](https://github.com/PennyNichols/next-shs/wiki) on GitHub.
-  
-  - **How to deploy**
-  ```bash
-  npm run deploy:dev
-  ```
+- **Who can deploy**
+  - All team members are required to deploy and test changes for all of their owned `dev/task` branches.
+  - Any developer can deploy their branch to see their changes live and test integrations with existing code.
+  - Firebase emulators reduce the frequency of deployments to our shared `dev` environment by creating a simulated environment on your local machine, use them for regular development testing.
+  - Use deployments to the shared `dev` environment for final testing before submitting PRs.
+  - If more than one developer needs to deploy at a time, we use communication and collaboration to create combined branches with all changes to be tested.
+
+  - To stay informed about who is currently using the `dev` environment, check the **Dev Deployment Log** in repository [wiki](https://github.com/PennyNichols/next-shs/wiki) on GitHub.
+
+- **How to deploy**
+
+```bash
+npm run deploy:dev
+```
 
 ### Deploy to `staging`
-  - Deployment to `staging` is for testing code changes before sending to production.
 
-  - Complete the **Staging Deployment Log** in the repository wiki
-    1. **Before** deployment
-    2. **After** testing is complete
+- Deployment to `staging` is for testing code changes before sending to production.
 
-  - **When to deploy**
-    1. After converting a `dev/pbi` branch to a `staging/pbi` branch and preliminary testing has already occurred on `dev/pbi` in a `dev` deployment.
-    2. After **each** `staging/pbi` branch belonging to a single feature is merged into a `staging/feat` branch.
-    3. After **each** `staging/feat` branch included in a specific release is merged into a `staging/release` branch.
-  
-  - **Who can deploy**
-    - Owners of a PBI can deploy their `staging/pbi` branch to staging.
-    - Only a team lead can deploy a `staging/feat` or `staging/release` branch.
+- Complete the **Staging Deployment Log** in the repository wiki
+  1. **Before** deployment
+  2. **After** testing is complete
 
-  - **How to deploy**
-  ```bash
-  npm run deploy:staging
-  ```
+- **When to deploy**
+  1. After converting a `dev/pbi` branch to a `staging/pbi` branch and preliminary testing has already occurred on `dev/pbi` in a `dev` deployment.
+  2. After **each** `staging/pbi` branch belonging to a single feature is merged into a `staging/feat` branch.
+  3. After **each** `staging/feat` branch included in a specific release is merged into a `staging/release` branch.
+
+- **Who can deploy**
+  - Owners of a PBI can deploy their `staging/pbi` branch to staging.
+  - Only a team lead can deploy a `staging/feat` or `staging/release` branch.
+
+- **How to deploy**
+
+```bash
+npm run deploy:staging
+```
 
 ### Deploy to `prod`
-  - **When to deploy**
-    - Before deploying to `prod`, the `staging/release` or `prod/hotfix` PR must thoroughly reviewed and tested by **ALL** parties.
-    - We **only** deploy to `prod` after rigorous testing and explicit approval by QA, stakeholders, team lead, and every developer who contributed to the feature.
-      - **QA** must test against every task requirement, every PBI requirement, and every feature requirement.
-      - **Team lead** must test against every feature requirement.
-      - **Each developer** must test against against task requirements of their assigned tasks and PBI requirements of their assigned PBIs
-    - Deploying to `prod` is a scheduled and closely monitored event.
 
-  - **Who can deploy**
-    - Deployments to `prod` are restricted to our automated CI/CD pipeline.
-    - If a manual deployment is ever required, only a tech lead can deploy. 
+- **When to deploy**
+  - Before deploying to `prod`, the `staging/release` or `prod/hotfix` PR must thoroughly reviewed and tested by **ALL** parties.
+  - We **only** deploy to `prod` after rigorous testing and explicit approval by QA, stakeholders, team lead, and every developer who contributed to the feature.
+    - **QA** must test against every task requirement, every PBI requirement, and every feature requirement.
+    - **Team lead** must test against every feature requirement.
+    - **Each developer** must test against against task requirements of their assigned tasks and PBI requirements of their assigned PBIs
+  - Deploying to `prod` is a scheduled and closely monitored event.
 
-  - **How to deploy**
-    - When a `staging/release` or `prod/hotfix` branch is merged into `prod`, our CI/CD pipeline automatically depoys to the `prod` environement.
-    - If a manual deployment outside of the normal lifecycle flow is required:
+- **Who can deploy**
+  - Deployments to `prod` are restricted to our automated CI/CD pipeline.
+  - If a manual deployment is ever required, only a tech lead can deploy.
 
-    ```bash
-    npm run deploy:prod
-    ```
+- **How to deploy**
+  - When a `staging/release` or `prod/hotfix` branch is merged into `prod`, our CI/CD pipeline automatically depoys to the `prod` environement.
+  - If a manual deployment outside of the normal lifecycle flow is required:
+
+  ```bash
+  npm run deploy:prod
+  ```
 
 ## Contributing
 
@@ -1358,52 +1361,45 @@ npm run format
 1. Read the error message. Look closely for `Err!` lines in the console output.
 
 2. Verify `Node.js` and `npm` versions. You should have:
+   - `Node.js `**v22.x** or higher
+   - `npm `**v11.x** or higher
 
+   To find your version numbers:
 
-    - `Node.js `**v22.x** or higher
-    - `npm `**v11.x** or higher
+   ```bash
+   node -v
+   npm -v
+   ```
 
-    To find your version numbers:
+   If there is a mismatch, use a version manager like `nvm` to switch to the required version.
 
-    ```bash
-    node -v
-    npm -v
-    ```
-
-    If there is a mismatch, use a version manager like `nvm` to switch to the required version.
-
-    See instructions for switching versions [here](https://medium.com/@madhawaawishka/switching-node-js-versions-with-nvm-53aff64ac4f2#:~:text=nvm%20allows%20you%20to%20install,on%20via%20the%20command%20line.).
+   See instructions for switching versions [here](https://medium.com/@madhawaawishka/switching-node-js-versions-with-nvm-53aff64ac4f2#:~:text=nvm%20allows%20you%20to%20install,on%20via%20the%20command%20line.).
 
 3. Clear `npm cache` (precautionary) and attempt to reinstall:
 
-
-    ```bash
-    npm cache clean --force
-    npm install
-    ```
+   ```bash
+   npm cache clean --force
+   npm install
+   ```
 
 4. Check network/proxy for issues in the console
+   - Errors like `ETIMEDOUT`, `EAI_AGAIN`, `SSL_CERT_ERR` are indicative of network issues.
+   - Ensure `npm proxy` settings are correct with these commands:
+     1. To check the HTTP proxy: `npm config get proxy`
 
+     2. To check the HTTPS proxy: `npm config get https-proxy`
 
-    - Errors like `ETIMEDOUT`, `EAI_AGAIN`, `SSL_CERT_ERR` are indicative of network issues.
-    - Ensure `npm proxy` settings are correct with these commands:
+     3. To test if `npm` can reach the registry through your configured proxy: `npm ping`
+     - If successful, it should return something like this:
 
-      1. To check the HTTP proxy: `npm config get proxy`
+     ```json
+     {}
+     ```
 
-      2. To check the HTTPS proxy: `npm config get https-proxy`
-
-      3. To test if `npm` can reach the registry through your configured proxy: `npm ping`
-
-        - If successful, it should return something like this:
-
-        ```json
-        {}
-        ```
-
-        - If unsuccessful, it will return network errors like `ETIMEDOUT`, `ECONNRESET`, or `UNABLE_TO_GET_ISSUER_CERT_LOCALLY`.
-        - This indicates the proxy settings are incorrect or there are underlying network/SSL issues.
-        - For help debugging network/SSL issues, please reach out to me or find troubleshooting instructions from a reputable source.
-        - **Do not** set `strict-ssl` to `false`, as it is not secure.
+     - If unsuccessful, it will return network errors like `ETIMEDOUT`, `ECONNRESET`, or `UNABLE_TO_GET_ISSUER_CERT_LOCALLY`.
+     - This indicates the proxy settings are incorrect or there are underlying network/SSL issues.
+     - For help debugging network/SSL issues, please reach out to me or find troubleshooting instructions from a reputable source.
+     - **Do not** set `strict-ssl` to `false`, as it is not secure.
 
 5. If none of the above methods are successful, try running with a verbose output for more detailed debugging information with this command:
 
@@ -1420,143 +1416,121 @@ npm install --loglevel verbose
 2. Clear `npm cache`: `npm cache clean --force`
 
 3. Delete `node_modules` and `package-lock.json`:
+   - First, ensure your local environment is **not actively running** in any terminals.
+   - Delete `node_modules` and `package-lock.json`:
 
+   ```bash
+   rm -rf node_modules
+   rm -rf package-lock.json
+   ```
 
-    - First, ensure your local environment is **not actively running** in any terminals.
-    - Delete `node_modules` and `package-lock.json`:
-
-    ```bash
-    rm -rf node_modules
-    rm -rf package-lock.json
-    ```
-
-    - Attempt to reinstall dependencies: `npm install`
+   - Attempt to reinstall dependencies: `npm install`
 
 4. Verify `Node.js` and `npm` versions. You should have:
+   - `Node.js` **v22.x** or higher
+   - `npm` **v11.x** or higher
 
+   To find your version numbers run these command:
 
-    - `Node.js` **v22.x** or higher
-    - `npm` **v11.x** or higher
+   ```bash
+   node -v
+   npm -v
+   ```
 
-    To find your version numbers run these command:
-
-    ```bash
-    node -v
-    npm -v
-    ```
-
-    If there is a mismatch, use a version manager like `nvm` to switch to the required version. See instructions for switching versions [here](https://medium.com/@madhawaawishka/switching-node-js-versions-with-nvm-53aff64ac4f2#:~:text=nvm%20allows%20you%20to%20install,on%20via%20the%20command%20line.).
+   If there is a mismatch, use a version manager like `nvm` to switch to the required version. See instructions for switching versions [here](https://medium.com/@madhawaawishka/switching-node-js-versions-with-nvm-53aff64ac4f2#:~:text=nvm%20allows%20you%20to%20install,on%20via%20the%20command%20line.).
 
 5. Check network/proxy for issues in the console
+   - Errors like `ETIMEDOUT`, `EAI_AGAIN`, `SSL_CERT_ERR` are indicative of network issues.
+   - Temporarily disable VPN/proxy (NOT recommended), or ensure npm proxy settings are correct with these commands:
+     1. To check the HTTP proxy: `npm config get proxy`
 
+     2. To check the HTTPS proxy: `npm config get https-proxy`
 
-    - Errors like `ETIMEDOUT`, `EAI_AGAIN`, `SSL_CERT_ERR` are indicative of network issues.
-    - Temporarily disable VPN/proxy (NOT recommended), or ensure npm proxy settings are correct with these commands:
+     3. To test if `npm` can reach the registry through your configured proxy: `npm ping`
+     - If successful, it should return something like this:
 
-      1. To check the HTTP proxy: `npm config get proxy`
+     ```json
+     {}
+     ```
 
-      2. To check the HTTPS proxy: `npm config get https-proxy`
-
-      3. To test if `npm` can reach the registry through your configured proxy: `npm ping`
-
-        - If successful, it should return something like this:
-
-        ```json
-        {}
-        ```
-
-        - If unsuccessful, it will return network errors like `ETIMEDOUT`, `ECONNRESET`, or `UNABLE_TO_GET_ISSUER_CERT_LOCALLY`.
-        - This indicates the proxy settings are incorrect or there are underlying network/SSL issues.
-        - For help debugging network/SSL issues, please reach out to me or find troubleshooting instructions from a reputable source.
-        - **Do not** set `strict-ssl` to `false`, as it is not secure.
+     - If unsuccessful, it will return network errors like `ETIMEDOUT`, `ECONNRESET`, or `UNABLE_TO_GET_ISSUER_CERT_LOCALLY`.
+     - This indicates the proxy settings are incorrect or there are underlying network/SSL issues.
+     - For help debugging network/SSL issues, please reach out to me or find troubleshooting instructions from a reputable source.
+     - **Do not** set `strict-ssl` to `false`, as it is not secure.
 
 6. Try running with a verbose output for more detailed debugging information: `npm install --loglevel verbose`
 
 7. Check permissions to make sure they are correct for `npm`:
+   - If errors mention `EACCES` or permission denied, the problem is likely the permissions configuration on your local machine.
+   - To bypass permissions and install anyway (use with caution, only if absolutely necessary):
 
+   ```bash
+   sudo npm install
+   ```
 
-    - If errors mention `EACCES` or permission denied, the problem is likely the permissions configuration on your local machine.
-    - To bypass permissions and install anyway (use with caution, only if absolutely necessary):
+   - To fix `npm` permissions:
 
-    ```bash
-    sudo npm install
-    ```
+   ```bash
+   sudo chown -R $(whoami) ~.npm
+   ```
 
-    - To fix `npm` permissions:
+   - After running the permission mod command above, attempt to install again: `npm install`
 
-    ```bash
-    sudo chown -R $(whoami) ~.npm
-    ```
+   - If you continue to get an `EACCES` or permission denied error message, configure `npm` to use a different global directory:
+     1. Create a directory for global installations in your `user` folder and configure `npm` to use it:
 
-    - After running the permission mod command above, attempt to install again: `npm install`
+     ```bash
+     mkdir ~.npm-global
+     npm config set prefix '~.npm-global'
+     ```
 
-    - If you continue to get an `EACCES` or permission denied error message, configure `npm` to use a different global directory:
+     2. Add this new directory to your system's `PATH` environment variable:
+     - Open or create your shells profile file. This should be in your `users` folder. Your shells profile file could be `~/.bashrc`, `~/.zshrc`, or `~/.profile`.
+     - Open the file with your text editor and add this line at the end of the file:
 
-      1. Create a directory for global installations in your `user` folder and configure `npm` to use it:
+     `export PATH=~/.npm-global/bin:$PATH`
+     - Save the file.
+     4. Apply the new changes to your current shell session using this command (just one, dependent on the name of your shell's profile file name in your home directory):
 
-      ```bash
-      mkdir ~.npm-global
-      npm config set prefix '~.npm-global'
-      ```
+     ```bash
+     source ~/.bashrc
+     ```
 
-      2. Add this new directory to your system's `PATH` environment variable:
+     ```bash
+     source ~/.zshrc
+     ```
 
-        - Open or create your shells profile file. This should be in your `users` folder. Your shells profile file could be `~/.bashrc`, `~/.zshrc`, or `~/.profile`.
-        - Open the file with your text editor and add this line at the end of the file:
+     ```bash
+     source ~/.profile
+     ```
+   5. Test your changes by attempting to install a package globally without `sudo` using this command (using any package you like, ideally a small one):
 
-        `export PATH=~/.npm-global/bin:$PATH`
+   ```bash
+   npm install -g jshint
+   ```
 
-        - Save the file.
+   6. Ensure you are using the same filesystem as you are using to configure `npm` permissions to store your project and install the dependencies.
+   - For example, if you are using WSL to run the project, but the files and permissions are in your Windows filesytem, you will encounter either an `EACCES` or `EPERM` errors.
+   - Debug filesystem issues with these steps:
+     1. Make sure the project directory, permissions, and CLI are in the same filesystem.
+     2. Once you are sure you are using and storing everything within a single filesystem, return to **step 4**.
 
-      4. Apply the new changes to your current shell session using this command (just one, dependent on the name of your shell's profile file name in your home directory):
+   ** If you are still having problems, or frequently have permission errors:**
+   - Use a tool like Node Version Manager `nvm` or `volta` to automatically handle permissions correclty. These tool install Node.js and `npm` to your user directory from the start. This is the ideal solution to frequent permissions errors.
 
-      ```bash
-      source ~/.bashrc
-      ```
-
-      ```bash
-      source ~/.zshrc
-      ```
-
-      ```bash
-      source ~/.profile
-      ```
-
-    5. Test your changes by attempting to install a package globally without `sudo` using this command (using any package you like, ideally a small one):
-
-    ```bash
-    npm install -g jshint
-    ```
-
-    6. Ensure you are using the same filesystem as you are using to configure `npm` permissions to store your project and install the dependencies.
-
-      - For example, if you are using WSL to run the project, but the files and permissions are in your Windows filesytem, you will encounter either an `EACCES` or `EPERM` errors.
-      - Debug filesystem issues with these steps:
-
-        1. Make sure the project directory, permissions, and CLI are in the same filesystem.
-        2. Once you are sure you are using and storing everything within a single filesystem, return to **step 4**.
-
-    ** If you are still having problems, or frequently have permission errors:**
-
-    - Use a tool like Node Version Manager `nvm` or `volta` to automatically handle permissions correclty. These tool install Node.js and `npm` to your user directory from the start. This is the ideal solution to frequent permissions errors.
-
-    - Still having permission problems?
-      Clone the repository in a different filesystem (e.g., WSL for windows)
+   - Still having permission problems?
+     Clone the repository in a different filesystem (e.g., WSL for windows)
 
 8. Try updating `npm`.
+   - To update `npm` to the latest version, run this command:
 
-
-    - To update `npm` to the latest version, run this command:
-
-    ```bash
-    npm install -g npm@latest
-    ```
+   ```bash
+   npm install -g npm@latest
+   ```
 
 9. Check `package.json` for typos, missing commas, incorrect version ranges, etc.
 
 10. Check for specific dependency issues.
-
-
     - Try installing each dependency individually with `--force` to determine if one or more of the dependencies are the issue with this command:
 
     ```bash
