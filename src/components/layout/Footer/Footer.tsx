@@ -1,11 +1,10 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { Box, Typography, Link, Grid, Skeleton } from '@mui/material';
+import { Box, Typography, Link, Grid, Skeleton } from '@mui/material'; // Removed Container from import
 import { Facebook, Google, Instagram } from '@mui/icons-material';
 import SubscribeForm from '../../forms/SubscribeForm/SubscribeForm';
 import EstimateRequestButton from '../../action-buttons/EstimateRequestButton/EstimateRequestButton';
-
 import { formatPhoneNumber } from '../../../lib/utils/utils';
 import ReviewButton from '../../action-buttons/ReviewButton/ReviewButton';
 import LogoSvg from '../../../assets/svg/LogoSvg/LogoSvg';
@@ -18,20 +17,19 @@ import {
   COMPANY_INSTAGRAM_URL,
   COMPANY_PHONE_NUMBER,
 } from '@/constants/companyDetails';
-import theme from '@/styles/theme';
 
 const Footer = () => {
-  const { isXxs: initialIsXxs, isXs: initialIsXs, isSm: initialIsSm } = useMedia();
+  const { isXxs: initialIsXxs, isXs: initialIsXs, isSm: initialIsSm, isMd: initialIsMd } = useMedia();
   const [showClientContent, setShowClientContent] = useState(false);
   const [isFullWidth, setIsFullWidth] = useState(false);
 
   useEffect(() => {
     setShowClientContent(true);
-    setIsFullWidth(initialIsXxs || initialIsXs || initialIsSm);
-  }, [initialIsXxs, initialIsXs, initialIsSm]);
+    setIsFullWidth(initialIsXxs || initialIsXs || initialIsSm || initialIsMd);
+  }, [initialIsXxs, initialIsXs, initialIsSm, initialIsMd]);
 
   const contentWrapperSx = {
-    maxWidth: '1535px',
+    maxWidth: { xxs: '100%', sm: 600, md: 1200 },
     mx: 'auto',
   };
 
@@ -53,36 +51,37 @@ const Footer = () => {
           spacing={2}
           sx={{
             alignItems: 'center',
-            justifyContent: 'center',
-            maxWidth: { xxs: '100%', md: '900px' },
+            justifyContent: { xxs: 'center' },
           }}
         >
-          <Grid item xxs={12} lg={5}>
+          <Grid item xxs={12} md={5} lg={5}>
             <SubscribeForm />
           </Grid>{' '}
           {showClientContent ? (
-            <Grid item xxs={12} lg={7}>
-              <Grid container spacing={2} sx={{ justifyContent: { xxs: 'center', lg: 'flex-end' } }}>
-                <Grid item xxs={12} sm={6} lg="auto">
-                  <ReviewButton fullWidth={{ xxs: true, lg: false }} />
+            <Grid item xxs={12} md={7} lg={7}>
+              <Grid
+                container
+                spacing={2}
+                sx={{
+                  justifyContent: { xxs: 'center', md: 'flex-end' },
+                }}
+              >
+                <Grid item xxs={12} sm={5}>
+                  <ReviewButton fullWidth={isFullWidth} />
                 </Grid>
-                <Grid item xxs={12} sm={6} lg="auto">
-                  <EstimateRequestButton
-                    color="secondary"
-                    iconColor={theme.palette.primary.main}
-                    fullWidth={{ xxs: true, lg: false }}
-                  />
+                <Grid item xxs={12} sm={5}>
+                  <EstimateRequestButton color="secondary" fullWidth={isFullWidth} />
                 </Grid>
               </Grid>
             </Grid>
           ) : (
-            <Grid item xxs={12} lg={7}>
-              <Grid container spacing={2} sx={{ justifyContent: { xxs: 'center', lg: 'flex-end' } }}>
-                <Grid item xxs={12} sm={6} lg="auto">
-                  <Skeleton variant="rounded" sx={{ width: { xxs: '100%', lg: 163 } }} height={40.5} />
+            <Grid item xxs={12} md={7}>
+              <Grid container spacing={2} sx={{ justifyContent: { xxs: 'center', md: 'flex-end' } }}>
+                <Grid item xxs={12} sm={6} md="auto">
+                  <Skeleton variant="rounded" sx={{ width: { xxs: '100%', md: 163 } }} height={40.5} />
                 </Grid>
-                <Grid item xxs={12} sm={6} lg="auto">
-                  <Skeleton variant="rounded" sx={{ width: { xxs: '100%', lg: 194 } }} height={40.5} />
+                <Grid item xxs={12} sm={6} md="auto">
+                  <Skeleton variant="rounded" sx={{ width: { xxs: '100%', md: 194 } }} height={40.5} />
                 </Grid>
               </Grid>
             </Grid>
@@ -94,14 +93,15 @@ const Footer = () => {
       <Box sx={{ ...contentWrapperSx }}>
         <Grid
           container
-          spacing={2}
+          spacing={1.5}
           sx={{
-            alignItems: { xxs: 'center', sm: 'flex-start' },
-            justifyContent: { xxs: 'center', sm: 'space-around', md: 'space-between' },
+            alignItems: { xxs: 'center', sm: 'center' },
+            justifyContent: { xxs: 'center', sm: 'space-between' },
             textAlign: { xxs: 'center', sm: 'left' },
+            px: 2,
           }}
         >
-          <Grid item xxs={12} sm={8} md={5} lg={3}>
+          <Grid item xxs={12} sm={8} md={5} lg={4}>
             <Box
               sx={{
                 display: 'flex',
@@ -109,8 +109,8 @@ const Footer = () => {
                 justifyContent: { xxs: 'center', sm: 'flex-start', md: 'center' },
                 alignItems: 'center',
                 textAlign: 'center',
-                marginBottom: { xxs: 2, sm: 0 },
                 gap: 1,
+                mb: { xxs: 2, xs: 0 },
               }}
             >
               <Box sx={{ width: 120, height: 110, flexShrink: 0 }}>
@@ -126,8 +126,8 @@ const Footer = () => {
               </Box>
             </Box>
           </Grid>{' '}
-          {showClientContent && !isFullWidth ? (
-            <Grid item xxs={0} md={5} lg={6} sx={{ display: { xxs: 'none', md: 'flex' } }}>
+          {showClientContent ? (
+            <Grid item xxs={0} md={5} lg={4} sx={{ display: { xxs: 'none', md: 'flex' } }}>
               <Box sx={{ textAlign: 'left', width: 'fit-content', mx: 'auto' }}>
                 <Typography variant="h5" color="inherit">
                   Contact Information
@@ -267,7 +267,7 @@ const Footer = () => {
         >
           <Grid item xxs={12} sm={6} order={{ xxs: 3, sm: 1 }} sx={{ textAlign: { xxs: 'center', sm: 'left' } }}>
             <Typography variant="body2" color="inherit" noWrap>
-              &copy; 2025 SHS. All rights reserved.
+              &copy; 2025 SHS Florida. All rights reserved.
             </Typography>
           </Grid>{' '}
           <Grid

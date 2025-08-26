@@ -127,6 +127,7 @@ const baseComponents: Components<Theme> = {
         WebkitTextFillColor: `${theme.palette.primary.light} !important`, // Text color
         caretColor: `${theme.palette.primary.light} !important`, // Cursor color
         transition: 'background-color 5000s ease-in-out 0s', // Long transition to keep the color
+        letterSpacing: '1px',
       },
       'input:-webkit-autofill:hover, input:-webkit-autofill:focus, input:-webkit-autofill:active': {
         // Override hover/focus/active states for autofill

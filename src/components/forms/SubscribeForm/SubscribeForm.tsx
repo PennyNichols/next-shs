@@ -5,6 +5,7 @@ import { useFirebaseCollections } from '../../../contexts/FirebaseCollectionCont
 import CustomTextField from '@/components/common/CustomTextField';
 import { useRecaptcha } from '@/hooks';
 import { apiService } from '@/lib';
+import theme from '@/styles/theme';
 
 const SubscribeForm = () => {
   const [email, setEmail] = useState('');
@@ -83,7 +84,7 @@ const SubscribeForm = () => {
         alignItems: { xxs: 'stretch', md: 'center' },
       }}
     >
-      <Grid item xxs={12} sm={6} md={8} sx={{ display: 'flex' }}>
+      <Grid item xxs={12} sm={6} md={7} sx={{ display: 'flex' }}>
         <CustomTextField
           type="email"
           value={email}
@@ -91,9 +92,23 @@ const SubscribeForm = () => {
           required
           label="Email"
           color="secondary"
+          sx={{
+            flexShrink: 1,
+            '& input:-webkit-autofill': {
+              WebkitBoxShadow: `0 0 0px 1000px ${theme.palette.primary.main} inset !important`,
+              WebkitTextFillColor: `${theme.palette.accent.primary} !important`, // Text color
+              caretColor: `${theme.palette.accent.primary} !important`, // Cursor color
+              transition: 'background-color 5000s ease-in-out 0s', // Long transition to keep the color
+              letterSpacing: '1px',
+            },
+            '& input:-webkit-autofill:hover, & input:-webkit-autofill:focus, & input:-webkit-autofill:active': {
+              WebkitTextFillColor: `${theme.palette.accent.primary} !important`,
+              caretColor: `${theme.palette.primary.light} !important`,
+            },
+          }}
         />
       </Grid>
-      <Grid item xxs={12} sm={6} md={4} sx={{ display: 'flex' }}>
+      <Grid item xxs={12} sm={6} md={5} sx={{ display: 'flex' }}>
         <ActionButton type="submit" variant="contained" color="secondary" text="Subscribe" />
         {message && <Typography variant="body1">{message}</Typography>}
       </Grid>

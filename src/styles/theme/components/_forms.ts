@@ -114,6 +114,9 @@ const formComponents: Components<Theme> = {
         '&.Mui-disabled': {
           color: theme.palette.text.disabled,
         },
+        [theme.breakpoints.up('xl')]: {
+          fontSize: '1.1rem',
+        },
       }),
       outlined: ({ theme }: { theme: Theme }): CSSObject => ({
         transform: 'translate(14px, 8.5px) scale(.9)',

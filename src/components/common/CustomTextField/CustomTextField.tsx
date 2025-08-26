@@ -9,6 +9,7 @@ interface CustomTextFieldProps extends Omit<TextFieldProps, 'variant' | 'size' |
   startIcon?: React.ReactNode;
   endIcon?: React.ReactNode;
   shrinkLabel?: boolean;
+  sx?: any;
 }
 
 const CustomTextField: React.FC<CustomTextFieldProps> = ({
@@ -23,6 +24,7 @@ const CustomTextField: React.FC<CustomTextFieldProps> = ({
   InputLabelProps,
   value,
   type = 'text',
+  sx = {},
   ...props
 }) => {
   const inputProps = {
@@ -52,6 +54,7 @@ const CustomTextField: React.FC<CustomTextFieldProps> = ({
       InputLabelProps={inputLabelProps}
       value={displayValue}
       type={type}
+      sx={sx}
       {...props}
     />
   );

@@ -32,6 +32,7 @@ const buttonComponents: Components<Theme> = {
         justifyContent: 'center',
         alignItems: 'center',
         flexGrow: 1,
+        minHeight: 40,
         [theme.breakpoints.down('xxs')]: {
           fontSize: '0.875rem',
         },

@@ -17,7 +17,7 @@ const EstimateRequestButton = (props) => {
   return (
     <>
       <ActionButton
-        text="Request an Estimate"
+        text="Request Estimate"
         icon={<Description />}
         onClick={handleOpen}
         iconColor={iconColor}
