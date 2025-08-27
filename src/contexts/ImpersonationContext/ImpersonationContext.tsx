@@ -29,20 +29,20 @@ export const ImpersonationProvider: React.FC<ImpersonationProviderProps> = ({ ch
   // Check if current user can impersonate (admin or super)
   // Use role from Firebase Auth custom claims
   const canImpersonate = currentUser?.role === 'super' || currentUser?.role === 'admin';
-  
+
   console.log('ImpersonationContext - currentUser?.role:', currentUser?.role);
   console.log('ImpersonationContext - canImpersonate:', canImpersonate);
 
   // Check if current user can impersonate a specific user role
   const canImpersonateUser = (targetUserRole: string) => {
     if (!canImpersonate) return false;
-    
+
     // Super users can impersonate anyone
     if (currentUser?.role === 'super') return true;
-    
+
     // Admin users cannot impersonate super users
     if (currentUser?.role === 'admin' && targetUserRole === 'super') return false;
-    
+
     // Admin users can impersonate admin, employee, contractor, client
     return ['admin', 'employee', 'contractor', 'client'].includes(targetUserRole);
   };

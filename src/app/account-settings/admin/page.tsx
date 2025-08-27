@@ -1,17 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import {
-  Box,
-  Typography,
-  Card,
-  CardContent,
-  Grid,
-  Tabs,
-  Tab,
-  LinearProgress,
-  Alert,
-} from '@mui/material';
+import { Box, Typography, Card, CardContent, Grid, Tabs, Tab, LinearProgress, Alert } from '@mui/material';
 import { Person, Home, Notifications, Security, Business, Settings, AdminPanelSettings } from '@mui/icons-material';
 import useUser from '@/hooks/auth/useUser';
 import { AdminRoute } from '@/components/auth/RouteGuard/RouteGuard';
@@ -76,11 +66,7 @@ const AdminAccountSettingsPage = () => {
         );
       case 2:
         return (
-          <CommunicationPreferences
-            userId={user.id}
-            preferences={user.communicationPreferences}
-            isAdminView={false}
-          />
+          <CommunicationPreferences userId={user.id} preferences={user.communicationPreferences} isAdminView={false} />
         );
       case 3:
         return (
@@ -90,7 +76,8 @@ const AdminAccountSettingsPage = () => {
                 Administrative Settings
               </Typography>
               <Alert severity="info">
-                Administrative settings such as company configuration, user management preferences, and system-wide settings will be available soon.
+                Administrative settings such as company configuration, user management preferences, and system-wide
+                settings will be available soon.
               </Alert>
               <Typography variant="body2" sx={{ mt: 2 }}>
                 Features coming soon:
@@ -114,7 +101,8 @@ const AdminAccountSettingsPage = () => {
                 System Configuration
               </Typography>
               <Alert severity="info">
-                System configuration including database settings, API configurations, and integration management will be available soon.
+                System configuration including database settings, API configurations, and integration management will be
+                available soon.
               </Alert>
               <Typography variant="body2" sx={{ mt: 2 }}>
                 Features coming soon:
@@ -137,7 +125,8 @@ const AdminAccountSettingsPage = () => {
                 System Preferences
               </Typography>
               <Alert severity="info">
-                Administrative system preferences such as dashboard customization, reporting preferences, and workflow settings will be available soon.
+                Administrative system preferences such as dashboard customization, reporting preferences, and workflow
+                settings will be available soon.
               </Alert>
             </CardContent>
           </Card>
@@ -150,7 +139,8 @@ const AdminAccountSettingsPage = () => {
                 Account Security
               </Typography>
               <Alert severity="info">
-                Enhanced security settings such as password policies, two-factor authentication, session management, and audit logs will be available soon.
+                Enhanced security settings such as password policies, two-factor authentication, session management, and
+                audit logs will be available soon.
               </Alert>
             </CardContent>
           </Card>
@@ -163,30 +153,28 @@ const AdminAccountSettingsPage = () => {
   return (
     <AdminRoute>
       <Box sx={{ p: 3, maxWidth: 1200, mx: 'auto' }}>
-      <Typography variant="h4" gutterBottom>
-        Admin Account Settings
-      </Typography>
-      <Typography variant="body1" color="text.secondary" sx={{ mb: 4 }}>
-        Manage your administrative profile, system configuration, and company settings.
-      </Typography>
+        <Typography variant="h4" gutterBottom>
+          Admin Account Settings
+        </Typography>
+        <Typography variant="body1" color="text.secondary" sx={{ mb: 4 }}>
+          Manage your administrative profile, system configuration, and company settings.
+        </Typography>
 
-      <Card>
-        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-          <Tabs value={activeTab} onChange={handleTabChange} aria-label="admin settings tabs">
-            <Tab icon={<Person />} label="Profile" />
-            <Tab icon={<Home />} label="Addresses" />
-            <Tab icon={<Notifications />} label="Communications" />
-            <Tab icon={<AdminPanelSettings />} label="Admin Settings" />
-            <Tab icon={<Business />} label="System Config" />
-            <Tab icon={<Settings />} label="Preferences" />
-            <Tab icon={<Security />} label="Security" />
-          </Tabs>
-        </Box>
-        <CardContent sx={{ p: 3 }}>
-          {renderTabContent()}
-        </CardContent>
-      </Card>
-    </Box>
+        <Card>
+          <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+            <Tabs value={activeTab} onChange={handleTabChange} aria-label="admin settings tabs">
+              <Tab icon={<Person />} label="Profile" />
+              <Tab icon={<Home />} label="Addresses" />
+              <Tab icon={<Notifications />} label="Communications" />
+              <Tab icon={<AdminPanelSettings />} label="Admin Settings" />
+              <Tab icon={<Business />} label="System Config" />
+              <Tab icon={<Settings />} label="Preferences" />
+              <Tab icon={<Security />} label="Security" />
+            </Tabs>
+          </Box>
+          <CardContent sx={{ p: 3 }}>{renderTabContent()}</CardContent>
+        </Card>
+      </Box>
     </AdminRoute>
   );
 };

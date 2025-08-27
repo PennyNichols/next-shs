@@ -1,27 +1,17 @@
 'use client';
 
 import React, { useState } from 'react';
+import { Box, Typography, Card, CardContent, Grid, Tabs, Tab, LinearProgress, Alert } from '@mui/material';
 import {
-  Box,
-  Typography,
-  Card,
-  CardContent,
-  Grid,
-  Tabs,
-  Tab,
-  LinearProgress,
-  Alert,
-} from '@mui/material';
-import { 
-  Person, 
-  Home, 
-  Notifications, 
-  Security, 
-  Business, 
-  Settings, 
-  AdminPanelSettings, 
+  Person,
+  Home,
+  Notifications,
+  Security,
+  Business,
+  Settings,
+  AdminPanelSettings,
   SupervisorAccount,
-  Storage
+  Storage,
 } from '@mui/icons-material';
 import useUser from '@/hooks/auth/useUser';
 import { SuperOnly } from '@/components/common/RoleGuard/RoleGuard';
@@ -86,11 +76,7 @@ const SuperAdminAccountSettingsPage = () => {
         );
       case 2:
         return (
-          <CommunicationPreferences
-            userId={user.id}
-            preferences={user.communicationPreferences}
-            isAdminView={false}
-          />
+          <CommunicationPreferences userId={user.id} preferences={user.communicationPreferences} isAdminView={false} />
         );
       case 3:
         return (
@@ -103,7 +89,8 @@ const SuperAdminAccountSettingsPage = () => {
                 <strong>Super Administrator Access:</strong> These settings affect the entire system and all users.
               </Alert>
               <Alert severity="info">
-                Super administrative settings such as system architecture, role management, and global configurations will be available soon.
+                Super administrative settings such as system architecture, role management, and global configurations
+                will be available soon.
               </Alert>
               <Typography variant="body2" sx={{ mt: 2 }}>
                 Features coming soon:
@@ -127,7 +114,8 @@ const SuperAdminAccountSettingsPage = () => {
                 System Architecture
               </Typography>
               <Alert severity="info">
-                System architecture settings including database management, server configuration, and infrastructure monitoring will be available soon.
+                System architecture settings including database management, server configuration, and infrastructure
+                monitoring will be available soon.
               </Alert>
               <Typography variant="body2" sx={{ mt: 2 }}>
                 Features coming soon:
@@ -151,7 +139,8 @@ const SuperAdminAccountSettingsPage = () => {
                 System Configuration
               </Typography>
               <Alert severity="info">
-                Advanced system configuration including API management, feature flags, and development/staging environments will be available soon.
+                Advanced system configuration including API management, feature flags, and development/staging
+                environments will be available soon.
               </Alert>
               <Typography variant="body2" sx={{ mt: 2 }}>
                 Features coming soon:
@@ -191,7 +180,8 @@ const SuperAdminAccountSettingsPage = () => {
                 <strong>Critical Security Settings:</strong> Changes here affect system-wide security.
               </Alert>
               <Alert severity="info">
-                Advanced security settings such as system-wide security policies, encryption management, and security monitoring will be available soon.
+                Advanced security settings such as system-wide security policies, encryption management, and security
+                monitoring will be available soon.
               </Alert>
               <Typography variant="body2" sx={{ mt: 2 }}>
                 Features coming soon:
@@ -215,37 +205,35 @@ const SuperAdminAccountSettingsPage = () => {
   return (
     <SuperOnly>
       <Box sx={{ p: 3, maxWidth: 1200, mx: 'auto' }}>
-      <Typography variant="h4" gutterBottom>
-        Super Admin Account Settings
-      </Typography>
-      <Typography variant="body1" color="text.secondary" sx={{ mb: 4 }}>
-        Manage your super administrator profile and control all system-wide settings.
-      </Typography>
+        <Typography variant="h4" gutterBottom>
+          Super Admin Account Settings
+        </Typography>
+        <Typography variant="body1" color="text.secondary" sx={{ mb: 4 }}>
+          Manage your super administrator profile and control all system-wide settings.
+        </Typography>
 
-      <Card>
-        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-          <Tabs 
-            value={activeTab} 
-            onChange={handleTabChange} 
-            aria-label="super admin settings tabs"
-            variant="scrollable"
-            scrollButtons="auto"
-          >
-            <Tab icon={<Person />} label="Profile" />
-            <Tab icon={<Home />} label="Addresses" />
-            <Tab icon={<Notifications />} label="Communications" />
-            <Tab icon={<SupervisorAccount />} label="Super Admin" />
-            <Tab icon={<Storage />} label="System Architecture" />
-            <Tab icon={<Business />} label="System Config" />
-            <Tab icon={<Settings />} label="Preferences" />
-            <Tab icon={<Security />} label="Security" />
-          </Tabs>
-        </Box>
-        <CardContent sx={{ p: 3 }}>
-          {renderTabContent()}
-        </CardContent>
-      </Card>
-    </Box>
+        <Card>
+          <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+            <Tabs
+              value={activeTab}
+              onChange={handleTabChange}
+              aria-label="super admin settings tabs"
+              variant="scrollable"
+              scrollButtons="auto"
+            >
+              <Tab icon={<Person />} label="Profile" />
+              <Tab icon={<Home />} label="Addresses" />
+              <Tab icon={<Notifications />} label="Communications" />
+              <Tab icon={<SupervisorAccount />} label="Super Admin" />
+              <Tab icon={<Storage />} label="System Architecture" />
+              <Tab icon={<Business />} label="System Config" />
+              <Tab icon={<Settings />} label="Preferences" />
+              <Tab icon={<Security />} label="Security" />
+            </Tabs>
+          </Box>
+          <CardContent sx={{ p: 3 }}>{renderTabContent()}</CardContent>
+        </Card>
+      </Box>
     </SuperOnly>
   );
 };

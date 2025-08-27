@@ -29,41 +29,41 @@ interface AdminProviderProps {
 export const AdminProvider: React.FC<AdminProviderProps> = ({ children }) => {
   const { refreshUserClaims } = useAuth();
 
-    const setUserRole = async (uid: string, role: string) => {
-      try {
-        console.log(`Setting role for user ${uid} to ${role}`);
+  const setUserRole = async (uid: string, role: string) => {
+    try {
+      console.log(`Setting role for user ${uid} to ${role}`);
 
-        // Import schema manager
-        const { updateUserDocumentForRoleChange } = await import('@/lib/schemas/userSchemaManager');
+      // Import schema manager
+      const { updateUserDocumentForRoleChange } = await import('@/lib/schemas/userSchemaManager');
 
-        // First update the user document with complete schema for new role
-        await updateUserDocumentForRoleChange(uid, role as any, true);
+      // First update the user document with complete schema for new role
+      await updateUserDocumentForRoleChange(uid, role as any, true);
 
-        // Then set custom claims
-        const functions = getFunctions(undefined, 'us-east1');
-        const setUserRoleFunction = httpsCallable(functions, 'setUserRole');
-        const result = await setUserRoleFunction({ uid, role });
-        console.log('Role set successfully:', result.data);
+      // Then set custom claims
+      const functions = getFunctions(undefined, 'us-east1');
+      const setUserRoleFunction = httpsCallable(functions, 'setUserRole');
+      const result = await setUserRoleFunction({ uid, role });
+      console.log('Role set successfully:', result.data);
 
-        // Force token refresh to get updated claims
-        const auth = getAuth();
-        if (auth.currentUser) {
-          await auth.currentUser.getIdToken(true); // Force refresh
-          const idTokenResult = await auth.currentUser.getIdTokenResult();
-          console.log('Updated custom claims:', idTokenResult.claims);
+      // Force token refresh to get updated claims
+      const auth = getAuth();
+      if (auth.currentUser) {
+        await auth.currentUser.getIdToken(true); // Force refresh
+        const idTokenResult = await auth.currentUser.getIdTokenResult();
+        console.log('Updated custom claims:', idTokenResult.claims);
 
-          // Refresh the AuthContext with updated claims
-          await refreshUserClaims();
-        }
-
-        // Show success message
-        alert(`Successfully set role to ${role} for user ${uid}`);
-      } catch (error: any) {
-        console.error('Error setting user role:', error);
-        alert('Error setting user role: ' + error.message);
-        throw error;
+        // Refresh the AuthContext with updated claims
+        await refreshUserClaims();
       }
-    };
+
+      // Show success message
+      alert(`Successfully set role to ${role} for user ${uid}`);
+    } catch (error: any) {
+      console.error('Error setting user role:', error);
+      alert('Error setting user role: ' + error.message);
+      throw error;
+    }
+  };
 
   const getUserClaims = async (): Promise<any> => {
     try {

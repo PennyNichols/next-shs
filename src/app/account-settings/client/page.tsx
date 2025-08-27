@@ -1,17 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import {
-  Box,
-  Typography,
-  Card,
-  CardContent,
-  Grid,
-  Tabs,
-  Tab,
-  LinearProgress,
-  Alert,
-} from '@mui/material';
+import { Box, Typography, Card, CardContent, Grid, Tabs, Tab, LinearProgress, Alert } from '@mui/material';
 import { Person, Home, Notifications, Security } from '@mui/icons-material';
 import useUser from '@/hooks/auth/useUser';
 import { ClientRoute } from '@/components/auth/RouteGuard/RouteGuard';
@@ -76,11 +66,7 @@ const ClientAccountSettingsPage = () => {
         );
       case 2:
         return (
-          <CommunicationPreferences
-            userId={user.id}
-            preferences={user.communicationPreferences}
-            isAdminView={false}
-          />
+          <CommunicationPreferences userId={user.id} preferences={user.communicationPreferences} isAdminView={false} />
         );
       case 3:
         return (
@@ -90,7 +76,8 @@ const ClientAccountSettingsPage = () => {
                 Account Security
               </Typography>
               <Alert severity="info">
-                Security settings such as password change, two-factor authentication, and login history will be available soon.
+                Security settings such as password change, two-factor authentication, and login history will be
+                available soon.
               </Alert>
             </CardContent>
           </Card>
@@ -103,27 +90,25 @@ const ClientAccountSettingsPage = () => {
   return (
     <ClientRoute>
       <Box sx={{ p: 3, maxWidth: 1200, mx: 'auto' }}>
-      <Typography variant="h4" gutterBottom>
-        Account Settings
-      </Typography>
-      <Typography variant="body1" color="text.secondary" sx={{ mb: 4 }}>
-        Manage your profile, addresses, and preferences.
-      </Typography>
+        <Typography variant="h4" gutterBottom>
+          Account Settings
+        </Typography>
+        <Typography variant="body1" color="text.secondary" sx={{ mb: 4 }}>
+          Manage your profile, addresses, and preferences.
+        </Typography>
 
-      <Card>
-        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-          <Tabs value={activeTab} onChange={handleTabChange} aria-label="account settings tabs">
-            <Tab icon={<Person />} label="Profile" />
-            <Tab icon={<Home />} label="Service Addresses" />
-            <Tab icon={<Notifications />} label="Communications" />
-            <Tab icon={<Security />} label="Security" />
-          </Tabs>
-        </Box>
-        <CardContent sx={{ p: 3 }}>
-          {renderTabContent()}
-        </CardContent>
-      </Card>
-    </Box>
+        <Card>
+          <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+            <Tabs value={activeTab} onChange={handleTabChange} aria-label="account settings tabs">
+              <Tab icon={<Person />} label="Profile" />
+              <Tab icon={<Home />} label="Service Addresses" />
+              <Tab icon={<Notifications />} label="Communications" />
+              <Tab icon={<Security />} label="Security" />
+            </Tabs>
+          </Box>
+          <CardContent sx={{ p: 3 }}>{renderTabContent()}</CardContent>
+        </Card>
+      </Box>
     </ClientRoute>
   );
 };

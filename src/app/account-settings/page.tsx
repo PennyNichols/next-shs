@@ -19,7 +19,7 @@ const AccountSettingsPage = () => {
     if (!loading && user) {
       // Route to role-specific settings page
       const userRole = user.role || currentUser?.role || 'client';
-      
+
       switch (userRole) {
         case 'super':
           router.replace('/account-settings/super');
@@ -64,9 +64,7 @@ const AccountSettingsPage = () => {
 
   return (
     <Box sx={{ p: 3 }}>
-      <Typography variant="h6">
-        Redirecting to your account settings...
-      </Typography>
+      <Typography variant="h6">Redirecting to your account settings...</Typography>
     </Box>
   );
 };

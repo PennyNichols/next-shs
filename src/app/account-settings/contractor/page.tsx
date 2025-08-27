@@ -1,17 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import {
-  Box,
-  Typography,
-  Card,
-  CardContent,
-  Grid,
-  Tabs,
-  Tab,
-  LinearProgress,
-  Alert,
-} from '@mui/material';
+import { Box, Typography, Card, CardContent, Grid, Tabs, Tab, LinearProgress, Alert } from '@mui/material';
 import { Person, Home, Notifications, Security, Work } from '@mui/icons-material';
 import useUser from '@/hooks/auth/useUser';
 import { ContractorRoute } from '@/components/auth/RouteGuard/RouteGuard';
@@ -76,11 +66,7 @@ const ContractorAccountSettingsPage = () => {
         );
       case 2:
         return (
-          <CommunicationPreferences
-            userId={user.id}
-            preferences={user.communicationPreferences}
-            isAdminView={false}
-          />
+          <CommunicationPreferences userId={user.id} preferences={user.communicationPreferences} isAdminView={false} />
         );
       case 3:
         return (
@@ -90,7 +76,8 @@ const ContractorAccountSettingsPage = () => {
                 Contractor Settings
               </Typography>
               <Alert severity="info">
-                Contractor-specific settings such as service areas, availability, certification management, and equipment tracking will be available soon.
+                Contractor-specific settings such as service areas, availability, certification management, and
+                equipment tracking will be available soon.
               </Alert>
               <Typography variant="body2" sx={{ mt: 2 }}>
                 Features coming soon:
@@ -113,7 +100,8 @@ const ContractorAccountSettingsPage = () => {
                 Account Security
               </Typography>
               <Alert severity="info">
-                Security settings such as password change, two-factor authentication, and login history will be available soon.
+                Security settings such as password change, two-factor authentication, and login history will be
+                available soon.
               </Alert>
             </CardContent>
           </Card>
@@ -126,28 +114,26 @@ const ContractorAccountSettingsPage = () => {
   return (
     <ContractorRoute>
       <Box sx={{ p: 3, maxWidth: 1200, mx: 'auto' }}>
-      <Typography variant="h4" gutterBottom>
-        Contractor Account Settings
-      </Typography>
-      <Typography variant="body1" color="text.secondary" sx={{ mb: 4 }}>
-        Manage your contractor profile, service areas, and work preferences.
-      </Typography>
+        <Typography variant="h4" gutterBottom>
+          Contractor Account Settings
+        </Typography>
+        <Typography variant="body1" color="text.secondary" sx={{ mb: 4 }}>
+          Manage your contractor profile, service areas, and work preferences.
+        </Typography>
 
-      <Card>
-        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-          <Tabs value={activeTab} onChange={handleTabChange} aria-label="contractor settings tabs">
-            <Tab icon={<Person />} label="Profile" />
-            <Tab icon={<Home />} label="Service Areas" />
-            <Tab icon={<Notifications />} label="Communications" />
-            <Tab icon={<Work />} label="Contractor Settings" />
-            <Tab icon={<Security />} label="Security" />
-          </Tabs>
-        </Box>
-        <CardContent sx={{ p: 3 }}>
-          {renderTabContent()}
-        </CardContent>
-      </Card>
-    </Box>
+        <Card>
+          <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+            <Tabs value={activeTab} onChange={handleTabChange} aria-label="contractor settings tabs">
+              <Tab icon={<Person />} label="Profile" />
+              <Tab icon={<Home />} label="Service Areas" />
+              <Tab icon={<Notifications />} label="Communications" />
+              <Tab icon={<Work />} label="Contractor Settings" />
+              <Tab icon={<Security />} label="Security" />
+            </Tabs>
+          </Box>
+          <CardContent sx={{ p: 3 }}>{renderTabContent()}</CardContent>
+        </Card>
+      </Box>
     </ContractorRoute>
   );
 };

@@ -23,7 +23,7 @@ const useUserWithImpersonation = () => {
     const fetchUserData = async () => {
       setLoadingUserData(true);
       setError(null);
-      
+
       if (targetUserId) {
         try {
           const docSnap = await getDoc(doc(db, 'users', targetUserId));
@@ -73,13 +73,13 @@ const useUserWithImpersonation = () => {
   // Combine loading states
   const isLoading = authLoading || loadingUserData;
 
-  return { 
-    user: userData, 
-    loading: isLoading, 
+  return {
+    user: userData,
+    loading: isLoading,
     error,
     isImpersonating,
     actualUser: currentUser,
-    targetUserId
+    targetUserId,
   };
 };
 

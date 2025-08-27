@@ -28,13 +28,8 @@ interface User {
 
 const ActOnBehalfSelector: React.FC = () => {
   const { currentUser } = useAuth();
-  const {
-    impersonatedUserId,
-    setImpersonatedUserId,
-    isImpersonating,
-    canImpersonate,
-    canImpersonateUser,
-  } = useImpersonation();
+  const { impersonatedUserId, setImpersonatedUserId, isImpersonating, canImpersonate, canImpersonateUser } =
+    useImpersonation();
 
   const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState(true);
@@ -50,10 +45,10 @@ const ActOnBehalfSelector: React.FC = () => {
     const fetchUsers = async () => {
       console.log('ActOnBehalfSelector - canImpersonate:', canImpersonate);
       console.log('ActOnBehalfSelector - currentUser?.role:', currentUser?.role);
-      
+
       // Always try to fetch for debugging
       const proceedWithFetch = shouldShow;
-      
+
       if (!proceedWithFetch) {
         setLoading(false);
         return;
@@ -61,39 +56,44 @@ const ActOnBehalfSelector: React.FC = () => {
 
       try {
         console.log('Fetching users for impersonation...');
-        
+
         const usersRef = collection(db, 'users');
         console.log('Created users collection reference');
-        
+
         const snapshot = await getDocs(usersRef);
         console.log('Firestore query successful, processing documents...');
         console.log('Total documents in snapshot:', snapshot.size);
-        
+
         const allUsers = [];
         snapshot.forEach((doc) => {
           try {
             const data = doc.data();
             console.log('Processing document:', doc.id, data);
-            
-            const user = { 
-              id: doc.id, 
+
+            const user = {
+              id: doc.id,
               email: data.email || '',
               firstName: data.first || data.firstName || '',
               lastName: data.last || data.lastName || '',
-              role: data.role || data.type || 'client'
+              role: data.role || data.type || 'client',
             };
-            
+
             console.log('Processed user:', user);
             console.log('Current user ID:', currentUser?.uid);
             console.log('User has email:', !!user.email);
             console.log('User is not current user:', user.id !== currentUser?.uid);
-            
+
             // Only add users with valid data and exclude current user
             if (user.email && user.id !== currentUser?.uid) {
               allUsers.push(user);
               console.log('Added user to list:', user.email);
             } else {
-              console.log('Skipped user:', user.email || user.id, 'Reason:', !user.email ? 'no email' : 'is current user');
+              console.log(
+                'Skipped user:',
+                user.email || user.id,
+                'Reason:',
+                !user.email ? 'no email' : 'is current user',
+              );
             }
           } catch (docError) {
             console.warn('Error processing user document:', doc.id, docError);
@@ -107,7 +107,7 @@ const ActOnBehalfSelector: React.FC = () => {
         let filteredUsers = allUsers;
         if (currentUser?.role === 'admin') {
           // Admin users can see all except super users
-          filteredUsers = allUsers.filter(user => user.role !== 'super');
+          filteredUsers = allUsers.filter((user) => user.role !== 'super');
         }
         // Super users can see all users (no additional filtering needed)
 
@@ -117,7 +117,6 @@ const ActOnBehalfSelector: React.FC = () => {
         console.log('Final filtered users:', filteredUsers.length);
         console.log('Final users list:', filteredUsers);
         setUsers(filteredUsers);
-        
       } catch (err) {
         console.error('Error in fetchUsers:', err);
         setError('Failed to load users for impersonation');
@@ -141,12 +140,12 @@ const ActOnBehalfSelector: React.FC = () => {
     return user.email;
   };
 
-  
   if (!shouldShow) {
     return (
       <Box sx={{ mb: 2 }}>
         <Typography variant="caption" color="error">
-          Debug: Not showing impersonation (canImpersonate: {String(canImpersonate)}, role: {currentUser?.role || 'none'})
+          Debug: Not showing impersonation (canImpersonate: {String(canImpersonate)}, role:{' '}
+          {currentUser?.role || 'none'})
         </Typography>
       </Box>
     );
@@ -165,9 +164,7 @@ const ActOnBehalfSelector: React.FC = () => {
   if (error) {
     return (
       <Box sx={{ mb: 2 }}>
-        <Alert severity="warning">
-          User impersonation temporarily unavailable. {error}
-        </Alert>
+        <Alert severity="warning">User impersonation temporarily unavailable. {error}</Alert>
         <Typography variant="caption" color="text.secondary" sx={{ mt: 1, display: 'block' }}>
           You can still use dashboard features normally. User selection will be restored once the issue is resolved.
         </Typography>
@@ -178,15 +175,11 @@ const ActOnBehalfSelector: React.FC = () => {
   return (
     <Box sx={{ mb: 2 }}>
       {isImpersonating && (
-        <Alert 
-          severity="warning" 
-          sx={{ mb: 2 }}
-          icon={<AdminPanelSettings />}
-        >
+        <Alert severity="warning" sx={{ mb: 2 }} icon={<AdminPanelSettings />}>
           You are acting on behalf of another user. All actions will be performed as that user.
         </Alert>
       )}
-      
+
       <FormControl fullWidth size="small">
         <InputLabel id="act-on-behalf-label">Act on Behalf of User</InputLabel>
         <Select
@@ -200,37 +193,25 @@ const ActOnBehalfSelector: React.FC = () => {
             <em>Select a user or act as yourself</em>
           </MenuItem>
           {users.map((user) => (
-            <MenuItem 
-              key={user.id} 
-              value={user.id}
-              disabled={!canImpersonateUser(user.role)}
-            >
+            <MenuItem key={user.id} value={user.id} disabled={!canImpersonateUser(user.role)}>
               <Box sx={{ display: 'flex', alignItems: 'center', width: '100%' }}>
                 <Box sx={{ flexGrow: 1 }}>
-                  <Typography variant="body2">
-                    {getDisplayName(user)}
-                  </Typography>
+                  <Typography variant="body2">{getDisplayName(user)}</Typography>
                   <Typography variant="caption" color="text.secondary">
                     {user.email}
                   </Typography>
                 </Box>
-                <Chip 
-                  label={user.role} 
-                  size="small" 
-                  color="primary" 
-                  variant="outlined"
-                  sx={{ ml: 1 }}
-                />
+                <Chip label={user.role} size="small" color="primary" variant="outlined" sx={{ ml: 1 }} />
               </Box>
             </MenuItem>
           ))}
         </Select>
       </FormControl>
-      
+
       {isImpersonating && (
         <Box sx={{ mt: 1 }}>
           <Typography variant="caption" color="text.secondary">
-            Currently acting as: {users.find(u => u.id === impersonatedUserId)?.email || 'Unknown user'}
+            Currently acting as: {users.find((u) => u.id === impersonatedUserId)?.email || 'Unknown user'}
           </Typography>
         </Box>
       )}

@@ -19,7 +19,7 @@ const DashboardPage = () => {
     if (!loading && user) {
       // Route to role-specific dashboard page
       const userRole = user.role || currentUser?.role || 'client';
-      
+
       switch (userRole) {
         case 'super':
           router.replace('/dashboard/super');
@@ -64,9 +64,7 @@ const DashboardPage = () => {
 
   return (
     <Box sx={{ p: 3 }}>
-      <Typography variant="h6">
-        Redirecting to your dashboard...
-      </Typography>
+      <Typography variant="h6">Redirecting to your dashboard...</Typography>
     </Box>
   );
 };

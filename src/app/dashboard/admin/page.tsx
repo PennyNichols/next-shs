@@ -62,7 +62,7 @@ const AdminDashboardContent = () => {
     'dashboard',
   );
   const [selectedUser, setSelectedUser] = useState<string | null>(null);
-  console.log('user', user)
+  console.log('user', user);
   if (loading) {
     return (
       <Box sx={{ width: '100%', p: 3 }}>

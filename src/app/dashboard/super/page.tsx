@@ -15,17 +15,17 @@ import {
   LinearProgress,
   Alert,
 } from '@mui/material';
-import { 
-  Person, 
-  Home, 
-  SupervisorAccount, 
-  Security, 
-  Storage, 
+import {
+  Person,
+  Home,
+  SupervisorAccount,
+  Security,
+  Storage,
   Settings,
   Analytics,
   People,
   Business,
-  AdminPanelSettings 
+  AdminPanelSettings,
 } from '@mui/icons-material';
 import { UserProfile } from '@/components/profile/UserProfile/UserProfile';
 import { SuperOnly } from '@/components/common/RoleGuard/RoleGuard';
@@ -233,7 +233,9 @@ const SuperAdminDashboardOverview = ({ user }: { user: any }) => (
                 <Typography variant="body2" color="text.secondary">
                   Database Performance
                 </Typography>
-                <Typography variant="h6" color="success.main">Excellent</Typography>
+                <Typography variant="h6" color="success.main">
+                  Excellent
+                </Typography>
               </Box>
               <Box>
                 <Typography variant="body2" color="text.secondary">
@@ -261,13 +263,12 @@ const SystemManagementView = () => (
       System Management
     </Typography>
     <Alert severity="info" sx={{ mb: 3 }}>
-      System management tools including database administration, server configuration, and infrastructure monitoring will be available soon.
+      System management tools including database administration, server configuration, and infrastructure monitoring
+      will be available soon.
     </Alert>
     <Card>
       <CardContent>
-        <Typography variant="body1">
-          Advanced system management features coming soon:
-        </Typography>
+        <Typography variant="body1">Advanced system management features coming soon:</Typography>
         <ul>
           <li>Database backup and restore</li>
           <li>Server performance monitoring</li>
@@ -290,9 +291,7 @@ const GlobalUserManagementView = () => (
     </Alert>
     <Card>
       <CardContent>
-        <Typography variant="body1">
-          Global user management features coming soon:
-        </Typography>
+        <Typography variant="body1">Global user management features coming soon:</Typography>
         <ul>
           <li>Cross-organization user search</li>
           <li>Bulk user operations</li>
@@ -318,9 +317,7 @@ const SecurityManagementView = () => (
     </Alert>
     <Card>
       <CardContent>
-        <Typography variant="body1">
-          Security management features coming soon:
-        </Typography>
+        <Typography variant="body1">Security management features coming soon:</Typography>
         <ul>
           <li>Security policy management</li>
           <li>Threat detection and monitoring</li>

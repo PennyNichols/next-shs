@@ -21,9 +21,7 @@ import useUser from '@/hooks/auth/useUser';
 
 const EmployeeDashboardContent = () => {
   const { user, loading } = useUser();
-  const [activeSection, setActiveSection] = useState<'dashboard' | 'profile' | 'tasks' | 'clients'>(
-    'dashboard',
-  );
+  const [activeSection, setActiveSection] = useState<'dashboard' | 'profile' | 'tasks' | 'clients'>('dashboard');
 
   if (loading) {
     return (
@@ -239,7 +237,8 @@ const ClientsView = () => (
     <Card>
       <CardContent>
         <Typography variant="body1">
-          Your assigned clients will appear here. This would typically fetch from a 'clients' collection with proper filtering.
+          Your assigned clients will appear here. This would typically fetch from a 'clients' collection with proper
+          filtering.
         </Typography>
       </CardContent>
     </Card>

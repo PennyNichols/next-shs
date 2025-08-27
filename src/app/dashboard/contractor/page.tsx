@@ -21,9 +21,7 @@ import useUser from '@/hooks/auth/useUser';
 
 const ContractorDashboardContent = () => {
   const { user, loading } = useUser();
-  const [activeSection, setActiveSection] = useState<'dashboard' | 'profile' | 'jobs' | 'schedule'>(
-    'dashboard',
-  );
+  const [activeSection, setActiveSection] = useState<'dashboard' | 'profile' | 'jobs' | 'schedule'>('dashboard');
 
   if (loading) {
     return (
