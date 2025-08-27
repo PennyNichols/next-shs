@@ -5,7 +5,7 @@ import { useAuth } from '@/contexts/AuthContext/AuthContext'; // Import from you
 
 export interface UserData {
   id: string;
-  type: string;
+  role: string;
   first: string;
   last: string;
   phone: string;
@@ -83,7 +83,7 @@ const useUser = () => {
             const firestoreData = docSnap.data();
             const userData: UserData = {
               id: docSnap.id,
-              type: firestoreData.type || '',
+              role: firestoreData.role || firestoreData.type || '',
               first: firestoreData.first || '',
               last: firestoreData.last || '',
               phone: firestoreData.phone || '',

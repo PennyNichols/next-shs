@@ -33,6 +33,7 @@ import {
   InputLabel,
   Select,
   MenuItem,
+  Alert,
 } from '@mui/material';
 import {
   Dashboard,
@@ -47,18 +48,21 @@ import {
   Add,
   Search,
   FilterList,
+  AdminPanelSettings,
 } from '@mui/icons-material';
+import useUserWithImpersonation from '@/hooks/auth/useUserWithImpersonation';
 import { UserProfile } from '@/components/profile/UserProfile/UserProfile';
+import { AdminRoute } from '@/components/auth/RouteGuard/RouteGuard';
 import useUser from '@/hooks/auth/useUser';
 import { UserData } from '@/hooks/auth/useUser';
 
 const AdminDashboardContent = () => {
-  const { user, loading } = useUser();
+  const { user, loading, isImpersonating, targetUserId } = useUserWithImpersonation();
   const [activeSection, setActiveSection] = useState<'dashboard' | 'users' | 'requests' | 'analytics' | 'settings'>(
     'dashboard',
   );
   const [selectedUser, setSelectedUser] = useState<string | null>(null);
-
+  console.log('user', user)
   if (loading) {
     return (
       <Box sx={{ width: '100%', p: 3 }}>
@@ -70,9 +74,14 @@ const AdminDashboardContent = () => {
     );
   }
 
-  if (!user || !['admin', 'employee', 'super'].includes(user.type)) {
+  if (!user || !['admin', 'employee', 'super'].includes(user.role || '')) {
     return (
       <Box sx={{ p: 3 }}>
+        {isImpersonating && (
+          <Alert severity="warning" sx={{ mb: 2 }} icon={<AdminPanelSettings />}>
+            Acting on behalf of user: {user?.email || targetUserId}
+          </Alert>
+        )}
         <Typography variant="h6" color="error">
           Access denied. Admin privileges required.
         </Typography>
@@ -107,10 +116,15 @@ const AdminDashboardContent = () => {
       ) : (
         <Box>
           {/* Section Navigation */}
-          <Box sx={{ mb: 3 }}>
+          <Box sx={{ mb: 3, p: 3 }}>
             <Typography variant="h4" gutterBottom>
               Admin Dashboard
             </Typography>
+            {isImpersonating && (
+              <Alert severity="info" sx={{ mb: 2 }} icon={<AdminPanelSettings />}>
+                Acting on behalf of: {user.first} {user.last} ({user.email})
+              </Alert>
+            )}
             <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap' }}>
               {[
                 { key: 'dashboard', label: 'Dashboard', icon: <Dashboard /> },
@@ -289,7 +303,7 @@ const UserManagement = ({ onSelectUser }: { onSelectUser: (userId: string) => vo
       first: 'John',
       last: 'Doe',
       email: 'john@example.com',
-      type: 'client',
+      role: 'client',
       status: 'active',
       createdOn: '2024-01-15T10:00:00Z',
       serviceAddresses: [{ street: '123 Main St', city: 'Orlando', state: 'FL' }],
@@ -299,7 +313,7 @@ const UserManagement = ({ onSelectUser }: { onSelectUser: (userId: string) => vo
       first: 'Jane',
       last: 'Smith',
       email: 'jane@example.com',
-      type: 'contractor',
+      role: 'contractor',
       status: 'active',
       createdOn: '2024-02-20T14:30:00Z',
       serviceAddresses: [],
@@ -399,7 +413,7 @@ const UserManagement = ({ onSelectUser }: { onSelectUser: (userId: string) => vo
                   </Box>
                 </TableCell>
                 <TableCell>
-                  <Chip label={user.type} color={getTypeColor(user.type)} size="small" />
+                  <Chip label={user.role} color={getTypeColor(user.role)} size="small" />
                 </TableCell>
                 <TableCell>
                   <Chip label={user.status} color={getStatusColor(user.status)} size="small" />
@@ -462,8 +476,12 @@ const SettingsView = () => (
   </Box>
 );
 
-const AdminDashboard = () => {
-  return <AdminDashboardContent />;
+const AdminDashboardPage = () => {
+  return (
+    <AdminRoute>
+      <AdminDashboardContent />
+    </AdminRoute>
+  );
 };
 
-export default AdminDashboard;
+export default AdminDashboardPage;

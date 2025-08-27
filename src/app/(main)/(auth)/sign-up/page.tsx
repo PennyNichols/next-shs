@@ -119,7 +119,7 @@ const SignUpPage = () => {
 
       // Redirect to client dashboard
       setTimeout(() => {
-        router.push('/client/dashboard');
+        router.push('/dashboard/client');
       }, 2000);
     } catch (err: any) {
       setError(err.message || 'An error occurred during sign up');

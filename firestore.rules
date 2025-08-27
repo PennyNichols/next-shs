@@ -8,9 +8,10 @@ service cloud.firestore {
       return request.auth != null;
     }
 
-    // Helper function to get the user's role from their 'users' document
+    // Helper function to safely get the user's role from their 'users' document
     function getUserRole(userId) {
-      return get(/databases/$(database)/documents/users/$(userId)).data.role;
+      return exists(/databases/$(database)/documents/users/$(userId)) ? 
+        get(/databases/$(database)/documents/users/$(userId)).data.role : null;
     }
 
     // Define roles that have elevated privileges
@@ -19,7 +20,8 @@ service cloud.firestore {
     }
 
     function isAdmin() {
-      return isAuthenticated() && (getUserRole(request.auth.uid) == 'admin' || getUserRole(request.auth.uid) == 'super');
+      let role = getUserRole(request.auth.uid);
+      return isAuthenticated() && (role == 'admin' || role == 'super');
     }
 
     // Rules for the entire 'users' collection
@@ -27,6 +29,9 @@ service cloud.firestore {
       // Allow a user to read their own profile.
       // Allow 'admin' or 'super' users to read any user profile.
       allow read: if isAuthenticated() && (request.auth.uid == userId || isAdmin());
+      
+      // Allow 'admin' or 'super' users to list all users for impersonation
+      allow list: if isAuthenticated() && isAdmin();
 
       // Allow a user to update their own profile.
       // Allow 'admin' or 'super' users to update any user profile.

@@ -41,7 +41,7 @@ const userProfileSchema = yup.object().shape({
   last: yup.string().required('Last name is required'),
   email: yup.string().email('Invalid email').required('Email is required'),
   phone: yup.string().required('Phone number is required'),
-  type: yup.string().required('User type is required'),
+  role: yup.string().required('User role is required'),
   status: yup.string().required('Status is required'),
   emailVerified: yup.boolean(),
   primaryAddress: yup
@@ -73,7 +73,7 @@ export const UserProfileEdit: React.FC<UserProfileEditProps> = ({ user, open, on
       last: user.last || '',
       email: user.email || '',
       phone: user.phone || '',
-      type: user.type || 'client',
+      role: user.role || 'client',
       status: user.status || 'active',
       emailVerified: user.emailVerified || false,
       primaryAddress: user.primaryAddress || {
@@ -231,12 +231,12 @@ export const UserProfileEdit: React.FC<UserProfileEditProps> = ({ user, open, on
               <>
                 <Grid item xs={12} md={6}>
                   <Controller
-                    name="type"
+                    name="role"
                     control={control}
                     render={({ field }) => (
                       <FormControl fullWidth>
-                        <InputLabel>User Type</InputLabel>
-                        <Select {...field} label="User Type">
+                        <InputLabel>User Role</InputLabel>
+                        <Select {...field} label="User Role">
                           {userTypes.map((type) => (
                             <MenuItem key={type} value={type}>
                               {type.charAt(0).toUpperCase() + type.slice(1)}

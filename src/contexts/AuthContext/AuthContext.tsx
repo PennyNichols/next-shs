@@ -139,20 +139,19 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
 
-      // Create user document with default client role
-      const userData = {
-        email: email,
+      // Import schema manager
+      const { createUserDocument } = await import('@/lib/schemas/userSchemaManager');
+
+      // Create complete user document with all required fields for client role
+      await createUserDocument(user.uid, {
         role: 'client',
+        email: email,
         first: firstName,
         last: lastName,
         phone: phoneNumber,
         status: 'active',
         emailVerified: false,
-        createdOn: new Date().toISOString(),
-        updatedOn: new Date().toISOString(),
-      };
-
-      await setDoc(doc(db, 'users', user.uid), userData);
+      });
 
       // Set custom claims for the new user (with a small delay to ensure user doc is created)
       try {

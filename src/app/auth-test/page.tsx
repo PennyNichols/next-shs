@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { Box, Card, CardContent, Typography, TextField, Button, Alert, Divider, Chip, Grid } from '@mui/material';
 import { useAuth } from '@/contexts/AuthContext/AuthContext';
 import { DashboardNavigation } from '@/components/navigation/DashboardNavigation';
-import { ROLE_DASHBOARD_ROUTES } from '@/lib/utils/roleBasedRouting';
+import { ROLE_DASHBOARD_ROUTES, getDashboardRouteForRole } from '@/lib/utils/roleBasedRouting';
 import { getRoleDisplayName } from '@/lib/utils/roleUtils';
 
 export default function AuthTestPage() {
@@ -53,8 +53,7 @@ export default function AuthTestPage() {
                   <strong>Role:</strong> {getRoleDisplayName(currentUser.role || 'client')}
                 </Typography>
                 <Typography>
-                  <strong>Expected Dashboard:</strong>{' '}
-                  {ROLE_DASHBOARD_ROUTES[currentUser.role as keyof typeof ROLE_DASHBOARD_ROUTES] || '/client/dashboard'}
+                  <strong>Expected Dashboard:</strong> {getDashboardRouteForRole(currentUser.role)}
                 </Typography>
                 <Typography>
                   <strong>Current Path:</strong> {window.location.pathname}
@@ -171,7 +170,7 @@ export default function AuthTestPage() {
               Expected Behavior:
             </Typography>
             <Typography variant="body2" sx={{ color: 'info.contrastText' }}>
-              • New users → Client Dashboard (/client/dashboard) • Existing users → Role-specific dashboard • Role
+              • New users → Client Dashboard (/dashboard/client) • Existing users → Role-specific dashboard • Role
               changes → Immediate routing updates
             </Typography>
           </Box>

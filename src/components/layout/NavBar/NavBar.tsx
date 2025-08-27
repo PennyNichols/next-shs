@@ -22,6 +22,7 @@ import NavButton from '@/components/common/NavButton/NavButton';
 import StylableLogo from '../../../assets/svg/LogoSvg/LogoSvg';
 import { useAuth } from '@/contexts/AuthContext/AuthContext';
 import { useRouter } from 'next/navigation';
+import { getDashboardRouteForRole } from '@/lib/utils/roleBasedRouting';
 import useUser from '@/hooks/auth/useUser';
 
 const NavBar = () => {
@@ -47,16 +48,7 @@ const NavBar = () => {
     { name: 'FAQ', href: '/FAQ' },
   ];
 
-  const dashboardURL =
-    user?.type === 'admin' || user?.type === 'super'
-      ? '/admin/dashboard'
-      : user?.type === 'employee'
-        ? '/employee/dashboard'
-        : user?.type === 'contractor'
-          ? '/contractor/dashboard'
-          : user?.type === 'client'
-            ? '/client/dashboard'
-            : '/not-found';
+  const dashboardURL = getDashboardRouteForRole(user?.role);
 
   const settingsURL = '/account-settings';
 

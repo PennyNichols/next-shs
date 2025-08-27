@@ -13,26 +13,23 @@ import {
   ListItemText,
   ListItemIcon,
   LinearProgress,
+  Alert,
 } from '@mui/material';
-import { Person, Home, RequestQuote, Assignment, Schedule, Email } from '@mui/icons-material';
+import { Person, Home, RequestQuote, Assignment, Schedule, Email, AdminPanelSettings } from '@mui/icons-material';
 import { UserProfile } from '@/components/profile/UserProfile/UserProfile';
-import useUser from '@/hooks/auth/useUser';
+import { ClientRoute } from '@/components/auth/RouteGuard/RouteGuard';
+import useUserWithImpersonation from '@/hooks/auth/useUserWithImpersonation';
 import { useAdmin } from '@/contexts/AdminContext';
 import { useAuth } from '@/contexts/AuthContext/AuthContext';
 import { getAssignableRoles, getRoleDisplayName, UserRole } from '@/lib/utils/roleUtils';
-import { DashboardNavigation } from '@/components/navigation/DashboardNavigation';
 
 const ClientDashboardContent = () => {
-  const { user, loading } = useUser(); // Firestore user data
+  const { user, loading, isImpersonating } = useUserWithImpersonation(); // Firestore user data
   const { currentUser } = useAuth(); // Firebase Auth user with custom claims
   const { setUserRole, checkUserClaims } = useAdmin();
   const [activeSection, setActiveSection] = useState<'dashboard' | 'profile' | 'requests' | 'appointments'>(
     'dashboard',
   );
-  console.log('Current user data:', user);
-  console.log('Current auth user:', currentUser);
-  console.log('Current user role:', currentUser?.role);
-  console.log('Is admin?', currentUser?.role === 'admin');
 
   const handleSetUserRole = async (uid: string, role: UserRole) => {
     await setUserRole(uid, role);
@@ -83,12 +80,16 @@ const ClientDashboardContent = () => {
 
   return (
     <Box>
-      <DashboardNavigation />
       {/* Section Navigation */}
       <Box sx={{ mb: 3, p: 3 }}>
         <Typography variant="h4" sx={{ mb: 3 }}>
           Welcome back, {user.first}!
         </Typography>
+        {isImpersonating && (
+          <Alert severity="info" sx={{ mb: 3 }} icon={<AdminPanelSettings />}>
+            Administrator is acting on behalf of: {user.first} {user.last} ({user.email})
+          </Alert>
+        )}
         {currentUser?.role && (
           <Typography variant="h6" sx={{ mb: 2, color: 'primary.main' }}>
             Current Role: {getRoleDisplayName(currentUser.role)}
@@ -307,8 +308,12 @@ const AppointmentsView = () => (
   </Box>
 );
 
-const ClientDashboard = () => {
-  return <ClientDashboardContent />;
+const ClientDashboardPage = () => {
+  return (
+    <ClientRoute>
+      <ClientDashboardContent />
+    </ClientRoute>
+  );
 };
 
-export default ClientDashboard;
+export default ClientDashboardPage;

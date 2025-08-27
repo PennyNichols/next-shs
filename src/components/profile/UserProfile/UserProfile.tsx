@@ -73,7 +73,7 @@ export const UserProfile: React.FC<UserProfileProps> = ({ userId, isAdminView = 
                     {displayUser.first} {displayUser.last}
                   </Typography>
                   <Box display="flex" gap={1} mb={1}>
-                    <Chip label={displayUser.type} color={getTypeColor(displayUser.type)} size="small" />
+                    <Chip label={displayUser.role} color={getTypeColor(displayUser.role)} size="small" />
                     <Chip label={displayUser.status} color={getStatusColor(displayUser.status)} size="small" />
                     {displayUser.emailVerified && <Chip label="Email Verified" color="success" size="small" />}
                   </Box>

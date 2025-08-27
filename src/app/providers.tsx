@@ -12,6 +12,7 @@ import globalSlickStyles from '@/styles/theme/globalSlickStyles';
 import { AuthProvider } from '@/contexts/AuthContext/AuthContext';
 import { FirebaseCollectionProvider } from '@/contexts/FirebaseCollectionContext/FirebaseCollectionContext';
 import { AdminProvider } from '@/contexts/AdminContext';
+import { ImpersonationProvider } from '@/contexts/ImpersonationContext';
 
 import EmotionRegistry from './EmotionRegistry';
 import NavBar from '@/components/layout/NavBar/NavBar';
@@ -29,26 +30,28 @@ export const AppProviders = ({ children }: { children: React.ReactNode }) => {
       <AuthProvider>
         <FirebaseCollectionProvider>
           <AdminProvider>
-            <Box
-              minHeight="100dvh"
-              sx={{
-                backgroundColor: theme.palette.secondary.light,
-                display: 'block',
-              }}
-            >
-              {isHomePage && <Hero />}
-              <NavBar />
+            <ImpersonationProvider>
               <Box
+                minHeight="100dvh"
                 sx={{
-                  paddingTop: 0,
-                  paddingBottom: 0,
-                  width: '100%',
+                  backgroundColor: theme.palette.secondary.light,
+                  display: 'block',
                 }}
               >
-                {children}
+                {isHomePage && <Hero />}
+                <NavBar />
+                <Box
+                  sx={{
+                    paddingTop: 0,
+                    paddingBottom: 0,
+                    width: '100%',
+                  }}
+                >
+                  {children}
+                </Box>
+                <Footer />
               </Box>
-              <Footer />
-            </Box>
+            </ImpersonationProvider>
           </AdminProvider>
         </FirebaseCollectionProvider>
       </AuthProvider>
