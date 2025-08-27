@@ -2,12 +2,11 @@
 
 import React from 'react';
 import { Box, Container } from '@mui/material';
-import { StaffRoute } from '@/components/auth/RouteGuard/RouteGuard';
-import { DashboardNavigation } from '@/components/navigation/DashboardNavigation/DashboardNavigation';
+import { EmployeeRoute } from '@/components/auth/RouteGuard/RouteGuard';
 
-const AdminLayout = ({ children }: { children: React.ReactNode }) => {
+const EmployeeLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <StaffRoute>
+    <EmployeeRoute>
       <Box
         sx={{
           display: 'flex',
@@ -15,7 +14,6 @@ const AdminLayout = ({ children }: { children: React.ReactNode }) => {
           backgroundColor: 'background.default',
         }}
       >
-        <DashboardNavigation />
         <Box
           component="main"
           sx={{
@@ -27,8 +25,8 @@ const AdminLayout = ({ children }: { children: React.ReactNode }) => {
           <Container maxWidth="xl">{children}</Container>
         </Box>
       </Box>
-    </StaffRoute>
+    </EmployeeRoute>
   );
 };
 
-export default AdminLayout;
+export default EmployeeLayout;

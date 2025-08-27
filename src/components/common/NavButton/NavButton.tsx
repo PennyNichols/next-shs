@@ -5,6 +5,7 @@ import Button, { ButtonProps } from '@mui/material/Button';
 import { customShadows } from '@/styles/theme/otherThemeConstants';
 import theme from '@/styles/theme';
 import { useMedia } from '@/hooks';
+import { alpha } from '@mui/material';
 
 interface NavButtonProps
   extends Omit<ButtonProps, 'variant' | 'type' | 'onClick' | 'fullWidth' | 'startIcon' | 'sx' | 'color'> {
@@ -62,6 +63,10 @@ const NavButton: React.FC<NavButtonProps> = ({
           letterSpacing: '0.2rem',
           color: theme.palette.accent.primary,
           textShadow: `0px 5px 14px ${theme.palette.accent.primary}, 0px 5px 20px ${theme.palette.accent.primary}`,
+          '& .MuiButton-startIcon': {
+            color: theme.palette.accent.primary,
+            filter: `drop-shadow(0px 3px 8px ${theme.palette.accent.primary}) drop-shadow(0px 3px 10px ${theme.palette.accent.primary})`,
+          },
         },
         '&:focus': {
           outline: 'none',

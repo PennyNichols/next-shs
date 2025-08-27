@@ -80,7 +80,6 @@ const SignUpPage = () => {
       const currentTime = new Date();
       const userData = {
         role: 'client', // Use 'role' instead of 'type' for security rules
-        type: 'client', // Keep 'type' for compatibility with existing code
         first: '', // Empty for now, can be filled later
         last: '', // Empty for now, can be filled later
         phone: '', // Empty for now, can be filled later

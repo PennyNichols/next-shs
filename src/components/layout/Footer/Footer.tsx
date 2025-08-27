@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { Box, Typography, Link, Grid, Skeleton } from '@mui/material'; // Removed Container from import
 import { Facebook, Google, Instagram } from '@mui/icons-material';
 import SubscribeForm from '../../forms/SubscribeForm/SubscribeForm';
@@ -22,11 +22,32 @@ const Footer = () => {
   const { isXxs: initialIsXxs, isXs: initialIsXs, isSm: initialIsSm, isMd: initialIsMd } = useMedia();
   const [showClientContent, setShowClientContent] = useState(false);
   const [isFullWidth, setIsFullWidth] = useState(false);
+  const footerRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     setShowClientContent(true);
     setIsFullWidth(initialIsXxs || initialIsXs || initialIsSm || initialIsMd);
   }, [initialIsXxs, initialIsXs, initialIsSm, initialIsMd]);
+
+  useEffect(() => {
+    const updateFooterHeight = () => {
+      if (footerRef.current) {
+        const height = footerRef.current.offsetHeight;
+        document.documentElement.style.setProperty('--footer-height', `${height}px`);
+      }
+    };
+
+    // Initial height calculation
+    updateFooterHeight();
+
+    // Update on resize
+    const observer = new ResizeObserver(updateFooterHeight);
+    if (footerRef.current) {
+      observer.observe(footerRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, [showClientContent]); // Re-run when content changes
 
   const contentWrapperSx = {
     maxWidth: { xxs: '100%', sm: 600, md: 1200 },
@@ -36,6 +57,7 @@ const Footer = () => {
   return (
     <Box
       component="footer"
+      ref={footerRef}
       sx={{
         bgcolor: 'primary.main',
         color: 'secondary.light',
@@ -106,7 +128,7 @@ const Footer = () => {
               sx={{
                 display: 'flex',
                 flexDirection: { xxs: 'column', xs: 'row' },
-                justifyContent: { xxs: 'center', sm: 'flex-start', md: 'center' },
+                justifyContent: { xxs: 'center', sm: 'flex-start' },
                 alignItems: 'center',
                 textAlign: 'center',
                 gap: 1,
@@ -130,10 +152,10 @@ const Footer = () => {
             <Grid item xxs={0} md={5} lg={4} sx={{ display: { xxs: 'none', md: 'flex' } }}>
               <Box sx={{ textAlign: 'left', width: 'fit-content', mx: 'auto' }}>
                 <Typography variant="h5" color="inherit">
-                  Contact Information
+                  Contact Us{' '}
                 </Typography>
                 <Typography variant="body1" color="inherit">
-                  Call:{' '}
+                  Call or Text:{' '}
                   <Link
                     component="a"
                     color="inherit"
@@ -147,36 +169,20 @@ const Footer = () => {
                     {formatPhoneNumber(COMPANY_PHONE_NUMBER)}
                   </Link>
                 </Typography>
-                <Typography variant="body1" color="inherit">
-                  Text:{' '}
-                  <Link
-                    component="a"
-                    color="inherit"
-                    href={`sms:${COMPANY_PHONE_NUMBER}`}
-                    sx={{
-                      transition: customTransitions.standard,
-                      textDecoration: 'none',
-                      '&:hover': { color: 'accent.primary' },
-                    }}
-                  >
-                    {formatPhoneNumber(COMPANY_PHONE_NUMBER)}
-                  </Link>
-                </Typography>
-                <Typography variant="body1" color="inherit">
-                  Email:{' '}
-                  <Link
-                    component="a"
-                    color="inherit"
-                    href={`mailto:${COMPANY_EMAIL_ADDRESS}`}
-                    sx={{
-                      transition: customTransitions.standard,
-                      textDecoration: 'none',
-                      '&:hover': { color: 'accent.primary' },
-                    }}
-                  >
+                <Link
+                  component="a"
+                  color="inherit"
+                  href={`mailto:${COMPANY_EMAIL_ADDRESS}`}
+                  sx={{
+                    transition: customTransitions.standard,
+                    textDecoration: 'none',
+                    '&:hover': { color: 'accent.primary' },
+                  }}
+                >
+                  <Typography variant="body1" color="inherit">
                     {COMPANY_EMAIL_ADDRESS}
-                  </Link>
-                </Typography>
+                  </Typography>
+                </Link>
               </Box>
             </Grid>
           ) : !showClientContent && !isFullWidth ? (

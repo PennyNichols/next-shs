@@ -12,32 +12,40 @@ import {
   ListItem,
   ListItemText,
   ListItemIcon,
-  Chip,
-  Avatar,
-  Divider,
-  Paper,
   LinearProgress,
 } from '@mui/material';
-import {
-  Person,
-  Home,
-  RequestQuote,
-  Assignment,
-  Notifications,
-  Settings,
-  Schedule,
-  Phone,
-  Email,
-} from '@mui/icons-material';
+import { Person, Home, RequestQuote, Assignment, Schedule, Email } from '@mui/icons-material';
 import { UserProfile } from '@/components/profile/UserProfile/UserProfile';
-import { AuthRoute } from '@/components/auth/RouteGuard/RouteGuard';
 import useUser from '@/hooks/auth/useUser';
+import { useAdmin } from '@/contexts/AdminContext';
+import { useAuth } from '@/contexts/AuthContext/AuthContext';
+import { getAssignableRoles, getRoleDisplayName, UserRole } from '@/lib/utils/roleUtils';
+import { DashboardNavigation } from '@/components/navigation/DashboardNavigation';
 
 const ClientDashboardContent = () => {
-  const { user, loading } = useUser();
+  const { user, loading } = useUser(); // Firestore user data
+  const { currentUser } = useAuth(); // Firebase Auth user with custom claims
+  const { setUserRole, checkUserClaims } = useAdmin();
   const [activeSection, setActiveSection] = useState<'dashboard' | 'profile' | 'requests' | 'appointments'>(
     'dashboard',
   );
+  console.log('Current user data:', user);
+  console.log('Current auth user:', currentUser);
+  console.log('Current user role:', currentUser?.role);
+  console.log('Is admin?', currentUser?.role === 'admin');
+
+  const handleSetUserRole = async (uid: string, role: UserRole) => {
+    await setUserRole(uid, role);
+  };
+
+  const handleSetRole = (role: UserRole) => {
+    if (user?.id) {
+      handleSetUserRole(user.id, role);
+    }
+  };
+
+  // Get roles that the current user can assign
+  const assignableRoles = currentUser?.role ? getAssignableRoles(currentUser.role) : [];
 
   if (loading) {
     return (
@@ -60,13 +68,6 @@ const ClientDashboardContent = () => {
     );
   }
 
-  const menuItems = [
-    { key: 'dashboard', label: 'Dashboard', icon: <Home /> },
-    { key: 'profile', label: 'My Profile', icon: <Person /> },
-    { key: 'requests', label: 'My Requests', icon: <RequestQuote /> },
-    { key: 'appointments', label: 'Appointments', icon: <Schedule /> },
-  ];
-
   const renderDashboardContent = () => {
     switch (activeSection) {
       case 'profile':
@@ -81,86 +82,81 @@ const ClientDashboardContent = () => {
   };
 
   return (
-    <Box sx={{ display: 'flex', minHeight: '100vh' }}>
-      {/* Sidebar */}
-      <Paper
-        sx={{
-          width: 280,
-          p: 2,
-          backgroundColor: 'background.paper',
-          borderRight: '1px solid',
-          borderColor: 'divider',
-        }}
-      >
-        {/* User Header */}
-        <Box sx={{ mb: 3, textAlign: 'center' }}>
-          <Avatar src={user.profilePictureURL} sx={{ width: 64, height: 64, mx: 'auto', mb: 2 }}>
-            {user.first?.[0]}
-            {user.last?.[0]}
-          </Avatar>
-          <Typography variant="h6">
-            {user.first} {user.last}
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            {user.email}
-          </Typography>
-          <Chip label={user.type} size="small" color="primary" sx={{ mt: 1 }} />
-        </Box>
-
-        <Divider sx={{ mb: 2 }} />
-
-        {/* Navigation Menu */}
-        <List>
-          {menuItems.map((item) => (
-            <ListItem
-              key={item.key}
-              button
-              selected={activeSection === item.key}
-              onClick={() => setActiveSection(item.key as any)}
-              sx={{
-                borderRadius: 1,
-                mb: 1,
-                '&.Mui-selected': {
-                  backgroundColor: 'primary.main',
-                  color: 'primary.contrastText',
-                  '& .MuiListItemIcon-root': {
-                    color: 'primary.contrastText',
-                  },
-                },
-              }}
-            >
-              <ListItemIcon>{item.icon}</ListItemIcon>
-              <ListItemText primary={item.label} />
-            </ListItem>
-          ))}
-        </List>
-
-        <Divider sx={{ my: 2 }} />
-
-        {/* Quick Actions */}
-        <Typography variant="subtitle2" sx={{ mb: 1, color: 'text.secondary' }}>
-          Quick Actions
+    <Box>
+      <DashboardNavigation />
+      {/* Section Navigation */}
+      <Box sx={{ mb: 3, p: 3 }}>
+        <Typography variant="h4" sx={{ mb: 3 }}>
+          Welcome back, {user.first}!
         </Typography>
-        <Button variant="contained" fullWidth sx={{ mb: 1 }} startIcon={<RequestQuote />}>
-          Request Estimate
-        </Button>
-        <Button variant="outlined" fullWidth startIcon={<Phone />}>
-          Contact Support
-        </Button>
-      </Paper>
+        {currentUser?.role && (
+          <Typography variant="h6" sx={{ mb: 2, color: 'primary.main' }}>
+            Current Role: {getRoleDisplayName(currentUser.role)}
+          </Typography>
+        )}
+        {assignableRoles.length > 0 && (
+          <Box sx={{ display: 'flex', gap: 2, mb: 2, flexWrap: 'wrap' }}>
+            {assignableRoles.map((role) => (
+              <Button
+                key={role}
+                variant={currentUser?.role === role ? 'contained' : 'outlined'}
+                color={
+                  role === 'super'
+                    ? 'error'
+                    : role === 'admin'
+                      ? 'primary'
+                      : role === 'employee'
+                        ? 'secondary'
+                        : role === 'contractor'
+                          ? 'warning'
+                          : 'info'
+                }
+                onClick={() => handleSetRole(role)}
+              >
+                Set {getRoleDisplayName(role)} Role
+              </Button>
+            ))}
+            <Button variant="outlined" color="inherit" onClick={checkUserClaims}>
+              Check Current Claims
+            </Button>
+          </Box>
+        )}
+        {assignableRoles.length === 0 && currentUser?.role && (
+          <Box sx={{ mb: 2, p: 2, bgcolor: 'warning.light', borderRadius: 1 }}>
+            <Typography variant="body2">
+              You don't have permission to assign roles. Contact an administrator if you need role changes.
+            </Typography>
+          </Box>
+        )}
+        <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap' }}>
+          {[
+            { key: 'dashboard', label: 'Dashboard', icon: <Home /> },
+            { key: 'profile', label: 'My Profile', icon: <Person /> },
+            { key: 'requests', label: 'My Requests', icon: <RequestQuote /> },
+            { key: 'appointments', label: 'Appointments', icon: <Schedule /> },
+          ].map((item) => (
+            <Button
+              key={item.key}
+              variant={activeSection === item.key ? 'contained' : 'outlined'}
+              onClick={() => setActiveSection(item.key as any)}
+              startIcon={item.icon}
+              sx={{ mb: 1 }}
+            >
+              {item.label}
+            </Button>
+          ))}
+        </Box>
+      </Box>
 
       {/* Main Content */}
-      <Box sx={{ flex: 1, p: 3 }}>{renderDashboardContent()}</Box>
+      {renderDashboardContent()}
     </Box>
   );
 };
 
 const DashboardOverview = ({ user }: { user: any }) => (
   <Box>
-    <Typography variant="h4" gutterBottom>
-      Welcome back, {user.first}!
-    </Typography>
-    <Typography variant="body1" color="text.secondary" sx={{ mb: 4 }}>
+    <Typography variant="body1" color="secondary.main" sx={{ mb: 4 }}>
       Here's an overview of your account and recent activity.
     </Typography>
 
@@ -312,11 +308,7 @@ const AppointmentsView = () => (
 );
 
 const ClientDashboard = () => {
-  return (
-    <AuthRoute>
-      <ClientDashboardContent />
-    </AuthRoute>
-  );
+  return <ClientDashboardContent />;
 };
 
 export default ClientDashboard;

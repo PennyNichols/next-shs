@@ -48,7 +48,6 @@ const ActionButton: React.FC<ActionButtonProps> = ({
       className={className}
       sx={{
         display: 'flex',
-        gap: 1,
         minWidth: 110,
         boxShadow: { xxs: customShadows[5], lg: customShadows[10] },
         transform: `scale(${scale})`,

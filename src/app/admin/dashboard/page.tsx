@@ -49,7 +49,6 @@ import {
   FilterList,
 } from '@mui/icons-material';
 import { UserProfile } from '@/components/profile/UserProfile/UserProfile';
-import { StaffRoute } from '@/components/auth/RouteGuard/RouteGuard';
 import useUser from '@/hooks/auth/useUser';
 import { UserData } from '@/hooks/auth/useUser';
 
@@ -71,7 +70,7 @@ const AdminDashboardContent = () => {
     );
   }
 
-  if (!user || !['admin', 'employee'].includes(user.type)) {
+  if (!user || !['admin', 'employee', 'super'].includes(user.type)) {
     return (
       <Box sx={{ p: 3 }}>
         <Typography variant="h6" color="error">
@@ -80,14 +79,6 @@ const AdminDashboardContent = () => {
       </Box>
     );
   }
-
-  const menuItems = [
-    { key: 'dashboard', label: 'Dashboard', icon: <Dashboard /> },
-    { key: 'users', label: 'User Management', icon: <People /> },
-    { key: 'requests', label: 'Estimate Requests', icon: <RequestQuote /> },
-    { key: 'analytics', label: 'Analytics', icon: <Analytics /> },
-    { key: 'settings', label: 'Settings', icon: <Settings /> },
-  ];
 
   const renderContent = () => {
     switch (activeSection) {
@@ -105,87 +96,46 @@ const AdminDashboardContent = () => {
   };
 
   return (
-    <Box sx={{ display: 'flex', minHeight: '100vh' }}>
-      {/* Sidebar */}
-      <Paper
-        sx={{
-          width: 280,
-          p: 2,
-          backgroundColor: 'background.paper',
-          borderRight: '1px solid',
-          borderColor: 'divider',
-        }}
-      >
-        {/* User Header */}
-        <Box sx={{ mb: 3, textAlign: 'center' }}>
-          <Avatar src={user.profilePictureURL} sx={{ width: 64, height: 64, mx: 'auto', mb: 2 }}>
-            {user.first?.[0]}
-            {user.last?.[0]}
-          </Avatar>
-          <Typography variant="h6">
-            {user.first} {user.last}
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            {user.email}
-          </Typography>
-          <Chip label={user.type} size="small" color="error" sx={{ mt: 1 }} />
+    <Box>
+      {selectedUser ? (
+        <Box>
+          <Button onClick={() => setSelectedUser(null)} sx={{ mb: 2 }}>
+            ← Back to {activeSection}
+          </Button>
+          <UserProfile userId={selectedUser} isAdminView={true} />
         </Box>
-
-        <Divider sx={{ mb: 2 }} />
-
-        {/* Navigation Menu */}
-        <List>
-          {menuItems.map((item) => (
-            <ListItem
-              key={item.key}
-              button
-              selected={activeSection === item.key}
-              onClick={() => setActiveSection(item.key as any)}
-              sx={{
-                borderRadius: 1,
-                mb: 1,
-                '&.Mui-selected': {
-                  backgroundColor: 'primary.main',
-                  color: 'primary.contrastText',
-                  '& .MuiListItemIcon-root': {
-                    color: 'primary.contrastText',
-                  },
-                },
-              }}
-            >
-              <ListItemIcon>{item.icon}</ListItemIcon>
-              <ListItemText primary={item.label} />
-            </ListItem>
-          ))}
-        </List>
-
-        <Divider sx={{ my: 2 }} />
-
-        {/* Quick Actions */}
-        <Typography variant="subtitle2" sx={{ mb: 1, color: 'text.secondary' }}>
-          Quick Actions
-        </Typography>
-        <Button variant="contained" fullWidth sx={{ mb: 1 }} startIcon={<Add />}>
-          Add User
-        </Button>
-        <Button variant="outlined" fullWidth startIcon={<Notifications />}>
-          Send Notice
-        </Button>
-      </Paper>
-
-      {/* Main Content */}
-      <Box sx={{ flex: 1, p: 3 }}>
-        {selectedUser ? (
-          <Box>
-            <Button onClick={() => setSelectedUser(null)} sx={{ mb: 2 }}>
-              ← Back to {activeSection}
-            </Button>
-            <UserProfile userId={selectedUser} isAdminView={true} />
+      ) : (
+        <Box>
+          {/* Section Navigation */}
+          <Box sx={{ mb: 3 }}>
+            <Typography variant="h4" gutterBottom>
+              Admin Dashboard
+            </Typography>
+            <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap' }}>
+              {[
+                { key: 'dashboard', label: 'Dashboard', icon: <Dashboard /> },
+                { key: 'users', label: 'User Management', icon: <People /> },
+                { key: 'requests', label: 'Estimate Requests', icon: <RequestQuote /> },
+                { key: 'analytics', label: 'Analytics', icon: <Analytics /> },
+                { key: 'settings', label: 'Settings', icon: <Settings /> },
+              ].map((item) => (
+                <Button
+                  key={item.key}
+                  variant={activeSection === item.key ? 'contained' : 'outlined'}
+                  onClick={() => setActiveSection(item.key as any)}
+                  startIcon={item.icon}
+                  sx={{ mb: 1 }}
+                >
+                  {item.label}
+                </Button>
+              ))}
+            </Box>
           </Box>
-        ) : (
-          renderContent()
-        )}
-      </Box>
+
+          {/* Main Content */}
+          {renderContent()}
+        </Box>
+      )}
     </Box>
   );
 };
@@ -513,11 +463,7 @@ const SettingsView = () => (
 );
 
 const AdminDashboard = () => {
-  return (
-    <StaffRoute>
-      <AdminDashboardContent />
-    </StaffRoute>
-  );
+  return <AdminDashboardContent />;
 };
 
 export default AdminDashboard;

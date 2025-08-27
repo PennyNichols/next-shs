@@ -4,7 +4,7 @@ import unusedImports from 'eslint-plugin-unused-imports';
 import globals from 'globals';
 
 export default defineConfig([
-  globalIgnores(['**/node_modules/', '**/.next/', '**/dist/', '**/build/']),
+  globalIgnores(['**/node_modules/', '**/.next/', '**/dist/', '**/build/', '**/functions/lib/']),
   {
     plugins: {
       prettier,

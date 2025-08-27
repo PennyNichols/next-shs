@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -12,26 +12,32 @@ import MenuItem from '@mui/material/MenuItem';
 import Skeleton from '@mui/material/Skeleton';
 import Link from 'next/link';
 import LogoSvg from '../../../assets/svg/LogoSvg/LogoSvg';
-import { Handyman, HomeRepairService } from '@mui/icons-material';
+import { Handyman, HomeRepairService, AccountCircle, Dashboard, Settings, Login, Logout } from '@mui/icons-material';
 import useMedia from '../../../hooks/useMedia';
 import { customTransitions } from '@/styles/theme/otherThemeConstants';
 import theme from '@/styles/theme';
-import { ClickAwayListener, Collapse } from '@mui/material';
+import { ClickAwayListener, Collapse, Avatar, alpha } from '@mui/material';
 import ActionButton from '@/components/common/ActionButton/ActionButton';
 import NavButton from '@/components/common/NavButton/NavButton';
 import StylableLogo from '../../../assets/svg/LogoSvg/LogoSvg';
 import { useAuth } from '@/contexts/AuthContext/AuthContext';
+import { useRouter } from 'next/navigation';
+import useUser from '@/hooks/auth/useUser';
 
 const NavBar = () => {
   const { currentUser, signOutUser } = useAuth();
+  const { user } = useUser();
+  const router = useRouter();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isAccountMenuOpen, setIsAccountMenuOpen] = useState(false);
   const [logoColor, setLogoColor] = useState(theme.palette.background.paper);
   const logoHoverColor = theme.palette.accent.primary;
   const [logoScale, setLogoScale] = useState(1);
 
   const [showClientContent, setShowClientContent] = useState(false);
+  const headerRef = useRef<HTMLElement>(null);
 
-  // Dynamic pages array based on authentication status
+  // Dynamic pages array - no longer includes sign in/out
   const pages = [
     // { name: 'Home', href: '/' },
     { name: 'Services', href: '/services' },
@@ -39,32 +45,68 @@ const NavBar = () => {
     // { name: 'Blog', href: '/blog' },
     // { name: 'About', href: '/about' },
     { name: 'FAQ', href: '/FAQ' },
-    {
-      name: currentUser ? 'Sign Out' : 'Login',
-      href: currentUser ? '#' : '/sign-up',
-      isSignOut: !!currentUser,
-    },
   ];
+
+  const dashboardURL =
+    user?.type === 'admin' || user?.type === 'super'
+      ? '/admin/dashboard'
+      : user?.type === 'employee'
+        ? '/employee/dashboard'
+        : user?.type === 'contractor'
+          ? '/contractor/dashboard'
+          : user?.type === 'client'
+            ? '/client/dashboard'
+            : '/not-found';
+
+  const settingsURL = '/account-settings';
 
   useEffect(() => {
     setShowClientContent(true);
   }, []);
 
+  useEffect(() => {
+    const updateHeaderHeight = () => {
+      if (headerRef.current) {
+        const height = headerRef.current.offsetHeight;
+        document.documentElement.style.setProperty('--header-height', `${height}px`);
+      }
+    };
+
+    // Initial height calculation
+    updateHeaderHeight();
+
+    // Update on resize
+    const observer = new ResizeObserver(updateHeaderHeight);
+    if (headerRef.current) {
+      observer.observe(headerRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, [showClientContent]); // Re-run when content changes
+
   const handleMenuToggle = () => setIsMenuOpen((prev) => !prev);
   const handleMenuClose = () => setIsMenuOpen(false);
 
+  const handleAccountMenuToggle = () => setIsAccountMenuOpen((prev) => !prev);
+  const handleAccountMenuClose = () => setIsAccountMenuOpen(false);
+
   const handleSignOut = async () => {
     try {
+      handleAccountMenuClose();
       await signOutUser();
-      handleMenuClose();
     } catch (error) {
       console.error('Sign out error:', error);
     }
   };
 
   return (
-    <ClickAwayListener onClickAway={handleMenuClose}>
-      <AppBar position="sticky" sx={{ py: 0 }}>
+    <ClickAwayListener
+      onClickAway={() => {
+        handleMenuClose();
+        handleAccountMenuClose();
+      }}
+    >
+      <AppBar position="sticky" ref={headerRef} sx={{ py: 0 }}>
         <Container>
           <Toolbar disableGutters>
             <Box mr={1}>
@@ -105,19 +147,78 @@ const NavBar = () => {
                   flexGrow: 1,
                   justifyContent: 'flex-end',
                   display: { xxs: 'none', md: 'flex' },
+                  alignItems: 'center',
+                  gap: 1,
                 }}
               >
-                {pages.map((page) =>
-                  page.isSignOut ? (
-                    <Box key={page.name} component="span" onClick={handleSignOut} sx={{ cursor: 'pointer' }}>
-                      <NavButton text={page.name} />
-                    </Box>
-                  ) : (
-                    <Link className="nav-menu-item" key={page.name} href={page.href} passHref>
-                      <NavButton text={page.name} />
-                    </Link>
-                  ),
-                )}
+                {pages.map((page) => (
+                  <Link className="nav-menu-item" key={page.name} href={page.href} passHref>
+                    <NavButton text={page.name} />
+                  </Link>
+                ))}
+
+                {/* Account Menu Button */}
+                <IconButton
+                  onClick={handleAccountMenuToggle}
+                  sx={{
+                    color: 'background.paper',
+                    transition: 'all 0.5s ease-in-out, transform 0.1s ease-in-out',
+                    '&:hover': {
+                      color: 'accent.primary',
+                      filter: `drop-shadow(0px 3px 8px ${alpha(theme.palette.accent.primary, 0.6)}) drop-shadow(0px 3px 5px ${alpha(theme.palette.accent.primary, 0.4)})`,
+                    },
+                    ml: 1,
+                  }}
+                >
+                  <AccountCircle />
+                </IconButton>
+
+                {/* Account Menu */}
+                <Collapse in={isAccountMenuOpen} timeout="auto" unmountOnExit sx={{ display: 'flex' }}>
+                  <Box
+                    onClick={() => {
+                      handleAccountMenuClose();
+                    }}
+                    sx={{
+                      py: 2,
+                      backgroundColor: 'primary.main',
+                      position: 'absolute',
+                      top: 'calc(100% + 8px)',
+                      right: 0,
+                      boxShadow: '0px 10px 15px -3px rgba(0, 0, 0, 0.3)',
+                    }}
+                  >
+                    {!currentUser ? (
+                      <MenuItem>
+                        <Link className="nav-menu-item" href="/sign-in" passHref>
+                          <NavButton text="Sign In" icon={<Login />} />
+                        </Link>
+                      </MenuItem>
+                    ) : (
+                      [
+                        <MenuItem>
+                          <Link className="nav-menu-item" href={dashboardURL} passHref>
+                            <NavButton text="Dashboard" icon={<Dashboard />} />
+                          </Link>
+                        </MenuItem>,
+                        <MenuItem>
+                          <Link className="nav-menu-item" href={settingsURL} passHref>
+                            <NavButton text="Settings" icon={<Settings />} />
+                          </Link>
+                        </MenuItem>,
+                        <MenuItem
+                          onClick={() => {
+                            handleSignOut();
+                          }}
+                        >
+                          <Link className="nav-menu-item" href="/" passHref>
+                            <NavButton text="Sign Out" icon={<Logout />} />
+                          </Link>
+                        </MenuItem>,
+                      ]
+                    )}
+                  </Box>
+                </Collapse>
               </Box>
             )}
             {/* Desktop Skeleton */}
@@ -215,18 +316,44 @@ const NavBar = () => {
             }}
           >
             {pages.map((page) => (
-              <MenuItem key={page.name} sx={{ justifyContent: 'center' }} onClick={handleMenuClose}>
-                {page.isSignOut ? (
-                  <Box component="span" onClick={handleSignOut} sx={{ cursor: 'pointer' }}>
-                    <NavButton text={page.name} />
-                  </Box>
-                ) : (
-                  <Link className="nav-menu-item" key={page.name} href={page.href} passHref>
-                    <NavButton text={page.name} />
-                  </Link>
-                )}
+              <MenuItem key={page.name} sx={{ justifyContent: 'center' }}>
+                <Link className="nav-menu-item" key={page.name} href={page.href} passHref>
+                  <NavButton text={page.name} />
+                </Link>
               </MenuItem>
             ))}
+
+            {/* Mobile Account Menu Items */}
+            {!currentUser ? (
+              <MenuItem sx={{ justifyContent: 'center' }}>
+                <Link className="nav-menu-item" href="/sign-in" passHref>
+                  <NavButton text="Sign In" icon={<Login />} />
+                </Link>
+              </MenuItem>
+            ) : (
+              [
+                <MenuItem sx={{ justifyContent: 'center' }}>
+                  <Link className="nav-menu-item" href={dashboardURL} passHref>
+                    <NavButton text="Dashboard" />
+                  </Link>
+                </MenuItem>,
+                <MenuItem sx={{ justifyContent: 'center' }}>
+                  <Link className="nav-menu-item" href={settingsURL} passHref>
+                    <NavButton text="Settings" />
+                  </Link>
+                </MenuItem>,
+                <MenuItem
+                  sx={{ justifyContent: 'center' }}
+                  onClick={() => {
+                    handleSignOut();
+                  }}
+                >
+                  <Link className="nav-menu-item" href="/" passHref>
+                    <NavButton text="Sign Out" icon={<Logout />} />
+                  </Link>
+                </MenuItem>,
+              ]
+            )}
           </Box>
         </Collapse>
 

@@ -4,6 +4,7 @@ import * as admin from 'firebase-admin';
 import cors from 'cors';
 import { apiRouter } from './routes';
 import { getDrivingDistance } from './callable/distance'; // Import your callable function
+import { setUserRole } from './callable/setUserRole'; // Import the setUserRole function
 
 admin.initializeApp();
 
@@ -39,3 +40,4 @@ apiApp.use('/', apiRouter);
 // Expose your Express API as a Cloud Function named "api"
 export const api = functions.https.onRequest({ region: 'us-east1', secrets: ['RECAPTCHA_SECRET_KEY'] }, apiApp);
 export { getDrivingDistance };
+export { setUserRole };

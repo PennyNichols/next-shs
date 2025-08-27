@@ -2,12 +2,11 @@
 
 import React from 'react';
 import { Box, Container } from '@mui/material';
-import { ClientRoute } from '@/components/auth/RouteGuard/RouteGuard';
-import { DashboardNavigation } from '@/components/navigation/DashboardNavigation/DashboardNavigation';
+import { ContractorRoute } from '@/components/auth/RouteGuard/RouteGuard';
 
-const ClientLayout = ({ children }: { children: React.ReactNode }) => {
+const ContractorLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <ClientRoute>
+    <ContractorRoute>
       <Box
         sx={{
           display: 'flex',
@@ -15,7 +14,6 @@ const ClientLayout = ({ children }: { children: React.ReactNode }) => {
           backgroundColor: 'background.default',
         }}
       >
-        <DashboardNavigation />
         <Box
           component="main"
           sx={{
@@ -27,8 +25,8 @@ const ClientLayout = ({ children }: { children: React.ReactNode }) => {
           <Container maxWidth="xl">{children}</Container>
         </Box>
       </Box>
-    </ClientRoute>
+    </ContractorRoute>
   );
 };
 
-export default ClientLayout;
+export default ContractorLayout;

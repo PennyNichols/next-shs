@@ -3,7 +3,6 @@
 import React from 'react';
 import { Box, Container } from '@mui/material';
 import { ClientRoute } from '@/components/auth/RouteGuard/RouteGuard';
-import { DashboardNavigation } from '@/components/navigation/DashboardNavigation/DashboardNavigation';
 
 const ClientLayout = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -15,7 +14,6 @@ const ClientLayout = ({ children }: { children: React.ReactNode }) => {
           backgroundColor: 'background.default',
         }}
       >
-        <DashboardNavigation />
         <Box
           component="main"
           sx={{
