@@ -14,7 +14,7 @@ import {
   UserRole,
   ROLE_HIERARCHY,
 } from '@/lib/utils/roleUtils';
-import { DashboardNavigation } from '@/components/navigation/DashboardNavigation';
+import { DashboardNavigation } from '@/components/layout/NavBar';
 import useUser from '@/hooks/auth/useUser';
 
 export default function RoleTestPage() {

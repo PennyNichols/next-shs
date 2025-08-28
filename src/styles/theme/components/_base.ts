@@ -160,10 +160,8 @@ const baseComponents: Components<Theme> = {
     defaultProps: {},
     styleOverrides: {
       root: ({ theme }: { theme: Theme }): CSSObject => ({
-        marginTop: theme.spacing(2),
-        marginBottom: theme.spacing(2),
+        margin: theme.spacing(2, 'auto'),
         flexGrow: 1,
-        width: '70%',
         alignSelf: 'center',
         border: `1px solid ${theme.palette.accent.primary}`,
         [theme.breakpoints.down('sm')]: {

@@ -11,12 +11,15 @@ import {
   Typography,
   Alert,
   SelectChangeEvent,
+  Divider,
 } from '@mui/material';
-import { PersonOutline, AdminPanelSettings } from '@mui/icons-material';
+import { PersonOutline, AdminPanelSettings, Clear, CancelOutlined } from '@mui/icons-material';
 import { useImpersonation } from '@/contexts/ImpersonationContext';
 import { useAuth } from '@/contexts/AuthContext/AuthContext';
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from '@/lib/firebase/firebase';
+import theme from '@/styles/theme';
+import { customTransitions } from '@/styles/theme/otherThemeConstants';
 
 interface User {
   id: string;
@@ -26,26 +29,70 @@ interface User {
   role: string;
 }
 
-const ActOnBehalfSelector: React.FC = () => {
+const ActOnBehalfSelector = ({ handleMenuClose = () => {}, handleAccountMenuClose = () => {}, sx = {} }) => {
   const { currentUser } = useAuth();
-  const { impersonatedUserId, setImpersonatedUserId, isImpersonating, canImpersonate, canImpersonateUser } =
-    useImpersonation();
+  const {
+    impersonatedUserId,
+    setImpersonatedUserId,
+    clearImpersonation,
+    isImpersonating,
+    canImpersonate,
+    canImpersonateUser,
+    impersonatedUser,
+    isHydrated,
+  } = useImpersonation();
 
   const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  console.log('ActOnBehalfSelector render - currentUser:', currentUser);
-  console.log('ActOnBehalfSelector render - canImpersonate:', canImpersonate);
-
   // Temporarily always show for debugging - remove this later
-  const shouldShow = canImpersonate || currentUser?.role === 'super' || currentUser?.role === 'admin';
+  const shouldShow = isHydrated && (canImpersonate || currentUser?.role === 'super' || currentUser?.role === 'admin');
+
+  // Don't render during SSR to prevent hydration mismatches
+  if (!isHydrated) {
+    return null;
+  }
+
+  // Don't show if user doesn't have permission
+  if (!shouldShow) {
+    return null;
+  }
+
+  const getDisplayName = (user: User) => {
+    if (user.firstName && user.lastName) {
+      return `${user.firstName} ${user.lastName}`;
+    }
+    return user.email;
+  };
+
+  // Create options array for DropdownSelect
+  const userOptions = users.map((user) => {
+    const displayName = getDisplayName(user);
+    return `${displayName ? displayName : user.email} [${user.role}]`;
+  });
+
+  // Helper function to get user ID from the selected option string
+  const getUserIdFromOption = (optionString: string | null): string | null => {
+    if (!optionString) return null;
+    const user = users.find((u) => {
+      const displayName = getDisplayName(u);
+      return optionString === `${displayName} (${u.email}) [${u.role}]`;
+    });
+    return user?.id || null;
+  };
+
+  // Helper function to get option string from user ID
+  const getOptionFromUserId = (userId: string | null): string | null => {
+    if (!userId) return null;
+    const user = users.find((u) => u.id === userId);
+    if (!user) return null;
+    const displayName = getDisplayName(user);
+    return `${displayName} (${user.email}) [${user.role}]`;
+  };
 
   useEffect(() => {
     const fetchUsers = async () => {
-      console.log('ActOnBehalfSelector - canImpersonate:', canImpersonate);
-      console.log('ActOnBehalfSelector - currentUser?.role:', currentUser?.role);
-
       // Always try to fetch for debugging
       const proceedWithFetch = shouldShow;
 
@@ -55,21 +102,13 @@ const ActOnBehalfSelector: React.FC = () => {
       }
 
       try {
-        console.log('Fetching users for impersonation...');
-
         const usersRef = collection(db, 'users');
-        console.log('Created users collection reference');
-
         const snapshot = await getDocs(usersRef);
-        console.log('Firestore query successful, processing documents...');
-        console.log('Total documents in snapshot:', snapshot.size);
-
         const allUsers = [];
+
         snapshot.forEach((doc) => {
           try {
             const data = doc.data();
-            console.log('Processing document:', doc.id, data);
-
             const user = {
               id: doc.id,
               email: data.email || '',
@@ -78,17 +117,11 @@ const ActOnBehalfSelector: React.FC = () => {
               role: data.role || data.type || 'client',
             };
 
-            console.log('Processed user:', user);
-            console.log('Current user ID:', currentUser?.uid);
-            console.log('User has email:', !!user.email);
-            console.log('User is not current user:', user.id !== currentUser?.uid);
-
             // Only add users with valid data and exclude current user
             if (user.email && user.id !== currentUser?.uid) {
               allUsers.push(user);
-              console.log('Added user to list:', user.email);
             } else {
-              console.log(
+              console.warn(
                 'Skipped user:',
                 user.email || user.id,
                 'Reason:',
@@ -96,12 +129,9 @@ const ActOnBehalfSelector: React.FC = () => {
               );
             }
           } catch (docError) {
-            console.warn('Error processing user document:', doc.id, docError);
+            console.error('Error processing user document:', doc.id, docError);
           }
         });
-
-        console.log('Total users after processing:', allUsers.length);
-        console.log('All users:', allUsers);
 
         // Filter based on current user's role
         let filteredUsers = allUsers;
@@ -113,12 +143,8 @@ const ActOnBehalfSelector: React.FC = () => {
 
         // Sort by email manually
         filteredUsers.sort((a, b) => (a.email || '').localeCompare(b.email || ''));
-
-        console.log('Final filtered users:', filteredUsers.length);
-        console.log('Final users list:', filteredUsers);
         setUsers(filteredUsers);
       } catch (err) {
-        console.error('Error in fetchUsers:', err);
         setError('Failed to load users for impersonation');
       } finally {
         setLoading(false);
@@ -130,31 +156,40 @@ const ActOnBehalfSelector: React.FC = () => {
 
   const handleUserChange = (event: SelectChangeEvent<string>) => {
     const selectedUserId = event.target.value;
-    setImpersonatedUserId(selectedUserId === '' ? null : selectedUserId);
-  };
+    console.log('ActOnBehalfSelector - handleUserChange:', selectedUserId);
 
-  const getDisplayName = (user: User) => {
-    if (user.firstName && user.lastName) {
-      return `${user.firstName} ${user.lastName}`;
+    if (selectedUserId === '') {
+      // Clear impersonation
+      console.log('ActOnBehalfSelector - clearing impersonation');
+      clearImpersonation();
+    } else {
+      // Set new impersonation
+      console.log('ActOnBehalfSelector - setting impersonation to:', selectedUserId);
+      setImpersonatedUserId(selectedUserId);
     }
-    return user.email;
+
+    handleAccountMenuClose();
+    handleMenuClose();
+    // Force blur to remove focus state immediately
+    setTimeout(() => {
+      (event.target as HTMLElement).blur();
+    }, 0);
   };
 
-  if (!shouldShow) {
-    return (
-      <Box sx={{ mb: 2 }}>
-        <Typography variant="caption" color="error">
-          Debug: Not showing impersonation (canImpersonate: {String(canImpersonate)}, role:{' '}
-          {currentUser?.role || 'none'})
-        </Typography>
-      </Box>
-    );
-  }
+  const handleSelectClose = () => {
+    // Additional force blur when menu closes
+    setTimeout(() => {
+      const selectElement = document.querySelector('.act-on-behalf .MuiSelect-select') as HTMLElement;
+      if (selectElement) {
+        selectElement.blur();
+      }
+    }, 0);
+  };
 
   if (loading) {
     return (
       <Box sx={{ mb: 2 }}>
-        <Typography variant="body2" color="text.secondary">
+        <Typography variant="body2" color="secondary.light">
           Loading users...
         </Typography>
       </Box>
@@ -164,57 +199,76 @@ const ActOnBehalfSelector: React.FC = () => {
   if (error) {
     return (
       <Box sx={{ mb: 2 }}>
-        <Alert severity="warning">User impersonation temporarily unavailable. {error}</Alert>
-        <Typography variant="caption" color="text.secondary" sx={{ mt: 1, display: 'block' }}>
-          You can still use dashboard features normally. User selection will be restored once the issue is resolved.
-        </Typography>
+        <Alert severity="warning">{error}</Alert>
       </Box>
     );
   }
 
   return (
-    <Box sx={{ mb: 2 }}>
-      {isImpersonating && (
-        <Alert severity="warning" sx={{ mb: 2 }} icon={<AdminPanelSettings />}>
-          You are acting on behalf of another user. All actions will be performed as that user.
-        </Alert>
-      )}
-
-      <FormControl fullWidth size="small">
-        <InputLabel id="act-on-behalf-label">Act on Behalf of User</InputLabel>
+    <Box sx={{}}>
+      <FormControl size="small" className="act-on-behalf">
+        <InputLabel id="act-on-behalf-label" className="act-on-behalf">
+          Act on Behalf
+        </InputLabel>
         <Select
           labelId="act-on-behalf-label"
           value={impersonatedUserId || ''}
-          label="Act on Behalf of User"
+          label="Act on Behalf"
           onChange={handleUserChange}
-          startAdornment={<PersonOutline sx={{ mr: 1, color: 'text.secondary' }} />}
+          onClose={handleSelectClose}
+          startAdornment={<PersonOutline />}
+          endAdornment={
+            impersonatedUserId ? (
+              <CancelOutlined
+                onClick={(e) => {
+                  e.stopPropagation();
+                  clearImpersonation();
+                }}
+                sx={{
+                  fontSize: '1rem',
+                  position: 'absolute',
+                  right: '30px',
+                  cursor: 'pointer',
+                  color: 'text.secondary',
+                }}
+              />
+            ) : null
+          }
+          className="act-on-behalf"
+          MenuProps={{
+            PaperProps: {
+              sx: {
+                maxHeight: 300,
+                backgroundColor: 'primary.main',
+                '& .MuiMenuItem-root': {
+                  '& span': {
+                    transition: customTransitions.standard,
+                    color: 'secondary.light',
+                    fontSize: '.9rem',
+                  },
+                  '&:hover': {
+                    '& span': {
+                      color: 'accent.primary',
+                    },
+                  },
+                },
+              },
+            },
+          }}
         >
-          <MenuItem value="">
-            <em>Select a user or act as yourself</em>
-          </MenuItem>
           {users.map((user) => (
             <MenuItem key={user.id} value={user.id} disabled={!canImpersonateUser(user.role)}>
-              <Box sx={{ display: 'flex', alignItems: 'center', width: '100%' }}>
-                <Box sx={{ flexGrow: 1 }}>
-                  <Typography variant="body2">{getDisplayName(user)}</Typography>
-                  <Typography variant="caption" color="text.secondary">
-                    {user.email}
+              <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                <Box>
+                  <Typography variant="caption" color="secondary.main">
+                    {getDisplayName(user) || user.email}
                   </Typography>
                 </Box>
-                <Chip label={user.role} size="small" color="primary" variant="outlined" sx={{ ml: 1 }} />
               </Box>
             </MenuItem>
           ))}
         </Select>
       </FormControl>
-
-      {isImpersonating && (
-        <Box sx={{ mt: 1 }}>
-          <Typography variant="caption" color="text.secondary">
-            Currently acting as: {users.find((u) => u.id === impersonatedUserId)?.email || 'Unknown user'}
-          </Typography>
-        </Box>
-      )}
     </Box>
   );
 };

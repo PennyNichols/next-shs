@@ -21,15 +21,56 @@ const formComponents: Components<Theme> = {
         borderRadius: customBorderRadius.small,
         backgroundColor: 'transparent',
         transition: theme.transitions.create(['box-shadow']),
-        '&.Mui-focused': {
-          '& .MuiOutlinedInput-notchedOutline': {
+        // Default/Primary color variant
+        '&.MuiInputBase-colorPrimary': {
+          '&.Mui-focused': {
+            '& .MuiOutlinedInput-notchedOutline': {
+              borderColor: theme.palette.primary.light,
+            },
+          },
+          '&:hover .MuiOutlinedInput-notchedOutline': {
             borderColor: theme.palette.primary.light,
-            borderWidth: '1.5px',
           },
         },
-        '&:hover .MuiOutlinedInput-notchedOutline': {
-          borderColor: theme.palette.primary.light,
-          borderWidth: '1.5px',
+        // Secondary color variant - uses accent colors
+        '&.MuiInputBase-colorSecondary': {
+          '& .MuiOutlinedInput-notchedOutline': {
+            borderColor: theme.palette.accent.primary,
+          },
+          '&.Mui-focused': {
+            '& .MuiOutlinedInput-notchedOutline': {
+              borderColor: theme.palette.accent.primary,
+            },
+          },
+          '&:hover .MuiOutlinedInput-notchedOutline': {
+            borderColor: theme.palette.accent.primary,
+          },
+        },
+        '&.act-on-behalf': {
+          '& .MuiOutlinedInput-notchedOutline': {
+            borderColor: theme.palette.secondary.light,
+          },
+          '& span': {
+            color: theme.palette.secondary.light,
+          },
+          '&.Mui-focused': {
+            '& span': {
+              color: theme.palette.accent.primary,
+            },
+            '& .MuiOutlinedInput-notchedOutline': {
+              borderColor: theme.palette.accent.primary,
+              borderWidth: '1px',
+            },
+          },
+          '&:hover': {
+            '& span': {
+              color: theme.palette.accent.primary,
+            },
+            '.MuiOutlinedInput-notchedOutline': {
+              borderColor: theme.palette.accent.primary,
+              borderWidth: '1px',
+            },
+          },
         },
         '&.Mui-error': {
           '& .MuiOutlinedInput-notchedOutline': {
@@ -42,26 +83,10 @@ const formComponents: Components<Theme> = {
             borderColor: alpha(theme.palette.secondary.dark, 0.5),
           },
         },
-        '&.MuiInputBase-colorSecondary': {
-          '&.Mui-focused': {
-            '& .MuiOutlinedInput-notchedOutline': {
-              borderColor: theme.palette.accent.primary,
-              borderWidth: '1.5px',
-            },
-          },
-          '&:hover .MuiOutlinedInput-notchedOutline': {
-            borderColor: theme.palette.accent.primary,
-            borderWidth: '1.5px',
-          },
-          '& .MuiOutlinedInput-notchedOutline': {
-            borderColor: theme.palette.accent.primary,
-            borderWidth: '1px',
-          },
-        },
       }),
       notchedOutline: ({ theme }: { theme: Theme }): CSSObject => ({
         borderColor: theme.palette.secondary.dark,
-        borderWidth: '1px',
+        borderWidth: '1.5px',
         transition: theme.transitions.create(['border-color'], {
           duration: theme.transitions.duration.short,
           easing: theme.transitions.easing.easeOut,
@@ -77,11 +102,23 @@ const formComponents: Components<Theme> = {
           color: alpha(theme.palette.secondary.dark, 0.6),
           opacity: 1,
         },
-        '.Mui-focused &': {
+        // Primary color variant
+        '.MuiInputBase-colorPrimary.Mui-focused &': {
           color: theme.palette.primary.light,
         },
+        // Secondary color variant
         '.MuiInputBase-colorSecondary &': {
+          color: theme.palette.secondary.light,
+        },
+        '.MuiInputBase-colorSecondary.Mui-focused &': {
           color: theme.palette.accent.primary,
+        },
+        '.MuiInputBase-colorSecondary:hover &': {
+          color: theme.palette.accent.primary,
+        },
+        // Legacy focused state
+        '.Mui-focused &': {
+          color: theme.palette.primary.light,
         },
         '&[type="number"]': {
           MozAppearance: 'textfield',
@@ -103,6 +140,24 @@ const formComponents: Components<Theme> = {
         color: theme.palette.secondary.dark,
         fontSize: '1rem',
         fontWeight: 400,
+        // Default/Primary color variant
+        '&.MuiInputLabel-colorPrimary': {
+          '&.Mui-focused': {
+            fontSize: '1rem',
+            color: theme.palette.primary.light,
+            fontWeight: 400,
+          },
+        },
+        // Secondary color variant - uses accent colors
+        '&.MuiInputLabel-colorSecondary': {
+          color: theme.palette.secondary.light,
+          '&.Mui-focused': {
+            fontSize: '1rem',
+            color: theme.palette.accent.primary,
+            fontWeight: 400,
+          },
+        },
+        // Legacy focused state for backward compatibility
         '&.Mui-focused': {
           fontSize: '1rem',
           color: theme.palette.primary.light,
@@ -119,9 +174,9 @@ const formComponents: Components<Theme> = {
         },
       }),
       outlined: ({ theme }: { theme: Theme }): CSSObject => ({
-        transform: 'translate(14px, 8.5px) scale(.9)',
+        transform: 'translate(14px, 9px) scale(1)',
         '&.MuiInputLabel-shrink': {
-          transform: 'translate(15px, -8px) scale(0.75)',
+          transform: 'translate(14px, -9px) scale(0.75)',
         },
       }),
     },
@@ -196,47 +251,64 @@ const formComponents: Components<Theme> = {
     },
     styleOverrides: {
       root: ({ theme }: { theme: Theme }): CSSObject => ({
-        '&:hover .MuiSvgIcon-root': {
-          color: theme.palette.primary.light,
-          fill: theme.palette.primary.light,
+        // Primary color variant (default)
+        '.MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input': {
+          paddingRight: '0px !important',
         },
-      }),
-      select: ({ theme }: { theme: Theme }): CSSObject => ({
-        color: theme.palette.secondary.dark,
-        borderRadius: customBorderRadius.small,
-        backgroundColor: 'transparent',
-        '&:focus': {
-          borderRadius: customBorderRadius.small,
-          backgroundColor: 'transparent',
+        '&.MuiInputBase-colorPrimary': {
+          '&.Mui-focused': {
+            '.MuiSvgIcon-root': {
+              color: theme.palette.primary.light,
+              fill: theme.palette.primary.light,
+            },
+          },
+          '&:hover .MuiSvgIcon-root': {
+            color: theme.palette.primary.light,
+            fill: theme.palette.primary.light,
+          },
         },
-        '&.Mui-disabled': {
-          color: theme.palette.text.disabled,
-          backgroundColor: alpha(theme.palette.secondary.main, 0.3),
+        // Secondary color variant - uses accent colors
+        '&.MuiInputBase-colorSecondary': {
+          '.MuiSvgIcon-root': {
+            color: theme.palette.accent.primary,
+            fill: theme.palette.accent.primary,
+          },
+          '&.Mui-focused': {
+            '.MuiSvgIcon-root': {
+              color: theme.palette.accent.primary,
+              fill: theme.palette.accent.primary,
+              '&:last-of-type': {
+                transform: 'rotate(180deg)',
+              },
+            },
+          },
+          '&:hover .MuiSvgIcon-root': {
+            color: theme.palette.accent.primary,
+            fill: theme.palette.accent.primary,
+          },
         },
-      }),
-      outlined: ({ theme }: { theme: Theme }): CSSObject => ({
-        '&:hover .MuiOutlinedInput-notchedOutline, &:hover .MuiSvgIcon-root': {
-          borderColor: theme.palette.primary.light,
-          color: theme.palette.primary.light,
-        },
-        '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-          borderColor: theme.palette.primary.light,
-          borderWidth: '1px',
-        },
-      }),
-      icon: ({ theme }: { theme: Theme }): CSSObject => ({
-        color: theme.palette.secondary.dark,
-        fill: theme.palette.secondary.dark,
-        transition: customTransitions.standard,
-        '.MuiSelect-select:hover ~ &': {
-          color: theme.palette.primary.light,
-        },
-        '.Mui-focused &': {
-          color: theme.palette.primary.light,
-          transform: 'rotate(180deg)',
-        },
-        '&.Mui-disabled': {
-          color: theme.palette.text.disabled,
+        '&.act-on-behalf': {
+          paddingLeft: theme.spacing(0.7),
+          paddingRight: theme.spacing(3),
+          '.MuiSvgIcon-root': {
+            color: theme.palette.secondary.light,
+            fill: theme.palette.secondary.light,
+          },
+          '&.Mui-focused': {
+            '.MuiSvgIcon-root': {
+              color: theme.palette.accent.primary,
+              fill: theme.palette.accent.primary,
+              '&:last-of-type': {
+                transform: 'rotate(180deg)',
+              },
+            },
+          },
+          '&:hover': {
+            '.MuiSvgIcon-root': {
+              color: theme.palette.accent.primary,
+              fill: theme.palette.accent.primary,
+            },
+          },
         },
       }),
     },
@@ -379,6 +451,41 @@ const formComponents: Components<Theme> = {
             transform: 'translate(14px, 8.5px) scale(1)',
             '&.MuiInputLabel-shrink': {
               transform: 'translate(15px, -8px) scale(0.75)',
+            },
+          },
+        },
+        '&.act-on-behalf': {
+          '& .MuiOutlinedInput-notchedOutline': {
+            borderWidth: '1.5px',
+            borderColor: theme.palette.secondary.light,
+          },
+          '& .MuiFormLabel-root': {
+            color: theme.palette.secondary.light,
+          },
+          '& .MuiSvgIcon-root': {
+            color: theme.palette.secondary.light,
+            marginRight: theme.spacing(0.5),
+          },
+          '&:hover': {
+            '& .MuiOutlinedInput-notchedOutline': {
+              borderColor: theme.palette.accent.primary,
+            },
+            '& .MuiFormLabel-root': {
+              color: theme.palette.accent.primary,
+            },
+            '& .MuiSvgIcon-root': {
+              color: theme.palette.accent.primary,
+            },
+          },
+          '&.Mui-focused, &:has(.Mui-focused)': {
+            '& .MuiOutlinedInput-notchedOutline': {
+              borderColor: theme.palette.accent.primary,
+            },
+            '& .MuiFormLabel-root': {
+              color: theme.palette.accent.primary,
+            },
+            '& .MuiSvgIcon-root': {
+              color: theme.palette.accent.primary,
             },
           },
         },

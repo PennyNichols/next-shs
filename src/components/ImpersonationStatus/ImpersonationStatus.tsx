@@ -6,17 +6,23 @@ import { AdminPanelSettings } from '@mui/icons-material';
 import { useImpersonation } from '@/contexts/ImpersonationContext';
 
 const ImpersonationStatus: React.FC = () => {
-  const { isImpersonating, canImpersonate } = useImpersonation();
+  const { isImpersonating, canImpersonate, impersonatedUser } = useImpersonation();
 
   if (!canImpersonate) {
     return null;
   }
 
-  if (isImpersonating) {
+  if (isImpersonating && impersonatedUser) {
+    const displayName =
+      impersonatedUser.firstName && impersonatedUser.lastName
+        ? `${impersonatedUser.firstName} ${impersonatedUser.lastName}`
+        : impersonatedUser.email;
+
     return (
       <Box sx={{ mb: 2 }}>
         <Alert severity="info" icon={<AdminPanelSettings />}>
-          You are currently acting on behalf of another user. All actions will be performed as that user.
+          You are currently acting on behalf of <strong>{displayName}</strong> ({impersonatedUser.email}). All actions
+          will be performed as that user.
         </Alert>
       </Box>
     );

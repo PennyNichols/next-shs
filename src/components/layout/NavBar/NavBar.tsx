@@ -12,9 +12,18 @@ import MenuItem from '@mui/material/MenuItem';
 import Skeleton from '@mui/material/Skeleton';
 import Link from 'next/link';
 import LogoSvg from '../../../assets/svg/LogoSvg/LogoSvg';
-import { Handyman, HomeRepairService, AccountCircle, Dashboard, Settings, Login, Logout } from '@mui/icons-material';
+import {
+  Handyman,
+  HomeRepairService,
+  AccountCircle,
+  Dashboard,
+  Settings,
+  Login,
+  Logout,
+  AssignmentIndOutlined,
+} from '@mui/icons-material';
 import useMedia from '../../../hooks/useMedia';
-import { customTransitions } from '@/styles/theme/otherThemeConstants';
+import { customBorderRadius, customTransitions } from '@/styles/theme/otherThemeConstants';
 import theme from '@/styles/theme';
 import { ClickAwayListener, Collapse, Avatar, alpha } from '@mui/material';
 import ActionButton from '@/components/common/ActionButton/ActionButton';
@@ -24,10 +33,13 @@ import { useAuth } from '@/contexts/AuthContext/AuthContext';
 import { useRouter } from 'next/navigation';
 import { getDashboardRouteForRole } from '@/lib/utils/roleBasedRouting';
 import useUser from '@/hooks/auth/useUser';
+import { useImpersonation } from '@/contexts/ImpersonationContext';
+import ActOnBehalfSelector from '@/components/ActOnBehalfSelector/ActOnBehalfSelector';
 
 const NavBar = () => {
   const { currentUser, signOutUser } = useAuth();
   const { user } = useUser();
+  const { canImpersonate } = useImpersonation();
   const router = useRouter();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isAccountMenuOpen, setIsAccountMenuOpen] = useState(false);
@@ -131,171 +143,178 @@ const NavBar = () => {
                   />
                 </Box>
               </Link>
-            </Box>{' '}
-            {/* Desktop Links */}
-            {showClientContent && (
+            </Box>
+
+            {/* Act on Behalf Selector - Global Position */}
+            {showClientContent && canImpersonate && (
               <Box
                 sx={{
-                  flexGrow: 1,
-                  justifyContent: 'flex-end',
-                  display: { xxs: 'none', md: 'flex' },
-                  alignItems: 'center',
-                  gap: 1,
+                  mx: 2,
+                  minWidth: 200,
+                  display: 'block',
                 }}
               >
-                {pages.map((page) => (
-                  <Link className="nav-menu-item" key={page.name} href={page.href} passHref>
-                    <NavButton text={page.name} />
-                  </Link>
-                ))}
+                <ActOnBehalfSelector />
+              </Box>
+            )}
 
-                {/* Account Menu Button */}
-                <IconButton
-                  onClick={handleAccountMenuToggle}
+            {/* Desktop Links */}
+            <Box
+              sx={{
+                flexGrow: 1,
+                justifyContent: 'flex-end',
+                display: { xxs: 'none', md: 'flex' },
+                alignItems: 'center',
+                gap: 1,
+              }}
+            >
+              {pages.map((page) => (
+                <Link className="nav-menu-item" key={page.name} href={page.href} passHref>
+                  <NavButton text={page.name} />
+                </Link>
+              ))}
+
+              {/* Account Menu Button */}
+              <IconButton
+                onClick={handleAccountMenuToggle}
+                sx={{
+                  color: 'background.paper',
+                  transition: 'all 0.5s ease-in-out, transform 0.1s ease-in-out',
+                  '&:hover': {
+                    color: 'accent.primary',
+                    filter: `drop-shadow(0px 3px 8px ${alpha(theme.palette.accent.primary, 0.6)}) drop-shadow(0px 3px 5px ${alpha(theme.palette.accent.primary, 0.4)})`,
+                  },
+                  ml: 1,
+                }}
+              >
+                <AccountCircle />
+              </IconButton>
+
+              {/* Account Menu */}
+              <Collapse in={isAccountMenuOpen} timeout="auto" unmountOnExit sx={{ display: 'flex' }}>
+                <Box
                   sx={{
-                    color: 'background.paper',
-                    transition: 'all 0.5s ease-in-out, transform 0.1s ease-in-out',
-                    '&:hover': {
-                      color: 'accent.primary',
-                      filter: `drop-shadow(0px 3px 8px ${alpha(theme.palette.accent.primary, 0.6)}) drop-shadow(0px 3px 5px ${alpha(theme.palette.accent.primary, 0.4)})`,
-                    },
-                    ml: 1,
+                    py: 2,
+                    backgroundColor: 'primary.main',
+                    position: 'absolute',
+                    top: 'calc(100% + 8px)',
+                    right: 0,
+                    boxShadow: '0px 10px 15px -3px rgba(0, 0, 0, 0.3)',
                   }}
                 >
-                  <AccountCircle />
-                </IconButton>
-
-                {/* Account Menu */}
-                <Collapse in={isAccountMenuOpen} timeout="auto" unmountOnExit sx={{ display: 'flex' }}>
-                  <Box
-                    onClick={() => {
-                      handleAccountMenuClose();
-                    }}
-                    sx={{
-                      py: 2,
-                      backgroundColor: 'primary.main',
-                      position: 'absolute',
-                      top: 'calc(100% + 8px)',
-                      right: 0,
-                      boxShadow: '0px 10px 15px -3px rgba(0, 0, 0, 0.3)',
-                    }}
-                  >
-                    {!currentUser ? (
-                      <MenuItem>
+                  {!currentUser ? (
+                    <>
+                      <MenuItem
+                        onClick={() => {
+                          handleAccountMenuClose();
+                        }}
+                      >
                         <Link className="nav-menu-item" href="/sign-in" passHref>
                           <NavButton text="Sign In" icon={<Login />} />
                         </Link>
                       </MenuItem>
-                    ) : (
-                      [
-                        <MenuItem>
-                          <Link className="nav-menu-item" href={dashboardURL} passHref>
-                            <NavButton text="Dashboard" icon={<Dashboard />} />
-                          </Link>
-                        </MenuItem>,
-                        <MenuItem>
-                          <Link className="nav-menu-item" href={settingsURL} passHref>
-                            <NavButton text="Settings" icon={<Settings />} />
-                          </Link>
-                        </MenuItem>,
-                        <MenuItem
-                          onClick={() => {
-                            handleSignOut();
-                          }}
-                        >
-                          <Link className="nav-menu-item" href="/" passHref>
-                            <NavButton text="Sign Out" icon={<Logout />} />
-                          </Link>
-                        </MenuItem>,
-                      ]
-                    )}
-                  </Box>
-                </Collapse>
-              </Box>
-            )}
-            {/* Desktop Skeleton */}
-            {!showClientContent && (
-              <Box
-                sx={{
-                  flexGrow: 1,
-                  justifyContent: 'flex-end',
-                  display: { xxs: 'none', md: 'flex' },
-                  gap: 2,
-                }}
-              >
-                {Array.from({ length: 6 }).map((_, index) => (
-                  <Skeleton
-                    key={index}
-                    variant="rectangular"
-                    width={80}
-                    height={36}
+                      <MenuItem
+                        onClick={() => {
+                          handleAccountMenuClose();
+                        }}
+                      >
+                        <Link className="nav-menu-item" href="/sign-up" passHref>
+                          <NavButton text="Sign Up" icon={<AssignmentIndOutlined />} />
+                        </Link>
+                      </MenuItem>
+                    </>
+                  ) : (
+                    <>
+                      <MenuItem
+                        onClick={() => {
+                          handleAccountMenuClose();
+                        }}
+                      >
+                        <Link className="nav-menu-item" href={dashboardURL} passHref>
+                          <NavButton text="Dashboard" icon={<Dashboard />} />
+                        </Link>
+                      </MenuItem>
+                      <MenuItem
+                        onClick={() => {
+                          handleAccountMenuClose();
+                        }}
+                      >
+                        <Link className="nav-menu-item" href={settingsURL} passHref>
+                          <NavButton text="Settings" icon={<Settings />} />
+                        </Link>
+                      </MenuItem>
+                      <MenuItem
+                        key="sign-out"
+                        onClick={() => {
+                          handleSignOut();
+                          handleAccountMenuClose();
+                        }}
+                      >
+                        <Link className="nav-menu-item" href="/" passHref>
+                          <NavButton text="Sign Out" icon={<Logout />} />
+                        </Link>
+                      </MenuItem>
+                    </>
+                  )}
+                </Box>
+              </Collapse>
+            </Box>
+            {/* Mobile Hamburger */}
+            <Box
+              sx={{
+                display: { xxs: 'flex', md: 'none' },
+                justifyContent: 'flex-end',
+                marginLeft: 'auto',
+              }}
+            >
+              <IconButton size="medium" aria-label="menu" onClick={handleMenuToggle} color="inherit">
+                <Box
+                  sx={{
+                    position: 'relative',
+                    width: { xxs: 45, sm: 55 },
+                    height: { xxs: 45, sm: 55 },
+                  }}
+                >
+                  <Handyman
                     sx={{
-                      borderRadius: 1,
-                      bgcolor: 'rgba(255, 255, 255, 0.1)',
+                      position: 'absolute',
+                      top: 0,
+                      left: 0,
+                      width: '100%',
+                      height: '100%',
+                      color: 'background.paper',
+                      transition: `${customTransitions.slow}, transform 0.3s ease-out, opacity 0.3s ease-out`,
+                      fontSize: { xxs: 45, sm: 55 },
+                      '&:hover': { color: 'accent.primary' },
+                      opacity: isMenuOpen ? 1 : 0,
+                      transform: isMenuOpen ? 'rotate(0deg)' : 'rotate(-180deg)',
+                      pointerEvents: isMenuOpen ? 'auto' : 'none',
                     }}
                   />
-                ))}
-              </Box>
-            )}
-            {/* Mobile Hamburger */}
-            {showClientContent && (
-              <Box
-                sx={{
-                  display: { xxs: 'flex', md: 'none' },
-                  justifyContent: 'flex-end',
-                  marginLeft: 'auto',
-                }}
-              >
-                <IconButton size="medium" aria-label="menu" onClick={handleMenuToggle} color="inherit">
-                  <Box
+                  <HomeRepairService
                     sx={{
-                      position: 'relative',
-                      width: { xxs: 45, sm: 55 },
-                      height: { xxs: 45, sm: 55 },
+                      position: 'absolute',
+                      top: 0,
+                      left: 0,
+                      width: '100%',
+                      height: '100%',
+                      color: 'background.paper',
+                      transition: `${customTransitions.slow}, transform 0.3s ease-out, opacity 0.3s ease-out`,
+                      fontSize: { xxs: 42, sm: 52 },
+                      '&:hover': { color: 'accent.primary' },
+                      opacity: isMenuOpen ? 0 : 1,
+                      transform: isMenuOpen ? 'rotate(180deg)' : 'rotate(0deg)',
+                      pointerEvents: isMenuOpen ? 'none' : 'auto',
                     }}
-                  >
-                    <Handyman
-                      sx={{
-                        position: 'absolute',
-                        top: 0,
-                        left: 0,
-                        width: '100%',
-                        height: '100%',
-                        color: 'background.paper',
-                        transition: `${customTransitions.slow}, transform 0.3s ease-out, opacity 0.3s ease-out`,
-                        fontSize: { xxs: 45, sm: 55 },
-                        '&:hover': { color: 'accent.primary' },
-                        opacity: isMenuOpen ? 1 : 0,
-                        transform: isMenuOpen ? 'rotate(0deg)' : 'rotate(-180deg)',
-                        pointerEvents: isMenuOpen ? 'auto' : 'none',
-                      }}
-                    />
-                    <HomeRepairService
-                      sx={{
-                        position: 'absolute',
-                        top: 0,
-                        left: 0,
-                        width: '100%',
-                        height: '100%',
-                        color: 'background.paper',
-                        transition: `${customTransitions.slow}, transform 0.3s ease-out, opacity 0.3s ease-out`,
-                        fontSize: { xxs: 42, sm: 52 },
-                        '&:hover': { color: 'accent.primary' },
-                        opacity: isMenuOpen ? 0 : 1,
-                        transform: isMenuOpen ? 'rotate(180deg)' : 'rotate(0deg)',
-                        pointerEvents: isMenuOpen ? 'none' : 'auto',
-                      }}
-                    />
-                  </Box>
-                </IconButton>
-              </Box>
-            )}
+                  />
+                </Box>
+              </IconButton>
+            </Box>
           </Toolbar>
         </Container>
 
         <Collapse in={isMenuOpen} timeout="auto" unmountOnExit sx={{ display: { xxs: 'flex', md: 'none' } }}>
           <Box
-            onClick={handleMenuClose}
             sx={{
               py: 2,
               backgroundColor: 'primary.main',
@@ -308,66 +327,54 @@ const NavBar = () => {
             }}
           >
             {pages.map((page) => (
-              <MenuItem key={page.name} sx={{ justifyContent: 'center' }}>
+              <MenuItem onClick={handleMenuClose} key={page.name} sx={{ justifyContent: 'center' }}>
                 <Link className="nav-menu-item" key={page.name} href={page.href} passHref>
                   <NavButton text={page.name} />
                 </Link>
               </MenuItem>
             ))}
 
+            {/* Act on Behalf Selector for Mobile */}
+            {showClientContent && canImpersonate && (
+              <Box sx={{ px: 2, py: 1, borderBottom: '1px solid rgba(255,255,255,0.1)', mb: 1 }}>
+                <ActOnBehalfSelector />
+              </Box>
+            )}
+
             {/* Mobile Account Menu Items */}
             {!currentUser ? (
-              <MenuItem sx={{ justifyContent: 'center' }}>
+              <MenuItem onClick={handleMenuClose} sx={{ justifyContent: 'center' }}>
                 <Link className="nav-menu-item" href="/sign-in" passHref>
                   <NavButton text="Sign In" icon={<Login />} />
                 </Link>
               </MenuItem>
             ) : (
-              [
-                <MenuItem sx={{ justifyContent: 'center' }}>
+              <>
+                <MenuItem onClick={handleMenuClose} sx={{ justifyContent: 'center' }}>
                   <Link className="nav-menu-item" href={dashboardURL} passHref>
                     <NavButton text="Dashboard" />
                   </Link>
-                </MenuItem>,
-                <MenuItem sx={{ justifyContent: 'center' }}>
+                </MenuItem>
+                <MenuItem onClick={handleMenuClose} sx={{ justifyContent: 'center' }}>
                   <Link className="nav-menu-item" href={settingsURL} passHref>
                     <NavButton text="Settings" />
                   </Link>
-                </MenuItem>,
+                </MenuItem>
                 <MenuItem
                   sx={{ justifyContent: 'center' }}
                   onClick={() => {
                     handleSignOut();
+                    handleMenuClose();
                   }}
                 >
                   <Link className="nav-menu-item" href="/" passHref>
                     <NavButton text="Sign Out" icon={<Logout />} />
                   </Link>
-                </MenuItem>,
-              ]
+                </MenuItem>
+              </>
             )}
           </Box>
         </Collapse>
-
-        {/* Mobile Skeleton */}
-        {!showClientContent && (
-          <Box
-            sx={{
-              display: { xxs: 'flex', md: 'none' },
-              justifyContent: 'flex-end',
-              marginLeft: 'auto',
-            }}
-          >
-            <Skeleton
-              variant="circular"
-              width={48}
-              height={48}
-              sx={{
-                bgcolor: 'rgba(255, 255, 255, 0.1)',
-              }}
-            />
-          </Box>
-        )}
       </AppBar>
     </ClickAwayListener>
   );

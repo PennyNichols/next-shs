@@ -13,13 +13,21 @@ import { useAuth } from '@/contexts/AuthContext/AuthContext';
 interface UserProfileProps {
   userId?: string; // Optional: if provided, shows profile for specific user (admin view)
   isAdminView?: boolean; // If true, shows admin-specific features
+  refreshUser?: () => void | Promise<void>; // Optional callback to refresh user data
 }
 
-export const UserProfile: React.FC<UserProfileProps> = ({ userId, isAdminView = false }) => {
-  const { user: currentUser } = useUser();
+export const UserProfile: React.FC<UserProfileProps> = ({
+  userId,
+  isAdminView = false,
+  refreshUser: externalRefreshUser,
+}) => {
+  const { user: currentUser, refreshUser: internalRefreshUser } = useUser();
   const { currentUser: authUser } = useAuth();
   const [isEditing, setIsEditing] = useState(false);
   const [activeTab, setActiveTab] = useState<'profile' | 'addresses' | 'preferences' | 'notes'>('profile');
+
+  // Use external refreshUser if provided, otherwise use internal one
+  const refreshUser = externalRefreshUser || internalRefreshUser;
 
   // For admin view, you'd fetch user by userId instead of using currentUser
   const displayUser = currentUser; // In a real implementation, fetch user by userId if provided
@@ -205,6 +213,7 @@ export const UserProfile: React.FC<UserProfileProps> = ({ userId, isAdminView = 
           user={displayUser}
           open={isEditing}
           onClose={() => setIsEditing(false)}
+          onUpdate={refreshUser}
           isAdminView={isAdminView}
         />
       )}

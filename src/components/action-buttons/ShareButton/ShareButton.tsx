@@ -63,7 +63,7 @@ const ShareButton = () => {
     <Box
       sx={{
         position: 'fixed',
-        top: 90,
+        top: 200,
         right: 30,
         borderRadius: customBorderRadius.circle,
         zIndex: 1300,

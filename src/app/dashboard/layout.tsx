@@ -2,9 +2,10 @@
 
 import React from 'react';
 import { Box, Container } from '@mui/material';
-import { DashboardNavigation } from '@/components/navigation/DashboardNavigation';
+import { DashboardNavigation } from '@/components/layout/NavBar';
 import { AuthRoute } from '@/components/auth/RouteGuard/RouteGuard';
 import ActOnBehalfSelector from '@/components/ActOnBehalfSelector';
+import PageContainer from '@/components/common/PageContainer/PageContainer';
 
 // Import migration utilities for development
 if (process.env.NODE_ENV === 'development') {
@@ -19,10 +20,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
   return (
     <AuthRoute>
       <DashboardNavigation />
-      <Container maxWidth="lg" sx={{ py: 3 }}>
-        <ActOnBehalfSelector />
-        {children}
-      </Container>
+      <PageContainer>{children}</PageContainer>
     </AuthRoute>
   );
 }

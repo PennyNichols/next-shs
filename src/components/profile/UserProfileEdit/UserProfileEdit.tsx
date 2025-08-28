@@ -33,6 +33,7 @@ interface UserProfileEditProps {
   user: UserData;
   open: boolean;
   onClose: () => void;
+  onUpdate?: () => void | Promise<void>;
   isAdminView?: boolean;
 }
 
@@ -56,7 +57,13 @@ const userProfileSchema = yup.object().shape({
     .nullable(),
 });
 
-export const UserProfileEdit: React.FC<UserProfileEditProps> = ({ user, open, onClose, isAdminView = false }) => {
+export const UserProfileEdit: React.FC<UserProfileEditProps> = ({
+  user,
+  open,
+  onClose,
+  onUpdate,
+  isAdminView = false,
+}) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
@@ -99,9 +106,14 @@ export const UserProfileEdit: React.FC<UserProfileEditProps> = ({ user, open, on
 
       await updateDoc(doc(db, 'users', user.id), updateData);
       setSuccess(true);
+
+      // Call the onUpdate callback to refresh the parent component's data
+      if (onUpdate) {
+        await onUpdate();
+      }
+
       setTimeout(() => {
         onClose();
-        // You might want to refresh the user data here
       }, 1500);
     } catch (err: any) {
       setError(err.message || 'Failed to update profile');
@@ -110,7 +122,7 @@ export const UserProfileEdit: React.FC<UserProfileEditProps> = ({ user, open, on
     }
   };
 
-  const userTypes = ['client', 'contractor', 'employee', 'admin'];
+  const userTypes = ['client', 'contractor', 'employee', 'admin', 'super'];
   const statusOptions = ['active', 'inactive', 'disabled'];
 
   return (

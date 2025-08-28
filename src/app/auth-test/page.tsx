@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { Box, Card, CardContent, Typography, TextField, Button, Alert, Divider, Chip, Grid } from '@mui/material';
 import { useAuth } from '@/contexts/AuthContext/AuthContext';
-import { DashboardNavigation } from '@/components/navigation/DashboardNavigation';
+import { DashboardNavigation } from '@/components/layout/NavBar';
 import { ROLE_DASHBOARD_ROUTES, getDashboardRouteForRole } from '@/lib/utils/roleBasedRouting';
 import { getRoleDisplayName } from '@/lib/utils/roleUtils';
 

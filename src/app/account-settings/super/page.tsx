@@ -24,7 +24,7 @@ import { CommunicationPreferences } from '@/components/profile/CommunicationPref
  * Provides access to profile management and all system administration settings
  */
 const SuperAdminAccountSettingsPage = () => {
-  const { user, loading } = useUser();
+  const { user, loading, refreshUser } = useUser();
   const [activeTab, setActiveTab] = useState(0);
 
   if (loading) {
@@ -55,7 +55,7 @@ const SuperAdminAccountSettingsPage = () => {
   const renderTabContent = () => {
     switch (activeTab) {
       case 0:
-        return <UserProfile />;
+        return <UserProfile refreshUser={refreshUser} />;
       case 1:
         return (
           <ServiceAddressManager
@@ -208,11 +208,17 @@ const SuperAdminAccountSettingsPage = () => {
         <Typography variant="h4" gutterBottom>
           Super Admin Account Settings
         </Typography>
-        <Typography variant="body1" color="text.secondary" sx={{ mb: 4 }}>
+        <Typography variant="body1" color="secondary.main" sx={{ mb: 4 }}>
           Manage your super administrator profile and control all system-wide settings.
         </Typography>
 
-        <Card>
+        <Card
+          sx={{
+            '&.MuiPaper-root': {
+              padding: 0,
+            },
+          }}
+        >
           <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
             <Tabs
               value={activeTab}

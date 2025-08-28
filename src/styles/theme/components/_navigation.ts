@@ -185,6 +185,27 @@ const navComponents: Components<Theme> = {
       }),
     },
   },
+  MuiTabs: {
+    styleOverrides: {
+      root: ({ theme }: { theme: Theme }): CSSObject => ({
+        textTransform: 'none',
+      }),
+    },
+  },
+  MuiTab: {
+    styleOverrides: {
+      root: ({ theme }: { theme: Theme }): CSSObject => ({
+        '& .MuiSvgIcon-root': {
+          color: theme.palette.secondary.light,
+        },
+        '&.Mui-selected': {
+          '& .MuiSvgIcon-root': {
+            color: theme.palette.primary.main,
+          },
+        },
+      }),
+    },
+  },
 };
 
 export default navComponents;

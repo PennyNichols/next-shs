@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { DashboardNavigation } from '@/components/navigation/DashboardNavigation';
+import { DashboardNavigation } from '@/components/layout/NavBar';
 import { AuthRoute } from '@/components/auth/RouteGuard/RouteGuard';
 
 interface AccountSettingsLayoutProps {
