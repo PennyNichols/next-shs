@@ -5,7 +5,7 @@ import theme from '@/styles/theme';
 import { customBorderRadius } from '@/styles/theme/otherThemeConstants';
 
 const AuthForm = () => {
-  const { signIn, signOutUser, deleteAccount, error } = useAuth();
+  const { signIn, error } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [localError, setLocalError] = useState('');
@@ -35,27 +35,9 @@ const AuthForm = () => {
           borderRadius: customBorderRadius.small,
           boxShadow: 3,
           backgroundColor: theme.palette.background.paper,
+          mx: 'auto',
         }}
       >
-        <Button variant="text" color="primary" onClick={signOutUser}>
-          Sign out
-        </Button>
-        <Button
-          variant="text"
-          color="primary"
-          onClick={async () => {
-            const password = window.prompt('Please enter your password to delete your account:');
-            if (password) {
-              try {
-                await deleteAccount(password);
-              } catch (err) {
-                setLocalError(err.message);
-              }
-            }
-          }}
-        >
-          Delete account
-        </Button>
         <Box component="form" onSubmit={handleSubmit}>
           {localError && (
             <Alert severity="error" sx={{ mb: 2 }}>

@@ -6,6 +6,7 @@ import React from 'react';
 import type { Metadata, Viewport } from 'next';
 import { AppProviders } from './providers';
 import { ShareButton } from '@/components/action-buttons';
+import DevUtilities from '@/components/dev/DevUtilities';
 
 export const metadata: Metadata = {
   title: {
@@ -94,6 +95,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
         <AppProviders>
           {children}
           <ShareButton />
+          <DevUtilities />
         </AppProviders>
       </body>
     </html>

@@ -7,7 +7,7 @@ import FacebookIcon from '@mui/icons-material/Facebook';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import EmailIcon from '@mui/icons-material/Email';
 import SmsIcon from '@mui/icons-material/Sms';
-import { URL } from '../../../constants/companyDetails';
+import { COMPANY_URL } from '../../../constants/companyDetails';
 import { customBorderRadius, customTransitions } from '@/styles/theme/otherThemeConstants';
 import theme from '@/styles/theme';
 
@@ -34,16 +34,16 @@ const ShareButton = () => {
     let shareUrl = '';
     switch (platform) {
       case 'facebook':
-        shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${URL}`;
+        shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${COMPANY_URL}`;
         break;
       case 'twitter':
-        shareUrl = `https://twitter.com/intent/tweet?url=${URL}`;
+        shareUrl = `https://twitter.com/intent/tweet?url=${COMPANY_URL}`;
         break;
       case 'email':
-        shareUrl = `mailto:?subject=Check%20this%20out&body=${URL}`;
+        shareUrl = `mailto:?subject=Check%20this%20out&body=${COMPANY_URL}`;
         break;
       case 'sms':
-        shareUrl = `sms:?body=${URL}`;
+        shareUrl = `sms:?body=${COMPANY_URL}`;
         break;
       default:
         break;
@@ -63,7 +63,7 @@ const ShareButton = () => {
     <Box
       sx={{
         position: 'fixed',
-        top: 90,
+        top: 200,
         right: 30,
         borderRadius: customBorderRadius.circle,
         zIndex: 1300,

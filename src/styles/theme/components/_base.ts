@@ -127,6 +127,7 @@ const baseComponents: Components<Theme> = {
         WebkitTextFillColor: `${theme.palette.primary.light} !important`, // Text color
         caretColor: `${theme.palette.primary.light} !important`, // Cursor color
         transition: 'background-color 5000s ease-in-out 0s', // Long transition to keep the color
+        letterSpacing: '1px',
       },
       'input:-webkit-autofill:hover, input:-webkit-autofill:focus, input:-webkit-autofill:active': {
         // Override hover/focus/active states for autofill
@@ -159,10 +160,8 @@ const baseComponents: Components<Theme> = {
     defaultProps: {},
     styleOverrides: {
       root: ({ theme }: { theme: Theme }): CSSObject => ({
-        marginTop: theme.spacing(2),
-        marginBottom: theme.spacing(2),
+        margin: theme.spacing(2, 'auto'),
         flexGrow: 1,
-        width: '70%',
         alignSelf: 'center',
         border: `1px solid ${theme.palette.accent.primary}`,
         [theme.breakpoints.down('sm')]: {

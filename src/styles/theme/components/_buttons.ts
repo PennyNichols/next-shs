@@ -32,15 +32,14 @@ const buttonComponents: Components<Theme> = {
         justifyContent: 'center',
         alignItems: 'center',
         flexGrow: 1,
+        minHeight: 40,
         [theme.breakpoints.down('xxs')]: {
           fontSize: '0.875rem',
         },
         [theme.breakpoints.up('xxs')]: {
           fontSize: '0.875rem',
         },
-        [theme.breakpoints.up('md')]: {
-          fontSize: '1rem',
-        },
+
         [theme.breakpoints.up('lg')]: {
           fontSize: '1.1rem',
         },
@@ -48,7 +47,7 @@ const buttonComponents: Components<Theme> = {
           fontSize: '1.3rem',
         },
         '& .MuiButton-startIcon': {
-          marginRight: theme.spacing(1),
+          marginRight: 0,
           transition: customTransitions.standard,
           [theme.breakpoints.down('xxs')]: {
             fontSize: '1.2rem',
@@ -172,6 +171,9 @@ const buttonComponents: Components<Theme> = {
         transition: customTransitions.standard,
         borderRadius: customBorderRadius.small,
         padding: theme.spacing(1),
+        '& .MuiSvgIcon-root': {
+          fontSize: '2.2rem',
+        },
         '&:hover': {
           transform: 'scale(1.2)',
         },

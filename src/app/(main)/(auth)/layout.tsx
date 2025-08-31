@@ -39,6 +39,7 @@ const AuthLayout = ({ children }: { children: React.ReactNode }) => {
           elevation={3}
           sx={{
             p: 4,
+            pb: 8,
             borderRadius: 2,
             backgroundColor: 'background.paper',
             boxShadow: '0 10px 40px rgba(0,0,0,0.1)',

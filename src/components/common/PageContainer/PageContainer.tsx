@@ -13,7 +13,7 @@ const PageContainer = ({ children, maxWidth = 'xl' }: PageContainerProps) => {
   return (
     <Box
       sx={{
-        minHeight: '100dvh',
+        minHeight: 'calc(100dvh - var(--footer-height, 200px) - var(--header-height, 80px))',
         display: 'flex',
         paddingY: { xxs: theme.spacing(4), xs: theme.spacing(6), md: theme.spacing(7) },
         backgroundColor: theme.palette.background.default,
